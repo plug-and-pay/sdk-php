@@ -38,6 +38,28 @@ class OrderGetClientMock implements ClientGetInterface
             ];
     }
 
+    public function billing(array $data = [])
+    {
+        $this->data['billing'] = $data + [
+                'address'       => [
+                    'city'          => '\'t Veld',
+                    'country'       => 'NL',
+                    'street'        => 'Sanderslaan',
+                    'street_suffix' => '42',
+                    'zipcode'       => '1448VB',
+                ],
+                'company'       => 'Café Timmermans & Zn',
+                'email'         => 'rosalie39@example.net',
+                'first_name'    => 'Bilal',
+                'invoice_email' => 'maarten.veenstra@example.net',
+                'last_name'     => 'de Wit',
+                'telephone'     => '(044) 4362837',
+                'website'       => 'http://www.vandewater.nl/velit-porro-ut-velit-soluta.html',
+            ];
+
+        return $this;
+    }
+
     public function get(string $path): Response
     {
         return new Response(Response::HTTP_OK, $this->data);

@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Entity;
 
 use DateTimeImmutable;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class Order
 {
+    private Billing $billing;
     private DateTimeImmutable $createdAt;
     private ?DateTimeImmutable $deletedAt;
     private bool $first;
@@ -21,6 +23,15 @@ class Order
     private Money $subtotal;
     private Money $total;
     private DateTimeImmutable $updatedAt;
+
+    public function billing(): Billing
+    {
+        if (!isset($this->billing)) {
+            throw new RelationNotLoadedException('billing');
+        }
+
+        return $this->billing;
+    }
 
     public function createdAt(): DateTimeImmutable
     {
@@ -65,6 +76,12 @@ class Order
     public function reference(): string
     {
         return $this->reference;
+    }
+
+    public function setBilling(Billing $billing): Order
+    {
+        $this->billing = $billing;
+        return $this;
     }
 
     public function setCreatedAt(DateTimeImmutable $createdAt): Order
