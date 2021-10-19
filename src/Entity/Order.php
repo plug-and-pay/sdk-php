@@ -17,6 +17,8 @@ class Order
     private int $id;
     private string $invoiceNumber;
     private string $invoiceStatus;
+    /** @var Item[] */
+    private array $items;
     private string $mode;
     private string $reference;
     private string $source;
@@ -66,6 +68,11 @@ class Order
     public function isHidden(): bool
     {
         return $this->hidden;
+    }
+
+    public function items(): array
+    {
+        return $this->items;
     }
 
     public function mode(): string
@@ -123,6 +130,12 @@ class Order
     public function setInvoiceStatus(string $invoiceStatus): Order
     {
         $this->invoiceStatus = $invoiceStatus;
+        return $this;
+    }
+
+    public function setItems(array $items): Order
+    {
+        $this->items = $items;
         return $this;
     }
 

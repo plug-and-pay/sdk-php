@@ -32,6 +32,10 @@ class ResponseToOrder
             $order->setBilling((new ResponseToBilling())->build($data['billing']));
         }
 
+        if (isset($data['items'])) {
+            $order->setItems((new ResponseToItems())->build($data['items']));
+        }
+
         return $order;
     }
 }

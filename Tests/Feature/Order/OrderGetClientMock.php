@@ -38,7 +38,7 @@ class OrderGetClientMock implements ClientGetInterface
             ];
     }
 
-    public function billing(array $data = [])
+    public function billing(array $data = []): self
     {
         $this->data['billing'] = $data + [
                 'address'       => [
@@ -54,7 +54,7 @@ class OrderGetClientMock implements ClientGetInterface
                 'invoice_email' => 'maarten.veenstra@example.net',
                 'last_name'     => 'de Wit',
                 'telephone'     => '(044) 4362837',
-                'website'       => 'http://www.vandewater.nl/velit-porro-ut-velit-soluta.html',
+                'website'       => 'https://www.vandewater.nl/velit-porro-ut-velit-soluta.html',
             ];
 
         return $this;
@@ -63,5 +63,23 @@ class OrderGetClientMock implements ClientGetInterface
     public function get(string $path): Response
     {
         return new Response(Response::HTTP_OK, $this->data);
+    }
+
+    public function items(array $data = []): self
+    {
+        $this->data['items'] = $data + [
+                [
+                    'id'           => 1,
+                    'discounts'    => [],
+                    'product_id'   => 1,
+                    'public_title' => 'culpa',
+                    'quantity'     => 1,
+                    'type'         => null,
+                    'subtotal'     => ['currency' => 'EUR', 'value' => '75.00'],
+                    'total'        => ['currency' => 'EUR', 'value' => '90.75'],
+                ],
+            ];
+
+        return $this;
     }
 }

@@ -79,12 +79,31 @@ class FetchOrdersTest extends TestCase
         static::assertSame('maarten.veenstra@example.net', $billing->invoiceEmail());
         static::assertSame('de Wit', $billing->lastName());
         static::assertSame('(044) 4362837', $billing->telephone());
-        static::assertSame('http://www.vandewater.nl/velit-porro-ut-velit-soluta.html', $billing->website());
+        static::assertSame('https://www.vandewater.nl/velit-porro-ut-velit-soluta.html', $billing->website());
         $address = $billing->address();
         static::assertSame('\'t Veld', $address->city());
         static::assertSame('NL', $address->country());
         static::assertSame('Sanderslaan', $address->street());
         static::assertSame('42', $address->streetSuffix());
         static::assertSame('1448VB', $address->zipcode());
+    }
+
+    /** @test */
+    public function fetch_order_items(): void
+    {
+        $client  = (new OrderGetClientMock(['id' => 1]))->items();
+        $service = new FetchOrderService($client);
+        $order   = $service->find(1);
+
+        $item = $order->items()[0];
+
+        static::assertSame([], $item->discounts());
+        static::assertSame(1, $item->id());
+        static::assertSame(1, $item->productId());
+        static::assertSame('culpa', $item->publicTitle());
+        static::assertSame(1, $item->quantity());
+        static::assertSame(75., $item->subtotal()->value());
+        static::assertSame(90.75, $item->total()->value());
+        static::assertNull($item->type());
     }
 }
