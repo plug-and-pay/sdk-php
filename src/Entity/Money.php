@@ -5,15 +5,15 @@ namespace PlugAndPay\Sdk\Entity;
 
 class Money
 {
-    private float $amount;
+    private float $value;
 
-    public function __construct(float $amount)
+    public function __construct(float $value)
     {
-        $this->amount = $amount;
+        $this->value = $value;
     }
 
-    public function amount(): float
+    public function value(): float
     {
-        return $this->amount;
+        return $this->value;
     }
 }

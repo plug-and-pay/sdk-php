@@ -19,4 +19,4 @@ jobs:
       - name: Composer dump-autoload
         run: composer dump-autoload
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: vendor/phpunit/phpunit/phpunit tests
+        run: vendor/phpunit/phpunit/phpunit Tests

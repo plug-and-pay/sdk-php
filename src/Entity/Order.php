@@ -4,27 +4,30 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+use DateTimeImmutable;
+
 class Order
 {
-    private string $createdAt;
-    private string $deletedAt;
+    private DateTimeImmutable $createdAt;
+    private ?DateTimeImmutable $deletedAt;
+    private bool $first;
+    private bool $hidden;
     private int $id;
     private string $invoiceNumber;
     private string $invoiceStatus;
-    private bool $isFirst;
-    private bool $isHidden;
     private string $mode;
     private string $reference;
     private string $source;
-    private Money $money;
-    private string $updatedAt;
+    private Money $subtotal;
+    private Money $total;
+    private DateTimeImmutable $updatedAt;
 
-    public function createdAt(): string
+    public function createdAt(): DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function deletedAt(): string
+    public function deletedAt(): ?DateTimeImmutable
     {
         return $this->deletedAt;
     }
@@ -46,22 +49,12 @@ class Order
 
     public function isFirst(): bool
     {
-        return $this->isFirst;
-    }
-
-    public function setIsFirst(bool $isFirst): void
-    {
-        $this->isFirst = $isFirst;
+        return $this->first;
     }
 
     public function isHidden(): bool
     {
-        return $this->isHidden;
-    }
-
-    public function setIsHidden(bool $isHidden): void
-    {
-        $this->isHidden = $isHidden;
+        return $this->hidden;
     }
 
     public function mode(): string
@@ -69,64 +62,87 @@ class Order
         return $this->mode;
     }
 
-    public function money(): Money
-    {
-        return $this->money;
-    }
-
     public function reference(): string
     {
         return $this->reference;
     }
 
-    public function setCreatedAt(string $createdAt): void
+    public function setCreatedAt(DateTimeImmutable $createdAt): Order
     {
         $this->createdAt = $createdAt;
+        return $this;
     }
 
-    public function setDeletedAt(string $deletedAt): void
+    public function setDeletedAt(?DateTimeImmutable $deletedAt): Order
     {
         $this->deletedAt = $deletedAt;
+        return $this;
     }
 
-    public function setId(int $id): void
+    public function setFirst(bool $first): Order
+    {
+        $this->first = $first;
+        return $this;
+    }
+
+    public function setHidden(bool $hidden): Order
+    {
+        $this->hidden = $hidden;
+        return $this;
+    }
+
+    public function setId(int $id): Order
     {
         $this->id = $id;
+        return $this;
     }
 
-    public function setInvoiceNumber(string $invoiceNumber): void
+    public function setInvoiceNumber(string $invoiceNumber): Order
     {
         $this->invoiceNumber = $invoiceNumber;
+        return $this;
     }
 
-    public function setInvoiceStatus(string $invoiceStatus): void
+    public function setInvoiceStatus(string $invoiceStatus): Order
     {
         $this->invoiceStatus = $invoiceStatus;
+        return $this;
     }
 
-    public function setMode(string $mode): void
+    public function setMode(string $mode): Order
     {
         $this->mode = $mode;
+        return $this;
     }
 
-    public function setMoney(Money $money): void
-    {
-        $this->money = $money;
-    }
-
-    public function setReference(string $reference): void
+    public function setReference(string $reference): Order
     {
         $this->reference = $reference;
+        return $this;
     }
 
-    public function setSource(string $source): void
+    public function setSource(string $source): Order
     {
         $this->source = $source;
+        return $this;
     }
 
-    public function setUpdatedAt(string $updatedAt): void
+    public function setSubtotal(Money $subtotal): Order
+    {
+        $this->subtotal = $subtotal;
+        return $this;
+    }
+
+    public function setTotal(Money $total): Order
+    {
+        $this->total = $total;
+        return $this;
+    }
+
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): Order
     {
         $this->updatedAt = $updatedAt;
+        return $this;
     }
 
     public function source(): string
@@ -134,7 +150,17 @@ class Order
         return $this->source;
     }
 
-    public function updatedAt(): string
+    public function subtotal(): Money
+    {
+        return $this->subtotal;
+    }
+
+    public function total(): Money
+    {
+        return $this->total;
+    }
+
+    public function updatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
     }
