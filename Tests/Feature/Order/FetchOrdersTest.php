@@ -16,7 +16,7 @@ class FetchOrdersTest extends TestCase
     /** @test */
     public function fetch_basic_order(): void
     {
-        $client  = new OrderGetClientMock(['id' => 1]);
+        $client  = new OrderShowClientMock(['id' => 1]);
         $service = new FetchOrderService($client);
         $order   = $service->find(1);
 
@@ -67,7 +67,7 @@ class FetchOrdersTest extends TestCase
     /** @test */
     public function fetch_order_billing_and_address(): void
     {
-        $client  = (new OrderGetClientMock(['id' => 1]))->billing();
+        $client  = (new OrderShowClientMock(['id' => 1]))->billing();
         $service = new FetchOrderService($client);
         $order   = $service->find(1);
 
@@ -91,7 +91,7 @@ class FetchOrdersTest extends TestCase
     /** @test */
     public function fetch_order_items(): void
     {
-        $client  = (new OrderGetClientMock(['id' => 1]))->items();
+        $client  = (new OrderShowClientMock(['id' => 1]))->items();
         $service = new FetchOrderService($client);
         $order   = $service->find(1);
 
@@ -105,5 +105,15 @@ class FetchOrdersTest extends TestCase
         static::assertSame(75., $item->subtotal()->value());
         static::assertSame(90.75, $item->total()->value());
         static::assertNull($item->type());
+    }
+
+    /** @test */
+    public function fetch_orders(): void
+    {
+        $client  = (new OrdersIndexClientMock());
+        $service = new FetchOrderService($client);
+        $orders  = $service->get();
+
+        static::assertSame(1, $orders[0]->id());
     }
 }

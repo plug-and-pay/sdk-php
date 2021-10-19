@@ -6,6 +6,7 @@ namespace PlugAndPay\Sdk\Service;
 
 use PlugAndPay\Sdk\Contract\ClientGetInterface;
 use PlugAndPay\Sdk\Director\ResponseToOrder;
+use PlugAndPay\Sdk\Director\ResponseToOrders;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\NotFoundException;
@@ -29,5 +30,14 @@ class FetchOrderService
             throw new NotFoundException('Order', $id);
         }
         return (new ResponseToOrder())->build($response->body());
+    }
+
+    /**
+     * @return Order[]
+     */
+    public function get(): array
+    {
+        $response = $this->client->get('/orders');
+        return (new ResponseToOrders())->build($response->body());
     }
 }
