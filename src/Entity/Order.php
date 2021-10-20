@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -20,9 +20,12 @@ class Order
     /** @var Item[] */
     private array $items;
     private string $mode;
+    private Payment $payment;
     private string $reference;
     private string $source;
     private Money $subtotal;
+    /** @var Payment[] */
+    private array $taxes;
     private Money $total;
     private DateTimeImmutable $updatedAt;
 
@@ -72,12 +75,25 @@ class Order
 
     public function items(): array
     {
+        if (!isset($this->items)) {
+            throw new RelationNotLoadedException('items');
+        }
+
         return $this->items;
     }
 
     public function mode(): string
     {
         return $this->mode;
+    }
+
+    public function payment(): Payment
+    {
+        if (!isset($this->payment)) {
+            throw new RelationNotLoadedException('payment');
+        }
+
+        return $this->payment;
     }
 
     public function reference(): string
@@ -145,6 +161,12 @@ class Order
         return $this;
     }
 
+    public function setPayment(Payment $payment): Order
+    {
+        $this->payment = $payment;
+        return $this;
+    }
+
     public function setReference(string $reference): Order
     {
         $this->reference = $reference;
@@ -160,6 +182,12 @@ class Order
     public function setSubtotal(Money $subtotal): Order
     {
         $this->subtotal = $subtotal;
+        return $this;
+    }
+
+    public function setTaxes(array $taxes): Order
+    {
+        $this->taxes = $taxes;
         return $this;
     }
 
@@ -183,6 +211,19 @@ class Order
     public function subtotal(): Money
     {
         return $this->subtotal;
+    }
+
+    /**
+     * @return Tax[]
+     * @throws RelationNotLoadedException
+     */
+    public function taxes(): array
+    {
+        if (!isset($this->taxes)) {
+            throw new RelationNotLoadedException('taxes');
+        }
+
+        return $this->taxes;
     }
 
     public function total(): Money

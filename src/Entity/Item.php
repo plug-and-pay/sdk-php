@@ -15,6 +15,7 @@ class Item
     private string $publicTitle;
     private int $quantity;
     private Money $subtotal;
+    private Tax $tax;
     private Money $total;
     private ?string $type;
 
@@ -79,6 +80,12 @@ class Item
         return $this;
     }
 
+    public function setTax(Tax $tax): Item
+    {
+        $this->tax = $tax;
+        return $this;
+    }
+
     public function setTotal(Money $total): Item
     {
         $this->total = $total;
@@ -94,6 +101,11 @@ class Item
     public function subtotal(): Money
     {
         return $this->subtotal;
+    }
+
+    public function tax(): Tax
+    {
+        return $this->tax;
     }
 
     public function total(): Money

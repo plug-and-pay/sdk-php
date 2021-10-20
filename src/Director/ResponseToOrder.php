@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -10,7 +10,19 @@ use PlugAndPay\Sdk\Entity\Order;
 
 class ResponseToOrder
 {
-    /** @noinspection PhpUnhandledExceptionInspection */
+    /**
+     * @return Order[]
+     */
+    public function buildMulti(array $data): array
+    {
+        $result = [];
+        foreach ($data as $order) {
+            $result[] = (new ResponseToOrder())->build($order);
+        }
+
+        return $result;
+    }
+
     public function build(array $data): Order
     {
         $order = (new Order())
@@ -34,6 +46,14 @@ class ResponseToOrder
 
         if (isset($data['items'])) {
             $order->setItems((new ResponseToItems())->build($data['items']));
+        }
+
+        if (isset($data['taxes'])) {
+            $order->setTaxes((new ResponseToTax())->buildMulti($data['taxes']));
+        }
+
+        if (isset($data['payment'])) {
+            $order->setPayment((new ResponseToPayment())->build($data['payment']));
         }
 
         return $order;

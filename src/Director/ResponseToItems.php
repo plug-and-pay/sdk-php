@@ -15,16 +15,22 @@ class ResponseToItems
     public function build(array $data): array
     {
         $result = [];
-        foreach ($data as $item) {
-            $result[] = (new Item())
-                ->setDiscounts((new ResponseToDiscounts())->build($item['discounts']))
-                ->setId($item['id'])
-                ->setProductId($item['product_id'])
-                ->setPublicTitle($item['public_title'])
-                ->setQuantity($item['quantity'])
-                ->setSubtotal(new Money((float)$item['subtotal']['value']))
-                ->setTotal(new Money((float)$item['total']['value']))
-                ->setType($item['type']);
+        foreach ($data as $itemData) {
+            $item = (new Item())
+                ->setDiscounts((new ResponseToDiscounts())->build($itemData['discounts']))
+                ->setId($itemData['id'])
+                ->setProductId($itemData['product_id'])
+                ->setPublicTitle($itemData['public_title'])
+                ->setQuantity($itemData['quantity'])
+                ->setSubtotal(new Money((float)$itemData['subtotal']['value']))
+                ->setTotal(new Money((float)$itemData['total']['value']))
+                ->setType($itemData['type']);
+
+            if (isset($itemData['tax'])) {
+                $item->setTax((new ResponseToTax())->build($itemData['tax']));
+            }
+
+            $result[] = $item;
         }
         return $result;
     }

@@ -67,20 +67,63 @@ class OrderShowClientMock implements ClientGetInterface
         return new Response(Response::HTTP_OK, $this->data);
     }
 
+    public function payment(array $data = []): self
+    {
+        $this->data['payment'] = $data + [
+                'order_id' => 1,
+                'paid_at'  => '2019-01-19T00:00:00.000000Z',
+                'status'   => 'paid',
+                'url'      => 'https://consequatur-quisquam.testing.test/orders/payment-link/0b13e52d-b058-32fb-8507-10dec634a07c',
+            ];
+
+        return $this;
+    }
+
+    public function taxes(array $data = []): self
+    {
+        $this->items();
+
+        $this->data['items'][0]['tax'] = [
+            'amount' => [
+                'currency' => 'EUR',
+                'value'    => '15.75',
+            ],
+            'rate'   => [
+                'country'    => 'NL',
+                'percentage' => 21,
+            ],
+        ];
+
+        $this->data['taxes'] = [
+            [
+                'amount' => [
+                    'currency' => 'EUR',
+                    'value'    => '15.75',
+                ],
+                'rate'   => [
+                    'country'    => 'NL',
+                    'percentage' => 21,
+                ],
+            ],
+        ];
+
+        return $this;
+    }
+
     public function items(array $data = []): self
     {
-        $this->data['items'] = $data + [
-                [
-                    'id'           => 1,
-                    'discounts'    => [],
-                    'product_id'   => 1,
-                    'public_title' => 'culpa',
-                    'quantity'     => 1,
-                    'type'         => null,
-                    'subtotal'     => ['currency' => 'EUR', 'value' => '75.00'],
-                    'total'        => ['currency' => 'EUR', 'value' => '90.75'],
-                ],
-            ];
+        $this->data['items'] = [
+            $data + [
+                'id'           => 1,
+                'discounts'    => [],
+                'product_id'   => 1,
+                'public_title' => 'culpa',
+                'quantity'     => 1,
+                'type'         => null,
+                'subtotal'     => ['currency' => 'EUR', 'value' => '75.00'],
+                'total'        => ['currency' => 'EUR', 'value' => '90.75'],
+            ],
+        ];
 
         return $this;
     }
