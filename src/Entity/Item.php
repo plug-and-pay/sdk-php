@@ -11,8 +11,8 @@ class Item
      */
     private array $discounts;
     private int $id;
+    private string $label;
     private int $productId;
-    private string $publicTitle;
     private int $quantity;
     private Money $subtotal;
     private Tax $tax;
@@ -29,14 +29,14 @@ class Item
         return $this->id;
     }
 
+    public function label(): string
+    {
+        return $this->label;
+    }
+
     public function productId(): int
     {
         return $this->productId;
-    }
-
-    public function publicTitle(): string
-    {
-        return $this->publicTitle;
     }
 
     public function quantity(): int
@@ -56,15 +56,15 @@ class Item
         return $this;
     }
 
-    public function setProductId(int $productId): Item
+    public function setLabel(string $label): Item
     {
-        $this->productId = $productId;
+        $this->label = $label;
         return $this;
     }
 
-    public function setPublicTitle(string $publicTitle): Item
+    public function setProductId(int $productId): Item
     {
-        $this->publicTitle = $publicTitle;
+        $this->productId = $productId;
         return $this;
     }
 

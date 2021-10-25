@@ -14,7 +14,7 @@ class OrdersIndexClientMock implements ClientGetInterface
     public function __construct(array $data = [[]])
     {
         foreach ($data as $orderData) {
-            $this->data[] = $orderData + OrderShowClientMock::ORDER_BASIC;
+            $this->data[] = $orderData + OrderShowClientMock::RESPONSE_BASIC;
         }
     }
 

@@ -20,7 +20,7 @@ class ResponseToItems
                 ->setDiscounts((new ResponseToDiscounts())->build($itemData['discounts']))
                 ->setId($itemData['id'])
                 ->setProductId($itemData['product_id'])
-                ->setPublicTitle($itemData['public_title'])
+                ->setLabel($itemData['label'])
                 ->setQuantity($itemData['quantity'])
                 ->setSubtotal(new Money((float)$itemData['subtotal']['value']))
                 ->setTotal(new Money((float)$itemData['total']['value']))

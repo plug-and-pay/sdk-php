@@ -30,6 +30,7 @@ class FetchOrdersTest extends TestCase
         static::assertSame('concept', $order->invoiceStatus());
         static::assertTrue($order->isFirst());
         static::assertFalse($order->isHidden());
+        static::assertTrue($order->isTaxIncluded());
         static::assertSame('live', $order->mode());
         static::assertSame('0b13e52d-b058-32fb-8507-10dec634a07c', $order->reference());
         static::assertSame('api', $order->source());
@@ -121,7 +122,7 @@ class FetchOrdersTest extends TestCase
         static::assertSame([], $item->discounts());
         static::assertSame(1, $item->id());
         static::assertSame(1, $item->productId());
-        static::assertSame('culpa', $item->publicTitle());
+        static::assertSame('culpa', $item->label());
         static::assertSame(1, $item->quantity());
         static::assertSame(75., $item->subtotal()->value());
         static::assertSame(90.75, $item->total()->value());
@@ -190,12 +191,12 @@ class FetchOrdersTest extends TestCase
     public function relationsProvider(): array
     {
         return [
-            ['billing'],
-            ['comments'],
-            ['items'],
-            ['payment'],
-            ['tags'],
-            ['taxes'],
+            'billing'  => ['billing'],
+            'comments' => ['comments'],
+            'items'    => ['items'],
+            'payment'  => ['payment'],
+            'tags'     => ['tags'],
+            'taxes'    => ['taxes'],
         ];
     }
 }

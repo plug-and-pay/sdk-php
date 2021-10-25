@@ -9,40 +9,41 @@ use PlugAndPay\Sdk\Entity\Response;
 
 class OrderShowClientMock implements ClientGetInterface
 {
-    public const ORDER_BASIC = [
-        'created_at'     => '2019-01-16T00:00:00.000000Z',
-        'deleted_at'     => '2019-01-16T00:00:00.000000Z',
-        'id'             => 1,
-        'invoice_number' => '20214019-T',
-        'invoice_status' => 'concept',
-        'is_first'       => true,
-        'is_hidden'      => false,
-        'mode'           => 'live',
-        'reference'      => '0b13e52d-b058-32fb-8507-10dec634a07c',
-        'source'         => 'api',
-        'subtotal'       =>
+    public const RESPONSE_BASIC = [
+        'created_at'      => '2019-01-16T00:00:00.000000Z',
+        'deleted_at'      => '2019-01-16T00:00:00.000000Z',
+        'id'              => 1,
+        'invoice_number'  => '20214019-T',
+        'invoice_status'  => 'concept',
+        'is_first'        => true,
+        'is_hidden'       => false,
+        'is_tax_included' => true,
+        'mode'            => 'live',
+        'reference'       => '0b13e52d-b058-32fb-8507-10dec634a07c',
+        'source'          => 'api',
+        'subtotal'        =>
             [
                 'currency' => 'EUR',
                 'value'    => '75.00',
             ],
-        'total'          =>
+        'total'           =>
             [
                 'currency' => 'EUR',
                 'value'    => '75.00',
             ],
-        'updated_at'     => '2019-01-16T00:00:00.000000Z',
+        'updated_at'      => '2019-01-16T00:00:00.000000Z',
     ];
 
-    private array $data;
+    protected array $response;
 
     public function __construct(array $data = [])
     {
-        $this->data = $data + self::ORDER_BASIC;
+        $this->response = $data + self::RESPONSE_BASIC;
     }
 
     public function billing(array $data = []): self
     {
-        $this->data['billing'] = $data + [
+        $this->response['billing'] = $data + [
                 'address'       => [
                     'city'          => '\'t Veld',
                     'country'       => 'NL',
@@ -64,7 +65,7 @@ class OrderShowClientMock implements ClientGetInterface
 
     public function comments(array $data = []): self
     {
-        $this->data['comments'] = $data + [
+        $this->response['comments'] = $data + [
                 [
                     'created_at' => '2019-01-16T12:00:00.000000Z',
                     'id'         => 1,
@@ -77,12 +78,12 @@ class OrderShowClientMock implements ClientGetInterface
 
     public function get(string $path): Response
     {
-        return new Response(Response::HTTP_OK, $this->data);
+        return new Response(Response::HTTP_OK, $this->response);
     }
 
     public function payment(array $data = []): self
     {
-        $this->data['payment'] = $data + [
+        $this->response['payment'] = $data + [
                 'order_id' => 1,
                 'paid_at'  => '2019-01-19T00:00:00.000000Z',
                 'status'   => 'paid',
@@ -94,7 +95,7 @@ class OrderShowClientMock implements ClientGetInterface
 
     public function tags(array $data): self
     {
-        $this->data['tags'] = $data;
+        $this->response['tags'] = $data;
 
         return $this;
     }
@@ -103,7 +104,7 @@ class OrderShowClientMock implements ClientGetInterface
     {
         $this->items();
 
-        $this->data['items'][0]['tax'] = [
+        $this->response['items'][0]['tax'] = [
             'amount' => [
                 'currency' => 'EUR',
                 'value'    => '15.75',
@@ -114,7 +115,7 @@ class OrderShowClientMock implements ClientGetInterface
             ],
         ];
 
-        $this->data['taxes'] = [
+        $this->response['taxes'] = [
             [
                 'amount' => [
                     'currency' => 'EUR',
@@ -132,16 +133,16 @@ class OrderShowClientMock implements ClientGetInterface
 
     public function items(array $data = []): self
     {
-        $this->data['items'] = [
+        $this->response['items'] = [
             $data + [
-                'id'           => 1,
-                'discounts'    => [],
-                'product_id'   => 1,
-                'public_title' => 'culpa',
-                'quantity'     => 1,
-                'type'         => null,
-                'subtotal'     => ['currency' => 'EUR', 'value' => '75.00'],
-                'total'        => ['currency' => 'EUR', 'value' => '90.75'],
+                'id'         => 1,
+                'discounts'  => [],
+                'product_id' => 1,
+                'label'      => 'culpa',
+                'quantity'   => 1,
+                'type'       => null,
+                'subtotal'   => ['currency' => 'EUR', 'value' => '75.00'],
+                'total'      => ['currency' => 'EUR', 'value' => '90.75'],
             ],
         ];
 

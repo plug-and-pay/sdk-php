@@ -28,6 +28,7 @@ class Order
     private Money $subtotal;
     /** @var string[] */
     private array $tags;
+    private bool $taxIncludes;
     /** @var Payment[] */
     private array $taxes;
     private Money $total;
@@ -84,6 +85,11 @@ class Order
     public function isHidden(): bool
     {
         return $this->hidden;
+    }
+
+    public function isTaxIncluded(): bool
+    {
+        return $this->taxIncludes;
     }
 
     public function items(): array
@@ -203,9 +209,17 @@ class Order
         return $this;
     }
 
-    public function setTags(array $tags): void
+    public function setTags(array $tags): Order
     {
         $this->tags = $tags;
+
+        return $this;
+    }
+
+    public function setTaxIncluded(bool $taxIncluded): Order
+    {
+        $this->taxIncludes = $taxIncluded;
+        return $this;
     }
 
     public function setTaxes(array $taxes): Order
@@ -238,6 +252,10 @@ class Order
 
     public function tags(): array
     {
+        if (!isset($this->tags)) {
+            throw new RelationNotLoadedException('tags');
+        }
+
         return $this->tags;
     }
 

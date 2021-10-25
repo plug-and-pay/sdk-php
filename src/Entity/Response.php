@@ -7,11 +7,12 @@ namespace PlugAndPay\Sdk\Entity;
 class Response
 {
     public const HTTP_OK = 200;
+    public const HTTP_CREATED = 201;
     public const HTTP_NOT_FOUND = 404;
 
-    private int $status;
     private array $body;
     private array $headers;
+    private int $status;
 
     public function __construct(int $status, array $body = [], array $headers = [])
     {

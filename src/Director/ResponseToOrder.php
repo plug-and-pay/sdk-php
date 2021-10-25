@@ -31,6 +31,7 @@ class ResponseToOrder
             ->setFirst($data['is_first'])
             ->setHidden($data['is_hidden'])
             ->setId($data['id'])
+            ->setTaxIncluded($data['is_tax_included'])
             ->setInvoiceNumber($data['invoice_number'])
             ->setInvoiceStatus($data['invoice_status'])
             ->setMode($data['mode'])
