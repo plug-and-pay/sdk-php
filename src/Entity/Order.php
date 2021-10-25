@@ -26,6 +26,8 @@ class Order
     private string $reference;
     private string $source;
     private Money $subtotal;
+    /** @var string[] */
+    private array $tags;
     /** @var Payment[] */
     private array $taxes;
     private Money $total;
@@ -201,6 +203,11 @@ class Order
         return $this;
     }
 
+    public function setTags(array $tags): void
+    {
+        $this->tags = $tags;
+    }
+
     public function setTaxes(array $taxes): Order
     {
         $this->taxes = $taxes;
@@ -227,6 +234,11 @@ class Order
     public function subtotal(): Money
     {
         return $this->subtotal;
+    }
+
+    public function tags(): array
+    {
+        return $this->tags;
     }
 
     /**

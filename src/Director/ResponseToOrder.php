@@ -60,6 +60,10 @@ class ResponseToOrder
             $order->setPayment((new ResponseToPayment())->build($data['payment']));
         }
 
+        if (isset($data['tags'])) {
+            $order->setTags($data['tags']);
+        }
+
         return $order;
     }
 }

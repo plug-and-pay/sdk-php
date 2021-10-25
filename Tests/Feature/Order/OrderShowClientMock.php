@@ -92,6 +92,13 @@ class OrderShowClientMock implements ClientGetInterface
         return $this;
     }
 
+    public function tags(array $data): self
+    {
+        $this->data['tags'] = $data;
+
+        return $this;
+    }
+
     public function taxes(array $data = []): self
     {
         $this->items();

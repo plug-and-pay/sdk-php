@@ -144,6 +144,17 @@ class FetchOrdersTest extends TestCase
     }
 
     /** @test */
+    public function fetch_order_tags(): void
+    {
+        $client  = (new OrderShowClientMock(['id' => 1]))->tags(['first', 'second']);
+        $service = new FetchOrderService($client);
+
+        $order = $service->find(1);
+
+        static::assertSame(['first', 'second'], $order->tags());
+    }
+
+    /** @test */
     public function fetch_order_taxes(): void
     {
         $client  = (new OrderShowClientMock(['id' => 1]))->taxes();
@@ -183,6 +194,7 @@ class FetchOrdersTest extends TestCase
             ['comments'],
             ['items'],
             ['payment'],
+            ['tags'],
             ['taxes'],
         ];
     }
