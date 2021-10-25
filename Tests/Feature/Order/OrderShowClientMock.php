@@ -62,6 +62,19 @@ class OrderShowClientMock implements ClientGetInterface
         return $this;
     }
 
+    public function comments(array $data = []): self
+    {
+        $this->data['comments'] = $data + [
+                [
+                    'created_at' => '2019-01-16T12:00:00.000000Z',
+                    'id'         => 1,
+                    'updated_at' => '2019-01-17T12:10:00.000000Z',
+                    'value'      => 'Nice products',
+                ],
+            ];
+        return $this;
+    }
+
     public function get(string $path): Response
     {
         return new Response(Response::HTTP_OK, $this->data);

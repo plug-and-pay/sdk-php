@@ -44,6 +44,10 @@ class ResponseToOrder
             $order->setBilling((new ResponseToBilling())->build($data['billing']));
         }
 
+        if (isset($data['comments'])) {
+            $order->setComments((new ResponseToBilling())->buildMulti($data['comments']));
+        }
+
         if (isset($data['items'])) {
             $order->setItems((new ResponseToItems())->build($data['items']));
         }

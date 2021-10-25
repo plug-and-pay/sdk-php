@@ -10,6 +10,8 @@ use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 class Order
 {
     private Billing $billing;
+    /** @var Comment[] */
+    private array $comments;
     private DateTimeImmutable $createdAt;
     private ?DateTimeImmutable $deletedAt;
     private bool $first;
@@ -36,6 +38,15 @@ class Order
         }
 
         return $this->billing;
+    }
+
+    public function comments(): array
+    {
+        if (!isset($this->comments)) {
+            throw new RelationNotLoadedException('comments');
+        }
+
+        return $this->comments;
     }
 
     public function createdAt(): DateTimeImmutable
@@ -105,6 +116,11 @@ class Order
     {
         $this->billing = $billing;
         return $this;
+    }
+
+    public function setComments(array $comments): void
+    {
+        $this->comments = $comments;
     }
 
     public function setCreatedAt(DateTimeImmutable $createdAt): Order

@@ -95,6 +95,21 @@ class FetchOrdersTest extends TestCase
     }
 
     /** @test */
+    public function fetch_order_comments(): void
+    {
+        $client  = (new OrderShowClientMock(['id' => 1]))->comments();
+        $service = new FetchOrderService($client);
+
+        $order = $service->find(1);
+
+        $comment = $order->comments()[0];
+        static::assertSame('2019-01-16 12:00:00', $comment->createdAt()->format('Y-m-d H:i:s'));
+        static::assertSame(1, $comment->id());
+        static::assertSame('2019-01-17 12:10:00', $comment->updatedAt()->format('Y-m-d H:i:s'));
+        static::assertSame('Nice products', $comment->value());
+    }
+
+    /** @test */
     public function fetch_order_items(): void
     {
         $client  = (new OrderShowClientMock(['id' => 1]))->items();
@@ -165,6 +180,7 @@ class FetchOrdersTest extends TestCase
     {
         return [
             ['billing'],
+            ['comments'],
             ['items'],
             ['payment'],
             ['taxes'],

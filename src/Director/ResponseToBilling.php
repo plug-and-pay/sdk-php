@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director;
 
 use PlugAndPay\Sdk\Entity\Billing;
+use PlugAndPay\Sdk\Entity\Comment;
 
 class ResponseToBilling
 {
@@ -19,5 +20,17 @@ class ResponseToBilling
             ->setLastName($data['last_name'])
             ->setTelephone($data['telephone'])
             ->setWebsite($data['website']);
+    }
+
+    /**
+     * @return Comment[]
+     */
+    public function buildMulti($comments): array
+    {
+        $result = [];
+        foreach ($comments as $comment) {
+            $result[] = (new ResponseToComment())->build($comment);
+        }
+        return $result;
     }
 }
