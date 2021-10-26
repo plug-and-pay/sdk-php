@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
 
 declare(strict_types=1);
 
@@ -90,6 +90,11 @@ class Order
     public function isTaxIncluded(): bool
     {
         return $this->taxIncludes;
+    }
+
+    public function isset(string $field): bool
+    {
+        return isset($this->{$field});
     }
 
     public function items(): array
@@ -261,7 +266,7 @@ class Order
 
     /**
      * @return Tax[]
-     * @throws RelationNotLoadedException
+     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException()
      */
     public function taxes(): array
     {

@@ -7,17 +7,17 @@ namespace PlugAndPay\Sdk\Director;
 use PlugAndPay\Sdk\Entity\Item;
 use PlugAndPay\Sdk\Entity\Money;
 
-class ResponseToItems
+class BodyToItems
 {
     /**
      * @return Item[]
      */
-    public function build(array $data): array
+    public static function build(array $data): array
     {
         $result = [];
         foreach ($data as $itemData) {
             $item = (new Item())
-                ->setDiscounts((new ResponseToDiscounts())->build($itemData['discounts']))
+                ->setDiscounts(BodyToDiscounts::build($itemData['discounts']))
                 ->setId($itemData['id'])
                 ->setProductId($itemData['product_id'])
                 ->setLabel($itemData['label'])
@@ -27,7 +27,7 @@ class ResponseToItems
                 ->setType($itemData['type']);
 
             if (isset($itemData['tax'])) {
-                $item->setTax((new ResponseToTax())->build($itemData['tax']));
+                $item->setTax(BodyToTax::build($itemData['tax']));
             }
 
             $result[] = $item;

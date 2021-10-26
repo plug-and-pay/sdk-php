@@ -40,6 +40,11 @@ class Billing
         return $this->invoiceEmail;
     }
 
+    public function isset(string $field): bool
+    {
+        return isset($this->{$field});
+    }
+
     public function lastName(): string
     {
         return $this->lastName;

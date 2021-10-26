@@ -7,9 +7,9 @@ namespace PlugAndPay\Sdk\Director;
 use DateTimeImmutable;
 use PlugAndPay\Sdk\Entity\Payment;
 
-class ResponseToPayment
+class BodyToPayment
 {
-    public function build(array $data): Payment
+    public static function build(array $data): Payment
     {
         return (new Payment())
             ->setOrderId($data['order_id'])

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Service;
 
 use PlugAndPay\Sdk\Contract\ClientPostInterface;
+use PlugAndPay\Sdk\Director\BodyToOrder;
 use PlugAndPay\Sdk\Director\OrderToBody;
-use PlugAndPay\Sdk\Director\ResponseToOrder;
 use PlugAndPay\Sdk\Entity\Order;
 
 class StoreOrderService
@@ -23,8 +23,8 @@ class StoreOrderService
      */
     public function post(Order $order): Order
     {
-        $body     = (new OrderToBody())->build($order);
+        $body     = OrderToBody::build($order);
         $response = $this->client->post('/orders', $body);
-        return (new ResponseToOrder())->build($response->body());
+        return BodyToOrder::build($response->body());
     }
 }

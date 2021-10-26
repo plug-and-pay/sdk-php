@@ -7,12 +7,12 @@ namespace PlugAndPay\Sdk\Director;
 use PlugAndPay\Sdk\Entity\Discount;
 use PlugAndPay\Sdk\Entity\Money;
 
-class ResponseToDiscounts
+class BodyToDiscounts
 {
     /**
      * @return Discount[]
      */
-    public function build(array $data): array
+    public static function build(array $data): array
     {
         $result = [];
         foreach ($data as $discount) {

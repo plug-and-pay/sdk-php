@@ -7,10 +7,9 @@ namespace PlugAndPay\Sdk\Director;
 use DateTimeImmutable;
 use PlugAndPay\Sdk\Entity\Comment;
 
-class ResponseToComment
+class BodyToComment
 {
-    /** @noinspection PhpUnhandledExceptionInspection */
-    public function build(array $data): Comment
+    public static function build(array $data): Comment
     {
         return (new Comment())
             ->setCreatedAt(new DateTimeImmutable($data['created_at']))

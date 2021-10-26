@@ -22,6 +22,11 @@ class Address
         return $this->country;
     }
 
+    public function isset(string $field): bool
+    {
+        return isset($this->{$field});
+    }
+
     public function setCity(string $city): Address
     {
         $this->city = $city;

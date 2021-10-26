@@ -6,9 +6,9 @@ namespace PlugAndPay\Sdk\Director;
 
 use PlugAndPay\Sdk\Entity\Address;
 
-class ResponseToAddress
+class BodyToAddress
 {
-    public function build(array $data): Address
+    public static function build(array $data): Address
     {
         return (new Address())
             ->setCity($data['city'])

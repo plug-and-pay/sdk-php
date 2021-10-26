@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
 
 declare(strict_types=1);
 
@@ -8,22 +8,9 @@ use DateTimeImmutable;
 use PlugAndPay\Sdk\Entity\Money;
 use PlugAndPay\Sdk\Entity\Order;
 
-class ResponseToOrder
+class BodyToOrder
 {
-    /**
-     * @return Order[]
-     */
-    public function buildMulti(array $data): array
-    {
-        $result = [];
-        foreach ($data as $order) {
-            $result[] = (new ResponseToOrder())->build($order);
-        }
-
-        return $result;
-    }
-
-    public function build(array $data): Order
+    public static function build(array $data): Order
     {
         $order = (new Order())
             ->setCreatedAt(new DateTimeImmutable($data['created_at']))
@@ -42,23 +29,23 @@ class ResponseToOrder
             ->setUpdatedAt(new DateTimeImmutable($data['updated_at']));
 
         if (isset($data['billing'])) {
-            $order->setBilling((new ResponseToBilling())->build($data['billing']));
+            $order->setBilling(BodyToBilling::build($data['billing']));
         }
 
         if (isset($data['comments'])) {
-            $order->setComments((new ResponseToBilling())->buildMulti($data['comments']));
+            $order->setComments(BodyToBilling::buildMulti($data['comments']));
         }
 
         if (isset($data['items'])) {
-            $order->setItems((new ResponseToItems())->build($data['items']));
+            $order->setItems(BodyToItems::build($data['items']));
         }
 
         if (isset($data['taxes'])) {
-            $order->setTaxes((new ResponseToTax())->buildMulti($data['taxes']));
+            $order->setTaxes(BodyToTax::buildMulti($data['taxes']));
         }
 
         if (isset($data['payment'])) {
-            $order->setPayment((new ResponseToPayment())->build($data['payment']));
+            $order->setPayment(BodyToPayment::build($data['payment']));
         }
 
         if (isset($data['tags'])) {
@@ -66,5 +53,18 @@ class ResponseToOrder
         }
 
         return $order;
+    }
+
+    /**
+     * @return Order[]
+     */
+    public static function buildMulti(array $data): array
+    {
+        $result = [];
+        foreach ($data as $order) {
+            $result[] = self::build($order);
+        }
+
+        return $result;
     }
 }

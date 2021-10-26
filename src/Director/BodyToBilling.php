@@ -7,12 +7,12 @@ namespace PlugAndPay\Sdk\Director;
 use PlugAndPay\Sdk\Entity\Billing;
 use PlugAndPay\Sdk\Entity\Comment;
 
-class ResponseToBilling
+class BodyToBilling
 {
-    public function build(array $data): Billing
+    public static function build(array $data): Billing
     {
         return (new Billing())
-            ->setAddress((new ResponseToAddress())->build($data['address']))
+            ->setAddress(BodyToAddress::build($data['address']))
             ->setCompany($data['company'])
             ->setEmail($data['email'])
             ->setFirstName($data['first_name'])
@@ -23,13 +23,14 @@ class ResponseToBilling
     }
 
     /**
+     * @param $comments
      * @return Comment[]
      */
-    public function buildMulti($comments): array
+    public static function buildMulti($comments): array
     {
         $result = [];
         foreach ($comments as $comment) {
-            $result[] = (new ResponseToComment())->build($comment);
+            $result[] = BodyToComment::build($comment);
         }
         return $result;
     }

@@ -17,7 +17,7 @@ class StoreOrdersTest extends TestCase
     /** @test */
     public function convert_basic_order_to_body(): void
     {
-        $body = (new OrderToBody())->build($this->generateOrder());
+        $body = OrderToBody::build($this->generateOrder());
 
         static::assertEquals([
             'billing'         => [
@@ -37,20 +37,14 @@ class StoreOrdersTest extends TestCase
         ], $body);
     }
 
-    private function generateOrder(): Order
+    /**
+     * @test
+     */
+    public function convert_order_without_filled_order(): void
     {
-        $billing = (new Billing())
-            ->setAddress((new Address())->setCountry('NL'))
-            ->setEmail('rosalie39@example.net')
-            ->setFirstName('Bilal')
-            ->setLastName('de Wit');
+        $body = OrderToBody::build(new Order());
 
-        $item = (new Item())->setLabel('the-label');
-
-        return (new Order())
-            ->setBilling($billing)
-            ->setTaxIncluded(true)
-            ->setItems([$item]);
+        static::assertEquals([], $body);
     }
 
     /** @test */
@@ -62,5 +56,24 @@ class StoreOrdersTest extends TestCase
         $order = $service->post($this->generateOrder());
 
         static::assertEquals(1, $order->id());
+    }
+
+    private function generateBilling(): Billing
+    {
+        return (new Billing())
+            ->setAddress((new Address())->setCountry('NL'))
+            ->setEmail('rosalie39@example.net')
+            ->setFirstName('Bilal')
+            ->setLastName('de Wit');
+    }
+
+    private function generateOrder(): Order
+    {
+        $item = (new Item())->setLabel('the-label');
+
+        return (new Order())
+            ->setBilling($this->generateBilling())
+            ->setTaxIncluded(true)
+            ->setItems([$item]);
     }
 }
