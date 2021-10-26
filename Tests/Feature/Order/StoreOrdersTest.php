@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Tests\Feature\Order;
 
 use PHPUnit\Framework\TestCase;
-use PlugAndPay\Sdk\Director\OrderToBody;
+use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
 use PlugAndPay\Sdk\Entity\Address;
 use PlugAndPay\Sdk\Entity\Billing;
 use PlugAndPay\Sdk\Entity\Item;

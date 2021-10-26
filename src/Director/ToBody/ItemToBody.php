@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PlugAndPay\Sdk\Director;
+namespace PlugAndPay\Sdk\Director\ToBody;
 
 use PlugAndPay\Sdk\Entity\Item;
 
