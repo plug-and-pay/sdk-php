@@ -6,6 +6,7 @@ namespace PlugAndPay\Sdk\Entity;
 
 class Item
 {
+    private Money $amount;
     /**
      * @var Discount[]
      */
@@ -17,7 +18,15 @@ class Item
     private Money $subtotal;
     private Tax $tax;
     private Money $total;
+    /**
+     * @see \PlugAndPay\Sdk\Enum\ProductType
+     */
     private ?string $type;
+
+    public function amount(): Money
+    {
+        return $this->amount;
+    }
 
     public function discounts(): array
     {
@@ -27,6 +36,11 @@ class Item
     public function id(): int
     {
         return $this->id;
+    }
+
+    public function isset(string $field): bool
+    {
+        return isset($this->{$field});
     }
 
     public function label(): string
@@ -42,6 +56,13 @@ class Item
     public function quantity(): int
     {
         return $this->quantity;
+    }
+
+    public function setAmount(Money $amount): Item
+    {
+        $this->amount = $amount;
+
+        return $this;
     }
 
     public function setDiscounts(array $discounts): Item
@@ -83,6 +104,12 @@ class Item
     public function setTax(Tax $tax): Item
     {
         $this->tax = $tax;
+        return $this;
+    }
+
+    public function setTaxByRateId(int $id): Item
+    {
+        $this->tax = (new Tax())->setRate(Rate::byId($id));
         return $this;
     }
 

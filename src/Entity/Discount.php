@@ -8,6 +8,9 @@ class Discount
 {
     private Money $amount;
     private ?string $code;
+    /**
+     * @see \PlugAndPay\Sdk\Entity\DiscountType
+     */
     private string $type;
 
     public function amount(): Money

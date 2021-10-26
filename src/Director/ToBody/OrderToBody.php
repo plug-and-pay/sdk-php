@@ -13,36 +13,40 @@ class OrderToBody
      */
     public static function build(Order $order): array
     {
-        $data = [];
+        $result = [];
+
+        if ($order->isset('hidden')) {
+            $result['is_hidden'] = $order->isHidden();
+        }
+
+        if ($order->isset('taxExempt')) {
+            $result['tax_exempt'] = $order->taxExempt();
+        }
 
         if ($order->isset('taxIncludes')) {
-            $data['is_tax_included'] = $order->isTaxIncluded();
+            $result['is_tax_included'] = $order->isTaxIncluded();
         }
 
         if ($order->isset('billing')) {
-            $data['billing'] = BillingToBody::build($order->billing());
+            $result['billing'] = BillingToBody::build($order->billing());
+        }
+
+        if ($order->isset('comments')) {
+            $result['comments'] = CommentToBody::buildMulti($order->comments());
         }
 
         if ($order->isset('items')) {
-            $data['items'] = ItemToBody::buildMulti($order->items());
+            $result['items'] = ItemToBody::buildMulti($order->items());
         }
 
-//        if (isset($data['comments'])) {
-//            $order->setComments((new ResponseToBilling())->buildMulti($data['comments']));
-//        }
-//
-//        if (isset($data['taxes'])) {
-//            $order->setTaxes((new ResponseToTax())->buildMulti($data['taxes']));
-//        }
-//
-//        if (isset($data['payment'])) {
-//            $order->setPayment((new ResponseToPayment())->build($data['payment']));
-//        }
-//
-//        if (isset($data['tags'])) {
-//            $order->setTags($data['tags']);
-//        }
+        if ($order->isset('payment')) {
+            $result['payment'] = PaymentToBody::build($order->payment());
+        }
 
-        return $data;
+        if ($order->isset('tags')) {
+            $result['tags'] = $order->tags();
+        }
+
+        return $result;
     }
 }

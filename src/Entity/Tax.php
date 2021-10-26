@@ -14,6 +14,11 @@ class Tax
         return $this->amount;
     }
 
+    public function isset(string $field): bool
+    {
+        return isset($this->{$field});
+    }
+
     public function rate(): Rate
     {
         return $this->rate;

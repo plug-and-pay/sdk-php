@@ -10,13 +10,4 @@ class PaymentStatus
     public const PAID = 'paid';
     public const PROCESSING = 'processing';
     public const REVERSED = 'reversed';
-
-    public const CASES = [
-        self::CREDIT_INVOICE,
-        self::CREDITED,
-        self::OPEN,
-        self::PAID,
-        self::PROCESSING,
-        self::REVERSED,
-    ];
 }

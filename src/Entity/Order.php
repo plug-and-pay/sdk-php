@@ -28,6 +28,7 @@ class Order
     private Money $subtotal;
     /** @var string[] */
     private array $tags;
+    private string $taxExempt;
     private bool $taxIncludes;
     /** @var Payment[] */
     private array $taxes;
@@ -131,9 +132,10 @@ class Order
         return $this;
     }
 
-    public function setComments(array $comments): void
+    public function setComments(array $comments): Order
     {
         $this->comments = $comments;
+        return $this;
     }
 
     public function setCreatedAt(DateTimeImmutable $createdAt): Order
@@ -221,6 +223,13 @@ class Order
         return $this;
     }
 
+    public function setTaxExempt(string $taxExempt): Order
+    {
+        $this->taxExempt = $taxExempt;
+
+        return $this;
+    }
+
     public function setTaxIncluded(bool $taxIncluded): Order
     {
         $this->taxIncludes = $taxIncluded;
@@ -262,6 +271,11 @@ class Order
         }
 
         return $this->tags;
+    }
+
+    public function taxExempt(): string
+    {
+        return $this->taxExempt;
     }
 
     /**
