@@ -17,6 +17,7 @@ use PlugAndPay\Sdk\Enum\CurrencyCodeIso;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\TaxExempt;
 use PlugAndPay\Sdk\Service\StoreOrderService;
+use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderStoreClientMock;
 
 class StoreOrdersTest extends TestCase
 {
@@ -179,8 +180,14 @@ class StoreOrdersTest extends TestCase
         $client  = new OrderStoreClientMock();
         $service = new StoreOrderService($client);
 
-        $order = $service->post($this->generateOrder());
+        $order = $this->generateOrder();
+        $order->setHidden(true);
+        $order = $service->create($order);
 
+        static::assertEquals(1, $order->id());
+
+        static::assertEquals(true, $client->requestBody()['is_hidden']);
+        static::assertEquals('/orders', $client->path());
         static::assertEquals(1, $order->id());
     }
 

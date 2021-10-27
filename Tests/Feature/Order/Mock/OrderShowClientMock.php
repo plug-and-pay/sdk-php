@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PlugAndPay\Sdk\Tests\Feature\Order;
+namespace PlugAndPay\Sdk\Tests\Feature\Order\Mock;
 
 use PlugAndPay\Sdk\Contract\ClientGetInterface;
 use PlugAndPay\Sdk\Entity\Response;
@@ -81,6 +81,24 @@ class OrderShowClientMock implements ClientGetInterface
         return new Response(Response::HTTP_OK, $this->response);
     }
 
+    public function items(array $data = []): self
+    {
+        $this->response['items'] = [
+            $data + [
+                'id'         => 1,
+                'discounts'  => [],
+                'product_id' => 1,
+                'label'      => 'culpa',
+                'quantity'   => 1,
+                'type'       => null,
+                'subtotal'   => ['currency' => 'EUR', 'value' => '75.00'],
+                'total'      => ['currency' => 'EUR', 'value' => '90.75'],
+            ],
+        ];
+
+        return $this;
+    }
+
     public function payment(array $data = []): self
     {
         $this->response['payment'] = $data + [
@@ -125,24 +143,6 @@ class OrderShowClientMock implements ClientGetInterface
                     'country'    => 'NL',
                     'percentage' => 21,
                 ],
-            ],
-        ];
-
-        return $this;
-    }
-
-    public function items(array $data = []): self
-    {
-        $this->response['items'] = [
-            $data + [
-                'id'         => 1,
-                'discounts'  => [],
-                'product_id' => 1,
-                'label'      => 'culpa',
-                'quantity'   => 1,
-                'type'       => null,
-                'subtotal'   => ['currency' => 'EUR', 'value' => '75.00'],
-                'total'      => ['currency' => 'EUR', 'value' => '90.75'],
             ],
         ];
 

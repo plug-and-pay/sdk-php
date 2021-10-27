@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PlugAndPay\Sdk\Tests\Feature\Order;
+namespace PlugAndPay\Sdk\Tests\Feature\Order\Mock;
 
 use PlugAndPay\Sdk\Contract\ClientGetInterface;
 use PlugAndPay\Sdk\Entity\Response;

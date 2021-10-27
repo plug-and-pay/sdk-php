@@ -11,6 +11,8 @@ use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Service\FetchOrderService;
 use PlugAndPay\Sdk\Tests\Feature\GetNotFoundClientMock;
+use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderShowClientMock;
+use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrdersIndexClientMock;
 
 class FetchOrdersTest extends TestCase
 {

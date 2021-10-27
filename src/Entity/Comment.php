@@ -13,6 +13,11 @@ class Comment
     private DateTimeImmutable $updatedAt;
     private string $value;
 
+    public static function byValue(string $value)
+    {
+        return (new self())->setValue($value);
+    }
+
     public function createdAt(): DateTimeImmutable
     {
         return $this->createdAt;

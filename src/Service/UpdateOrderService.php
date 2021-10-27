@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Service;
 
-use PlugAndPay\Sdk\Contract\ClientPostInterface;
+use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToOrder;
 use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
 use PlugAndPay\Sdk\Entity\Order;
 
-class StoreOrderService
+class UpdateOrderService
 {
-    private ClientPostInterface $client;
+    private ClientPatchInterface $client;
 
-    public function __construct(ClientPostInterface $client)
+    public function __construct(ClientPatchInterface $client)
     {
         $this->client = $client;
     }
@@ -21,10 +21,12 @@ class StoreOrderService
     /**
      * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
      */
-    public function create(Order $order): Order
+    public function update(int $orderId, callable $update): Order
     {
+        $order = new Order();
+        $update($order);
         $body     = OrderToBody::build($order);
-        $response = $this->client->post('/orders', $body);
+        $response = $this->client->patch("/orders/$orderId", $body);
         return BodyToOrder::build($response->body());
     }
 }
