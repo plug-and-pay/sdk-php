@@ -17,4 +17,17 @@ class BodyToComment
             ->setUpdatedAt(new DateTimeImmutable($data['updated_at']))
             ->setValue($data['value']);
     }
+
+    /**
+     * @param $comments
+     * @return Comment[]
+     */
+    public static function buildMulti($comments): array
+    {
+        $result = [];
+        foreach ($comments as $comment) {
+            $result[] = self::build($comment);
+        }
+        return $result;
+    }
 }

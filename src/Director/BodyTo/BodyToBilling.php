@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use PlugAndPay\Sdk\Entity\Billing;
-use PlugAndPay\Sdk\Entity\Comment;
 
 class BodyToBilling
 {
@@ -20,18 +19,5 @@ class BodyToBilling
             ->setLastName($data['last_name'])
             ->setTelephone($data['telephone'])
             ->setWebsite($data['website']);
-    }
-
-    /**
-     * @param $comments
-     * @return Comment[]
-     */
-    public static function buildMulti($comments): array
-    {
-        $result = [];
-        foreach ($comments as $comment) {
-            $result[] = BodyToComment::build($comment);
-        }
-        return $result;
     }
 }

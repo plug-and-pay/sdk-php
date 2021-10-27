@@ -23,12 +23,18 @@ class Payment
         return $this->paidAt;
     }
 
+    /**
+     * @internal
+     */
     public function setOrderId(int $orderId): Payment
     {
         $this->orderId = $orderId;
         return $this;
     }
 
+    /**
+     * @internal
+     */
     public function setPaidAt(DateTimeImmutable $paidAt): Payment
     {
         $this->paidAt = $paidAt;
@@ -41,6 +47,9 @@ class Payment
         return $this;
     }
 
+    /**
+     * @internal
+     */
     public function setUrl(string $url): Payment
     {
         $this->url = $url;

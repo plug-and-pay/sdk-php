@@ -13,6 +13,8 @@ use PlugAndPay\Sdk\Exception\NotFoundException;
 class FetchOrderService
 {
     private ClientGetInterface $client;
+    /** @var string[] */
+    private array $includes;
 
     public function __construct(ClientGetInterface $client)
     {
@@ -24,7 +26,8 @@ class FetchOrderService
      */
     public function find(int $id): Order
     {
-        $response = $this->client->get("/orders/$id");
+        $parameters = 'include=' . implode(',', $this->includes);
+        $response   = $this->client->get("/orders/$id?$parameters");
         if ($response->status() === Response::HTTP_NOT_FOUND) {
             throw new NotFoundException('Order', $id);
         }
@@ -38,5 +41,12 @@ class FetchOrderService
     {
         $response = $this->client->get('/orders');
         return BodyToOrder::buildMulti($response->body());
+    }
+
+    public function include(string...$includes): self
+    {
+        $this->includes = $includes;
+
+        return $this;
     }
 }

@@ -33,7 +33,7 @@ class BodyToOrder
         }
 
         if (isset($data['comments'])) {
-            $order->setComments(BodyToBilling::buildMulti($data['comments']));
+            $order->setComments(BodyToComment::buildMulti($data['comments']));
         }
 
         if (isset($data['items'])) {

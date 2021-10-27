@@ -13,11 +13,6 @@ class Comment
     private DateTimeImmutable $updatedAt;
     private string $value;
 
-    public static function byValue(string $value)
-    {
-        return (new self())->setValue($value);
-    }
-
     public function createdAt(): DateTimeImmutable
     {
         return $this->createdAt;
@@ -28,6 +23,9 @@ class Comment
         return $this->id;
     }
 
+    /**
+     * @internal
+     */
     public function setCreatedAt(DateTimeImmutable $createdAt): Comment
     {
         $this->createdAt = $createdAt;
@@ -40,6 +38,9 @@ class Comment
         return $this;
     }
 
+    /**
+     * @internal
+     */
     public function setUpdatedAt(DateTimeImmutable $updatedAt): Comment
     {
         $this->updatedAt = $updatedAt;

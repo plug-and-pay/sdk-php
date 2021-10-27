@@ -6,6 +6,7 @@ namespace PlugAndPay\Sdk\Tests\Feature\Order;
 
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Order;
+use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
@@ -137,7 +138,7 @@ class FetchOrdersTest extends TestCase
         $client  = (new OrderShowClientMock(['id' => 1]))->payment();
         $service = new FetchOrderService($client);
 
-        $order = $service->find(1);
+        $order = $service->include(OrderIncludes::PAYMENT)->find(1);
 
         $payment = $order->payment();
         static::assertSame(1, $payment->orderId());

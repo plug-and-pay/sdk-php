@@ -98,6 +98,10 @@ class Order
         return isset($this->{$field});
     }
 
+    /**
+     * @return \PlugAndPay\Sdk\Entity\Item[]
+     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     */
     public function items(): array
     {
         if (!isset($this->items)) {
@@ -141,18 +145,27 @@ class Order
         return $this;
     }
 
+    /**
+     * @internal
+     */
     public function setCreatedAt(DateTimeImmutable $createdAt): Order
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
+    /**
+     * @internal
+     */
     public function setDeletedAt(?DateTimeImmutable $deletedAt): Order
     {
         $this->deletedAt = $deletedAt;
         return $this;
     }
 
+    /**
+     * @internal
+     */
     public function setFirst(bool $first): Order
     {
         $this->first = $first;
@@ -165,18 +178,27 @@ class Order
         return $this;
     }
 
+    /**
+     * @internal
+     */
     public function setId(int $id): Order
     {
         $this->id = $id;
         return $this;
     }
 
+    /**
+     * @internal
+     */
     public function setInvoiceNumber(string $invoiceNumber): Order
     {
         $this->invoiceNumber = $invoiceNumber;
         return $this;
     }
 
+    /**
+     * @internal
+     */
     public function setInvoiceStatus(string $invoiceStatus): Order
     {
         $this->invoiceStatus = $invoiceStatus;
@@ -251,6 +273,9 @@ class Order
         return $this;
     }
 
+    /**
+     * @internal
+     */
     public function setUpdatedAt(DateTimeImmutable $updatedAt): Order
     {
         $this->updatedAt = $updatedAt;

@@ -8,6 +8,6 @@ class RelationNotLoadedException extends ClientException
 {
     public function __construct(string $relation)
     {
-        parent::__construct("Can not load relation $relation. You can use ->with(['$relation']) to fetch te relation.");
+        parent::__construct("Can not load relation $relation. You can use ->include([...]) to fetch te relation.");
     }
 }
