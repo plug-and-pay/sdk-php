@@ -10,6 +10,7 @@ use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
+use PlugAndPay\Sdk\Filters\OrderFilter;
 use PlugAndPay\Sdk\Service\FetchOrderService;
 use PlugAndPay\Sdk\Tests\Feature\GetNotFoundClientMock;
 use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderShowClientMock;
@@ -188,6 +189,18 @@ class FetchOrdersTest extends TestCase
 
         static::assertSame(1, $orders[0]->id());
         static::assertSame('/orders?include=payment', $client->path());
+    }
+
+    /** @test */
+    public function fetch_orders_with_filter(): void
+    {
+        $client  = (new OrdersIndexClientMock());
+        $service = new FetchOrderService($client);
+
+        $filter = (new OrderFilter())->country('NL');
+        $service->get($filter);
+
+        static::assertSame('/orders?country=NL', $client->path());
     }
 
     /**

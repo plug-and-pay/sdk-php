@@ -9,6 +9,7 @@ use PlugAndPay\Sdk\Director\BodyTo\BodyToOrder;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\NotFoundException;
+use PlugAndPay\Sdk\Filters\OrderFilter;
 use PlugAndPay\Sdk\Support\Parameters;
 
 class FetchOrderService
@@ -38,10 +39,16 @@ class FetchOrderService
     /**
      * @return Order[]
      */
-    public function get(): array
+    public function get(OrderFilter $orderFilter = null): array
     {
-        $query    = Parameters::toString(['include' => $this->includes]);
+        $parameters = $orderFilter ? $orderFilter->parameters() : [];
+        if (!empty($this->includes)) {
+            $parameters['include'] = $this->includes;
+        }
+        $query = Parameters::toString($parameters);
+
         $response = $this->client->get("/orders?$query");
+
         return BodyToOrder::buildMulti($response->body());
     }
 
