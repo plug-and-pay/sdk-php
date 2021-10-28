@@ -20,7 +20,7 @@ class OrderStoreClientMock extends OrderShowClientMock implements ClientPostInte
     {
         $this->path        = $path;
         $this->requestBody = $body;
-        return new Response(Response::HTTP_OK, $this->response);
+        return new Response(Response::HTTP_CREATED, $this->response);
     }
 
     public function requestBody(): array

@@ -16,6 +16,12 @@ class ParametersTest extends TestCase
     }
 
     /** @test */
+    public function one_parameter(): void
+    {
+        static::assertSame('include=hello', Parameters::toString(['include' => 'hello']));
+    }
+
+    /** @test */
     public function multiple_parameters(): void
     {
         static::assertSame('first=value1&second=value2', Parameters::toString(['first' => 'value1', 'second' => 'value2']));
@@ -25,11 +31,5 @@ class ParametersTest extends TestCase
     public function multiple_values(): void
     {
         static::assertSame('include=hello,world', Parameters::toString(['include' => ['hello', 'world']]));
-    }
-
-    /** @test */
-    public function one_parameter(): void
-    {
-        static::assertSame('include=hello', Parameters::toString(['include' => 'hello']));
     }
 }

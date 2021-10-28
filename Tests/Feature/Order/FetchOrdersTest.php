@@ -6,13 +6,15 @@ namespace PlugAndPay\Sdk\Tests\Feature\Order;
 
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Order;
+use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
+use PlugAndPay\Sdk\Exception\ValidationException;
 use PlugAndPay\Sdk\Filters\OrderFilter;
 use PlugAndPay\Sdk\Service\FetchOrderService;
-use PlugAndPay\Sdk\Tests\Feature\GetNotFoundClientMock;
+use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderShowClientMock;
 use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrdersIndexClientMock;
 
@@ -62,7 +64,7 @@ class FetchOrdersTest extends TestCase
     /** @test */
     public function fetch_not_existing_order(): void
     {
-        $client    = new GetNotFoundClientMock();
+        $client    = new ClientMock(Response::HTTP_NOT_FOUND);
         $service   = new FetchOrderService($client);
         $exception = null;
 
@@ -72,6 +74,64 @@ class FetchOrdersTest extends TestCase
         }
 
         static::assertEquals('Order not found with id 999', $exception->getMessage());
+    }
+
+    /** @test */
+    public function fetch_order_with_validation_error(): void
+    {
+        $client    = new ClientMock(
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            [
+                'message' => 'The given data was invalid.',
+                'errors'  => [
+                    'firstname' => [
+                        'Voornaam is verplicht.',
+                    ],
+                ],
+            ],
+        );
+        $service   = new FetchOrderService($client);
+        $exception = null;
+
+        try {
+            $service->find(1);
+        } catch (ValidationException $exception) {
+        }
+
+        static::assertEquals('Voornaam is verplicht.', $exception->getMessage());
+        static::assertEquals('Voornaam is verplicht.', $exception->errors()[0]->message());
+        static::assertEquals('firstname', $exception->errors()[0]->field());
+    }
+
+    /** @test */
+    public function fetch_order_with_multiple_validation_errors(): void
+    {
+        $client    = new ClientMock(
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            [
+                'message' => 'The given data was invalid.',
+                'errors'  => [
+                    'firstname' => [
+                        'First error.',
+                        'Second error.',
+                    ],
+                    'lastname'  => [
+                        'Last error.',
+                    ],
+                ],
+            ],
+        );
+        $service   = new FetchOrderService($client);
+        $exception = null;
+
+        try {
+            $service->find(1);
+        } catch (ValidationException $exception) {
+        }
+
+        static::assertEquals('First error. Second error. Last error.', $exception->getMessage());
+        static::assertEquals('First error.', $exception->errors()[0]->message());
+        static::assertEquals('firstname', $exception->errors()[0]->field());
     }
 
     /** @test */
