@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Exception;
 
-class RelationNotLoadedException extends ClientException
+class RelationNotLoadedException extends ImplementationException
 {
     public function __construct(string $relation)
     {

@@ -13,7 +13,7 @@ class ExceptionFactory
     {
         switch ($response->status()) {
             case Response::HTTP_UNPROCESSABLE_ENTITY:
-                return new ValidationException($response->body()['message'], $response->body()['errors']);
+                return new ValidationException($response->body()['errors']);
             default:
                 return null;
         }

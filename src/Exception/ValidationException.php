@@ -13,7 +13,7 @@ class ValidationException extends ClientException
      */
     private array $errors;
 
-    public function __construct(string $message, array $errors)
+    public function __construct(array $errors)
     {
         $this->constructErrors($errors);
         parent::__construct($this->errorMessage());
