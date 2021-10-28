@@ -1,0 +1,3 @@
+[submodule "sdk-php.wiki"]
+	path = sdk-php.wiki
+	url = git@github.com:plug-and-pay/sdk-php.wiki.git
