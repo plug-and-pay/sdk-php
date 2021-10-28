@@ -14,7 +14,7 @@ class FetchOrderService
 {
     private ClientGetInterface $client;
     /** @var string[] */
-    private array $includes;
+    private array $includes = [];
 
     public function __construct(ClientGetInterface $client)
     {
