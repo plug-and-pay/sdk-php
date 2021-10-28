@@ -9,6 +9,7 @@ use PlugAndPay\Sdk\Director\BodyTo\BodyToOrder;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\NotFoundException;
+use PlugAndPay\Sdk\Support\Parameters;
 
 class FetchOrderService
 {
@@ -26,8 +27,8 @@ class FetchOrderService
      */
     public function find(int $id): Order
     {
-        $parameters = 'include=' . implode(',', $this->includes);
-        $response   = $this->client->get("/orders/$id?$parameters");
+        $query    = Parameters::toString(['include' => $this->includes]);
+        $response = $this->client->get("/orders/$id?$query");
         if ($response->status() === Response::HTTP_NOT_FOUND) {
             throw new NotFoundException('Order', $id);
         }
@@ -39,7 +40,8 @@ class FetchOrderService
      */
     public function get(): array
     {
-        $response = $this->client->get('/orders');
+        $query    = Parameters::toString(['include' => $this->includes]);
+        $response = $this->client->get("/orders?$query");
         return BodyToOrder::buildMulti($response->body());
     }
 

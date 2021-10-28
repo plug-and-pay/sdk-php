@@ -10,7 +10,6 @@ use PlugAndPay\Sdk\Entity\Response;
 class OrderStoreClientMock extends OrderShowClientMock implements ClientPostInterface
 {
     protected array $requestBody;
-    private string $path;
 
     public function path(): string
     {

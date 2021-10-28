@@ -10,6 +10,7 @@ use PlugAndPay\Sdk\Entity\Response;
 class OrdersIndexClientMock implements ClientGetInterface
 {
     private array $data;
+    private string $path;
 
     public function __construct(array $data = [[]])
     {
@@ -20,6 +21,12 @@ class OrdersIndexClientMock implements ClientGetInterface
 
     public function get(string $path): Response
     {
+        $this->path = $path;
         return new Response(Response::HTTP_OK, $this->data);
+    }
+
+    public function path(): string
+    {
+        return $this->path;
     }
 }

@@ -141,6 +141,7 @@ class FetchOrdersTest extends TestCase
         $order = $service->include(OrderIncludes::PAYMENT)->find(1);
 
         $payment = $order->payment();
+        static::assertSame('/orders/1?include=payment', $client->path());
         static::assertSame(1, $payment->orderId());
         static::assertSame('2019-01-19 00:00:00', $payment->paidAt()->format('Y-m-d H:i:s'));
         static::assertSame(PaymentStatus::PAID, $payment->status());
@@ -183,9 +184,10 @@ class FetchOrdersTest extends TestCase
     {
         $client  = (new OrdersIndexClientMock());
         $service = new FetchOrderService($client);
-        $orders  = $service->get();
+        $orders  = $service->include(OrderIncludes::PAYMENT)->get();
 
         static::assertSame(1, $orders[0]->id());
+        static::assertSame('/orders?include=payment', $client->path());
     }
 
     /**

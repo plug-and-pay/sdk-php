@@ -33,7 +33,7 @@ class OrderShowClientMock implements ClientGetInterface
             ],
         'updated_at'      => '2019-01-16T00:00:00.000000Z',
     ];
-
+    protected string $path;
     protected array $response;
 
     public function __construct(array $data = [])
@@ -78,6 +78,7 @@ class OrderShowClientMock implements ClientGetInterface
 
     public function get(string $path): Response
     {
+        $this->path = $path;
         return new Response(Response::HTTP_OK, $this->response);
     }
 
@@ -97,6 +98,11 @@ class OrderShowClientMock implements ClientGetInterface
         ];
 
         return $this;
+    }
+
+    public function path(): string
+    {
+        return $this->path;
     }
 
     public function payment(array $data = []): self

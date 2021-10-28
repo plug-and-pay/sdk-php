@@ -10,7 +10,6 @@ use PlugAndPay\Sdk\Entity\Response;
 class OrderUpdateClientMock extends OrderShowClientMock implements ClientPatchInterface
 {
     protected array $requestBody;
-    private string $path;
 
     public function patch(string $path, array $body): Response
     {
