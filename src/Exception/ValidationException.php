@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Exception;
 
+use Exception;
 use PlugAndPay\Sdk\Entity\Error;
 
-class ValidationException extends ClientException
+class ValidationException extends Exception
 {
     /**
      * @var Error[]

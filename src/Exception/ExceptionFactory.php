@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection MultipleReturnStatementsInspection */
 
 declare(strict_types=1);
 
@@ -14,6 +14,8 @@ class ExceptionFactory
         switch ($response->status()) {
             case Response::HTTP_UNPROCESSABLE_ENTITY:
                 return new ValidationException($response->body()['errors']);
+            case Response::HTTP_NOT_FOUND:
+                return new NotFoundException();
             default:
                 return null;
         }
