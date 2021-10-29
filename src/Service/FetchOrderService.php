@@ -25,8 +25,7 @@ class FetchOrderService
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\NotFoundException
-     * @throws \PlugAndPay\Sdk\Exception\ValidationException
+     * @throws \PlugAndPay\Sdk\Exception\NotFoundException|\Exception
      */
     public function find(int $id): Order
     {
@@ -44,7 +43,7 @@ class FetchOrderService
 
     /**
      * @return Order[]
-     * @throws \PlugAndPay\Sdk\Exception\ValidationException
+     * @throws \PlugAndPay\Sdk\Exception\ValidationException|\Exception
      */
     public function get(OrderFilter $orderFilter = null): array
     {

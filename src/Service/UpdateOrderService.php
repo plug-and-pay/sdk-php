@@ -8,6 +8,7 @@ use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToOrder;
 use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
 use PlugAndPay\Sdk\Entity\Order;
+use PlugAndPay\Sdk\Exception\ExceptionFactory;
 
 class UpdateOrderService
 {
@@ -25,8 +26,12 @@ class UpdateOrderService
     {
         $order = new Order();
         $update($order);
-        $body     = OrderToBody::build($order);
-        $response = $this->client->patch("/orders/$orderId", $body);
+        $body      = OrderToBody::build($order);
+        $response  = $this->client->patch("/orders/$orderId", $body);
+        $exception = ExceptionFactory::createByResponse($response);
+        if ($exception) {
+            throw $exception;
+        }
         return BodyToOrder::build($response->body());
     }
 }

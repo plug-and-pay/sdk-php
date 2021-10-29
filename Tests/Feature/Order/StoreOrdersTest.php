@@ -18,8 +18,8 @@ use PlugAndPay\Sdk\Enum\CurrencyCodeIso;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\TaxExempt;
 use PlugAndPay\Sdk\Exception\ValidationException;
+use PlugAndPay\Sdk\Service\CreateOrderService;
 use PlugAndPay\Sdk\Service\FetchOrderService;
-use PlugAndPay\Sdk\Service\StoreOrderService;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderStoreClientMock;
 
@@ -182,7 +182,7 @@ class StoreOrdersTest extends TestCase
     public function store_basic_order(): void
     {
         $client  = new OrderStoreClientMock();
-        $service = new StoreOrderService($client);
+        $service = new CreateOrderService($client);
 
         $order = $this->generateOrder();
         $order->setHidden(true);

@@ -8,8 +8,9 @@ use PlugAndPay\Sdk\Contract\ClientPostInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToOrder;
 use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
 use PlugAndPay\Sdk\Entity\Order;
+use PlugAndPay\Sdk\Exception\ExceptionFactory;
 
-class StoreOrderService
+class CreateOrderService
 {
     private ClientPostInterface $client;
 
@@ -19,12 +20,16 @@ class StoreOrderService
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException|\Exception
      */
     public function create(Order $order): Order
     {
-        $body     = OrderToBody::build($order);
-        $response = $this->client->post('/orders', $body);
+        $body      = OrderToBody::build($order);
+        $response  = $this->client->post('/orders', $body);
+        $exception = ExceptionFactory::createByResponse($response);
+        if ($exception) {
+            throw $exception;
+        }
         return BodyToOrder::build($response->body());
     }
 }

@@ -10,6 +10,9 @@ use PlugAndPay\Sdk\Entity\Order;
 
 class BodyToOrder
 {
+    /**
+     * @throws \Exception
+     */
     public static function build(array $data): Order
     {
         $order = (new Order())

@@ -8,6 +8,7 @@ class Response
 {
     public const HTTP_OK = 200;
     public const HTTP_CREATED = 201;
+    public const HTTP_NO_CONTENT = 201;
     public const HTTP_NOT_FOUND = 404;
     public const HTTP_UNPROCESSABLE_ENTITY = 422;
 
