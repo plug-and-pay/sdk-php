@@ -23,4 +23,9 @@ class OrderUpdateClientMock extends OrderShowClientMock implements ClientPatchIn
     {
         return $this->path;
     }
+
+    public function requestBody(): array
+    {
+        return $this->requestBody;
+    }
 }
