@@ -25,7 +25,7 @@ class CreateOrderService
     public function create(Order $order): Order
     {
         $body      = OrderToBody::build($order);
-        $response  = $this->client->post('/orders', $body);
+        $response  = $this->client->post('/v2/orders', $body);
         $exception = ExceptionFactory::createByResponse($response);
         if ($exception) {
             throw $exception;

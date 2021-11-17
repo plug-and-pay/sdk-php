@@ -18,6 +18,6 @@ class DeleteOrdersTest extends TestCase
 
         $service->delete(1);
 
-        static::assertEquals('/orders/1', $client->path());
+        static::assertEquals('/v2/orders/1', $client->path());
     }
 }

@@ -6,6 +6,7 @@ class OrderIncludes
 {
     public const BILLING = 'billing';
     public const COMMENTS = 'comments';
+    public const DISCOUNTS = 'discounts';
     public const ITEMS = 'items';
     public const PAYMENT = 'payment';
     public const TAGS = 'tags';

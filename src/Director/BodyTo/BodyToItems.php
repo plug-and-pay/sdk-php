@@ -17,7 +17,6 @@ class BodyToItems
         $result = [];
         foreach ($data as $itemData) {
             $item = (new Item())
-                ->setDiscounts(BodyToDiscounts::build($itemData['discounts']))
                 ->setId($itemData['id'])
                 ->setProductId($itemData['product_id'])
                 ->setLabel($itemData['label'])
@@ -25,6 +24,10 @@ class BodyToItems
                 ->setSubtotal(new Money((float)$itemData['subtotal']['value']))
                 ->setTotal(new Money((float)$itemData['total']['value']))
                 ->setType($itemData['type']);
+
+            if (isset($itemData['discounts'])) {
+                $item->setDiscounts(BodyToDiscounts::buildMany($itemData['discounts']));
+            }
 
             if (isset($itemData['tax'])) {
                 $item->setTax(BodyToTax::build($itemData['tax']));

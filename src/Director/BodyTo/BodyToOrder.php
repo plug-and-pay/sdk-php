@@ -7,6 +7,7 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 use DateTimeImmutable;
 use PlugAndPay\Sdk\Entity\Money;
 use PlugAndPay\Sdk\Entity\Order;
+use PlugAndPay\Sdk\Enum\OrderSource;
 
 class BodyToOrder
 {
@@ -15,18 +16,17 @@ class BodyToOrder
      */
     public static function build(array $data): Order
     {
-        $order = (new Order())
+        $order = (new Order(false))
             ->setCreatedAt(new DateTimeImmutable($data['created_at']))
             ->setDeletedAt($data['deleted_at'] ? new DateTimeImmutable($data['deleted_at']) : null)
             ->setFirst($data['is_first'])
             ->setHidden($data['is_hidden'])
             ->setId($data['id'])
-            ->setTaxIncluded($data['is_tax_included'])
             ->setInvoiceNumber($data['invoice_number'])
             ->setInvoiceStatus($data['invoice_status'])
             ->setMode($data['mode'])
             ->setReference($data['reference'])
-            ->setSource($data['source'])
+            ->setSource($data['source'] ?? OrderSource::UNKNOWN)
             ->setSubtotal(new Money((float)$data['subtotal']['value']))
             ->setTotal(new Money((float)$data['total']['value']))
             ->setUpdatedAt(new DateTimeImmutable($data['updated_at']));
@@ -41,6 +41,10 @@ class BodyToOrder
 
         if (isset($data['items'])) {
             $order->setItems(BodyToItems::build($data['items']));
+        }
+
+        if (isset($data['discounts'])) {
+            $order->setDiscounts(BodyToDiscounts::buildMany($data['discounts']));
         }
 
         if (isset($data['taxes'])) {

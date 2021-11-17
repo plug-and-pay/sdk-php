@@ -9,7 +9,7 @@ class Address
     private string $city;
     private string $country;
     private string $street;
-    private string $streetSuffix;
+    private string $houseNumber;
     private string $zipcode;
 
     public function city(): string
@@ -45,9 +45,9 @@ class Address
         return $this;
     }
 
-    public function setStreetSuffix(string $streetSuffix): Address
+    public function setHouseNumber(string $houseNumber): Address
     {
-        $this->streetSuffix = $streetSuffix;
+        $this->houseNumber = $houseNumber;
         return $this;
     }
 
@@ -62,9 +62,9 @@ class Address
         return $this->street;
     }
 
-    public function streetSuffix(): string
+    public function houseNumber(): string
     {
-        return $this->streetSuffix;
+        return $this->houseNumber;
     }
 
     public function zipcode(): string

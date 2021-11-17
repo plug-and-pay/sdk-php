@@ -18,18 +18,18 @@ class ParametersTest extends TestCase
     /** @test */
     public function one_parameter(): void
     {
-        static::assertSame('include=hello', Parameters::toString(['include' => 'hello']));
+        static::assertSame('?include=hello', Parameters::toString(['include' => 'hello']));
     }
 
     /** @test */
     public function multiple_parameters(): void
     {
-        static::assertSame('first=value1&second=value2', Parameters::toString(['first' => 'value1', 'second' => 'value2']));
+        static::assertSame('?first=value1&second=value2', Parameters::toString(['first' => 'value1', 'second' => 'value2']));
     }
 
     /** @test */
     public function multiple_values(): void
     {
-        static::assertSame('include=hello,world', Parameters::toString(['include' => ['hello', 'world']]));
+        static::assertSame('?include=hello%2Cworld', Parameters::toString(['include' => ['hello', 'world']]));
     }
 }

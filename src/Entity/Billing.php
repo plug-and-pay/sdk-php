@@ -10,13 +10,22 @@ class Billing
     private string $company;
     private string $email;
     private string $firstName;
-    private string $invoiceEmail;
+    private bool $allowEmptyRelations;
     private string $lastName;
     private string $telephone;
     private string $website;
 
+    public function __construct(bool $allowEmptyRelations = false)
+    {
+        $this->allowEmptyRelations = $allowEmptyRelations;
+    }
+
     public function address(): Address
     {
+        if ($this->allowEmptyRelations && !$this->isset('address')) {
+            $this->address = new Address();
+        }
+
         return $this->address;
     }
 
@@ -30,14 +39,14 @@ class Billing
         return $this->email;
     }
 
+    public function externalReference()
+    {
+
+    }
+
     public function firstName(): string
     {
         return $this->firstName;
-    }
-
-    public function invoiceEmail(): string
-    {
-        return $this->invoiceEmail;
     }
 
     public function isset(string $field): bool
@@ -71,12 +80,6 @@ class Billing
     public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
-        return $this;
-    }
-
-    public function setInvoiceEmail(string $invoiceEmail): self
-    {
-        $this->invoiceEmail = $invoiceEmail;
         return $this;
     }
 

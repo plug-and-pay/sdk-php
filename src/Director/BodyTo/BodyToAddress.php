@@ -14,7 +14,7 @@ class BodyToAddress
             ->setCity($data['city'])
             ->setCountry($data['country'])
             ->setStreet($data['street'])
-            ->setStreetSuffix($data['street_suffix'])
+            ->setHouseNumber($data['housenumber'])
             ->setZipcode($data['zipcode']);
     }
 }

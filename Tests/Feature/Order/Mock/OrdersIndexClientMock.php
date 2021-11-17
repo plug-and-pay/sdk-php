@@ -22,7 +22,7 @@ class OrdersIndexClientMock implements ClientGetInterface
     public function get(string $path): Response
     {
         $this->path = $path;
-        return new Response(Response::HTTP_OK, $this->data);
+        return new Response(Response::HTTP_OK, ['data' => $this->data]);
     }
 
     public function path(): string

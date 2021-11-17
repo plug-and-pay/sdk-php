@@ -18,7 +18,7 @@ class DeleteOrderService
 
     public function delete(int $orderId): void
     {
-        $response  = $this->client->delete("/orders/$orderId");
+        $response  = $this->client->delete("/v2/orders/$orderId");
         $exception = ExceptionFactory::createByResponse($response);
         if ($exception) {
             throw $exception;

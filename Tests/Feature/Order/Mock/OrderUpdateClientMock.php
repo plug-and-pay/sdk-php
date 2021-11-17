@@ -6,6 +6,7 @@ namespace PlugAndPay\Sdk\Tests\Feature\Order\Mock;
 
 use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Entity\Response;
+use PlugAndPay\Sdk\Support\Arr;
 
 class OrderUpdateClientMock extends OrderShowClientMock implements ClientPatchInterface
 {
@@ -13,7 +14,7 @@ class OrderUpdateClientMock extends OrderShowClientMock implements ClientPatchIn
 
     public function patch(string $path, array $body): Response
     {
-        $this->response    = $body + $this->response;
+        $this->response    = Arr::mergeDistinct($this->response, $body);
         $this->path        = $path;
         $this->requestBody = $body;
         return new Response(Response::HTTP_OK, $this->response);

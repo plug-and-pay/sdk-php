@@ -191,8 +191,63 @@ class StoreOrdersTest extends TestCase
         static::assertEquals(1, $order->id());
 
         static::assertEquals(true, $client->requestBody()['is_hidden']);
-        static::assertEquals('/orders', $client->path());
+        static::assertEquals('/v2/orders', $client->path());
         static::assertEquals(1, $order->id());
+    }
+
+    /** @test */
+    public function store_order_billing(): void
+    {
+        $client  = new OrderStoreClientMock();
+        $service = new CreateOrderService($client);
+
+        $order = new Order();
+        $order->billing()
+            ->setCompany('new company')
+            ->setEmail('new email')
+            ->setFirstName('new first name')
+            ->setLastName('new last name')
+            ->setTelephone('new telephone')
+            ->setWebsite('new website');
+        $order = $service->create($order);
+
+        static::assertEquals(1, $order->id());
+
+        static::assertEquals([
+            'company'    => 'new company',
+            'email'      => 'new email',
+            'telephone'  => 'new telephone',
+            'website'    => 'new website',
+            'first_name' => 'new first name',
+            'last_name'  => 'new last name',
+        ], $client->requestBody()['billing']);
+    }
+
+    /** @test */
+    public function store_order_billing_address(): void
+    {
+        $client  = new OrderStoreClientMock();
+        $service = new CreateOrderService($client);
+
+        $order = $this->generateOrder();
+        $order->billing()->setAddress((new Address())
+            ->setCity('WooCity')
+            ->setCountry('BE')
+            ->setStreet('WooStreet')
+            ->setHouseNumber('12')
+            ->setZipcode('2233LL')
+        );
+        $order = $service->create($order);
+
+        static::assertEquals(1, $order->id());
+
+        static::assertEquals([
+            'city'        => 'WooCity',
+            'country'     => 'BE',
+            'housenumber' => '12',
+            'street'      => 'WooStreet',
+            'zipcode'     => '2233LL',
+        ], $client->requestBody()['billing']['address']);
     }
 
     private function generateBilling(): Billing

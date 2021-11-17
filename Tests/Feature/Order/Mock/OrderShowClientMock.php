@@ -10,28 +10,27 @@ use PlugAndPay\Sdk\Entity\Response;
 class OrderShowClientMock implements ClientGetInterface
 {
     public const RESPONSE_BASIC = [
-        'created_at'      => '2019-01-16T00:00:00.000000Z',
-        'deleted_at'      => '2019-01-16T00:00:00.000000Z',
-        'id'              => 1,
-        'invoice_number'  => '20214019-T',
-        'invoice_status'  => 'concept',
-        'is_first'        => true,
-        'is_hidden'       => false,
-        'is_tax_included' => true,
-        'mode'            => 'live',
-        'reference'       => '0b13e52d-b058-32fb-8507-10dec634a07c',
-        'source'          => 'api',
-        'subtotal'        =>
+        'created_at'     => '2019-01-16T00:00:00.000000Z',
+        'deleted_at'     => '2019-01-16T00:00:00.000000Z',
+        'id'             => 1,
+        'invoice_number' => '20214019-T',
+        'invoice_status' => 'concept',
+        'is_first'       => true,
+        'is_hidden'      => false,
+        'mode'           => 'live',
+        'reference'      => '0b13e52d-b058-32fb-8507-10dec634a07c',
+        'source'         => 'api',
+        'subtotal'       =>
             [
                 'currency' => 'EUR',
                 'value'    => '75.00',
             ],
-        'total'           =>
+        'total'          =>
             [
                 'currency' => 'EUR',
                 'value'    => '75.00',
             ],
-        'updated_at'      => '2019-01-16T00:00:00.000000Z',
+        'updated_at'     => '2019-01-16T00:00:00.000000Z',
     ];
     protected string $path;
     protected array $response;
@@ -45,11 +44,11 @@ class OrderShowClientMock implements ClientGetInterface
     {
         $this->response['billing'] = $data + [
                 'address'       => [
-                    'city'          => '\'t Veld',
-                    'country'       => 'NL',
-                    'street'        => 'Sanderslaan',
-                    'street_suffix' => '42',
-                    'zipcode'       => '1448VB',
+                    'city'        => '\'t Veld',
+                    'country'     => 'NL',
+                    'street'      => 'Sanderslaan',
+                    'housenumber' => '42',
+                    'zipcode'     => '1448VB',
                 ],
                 'company'       => 'Café Timmermans & Zn',
                 'email'         => 'rosalie39@example.net',
@@ -115,6 +114,25 @@ class OrderShowClientMock implements ClientGetInterface
             ];
 
         return $this;
+    }
+
+    public function discounts(array $data = []): self
+    {
+        $this->response['discounts'] = $data + [
+                [
+                    'amount' => ['currency' => 'EUR', 'value' => '11.05'],
+                    'code'   => null,
+                    'type'   => 'sale',
+                ],
+            ];
+
+        return $this->items(['discounts' => [
+            [
+                'amount' => ['currency' => 'EUR', 'value' => '2.10'],
+                'code'   => null,
+                'type'   => 'sale',
+            ],
+        ]]);
     }
 
     public function tags(array $data): self

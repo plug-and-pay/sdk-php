@@ -16,6 +16,10 @@ class BillingToBody
             $result['address'] = AddressToBody::build($billing->address());
         }
 
+        if ($billing->isset('company')) {
+            $result['company'] = $billing->company();
+        }
+
         if ($billing->isset('email')) {
             $result['email'] = $billing->email();
         }
@@ -26,6 +30,14 @@ class BillingToBody
 
         if ($billing->isset('lastName')) {
             $result['last_name'] = $billing->lastName();
+        }
+
+        if ($billing->isset('telephone')) {
+            $result['telephone'] = $billing->telephone();
+        }
+
+        if ($billing->isset('website')) {
+            $result['website'] = $billing->website();
         }
 
         return $result;

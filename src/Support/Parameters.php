@@ -13,9 +13,10 @@ class Parameters
     {
         $parts = [];
         foreach ($parameters as $key => $values) {
-            $values  = (array)$values;
-            $parts[] = $key . '=' . implode(self::VALUE_SEPARATOR, $values);
+            $values      = (array)$values;
+            $parts[$key] = implode(self::VALUE_SEPARATOR, $values);
         }
-        return implode(self::PARAMETER_SEPARATOR, $parts);
+        $query = http_build_query(array_filter($parts));
+        return $query !== '' ? "?$query" : '';
     }
 }

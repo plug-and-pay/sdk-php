@@ -12,12 +12,11 @@ class BodyToBilling
     {
         return (new Billing())
             ->setAddress(BodyToAddress::build($data['address']))
-            ->setCompany($data['company'])
+            ->setCompany($data['company'] ?? '')
             ->setEmail($data['email'])
             ->setFirstName($data['first_name'])
-            ->setInvoiceEmail($data['invoice_email'])
             ->setLastName($data['last_name'])
-            ->setTelephone($data['telephone'])
-            ->setWebsite($data['website']);
+            ->setTelephone($data['telephone'] ?? '')
+            ->setWebsite($data['website'] ?? '');
     }
 }

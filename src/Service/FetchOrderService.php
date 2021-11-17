@@ -30,7 +30,7 @@ class FetchOrderService
     public function find(int $id): Order
     {
         $query    = Parameters::toString(['include' => $this->includes]);
-        $response = $this->client->get("/orders/$id?$query");
+        $response = $this->client->get("/v2/orders/$id$query");
         if ($response->status() === Response::HTTP_NOT_FOUND) {
             throw new NotFoundException('Order', $id);
         }
@@ -53,13 +53,13 @@ class FetchOrderService
         }
         $query = Parameters::toString($parameters);
 
-        $response  = $this->client->get("/orders?$query");
+        $response  = $this->client->get("/v2/orders$query");
         $exception = ExceptionFactory::createByResponse($response);
         if ($exception) {
             throw $exception;
         }
 
-        return BodyToOrder::buildMulti($response->body());
+        return BodyToOrder::buildMulti($response->body()['data']);
     }
 
     public function include(string...$includes): self

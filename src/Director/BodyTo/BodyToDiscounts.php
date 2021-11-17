@@ -12,12 +12,12 @@ class BodyToDiscounts
     /**
      * @return Discount[]
      */
-    public static function build(array $data): array
+    public static function buildMany(array $data): array
     {
         $result = [];
         foreach ($data as $discount) {
             $result[] = (new Discount())
-                ->setAmount(new Money($discount['amount']))
+                ->setAmount(new Money((float)$discount['amount']['value'], $discount['amount']['currency']))
                 ->setCode($discount['code'])
                 ->setType($discount['type']);
         }

@@ -11,4 +11,5 @@ class OrderSource
     public const RECURRING = 'recurring';
     public const UPGRADE = 'upgrade';
     public const UPSELL = 'upsell';
+    public const UNKNOWN = 'unknown';
 }

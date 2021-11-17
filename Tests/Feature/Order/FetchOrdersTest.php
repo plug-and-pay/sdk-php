@@ -7,6 +7,7 @@ namespace PlugAndPay\Sdk\Tests\Feature\Order;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Entity\Response;
+use PlugAndPay\Sdk\Enum\DiscountType;
 use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Exception\NotFoundException;
@@ -35,7 +36,6 @@ class FetchOrdersTest extends TestCase
         static::assertSame('concept', $order->invoiceStatus());
         static::assertTrue($order->isFirst());
         static::assertFalse($order->isHidden());
-        static::assertTrue($order->isTaxIncluded());
         static::assertSame('live', $order->mode());
         static::assertSame('0b13e52d-b058-32fb-8507-10dec634a07c', $order->reference());
         static::assertSame('api', $order->source());
@@ -53,7 +53,7 @@ class FetchOrdersTest extends TestCase
         $exception = null;
 
         try {
-            (new Order())->{$relation}();
+            (new Order(false))->{$relation}();
         } catch (RelationNotLoadedException $exception) {
         }
 
@@ -87,7 +87,6 @@ class FetchOrdersTest extends TestCase
         static::assertSame('Café Timmermans & Zn', $billing->company());
         static::assertSame('rosalie39@example.net', $billing->email());
         static::assertSame('Bilal', $billing->firstName());
-        static::assertSame('maarten.veenstra@example.net', $billing->invoiceEmail());
         static::assertSame('de Wit', $billing->lastName());
         static::assertSame('(044) 4362837', $billing->telephone());
         static::assertSame('https://www.vandewater.nl/velit-porro-ut-velit-soluta.html', $billing->website());
@@ -96,7 +95,7 @@ class FetchOrdersTest extends TestCase
         static::assertSame('\'t Veld', $address->city());
         static::assertSame('NL', $address->country());
         static::assertSame('Sanderslaan', $address->street());
-        static::assertSame('42', $address->streetSuffix());
+        static::assertSame('42', $address->houseNumber());
         static::assertSame('1448VB', $address->zipcode());
     }
 
@@ -143,7 +142,7 @@ class FetchOrdersTest extends TestCase
         $order = $service->include(OrderIncludes::PAYMENT)->find(1);
 
         $payment = $order->payment();
-        static::assertSame('/orders/1?include=payment', $client->path());
+        static::assertSame('/v2/orders/1?include=payment', $client->path());
         static::assertSame(1, $payment->orderId());
         static::assertSame('2019-01-19 00:00:00', $payment->paidAt()->format('Y-m-d H:i:s'));
         static::assertSame(PaymentStatus::PAID, $payment->status());
@@ -182,6 +181,18 @@ class FetchOrdersTest extends TestCase
     }
 
     /** @test */
+    public function fetch_order_discount(): void
+    {
+        $client  = (new OrderShowClientMock(['id' => 1]))->discounts();
+        $service = new FetchOrderService($client);
+
+        $order = $service->find(1);
+
+        static::assertSame(DiscountType::SALE, $order->discounts()[0]->type());
+        static::assertSame(DiscountType::SALE, $order->items()[0]->discounts()[0]->type());
+    }
+
+    /** @test */
     public function fetch_orders(): void
     {
         $client  = (new OrdersIndexClientMock());
@@ -189,7 +200,7 @@ class FetchOrdersTest extends TestCase
         $orders  = $service->include(OrderIncludes::PAYMENT)->get();
 
         static::assertSame(1, $orders[0]->id());
-        static::assertSame('/orders?include=payment', $client->path());
+        static::assertSame('/v2/orders?include=payment', $client->path());
     }
 
     /** @test */
@@ -201,7 +212,7 @@ class FetchOrdersTest extends TestCase
         $filter = (new OrderFilter())->country('NL');
         $service->get($filter);
 
-        static::assertSame('/orders?country=NL', $client->path());
+        static::assertSame('/v2/orders?country=NL', $client->path());
     }
 
     /**
@@ -210,12 +221,13 @@ class FetchOrdersTest extends TestCase
     public function relationsProvider(): array
     {
         return [
-            'billing'  => ['billing'],
-            'comments' => ['comments'],
-            'items'    => ['items'],
-            'payment'  => ['payment'],
-            'tags'     => ['tags'],
-            'taxes'    => ['taxes'],
+            'billing'   => ['billing'],
+            'discounts' => ['discounts'],
+            'comments'  => ['comments'],
+            'items'     => ['items'],
+            'payment'   => ['payment'],
+            'tags'      => ['tags'],
+            'taxes'     => ['taxes'],
         ];
     }
 }
