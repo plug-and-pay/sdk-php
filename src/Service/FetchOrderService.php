@@ -7,9 +7,6 @@ namespace PlugAndPay\Sdk\Service;
 use PlugAndPay\Sdk\Contract\ClientGetInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToOrder;
 use PlugAndPay\Sdk\Entity\Order;
-use PlugAndPay\Sdk\Entity\Response;
-use PlugAndPay\Sdk\Exception\ExceptionFactory;
-use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Filters\OrderFilter;
 use PlugAndPay\Sdk\Support\Parameters;
 
@@ -25,26 +22,15 @@ class FetchOrderService
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\NotFoundException|\Exception
+     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
      */
     public function find(int $id): Order
     {
         $query    = Parameters::toString(['include' => $this->includes]);
         $response = $this->client->get("/v2/orders/$id$query");
-        if ($response->status() === Response::HTTP_NOT_FOUND) {
-            throw new NotFoundException('Order', $id);
-        }
-        $exception = ExceptionFactory::createByResponse($response);
-        if ($exception) {
-            throw $exception;
-        }
         return BodyToOrder::build($response->body());
     }
 
-    /**
-     * @return Order[]
-     * @throws \PlugAndPay\Sdk\Exception\ValidationException|\Exception
-     */
     public function get(OrderFilter $orderFilter = null): array
     {
         $parameters = $orderFilter ? $orderFilter->parameters() : [];
@@ -53,11 +39,7 @@ class FetchOrderService
         }
         $query = Parameters::toString($parameters);
 
-        $response  = $this->client->get("/v2/orders$query");
-        $exception = ExceptionFactory::createByResponse($response);
-        if ($exception) {
-            throw $exception;
-        }
+        $response = $this->client->get("/v2/orders$query");
 
         return BodyToOrder::buildMulti($response->body()['data']);
     }

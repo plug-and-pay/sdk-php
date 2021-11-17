@@ -9,11 +9,16 @@ use PlugAndPay\Sdk\Entity\Response;
 
 class ExceptionFactory
 {
-    public static function createByResponse(Response $response): ?Exception
+    /**
+     * @return \PlugAndPay\Sdk\Exception\ValidationException|\PlugAndPay\Sdk\Exception\NotFoundException
+     * @throws \JsonException
+     */
+    public static function create(int $status, string $body = ''): ?Exception
     {
-        switch ($response->status()) {
+        switch ($status) {
             case Response::HTTP_UNPROCESSABLE_ENTITY:
-                return new ValidationException($response->body()['errors']);
+                $body = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+                return new ValidationException($body['errors']);
             case Response::HTTP_NOT_FOUND:
                 return new NotFoundException();
             default:

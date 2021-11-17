@@ -72,7 +72,7 @@ class FetchOrdersTest extends TestCase
         } catch (NotFoundException $exception) {
         }
 
-        static::assertEquals('Order not found with id 999', $exception->getMessage());
+        static::assertEquals('Not found', $exception->getMessage());
     }
 
     /** @test */

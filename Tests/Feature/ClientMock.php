@@ -8,6 +8,7 @@ use PlugAndPay\Sdk\Contract\ClientGetInterface;
 use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Contract\ClientPostInterface;
 use PlugAndPay\Sdk\Entity\Response;
+use PlugAndPay\Sdk\Exception\ExceptionFactory;
 
 class ClientMock implements ClientPatchInterface, ClientPostInterface, ClientGetInterface
 {
@@ -22,16 +23,28 @@ class ClientMock implements ClientPatchInterface, ClientPostInterface, ClientGet
 
     public function get(string $path): Response
     {
+        $exception = ExceptionFactory::create($this->status, json_encode($this->responseBody, JSON_THROW_ON_ERROR));
+        if ($exception) {
+            throw $exception;
+        }
         return new Response($this->status, $this->responseBody);
     }
 
     public function patch(string $path, array $body): Response
     {
+        $exception = ExceptionFactory::create($this->status, json_encode($this->responseBody, JSON_THROW_ON_ERROR));
+        if ($exception) {
+            throw $exception;
+        }
         return new Response($this->status, $this->responseBody);
     }
 
     public function post(string $path, array $body): Response
     {
+        $exception = ExceptionFactory::create($this->status, json_encode($this->responseBody, JSON_THROW_ON_ERROR));
+        if ($exception) {
+            throw $exception;
+        }
         return new Response($this->status, $this->responseBody);
     }
 }

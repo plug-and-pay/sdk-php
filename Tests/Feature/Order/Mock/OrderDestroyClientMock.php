@@ -14,6 +14,7 @@ class OrderDestroyClientMock implements ClientDeleteInterface
     public function delete(string $path): Response
     {
         $this->path = $path;
+
         return new Response(Response::HTTP_NO_CONTENT);
     }
 

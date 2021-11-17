@@ -8,7 +8,6 @@ use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToOrder;
 use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
 use PlugAndPay\Sdk\Entity\Order;
-use PlugAndPay\Sdk\Exception\ExceptionFactory;
 use PlugAndPay\Sdk\Support\Parameters;
 
 class UpdateOrderService
@@ -30,19 +29,17 @@ class UpdateOrderService
     }
 
     /**
+     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
      * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
      */
     public function update(int $orderId, callable $update): Order
     {
         $order = new Order(true);
         $update($order);
-        $body      = OrderToBody::build($order);
-        $query     = Parameters::toString(['include' => $this->includes]);
-        $response  = $this->client->patch("/v2/orders/$orderId$query", $body);
-        $exception = ExceptionFactory::createByResponse($response);
-        if ($exception) {
-            throw $exception;
-        }
+        $body     = OrderToBody::build($order);
+        $query    = Parameters::toString(['include' => $this->includes]);
+        $response = $this->client->patch("/v2/orders/$orderId$query", $body);
+
         return BodyToOrder::build($response->body());
     }
 }

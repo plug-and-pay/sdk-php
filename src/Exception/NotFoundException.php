@@ -8,14 +8,8 @@ use Exception;
 
 class NotFoundException extends Exception
 {
-    public function __construct(string $entity = null, int $id = null)
+    public function __construct()
     {
-        if ($entity) {
-            $message = "$entity not found with id $id";
-        } else {
-            $message = 'Not found';
-        }
-
-        parent::__construct($message);
+        parent::__construct('Not found');
     }
 }

@@ -5,20 +5,22 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
+use Exception;
 use PlugAndPay\Sdk\Entity\Money;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Enum\OrderSource;
+use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
 class BodyToOrder
 {
     /**
-     * @throws \Exception
+     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
      */
     public static function build(array $data): Order
     {
         $order = (new Order(false))
-            ->setCreatedAt(new DateTimeImmutable($data['created_at']))
-            ->setDeletedAt($data['deleted_at'] ? new DateTimeImmutable($data['deleted_at']) : null)
+            ->setCreatedAt(self::date($data, 'created_at'))
+            ->setDeletedAt($data['deleted_at'] ? self::date($data, 'deleted_at') : null)
             ->setFirst($data['is_first'])
             ->setHidden($data['is_hidden'])
             ->setId($data['id'])
@@ -29,7 +31,7 @@ class BodyToOrder
             ->setSource($data['source'] ?? OrderSource::UNKNOWN)
             ->setSubtotal(new Money((float)$data['subtotal']['value']))
             ->setTotal(new Money((float)$data['total']['value']))
-            ->setUpdatedAt(new DateTimeImmutable($data['updated_at']));
+            ->setUpdatedAt(self::date($data, 'updated_at'));
 
         if (isset($data['billing'])) {
             $order->setBilling(BodyToBilling::build($data['billing']));
@@ -73,5 +75,19 @@ class BodyToOrder
         }
 
         return $result;
+    }
+
+    /**
+     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
+     */
+    private static function date(array $data, string $field): DateTimeImmutable
+    {
+        try {
+            return new DateTimeImmutable($data[$field]);
+        } catch (Exception $e) {
+            /** @noinspection JsonEncodingApiUsageInspection */
+            $body = (string)json_encode($data, JSON_ERROR_NONE);
+            throw new DecodeResponseException($body, $field, $e);
+        }
     }
 }

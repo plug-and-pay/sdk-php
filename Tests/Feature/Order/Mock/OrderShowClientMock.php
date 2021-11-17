@@ -6,6 +6,7 @@ namespace PlugAndPay\Sdk\Tests\Feature\Order\Mock;
 
 use PlugAndPay\Sdk\Contract\ClientGetInterface;
 use PlugAndPay\Sdk\Entity\Response;
+use PlugAndPay\Sdk\Exception\ExceptionFactory;
 
 class OrderShowClientMock implements ClientGetInterface
 {
@@ -78,7 +79,13 @@ class OrderShowClientMock implements ClientGetInterface
     public function get(string $path): Response
     {
         $this->path = $path;
-        return new Response(Response::HTTP_OK, $this->response);
+        $response   = new Response(Response::HTTP_OK, $this->response);
+
+        $exception = ExceptionFactory::create($response->status(), json_encode($response->body(), JSON_THROW_ON_ERROR));
+        if ($exception) {
+            throw $exception;
+        }
+        return $response;
     }
 
     public function items(array $data = []): self
