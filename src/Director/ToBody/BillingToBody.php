@@ -25,11 +25,11 @@ class BillingToBody
         }
 
         if ($billing->isset('firstName')) {
-            $result['first_name'] = $billing->firstName();
+            $result['firstname'] = $billing->firstName();
         }
 
         if ($billing->isset('lastName')) {
-            $result['last_name'] = $billing->lastName();
+            $result['lastname'] = $billing->lastName();
         }
 
         if ($billing->isset('telephone')) {

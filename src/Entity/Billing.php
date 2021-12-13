@@ -39,11 +39,6 @@ class Billing
         return $this->email;
     }
 
-    public function externalReference()
-    {
-
-    }
-
     public function firstName(): string
     {
         return $this->firstName;

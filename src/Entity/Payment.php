@@ -9,7 +9,7 @@ use DateTimeImmutable;
 class Payment
 {
     private int $orderId;
-    private DateTimeImmutable $paidAt;
+    private ?DateTimeImmutable $paidAt;
     private string $status;
     private string $url;
 
@@ -18,7 +18,7 @@ class Payment
         return $this->orderId;
     }
 
-    public function paidAt(): DateTimeImmutable
+    public function paidAt(): ?DateTimeImmutable
     {
         return $this->paidAt;
     }
@@ -35,7 +35,7 @@ class Payment
     /**
      * @internal
      */
-    public function setPaidAt(DateTimeImmutable $paidAt): Payment
+    public function setPaidAt(?DateTimeImmutable $paidAt): Payment
     {
         $this->paidAt = $paidAt;
         return $this;

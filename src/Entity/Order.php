@@ -20,7 +20,7 @@ class Order
     private bool $hidden;
     private int $id;
     private bool $allowEmptyRelations;
-    private string $invoiceNumber;
+    private ?string $invoiceNumber;
     private string $invoiceStatus;
     /** @var \PlugAndPay\Sdk\Entity\Item[] */
     private array $items;
@@ -97,7 +97,7 @@ class Order
         return $this->id;
     }
 
-    public function invoiceNumber(): string
+    public function invoiceNumber(): ?string
     {
         return $this->invoiceNumber;
     }
@@ -232,7 +232,7 @@ class Order
     /**
      * @internal
      */
-    public function setInvoiceNumber(string $invoiceNumber): self
+    public function setInvoiceNumber(?string $invoiceNumber): self
     {
         $this->invoiceNumber = $invoiceNumber;
         return $this;

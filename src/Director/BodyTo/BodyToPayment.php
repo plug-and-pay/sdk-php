@@ -13,7 +13,7 @@ class BodyToPayment
     {
         return (new Payment())
             ->setOrderId($data['order_id'])
-            ->setPaidAt(new DateTimeImmutable($data['paid_at']))
+            ->setPaidAt(!empty($data['paid_at']) ? new DateTimeImmutable($data['paid_at']) : null)
             ->setStatus($data['status'])
             ->setUrl($data['url']);
     }

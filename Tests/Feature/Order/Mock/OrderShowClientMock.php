@@ -53,9 +53,9 @@ class OrderShowClientMock implements ClientGetInterface
                 ],
                 'company'       => 'Café Timmermans & Zn',
                 'email'         => 'rosalie39@example.net',
-                'first_name'    => 'Bilal',
+                'firstname'     => 'Bilal',
                 'invoice_email' => 'maarten.veenstra@example.net',
-                'last_name'     => 'de Wit',
+                'lastname'      => 'de Wit',
                 'telephone'     => '(044) 4362837',
                 'website'       => 'https://www.vandewater.nl/velit-porro-ut-velit-soluta.html',
             ];

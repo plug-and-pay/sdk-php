@@ -24,7 +24,7 @@ class BodyToOrder
             ->setFirst($data['is_first'])
             ->setHidden($data['is_hidden'])
             ->setId($data['id'])
-            ->setInvoiceNumber($data['invoice_number'])
+            ->setInvoiceNumber($data['invoice_number'] ?? null)
             ->setInvoiceStatus($data['invoice_status'])
             ->setMode($data['mode'])
             ->setReference($data['reference'])

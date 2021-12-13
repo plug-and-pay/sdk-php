@@ -41,7 +41,7 @@ class ValidationException extends Exception
     {
         $messages = [];
         foreach ($this->errors as $error) {
-            $messages[] = $error->message();
+            $messages[] = trim($error->message(), " \t\n\r\0\x0B.") . '.';
         }
 
         return implode(' ', $messages);

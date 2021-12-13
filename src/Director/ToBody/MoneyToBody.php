@@ -11,7 +11,7 @@ class MoneyToBody
     public static function build(Money $money): array
     {
         return [
-            'value'    => $money->value(),
+            'value'    => (string)$money->value(),
             'currency' => $money->currency(),
         ];
     }

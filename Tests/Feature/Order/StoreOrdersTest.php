@@ -15,6 +15,7 @@ use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Entity\Payment;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Enum\CurrencyCodeIso;
+use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\TaxExempt;
 use PlugAndPay\Sdk\Exception\ValidationException;
@@ -32,12 +33,12 @@ class StoreOrdersTest extends TestCase
 
         static::assertEquals([
             'billing'         => [
-                'address'    => [
+                'address'   => [
                     'country' => 'NL',
                 ],
-                'email'      => 'rosalie39@example.net',
-                'first_name' => 'Bilal',
-                'last_name'  => 'de Wit',
+                'email'     => 'rosalie39@example.net',
+                'firstname' => 'Bilal',
+                'lastname'  => 'de Wit',
             ],
             'is_tax_included' => true,
             'items'           => [
@@ -214,12 +215,12 @@ class StoreOrdersTest extends TestCase
         static::assertEquals(1, $order->id());
 
         static::assertEquals([
-            'company'    => 'new company',
-            'email'      => 'new email',
-            'telephone'  => 'new telephone',
-            'website'    => 'new website',
-            'first_name' => 'new first name',
-            'last_name'  => 'new last name',
+            'company'   => 'new company',
+            'email'     => 'new email',
+            'telephone' => 'new telephone',
+            'website'   => 'new website',
+            'firstname' => 'new first name',
+            'lastname'  => 'new last name',
         ], $client->requestBody()['billing']);
     }
 
@@ -228,6 +229,7 @@ class StoreOrdersTest extends TestCase
     {
         $client  = new OrderStoreClientMock();
         $service = new CreateOrderService($client);
+        $service->include(OrderIncludes::BILLING);
 
         $order = $this->generateOrder();
         $order->billing()->setAddress((new Address())
@@ -239,8 +241,8 @@ class StoreOrdersTest extends TestCase
         );
         $order = $service->create($order);
 
+        static::assertEquals('/v2/orders?include=billing', $client->path());
         static::assertEquals(1, $order->id());
-
         static::assertEquals([
             'city'        => 'WooCity',
             'country'     => 'BE',

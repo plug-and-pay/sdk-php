@@ -6,7 +6,6 @@ namespace PlugAndPay\Sdk\Support;
 
 class Parameters
 {
-    private const PARAMETER_SEPARATOR = '&';
     private const VALUE_SEPARATOR = ',';
 
     public static function toString(array $parameters): string
