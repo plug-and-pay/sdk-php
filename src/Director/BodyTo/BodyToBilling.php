@@ -12,11 +12,6 @@ class BodyToBilling
     {
         return (new Billing())
             ->setAddress(BodyToAddress::build($data['address']))
-            ->setCompany($data['company'] ?? '')
-            ->setEmail($data['email'])
-            ->setFirstName($data['firstname'])
-            ->setLastName($data['lastname'])
-            ->setTelephone($data['telephone'] ?? '')
-            ->setWebsite($data['website'] ?? '');
+            ->setContact(BodyToContact::build($data['contact']));
     }
 }

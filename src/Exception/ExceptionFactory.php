@@ -21,6 +21,8 @@ class ExceptionFactory
                 return new ValidationException($body['errors']);
             case Response::HTTP_NOT_FOUND:
                 return new NotFoundException();
+            case Response::HTTP_UNAUTHORIZED:
+                return new UnauthenticatedException();
             default:
                 return null;
         }

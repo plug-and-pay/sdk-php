@@ -44,20 +44,23 @@ class OrderShowClientMock implements ClientGetInterface
     public function billing(array $data = []): self
     {
         $this->response['billing'] = $data + [
-                'address'       => [
+                'address' => [
                     'city'        => '\'t Veld',
                     'country'     => 'NL',
                     'street'      => 'Sanderslaan',
                     'housenumber' => '42',
                     'zipcode'     => '1448VB',
                 ],
-                'company'       => 'Café Timmermans & Zn',
-                'email'         => 'rosalie39@example.net',
-                'firstname'     => 'Bilal',
-                'invoice_email' => 'maarten.veenstra@example.net',
-                'lastname'      => 'de Wit',
-                'telephone'     => '(044) 4362837',
-                'website'       => 'https://www.vandewater.nl/velit-porro-ut-velit-soluta.html',
+                'contact' => [
+                    'company'       => 'Café Timmermans & Zn',
+                    'email'         => 'rosalie39@example.net',
+                    'firstname'     => 'Bilal',
+                    'invoice_email' => 'maarten.veenstra@example.net',
+                    'lastname'      => 'de Wit',
+                    'telephone'     => '(044) 4362837',
+                    'website'       => 'https://www.vandewater.nl/velit-porro-ut-velit-soluta.html',
+                    'vat_id_number' => 'NL000099998B57',
+                ],
             ];
 
         return $this;
@@ -160,7 +163,8 @@ class OrderShowClientMock implements ClientGetInterface
             ],
             'rate'   => [
                 'country'    => 'NL',
-                'percentage' => 21,
+                'id'         => 57,
+                'percentage' => '21.0',
             ],
         ];
 
@@ -172,7 +176,8 @@ class OrderShowClientMock implements ClientGetInterface
                 ],
                 'rate'   => [
                     'country'    => 'NL',
-                    'percentage' => 21,
+                    'id'         => 57,
+                    'percentage' => '21.0',
                 ],
             ],
         ];

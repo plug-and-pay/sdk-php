@@ -16,28 +16,8 @@ class BillingToBody
             $result['address'] = AddressToBody::build($billing->address());
         }
 
-        if ($billing->isset('company')) {
-            $result['company'] = $billing->company();
-        }
-
-        if ($billing->isset('email')) {
-            $result['email'] = $billing->email();
-        }
-
-        if ($billing->isset('firstName')) {
-            $result['firstname'] = $billing->firstName();
-        }
-
-        if ($billing->isset('lastName')) {
-            $result['lastname'] = $billing->lastName();
-        }
-
-        if ($billing->isset('telephone')) {
-            $result['telephone'] = $billing->telephone();
-        }
-
-        if ($billing->isset('website')) {
-            $result['website'] = $billing->website();
+        if ($billing->isset('contact')) {
+            $result['contact'] = ContactToBody::build($billing->contact());
         }
 
         return $result;

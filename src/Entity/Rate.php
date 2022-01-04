@@ -12,10 +12,13 @@ class Rate
 
     public function __construct(?float $percentage, ?string $country, int $id = null)
     {
-        if ($id === null) {
-            $this->country    = $country;
+        if ($percentage !== null) {
             $this->percentage = $percentage;
-        } else {
+        }
+        if ($country !== null) {
+            $this->country = $country;
+        }
+        if ($id !== null) {
             $this->id = $id;
         }
     }

@@ -12,6 +12,7 @@ use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
+use PlugAndPay\Sdk\Exception\UnauthenticatedException;
 use PlugAndPay\Sdk\Filters\OrderFilter;
 use PlugAndPay\Sdk\Service\FetchOrderService;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
@@ -76,7 +77,22 @@ class FetchOrdersTest extends TestCase
     }
 
     /** @test */
-    public function fetch_order_billing_and_address(): void
+    public function fetch_unauthorized_order(): void
+    {
+        $client    = new ClientMock(Response::HTTP_UNAUTHORIZED);
+        $service   = new FetchOrderService($client);
+        $exception = null;
+
+        try {
+            $service->find(999);
+        } catch (UnauthenticatedException $exception) {
+        }
+
+        static::assertEquals('Unable to connect with Plug&Pay. Request is unauthenticated.', $exception->getMessage());
+    }
+
+    /** @test */
+    public function fetch_order_billing_address_and_contact(): void
     {
         $client  = (new OrderShowClientMock(['id' => 1]))->billing();
         $service = new FetchOrderService($client);
@@ -84,12 +100,14 @@ class FetchOrdersTest extends TestCase
         $order = $service->find(1);
 
         $billing = $order->billing();
-        static::assertSame('Café Timmermans & Zn', $billing->company());
-        static::assertSame('rosalie39@example.net', $billing->email());
-        static::assertSame('Bilal', $billing->firstName());
-        static::assertSame('de Wit', $billing->lastName());
-        static::assertSame('(044) 4362837', $billing->telephone());
-        static::assertSame('https://www.vandewater.nl/velit-porro-ut-velit-soluta.html', $billing->website());
+        $contact = $billing->contact();
+        static::assertSame('Café Timmermans & Zn', $contact->company());
+        static::assertSame('rosalie39@example.net', $contact->email());
+        static::assertSame('Bilal', $contact->firstName());
+        static::assertSame('de Wit', $contact->lastName());
+        static::assertSame('(044) 4362837', $contact->telephone());
+        static::assertSame('https://www.vandewater.nl/velit-porro-ut-velit-soluta.html', $contact->website());
+        static::assertSame('NL000099998B57', $contact->vatIdNumber());
 
         $address = $billing->address();
         static::assertSame('\'t Veld', $address->city());
@@ -171,12 +189,14 @@ class FetchOrdersTest extends TestCase
         static::assertSame(15.75, $order->taxes()[0]->amount()->value());
         static::assertSame('EUR', $order->taxes()[0]->amount()->currency());
         static::assertSame('NL', $order->taxes()[0]->rate()->country());
+        static::assertSame(57, $order->taxes()[0]->rate()->id());
         static::assertSame(21., $order->taxes()[0]->rate()->percentage());
 
         $tax = $order->items()[0]->tax();
         static::assertSame(15.75, $tax->amount()->value());
         static::assertSame('EUR', $tax->amount()->currency());
         static::assertSame('NL', $tax->rate()->country());
+        static::assertSame(57, $tax->rate()->id());
         static::assertSame(21., $tax->rate()->percentage());
     }
 

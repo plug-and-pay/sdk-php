@@ -13,8 +13,19 @@ class BodyToTax
     public static function build(array $data): Tax
     {
         return (new Tax())
-            ->setAmount(new Money((float)$data['amount']['value'], $data['amount']['currency']))
-            ->setRate(new Rate($data['rate']['percentage'], $data['rate']['country']));
+            ->setAmount(
+                new Money(
+                    (float)$data['amount']['value'],
+                    $data['amount']['currency']
+                )
+            )
+            ->setRate(
+                new Rate(
+                    (float)$data['rate']['percentage'],
+                    $data['rate']['country'],
+                    $data['rate']['id']
+                )
+            );
     }
 
     /**

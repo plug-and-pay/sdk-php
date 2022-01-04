@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+/** @noinspection EfferentObjectCouplingInspection */
+/** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -9,6 +11,7 @@ use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
 use PlugAndPay\Sdk\Entity\Address;
 use PlugAndPay\Sdk\Entity\Billing;
 use PlugAndPay\Sdk\Entity\Comment;
+use PlugAndPay\Sdk\Entity\Contact;
 use PlugAndPay\Sdk\Entity\Item;
 use PlugAndPay\Sdk\Entity\Money;
 use PlugAndPay\Sdk\Entity\Order;
@@ -33,12 +36,14 @@ class StoreOrdersTest extends TestCase
 
         static::assertEquals([
             'billing'         => [
-                'address'   => [
+                'address' => [
                     'country' => 'NL',
                 ],
-                'email'     => 'rosalie39@example.net',
-                'firstname' => 'Bilal',
-                'lastname'  => 'de Wit',
+                'contact' => [
+                    'email'     => 'rosalie39@example.net',
+                    'firstname' => 'Bilal',
+                    'lastname'  => 'de Wit',
+                ],
             ],
             'is_tax_included' => true,
             'items'           => [
@@ -197,31 +202,36 @@ class StoreOrdersTest extends TestCase
     }
 
     /** @test */
-    public function store_order_billing(): void
+    public function store_order_billing_contact(): void
     {
         $client  = new OrderStoreClientMock();
         $service = new CreateOrderService($client);
 
         $order = new Order();
         $order->billing()
-            ->setCompany('new company')
-            ->setEmail('new email')
-            ->setFirstName('new first name')
-            ->setLastName('new last name')
-            ->setTelephone('new telephone')
-            ->setWebsite('new website');
+            ->setContact(
+                (new Contact())
+                    ->setCompany('new company')
+                    ->setEmail('new email')
+                    ->setFirstName('new first name')
+                    ->setLastName('new last name')
+                    ->setTelephone('new telephone')
+                    ->setWebsite('new website')
+                    ->setVatIdNumber('NL000099998B57')
+            );
         $order = $service->create($order);
 
         static::assertEquals(1, $order->id());
 
         static::assertEquals([
-            'company'   => 'new company',
-            'email'     => 'new email',
-            'telephone' => 'new telephone',
-            'website'   => 'new website',
-            'firstname' => 'new first name',
-            'lastname'  => 'new last name',
-        ], $client->requestBody()['billing']);
+            'company'       => 'new company',
+            'email'         => 'new email',
+            'firstname'     => 'new first name',
+            'lastname'      => 'new last name',
+            'telephone'     => 'new telephone',
+            'website'       => 'new website',
+            'vat_id_number' => 'NL000099998B57',
+        ], $client->requestBody()['billing']['contact']);
     }
 
     /** @test */
@@ -256,9 +266,10 @@ class StoreOrdersTest extends TestCase
     {
         return (new Billing())
             ->setAddress((new Address())->setCountry('NL'))
-            ->setEmail('rosalie39@example.net')
-            ->setFirstName('Bilal')
-            ->setLastName('de Wit');
+            ->setContact((new Contact())
+                ->setEmail('rosalie39@example.net')
+                ->setFirstName('Bilal')
+                ->setLastName('de Wit'));
     }
 
     private function generateOrder(): Order
