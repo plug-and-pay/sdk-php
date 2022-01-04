@@ -14,7 +14,7 @@ use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Exception\UnauthenticatedException;
 use PlugAndPay\Sdk\Filters\OrderFilter;
-use PlugAndPay\Sdk\Service\FetchOrderService;
+use PlugAndPay\Sdk\Service\OrderService;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderShowClientMock;
 use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrdersIndexClientMock;
@@ -25,7 +25,7 @@ class FetchOrdersTest extends TestCase
     public function fetch_basic_order(): void
     {
         $client  = new OrderShowClientMock(['id' => 1]);
-        $service = new FetchOrderService($client);
+        $service = new OrderService($client);
 
         $order = $service->find(1);
 
@@ -65,7 +65,7 @@ class FetchOrdersTest extends TestCase
     public function fetch_not_existing_order(): void
     {
         $client    = new ClientMock(Response::HTTP_NOT_FOUND);
-        $service   = new FetchOrderService($client);
+        $service   = new OrderService($client);
         $exception = null;
 
         try {
@@ -80,7 +80,7 @@ class FetchOrdersTest extends TestCase
     public function fetch_unauthorized_order(): void
     {
         $client    = new ClientMock(Response::HTTP_UNAUTHORIZED);
-        $service   = new FetchOrderService($client);
+        $service   = new OrderService($client);
         $exception = null;
 
         try {
@@ -95,7 +95,7 @@ class FetchOrdersTest extends TestCase
     public function fetch_order_billing_address_and_contact(): void
     {
         $client  = (new OrderShowClientMock(['id' => 1]))->billing();
-        $service = new FetchOrderService($client);
+        $service = new OrderService($client);
 
         $order = $service->find(1);
 
@@ -121,7 +121,7 @@ class FetchOrdersTest extends TestCase
     public function fetch_order_comments(): void
     {
         $client  = (new OrderShowClientMock(['id' => 1]))->comments();
-        $service = new FetchOrderService($client);
+        $service = new OrderService($client);
 
         $order = $service->find(1);
 
@@ -136,7 +136,7 @@ class FetchOrdersTest extends TestCase
     public function fetch_order_items(): void
     {
         $client  = (new OrderShowClientMock(['id' => 1]))->items();
-        $service = new FetchOrderService($client);
+        $service = new OrderService($client);
         $order   = $service->find(1);
 
         $item = $order->items()[0];
@@ -155,7 +155,7 @@ class FetchOrdersTest extends TestCase
     public function fetch_order_payment(): void
     {
         $client  = (new OrderShowClientMock(['id' => 1]))->payment();
-        $service = new FetchOrderService($client);
+        $service = new OrderService($client);
 
         $order = $service->include(OrderIncludes::PAYMENT)->find(1);
 
@@ -171,7 +171,7 @@ class FetchOrdersTest extends TestCase
     public function fetch_order_tags(): void
     {
         $client  = (new OrderShowClientMock(['id' => 1]))->tags(['first', 'second']);
-        $service = new FetchOrderService($client);
+        $service = new OrderService($client);
 
         $order = $service->find(1);
 
@@ -182,7 +182,7 @@ class FetchOrdersTest extends TestCase
     public function fetch_order_taxes(): void
     {
         $client  = (new OrderShowClientMock(['id' => 1]))->taxes();
-        $service = new FetchOrderService($client);
+        $service = new OrderService($client);
 
         $order = $service->find(1);
 
@@ -204,7 +204,7 @@ class FetchOrdersTest extends TestCase
     public function fetch_order_discount(): void
     {
         $client  = (new OrderShowClientMock(['id' => 1]))->discounts();
-        $service = new FetchOrderService($client);
+        $service = new OrderService($client);
 
         $order = $service->find(1);
 
@@ -216,7 +216,7 @@ class FetchOrdersTest extends TestCase
     public function fetch_orders(): void
     {
         $client  = (new OrdersIndexClientMock());
-        $service = new FetchOrderService($client);
+        $service = new OrderService($client);
         $orders  = $service->include(OrderIncludes::PAYMENT)->get();
 
         static::assertSame(1, $orders[0]->id());
@@ -227,7 +227,7 @@ class FetchOrdersTest extends TestCase
     public function fetch_orders_with_filter(): void
     {
         $client  = (new OrdersIndexClientMock());
-        $service = new FetchOrderService($client);
+        $service = new OrderService($client);
 
         $filter = (new OrderFilter())->country('NL');
         $service->get($filter);

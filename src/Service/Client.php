@@ -18,15 +18,19 @@ class Client implements ClientInterface
     private const METHOD_PATCH = 'PATCH';
     private const METHOD_POST = 'POST';
 
+    private const BASE_URL_PRODUCTION = 'https://api.plugandpay.nl';
+
     /**
      * @var \GuzzleHttp\Client
      */
     private GuzzleClient $guzzleClient;
 
-    public function __construct(string $baseUrl, string $secretToken, GuzzleClient $guzzleClient = null)
+    public function __construct(string $secretToken, string $baseUrl = null, GuzzleClient $guzzleClient = null)
     {
+        $baseUrl ??= 'https://api.plugandpay.nl';
+
         $this->guzzleClient = $guzzleClient ?? new GuzzleClient([
-                'base_uri' => $baseUrl,
+                'base_uri' => $baseUrl ?? self::BASE_URL_PRODUCTION,
                 'headers'  => [
                     'Accept'        => 'application/json',
                     'Authorization' => "Bearer $secretToken",

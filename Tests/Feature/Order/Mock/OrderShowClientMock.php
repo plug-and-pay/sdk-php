@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Order\Mock;
 
-use PlugAndPay\Sdk\Contract\ClientGetInterface;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\ExceptionFactory;
+use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
-class OrderShowClientMock implements ClientGetInterface
+class OrderShowClientMock extends ClientMock
 {
     public const RESPONSE_BASIC = [
         'created_at'     => '2019-01-16T00:00:00.000000Z',
@@ -34,16 +34,16 @@ class OrderShowClientMock implements ClientGetInterface
         'updated_at'     => '2019-01-16T00:00:00.000000Z',
     ];
     protected string $path;
-    protected array $response;
 
+    /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(array $data = [])
     {
-        $this->response = $data + self::RESPONSE_BASIC;
+        $this->responseBody = $data + self::RESPONSE_BASIC;
     }
 
     public function billing(array $data = []): self
     {
-        $this->response['billing'] = $data + [
+        $this->responseBody['billing'] = $data + [
                 'address' => [
                     'city'        => '\'t Veld',
                     'country'     => 'NL',
@@ -68,7 +68,7 @@ class OrderShowClientMock implements ClientGetInterface
 
     public function comments(array $data = []): self
     {
-        $this->response['comments'] = $data + [
+        $this->responseBody['comments'] = $data + [
                 [
                     'created_at' => '2019-01-16T12:00:00.000000Z',
                     'id'         => 1,
@@ -82,7 +82,7 @@ class OrderShowClientMock implements ClientGetInterface
     public function get(string $path): Response
     {
         $this->path = $path;
-        $response   = new Response(Response::HTTP_OK, $this->response);
+        $response   = new Response(Response::HTTP_OK, $this->responseBody);
 
         $exception = ExceptionFactory::create($response->status(), json_encode($response->body(), JSON_THROW_ON_ERROR));
         if ($exception) {
@@ -93,7 +93,7 @@ class OrderShowClientMock implements ClientGetInterface
 
     public function items(array $data = []): self
     {
-        $this->response['items'] = [
+        $this->responseBody['items'] = [
             $data + [
                 'id'         => 1,
                 'discounts'  => [],
@@ -116,7 +116,7 @@ class OrderShowClientMock implements ClientGetInterface
 
     public function payment(array $data = []): self
     {
-        $this->response['payment'] = $data + [
+        $this->responseBody['payment'] = $data + [
                 'order_id' => 1,
                 'paid_at'  => '2019-01-19T00:00:00.000000Z',
                 'status'   => 'paid',
@@ -128,7 +128,7 @@ class OrderShowClientMock implements ClientGetInterface
 
     public function discounts(array $data = []): self
     {
-        $this->response['discounts'] = $data + [
+        $this->responseBody['discounts'] = $data + [
                 [
                     'amount' => ['currency' => 'EUR', 'value' => '11.05'],
                     'code'   => null,
@@ -147,7 +147,7 @@ class OrderShowClientMock implements ClientGetInterface
 
     public function tags(array $data): self
     {
-        $this->response['tags'] = $data;
+        $this->responseBody['tags'] = $data;
 
         return $this;
     }
@@ -156,7 +156,7 @@ class OrderShowClientMock implements ClientGetInterface
     {
         $this->items();
 
-        $this->response['items'][0]['tax'] = [
+        $this->responseBody['items'][0]['tax'] = [
             'amount' => [
                 'currency' => 'EUR',
                 'value'    => '15.75',
@@ -168,7 +168,7 @@ class OrderShowClientMock implements ClientGetInterface
             ],
         ];
 
-        $this->response['taxes'] = [
+        $this->responseBody['taxes'] = [
             [
                 'amount' => [
                     'currency' => 'EUR',

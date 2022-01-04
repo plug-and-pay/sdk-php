@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Order\Mock;
 
-use PlugAndPay\Sdk\Contract\ClientDeleteInterface;
 use PlugAndPay\Sdk\Entity\Response;
+use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
-class OrderDestroyClientMock implements ClientDeleteInterface
+class OrderDestroyClientMock extends ClientMock
 {
     private string $path;
 

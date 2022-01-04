@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Order\Mock;
 
-use PlugAndPay\Sdk\Contract\ClientPostInterface;
 use PlugAndPay\Sdk\Entity\Response;
 
-class OrderStoreClientMock extends OrderShowClientMock implements ClientPostInterface
+class OrderStoreClientMock extends OrderShowClientMock
 {
     protected array $requestBody;
 
@@ -20,7 +19,7 @@ class OrderStoreClientMock extends OrderShowClientMock implements ClientPostInte
     {
         $this->path        = $path;
         $this->requestBody = $body;
-        return new Response(Response::HTTP_CREATED, $this->response);
+        return new Response(Response::HTTP_CREATED, $this->responseBody);
     }
 
     public function requestBody(): array

@@ -7,7 +7,7 @@ namespace PlugAndPay\Sdk\Tests\Feature\Order;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
-use PlugAndPay\Sdk\Service\UpdateOrderService;
+use PlugAndPay\Sdk\Service\OrderService;
 use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderUpdateClientMock;
 
 class UpdateOrdersTest extends TestCase
@@ -16,7 +16,7 @@ class UpdateOrdersTest extends TestCase
     public function update_basic_order(): void
     {
         $client  = new OrderUpdateClientMock();
-        $service = new UpdateOrderService($client);
+        $service = new OrderService($client);
 
         $service->update(1, function (Order $order) {
             $order->setHidden(true);
@@ -30,7 +30,7 @@ class UpdateOrdersTest extends TestCase
     public function update_order_relations(): void
     {
         $client  = (new OrderUpdateClientMock())->billing()->payment();
-        $service = new UpdateOrderService($client);
+        $service = new OrderService($client);
 
         $service->update(1, function (Order $order) {
             $order->billing()->contact()->setEmail('updated@email.nl');

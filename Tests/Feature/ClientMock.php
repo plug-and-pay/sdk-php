@@ -1,19 +1,17 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature;
 
-use PlugAndPay\Sdk\Contract\ClientGetInterface;
-use PlugAndPay\Sdk\Contract\ClientPatchInterface;
-use PlugAndPay\Sdk\Contract\ClientPostInterface;
+use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\ExceptionFactory;
 
-class ClientMock implements ClientPatchInterface, ClientPostInterface, ClientGetInterface
+class ClientMock implements ClientInterface
 {
-    private array $responseBody;
-    private int $status;
+    protected array $responseBody;
+    protected int $status;
 
     public function __construct(int $status, array $body = [])
     {
@@ -23,23 +21,25 @@ class ClientMock implements ClientPatchInterface, ClientPostInterface, ClientGet
 
     public function get(string $path): Response
     {
-        $exception = ExceptionFactory::create($this->status, json_encode($this->responseBody, JSON_THROW_ON_ERROR));
-        if ($exception) {
-            throw $exception;
-        }
-        return new Response($this->status, $this->responseBody);
+        return $this->standardResponse();
     }
 
     public function patch(string $path, array $body): Response
     {
-        $exception = ExceptionFactory::create($this->status, json_encode($this->responseBody, JSON_THROW_ON_ERROR));
-        if ($exception) {
-            throw $exception;
-        }
-        return new Response($this->status, $this->responseBody);
+        return $this->standardResponse();
     }
 
     public function post(string $path, array $body): Response
+    {
+        return $this->standardResponse();
+    }
+
+    public function delete(string $path): Response
+    {
+        return $this->standardResponse();
+    }
+
+    private function standardResponse(): Response
     {
         $exception = ExceptionFactory::create($this->status, json_encode($this->responseBody, JSON_THROW_ON_ERROR));
         if ($exception) {
