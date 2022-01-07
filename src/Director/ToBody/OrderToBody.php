@@ -43,6 +43,10 @@ class OrderToBody
             $result['payment'] = PaymentToBody::build($order->payment());
         }
 
+        if ($order->isset('paymentRequest')) {
+            $result['payment_request'] = PaymentRequestToBody::build($order->paymentRequest());
+        }
+
         if ($order->isset('tags')) {
             $result['tags'] = $order->tags();
         }

@@ -16,9 +16,11 @@ use PlugAndPay\Sdk\Entity\Item;
 use PlugAndPay\Sdk\Entity\Money;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Entity\Payment;
+use PlugAndPay\Sdk\Entity\PaymentRequest;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Enum\CurrencyCodeIso;
 use PlugAndPay\Sdk\Enum\OrderIncludes;
+use PlugAndPay\Sdk\Enum\PaymentRequestType;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\TaxExempt;
 use PlugAndPay\Sdk\Exception\ValidationException;
@@ -166,6 +168,27 @@ class StoreOrdersTest extends TestCase
         static::assertEquals([
             'payment' => [
                 'status' => PaymentStatus::PROCESSING,
+            ],
+        ], $body);
+    }
+
+    /** @test */
+    public function convert_payment_request_to_body(): void
+    {
+        $order = (new Order())
+            ->setPaymentRequest((new PaymentRequest())
+                ->setType(PaymentRequestType::LINK)
+                ->setIban('NL55INGB0000000000')
+                ->setName('John Doe')
+            );
+
+        $body = OrderToBody::build($order);
+
+        static::assertEquals([
+            'payment_request' => [
+                'iban' => 'NL55INGB0000000000',
+                'name' => 'John Doe',
+                'type' => PaymentRequestType::LINK,
             ],
         ], $body);
     }

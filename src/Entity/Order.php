@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+use BadFunctionCallException;
 use DateTimeImmutable;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
@@ -26,6 +27,7 @@ class Order
     private array $items;
     private string $mode;
     private Payment $payment;
+    private PaymentRequest $paymentRequest;
     private string $reference;
     private string $source;
     private Money $subtotal;
@@ -127,6 +129,9 @@ class Order
 
     public function isset(string $field): bool
     {
+        if (!property_exists($this, $field)) {
+            throw new BadFunctionCallException("Method '$field' does not exists");
+        }
         return isset($this->{$field});
     }
 
@@ -159,6 +164,14 @@ class Order
         }
 
         return $this->payment;
+    }
+
+    /**
+     * @internal
+     */
+    public function paymentRequest(): PaymentRequest
+    {
+        return $this->paymentRequest;
     }
 
     public function reference(): string
@@ -262,6 +275,12 @@ class Order
     public function setPayment(Payment $payment): self
     {
         $this->payment = $payment;
+        return $this;
+    }
+
+    public function setPaymentRequest(PaymentRequest $paymentRequest): self
+    {
+        $this->paymentRequest = $paymentRequest;
         return $this;
     }
 

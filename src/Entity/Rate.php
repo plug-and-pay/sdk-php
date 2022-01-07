@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+use BadFunctionCallException;
+
 class Rate
 {
     private string $country;
@@ -40,6 +42,9 @@ class Rate
 
     public function isset(string $field): bool
     {
+        if (!method_exists($this, $field)) {
+            throw new BadFunctionCallException("Method '$field' does not exists");
+        }
         return isset($this->{$field});
     }
 
