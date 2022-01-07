@@ -177,7 +177,7 @@ class StoreOrdersTest extends TestCase
     {
         $order = (new Order())
             ->setPaymentRequest((new PaymentRequest())
-                ->setType(PaymentRequestType::LINK)
+                ->setType(PaymentRequestType::MANDATE)
                 ->setIban('NL55INGB0000000000')
                 ->setName('John Doe')
             );
@@ -188,7 +188,7 @@ class StoreOrdersTest extends TestCase
             'payment_request' => [
                 'iban' => 'NL55INGB0000000000',
                 'name' => 'John Doe',
-                'type' => PaymentRequestType::LINK,
+                'type' => PaymentRequestType::MANDATE,
             ],
         ], $body);
     }

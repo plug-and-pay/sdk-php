@@ -167,10 +167,16 @@ class Order
     }
 
     /**
+     * This method may only be used internally when making an order.
+     *
      * @internal
      */
     public function paymentRequest(): PaymentRequest
     {
+        if (!isset($this->paymentRequest)) {
+            throw new BadFunctionCallException('Payment request may only be used when making an order and cannot be modified or retrieved later.');
+        }
+
         return $this->paymentRequest;
     }
 
