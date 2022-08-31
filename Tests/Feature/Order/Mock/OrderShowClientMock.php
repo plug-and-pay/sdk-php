@@ -21,12 +21,12 @@ class OrderShowClientMock extends ClientMock
         'mode'           => 'live',
         'reference'      => '0b13e52d-b058-32fb-8507-10dec634a07c',
         'source'         => 'api',
-        'subtotal'       =>
+        'amount'       =>
             [
                 'currency' => 'EUR',
                 'value'    => '75.00',
             ],
-        'total'          =>
+        'amount_with_tax'          =>
             [
                 'currency' => 'EUR',
                 'value'    => '75.00',
@@ -101,8 +101,8 @@ class OrderShowClientMock extends ClientMock
                 'label'      => 'culpa',
                 'quantity'   => 1,
                 'type'       => null,
-                'subtotal'   => ['currency' => 'EUR', 'value' => '75.00'],
-                'total'      => ['currency' => 'EUR', 'value' => '90.75'],
+                'amount'   => ['currency' => 'EUR', 'value' => '75.00'],
+                'amount_with_tax'      => ['currency' => 'EUR', 'value' => '90.75'],
             ],
         ];
 

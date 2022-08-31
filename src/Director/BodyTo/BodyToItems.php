@@ -21,8 +21,8 @@ class BodyToItems
                 ->setProductId($itemData['product_id'])
                 ->setLabel($itemData['label'])
                 ->setQuantity($itemData['quantity'])
-                ->setSubtotal(new Money((float)$itemData['subtotal']['value']))
-                ->setTotal(new Money((float)$itemData['total']['value']))
+                ->setAmount(new Money((float)$itemData['amount']['value']))
+                ->setTotal(new Money((float)$itemData['amount_with_tax']['value']))
                 ->setType($itemData['type']);
 
             if (isset($itemData['discounts'])) {

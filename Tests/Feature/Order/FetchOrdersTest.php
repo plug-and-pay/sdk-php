@@ -40,8 +40,8 @@ class FetchOrdersTest extends TestCase
         static::assertSame('live', $order->mode());
         static::assertSame('0b13e52d-b058-32fb-8507-10dec634a07c', $order->reference());
         static::assertSame('api', $order->source());
-        static::assertSame(75., $order->subtotal()->value());
-        static::assertSame(75., $order->total()->value());
+        static::assertSame(75., $order->amount()->value());
+        static::assertSame(75., $order->amountWithTax()->value());
         static::assertSame('2019-01-16 00:00:00', $order->updatedAt()->format('Y-m-d H:i:s'));
     }
 
@@ -146,8 +146,8 @@ class FetchOrdersTest extends TestCase
         static::assertSame(1, $item->productId());
         static::assertSame('culpa', $item->label());
         static::assertSame(1, $item->quantity());
-        static::assertSame(75., $item->subtotal()->value());
-        static::assertSame(90.75, $item->total()->value());
+        static::assertSame(75., $item->amount()->value());
+        static::assertSame(90.75, $item->amountWithTax()->value());
         static::assertNull($item->type());
     }
 

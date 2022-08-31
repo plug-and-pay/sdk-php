@@ -30,14 +30,14 @@ class Order
     private PaymentRequest $paymentRequest;
     private string $reference;
     private string $source;
-    private Money $subtotal;
+    private Money $amount;
     /** @var string[] */
     private array $tags;
     private string $taxExempt;
     private bool $taxIncludes;
     /** @var \PlugAndPay\Sdk\Entity\Payment[] */
     private array $taxes;
-    private Money $total;
+    private Money $amountWithTax;
     private DateTimeImmutable $updatedAt;
 
     public function __construct(bool $allowEmptyRelations = true)
@@ -302,9 +302,9 @@ class Order
         return $this;
     }
 
-    public function setSubtotal(Money $subtotal): self
+    public function setAmount(Money $amount): self
     {
-        $this->subtotal = $subtotal;
+        $this->amount = $amount;
         return $this;
     }
 
@@ -334,9 +334,9 @@ class Order
         return $this;
     }
 
-    public function setTotal(Money $total): self
+    public function setTotal(Money $amountWithTax): self
     {
-        $this->total = $total;
+        $this->amountWithTax = $amountWithTax;
         return $this;
     }
 
@@ -354,9 +354,9 @@ class Order
         return $this->source;
     }
 
-    public function subtotal(): Money
+    public function amount(): Money
     {
-        return $this->subtotal;
+        return $this->amount;
     }
 
     /**
@@ -390,9 +390,9 @@ class Order
         return $this->taxes;
     }
 
-    public function total(): Money
+    public function amountWithTax(): Money
     {
-        return $this->total;
+        return $this->amountWithTax;
     }
 
     public function updatedAt(): DateTimeImmutable

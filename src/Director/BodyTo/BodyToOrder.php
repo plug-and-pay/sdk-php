@@ -29,8 +29,8 @@ class BodyToOrder
             ->setMode($data['mode'])
             ->setReference($data['reference'])
             ->setSource($data['source'] ?? OrderSource::UNKNOWN)
-            ->setSubtotal(new Money((float)$data['subtotal']['value']))
-            ->setTotal(new Money((float)$data['total']['value']))
+            ->setAmount(new Money((float)$data['amount']['value']))
+            ->setTotal(new Money((float)$data['amount_with_tax']['value']))
             ->setUpdatedAt(self::date($data, 'updated_at'));
 
         if (isset($data['billing'])) {

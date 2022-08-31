@@ -9,6 +9,7 @@ use BadFunctionCallException;
 class Item
 {
     private Money $amount;
+    private Money $amountWithTax;
     /**
      * @var Discount[]
      */
@@ -17,9 +18,7 @@ class Item
     private string $label;
     private int $productId;
     private int $quantity;
-    private Money $subtotal;
     private Tax $tax;
-    private Money $total;
     /**
      * @see \PlugAndPay\Sdk\Enum\ProductType
      */
@@ -100,12 +99,6 @@ class Item
         return $this;
     }
 
-    public function setSubtotal(Money $subtotal): Item
-    {
-        $this->subtotal = $subtotal;
-        return $this;
-    }
-
     public function setTax(Tax $tax): Item
     {
         $this->tax = $tax;
@@ -118,9 +111,9 @@ class Item
         return $this;
     }
 
-    public function setTotal(Money $total): Item
+    public function setTotal(Money $amountWithTax): Item
     {
-        $this->total = $total;
+        $this->amountWithTax = $amountWithTax;
         return $this;
     }
 
@@ -130,19 +123,14 @@ class Item
         return $this;
     }
 
-    public function subtotal(): Money
-    {
-        return $this->subtotal;
-    }
-
     public function tax(): Tax
     {
         return $this->tax;
     }
 
-    public function total(): Money
+    public function amountWithTax(): Money
     {
-        return $this->total;
+        return $this->amountWithTax;
     }
 
     public function type(): ?string
