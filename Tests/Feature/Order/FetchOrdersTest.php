@@ -33,7 +33,6 @@ class FetchOrdersTest extends TestCase
         static::assertSame('2019-01-16 00:00:00', $order->createdAt()->format('Y-m-d H:i:s'));
         static::assertSame('2019-01-16 00:00:00', $order->deletedAt()->format('Y-m-d H:i:s'));
         static::assertSame(1, $order->id());
-        static::assertSame('qfeio43asdf1f11', $order->customerId());
         static::assertSame('20214019-T', $order->invoiceNumber());
         static::assertSame('concept', $order->invoiceStatus());
         static::assertTrue($order->isFirst());
@@ -162,6 +161,12 @@ class FetchOrdersTest extends TestCase
 
         $payment = $order->payment();
         static::assertSame('/v2/orders/1?include=payment', $client->path());
+        static::assertSame('qfeio43asdf1f11', $payment->customerId());
+        static::assertSame('qwertyasdf', $payment->mandateId());
+        static::assertSame('banktransfer', $payment->method());
+        static::assertSame('mandate', $payment->type());
+        static::assertSame('mollie', $payment->provider());
+        static::assertSame('tr_123456mock', $payment->transactionId());
         static::assertSame(1, $payment->orderId());
         static::assertSame('2019-01-19 00:00:00', $payment->paidAt()->format('Y-m-d H:i:s'));
         static::assertSame(PaymentStatus::PAID, $payment->status());

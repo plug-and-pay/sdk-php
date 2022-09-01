@@ -17,7 +17,6 @@ class Order
     /** @var \PlugAndPay\Sdk\Entity\Comment[] */
     private array $comments;
     private DateTimeImmutable $createdAt;
-    private string $customerId;
     private ?DateTimeImmutable $deletedAt;
     /** @var \PlugAndPay\Sdk\Entity\Discount[] */
     private array $totalDiscounts;
@@ -84,11 +83,6 @@ class Order
     public function createdAt(): DateTimeImmutable
     {
         return $this->createdAt;
-    }
-
-    public function customerId(): string
-    {
-        return $this->customerId;
     }
 
     public function deletedAt(): ?DateTimeImmutable
@@ -213,12 +207,6 @@ class Order
     public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
-        return $this;
-    }
-
-    public function setCustomerId(string $customerId): self
-    {
-        $this->customerId = $customerId;
         return $this;
     }
 

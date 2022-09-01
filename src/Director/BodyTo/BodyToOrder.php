@@ -19,7 +19,6 @@ class BodyToOrder
     {
         $order = (new Order(false))
             ->setCreatedAt(self::date($data, 'created_at'))
-            ->setCustomerId($data['customer_id'])
             ->setDeletedAt($data['deleted_at'] ? self::date($data, 'deleted_at') : null)
             ->setFirst($data['is_first'])
             ->setHidden($data['is_hidden'])
