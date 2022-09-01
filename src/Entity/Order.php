@@ -27,7 +27,6 @@ class Order
     private array $items;
     private string $mode;
     private Payment $payment;
-    private PaymentRequest $paymentRequest;
     private string $reference;
     private string $source;
     private Money $amount;
@@ -166,20 +165,6 @@ class Order
         return $this->payment;
     }
 
-    /**
-     * This method may only be used internally when making an order.
-     *
-     * @internal
-     */
-    public function paymentRequest(): PaymentRequest
-    {
-        if (!isset($this->paymentRequest)) {
-            throw new BadFunctionCallException('Payment request may only be used when making an order and cannot be modified or retrieved later.');
-        }
-
-        return $this->paymentRequest;
-    }
-
     public function reference(): string
     {
         return $this->reference;
@@ -281,12 +266,6 @@ class Order
     public function setPayment(Payment $payment): self
     {
         $this->payment = $payment;
-        return $this;
-    }
-
-    public function setPaymentRequest(PaymentRequest $paymentRequest): self
-    {
-        $this->paymentRequest = $paymentRequest;
         return $this;
     }
 

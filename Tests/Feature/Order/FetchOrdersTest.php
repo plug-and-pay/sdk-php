@@ -241,13 +241,13 @@ class FetchOrdersTest extends TestCase
     public function relationsProvider(): array
     {
         return [
-            'billing'   => ['billing'],
-            'discounts' => ['discounts'],
-            'comments'  => ['comments'],
-            'items'     => ['items'],
-            'payment'   => ['payment'],
-            'tags'      => ['tags'],
-            'taxes'     => ['taxes'],
+            'billing'      => ['billing'],
+            'comments'     => ['comments'],
+            'discounts'    => ['discounts'],
+            'items'        => ['items'],
+            'payment'      => ['payment'],
+            'tags'         => ['tags'],
+            'taxes'        => ['taxes'],
         ];
     }
 }
