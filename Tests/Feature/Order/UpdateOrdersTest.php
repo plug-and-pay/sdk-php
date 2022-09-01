@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Order;
 
-use BadFunctionCallException;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Order;
-use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Service\OrderService;
-use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderUpdateClientMock;
 
 class UpdateOrdersTest extends TestCase

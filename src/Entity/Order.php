@@ -34,8 +34,7 @@ class Order
     /** @var string[] */
     private array $tags;
     private string $taxExempt;
-    private bool $taxIncludes;
-    /** @var \PlugAndPay\Sdk\Entity\Payment[] */
+    /** @var \PlugAndPay\Sdk\Entity\Tax[] */
     private array $taxes;
     private DateTimeImmutable $updatedAt;
 
@@ -126,14 +125,6 @@ class Order
     public function isHidden(): bool
     {
         return $this->hidden;
-    }
-
-    /**
-     * @internal
-     */
-    public function isTaxIncluded(): bool
-    {
-        return $this->taxIncludes;
     }
 
     public function isset(string $field): bool
@@ -308,12 +299,6 @@ class Order
     {
         $this->taxExempt = $taxExempt;
 
-        return $this;
-    }
-
-    public function setTaxIncluded(bool $taxIncluded): self
-    {
-        $this->taxIncludes = $taxIncluded;
         return $this;
     }
 

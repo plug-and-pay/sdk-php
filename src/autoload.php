@@ -7,7 +7,7 @@ requireAll(getcwd());
 /**
  * Scan the api path, recursively including all PHP files
  */
-function requireAll(string $dir)
+function requireAll(string $dir): void
 {
     // require all php files
     $scan = glob("$dir/*");

@@ -23,10 +23,6 @@ class OrderToBody
             $result['tax_exempt'] = $order->taxExempt();
         }
 
-        if ($order->isset('taxIncludes')) {
-            $result['is_tax_included'] = $order->isTaxIncluded();
-        }
-
         if ($order->isset('billing')) {
             $result['billing'] = BillingToBody::build($order->billing());
         }

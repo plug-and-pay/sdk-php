@@ -16,7 +16,6 @@ use PlugAndPay\Sdk\Entity\Item;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Entity\Payment;
 use PlugAndPay\Sdk\Entity\Response;
-use PlugAndPay\Sdk\Enum\CurrencyCodeIso;
 use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\TaxExempt;
@@ -126,20 +125,15 @@ class StoreOrdersTest extends TestCase
     public function convert_order_fields_data_provider(): array
     {
         return [
-            'isHidden'    => [
+            'isHidden'  => [
                 'setHidden',
                 'is_hidden',
                 true,
             ],
-            'taxExempt'   => [
+            'taxExempt' => [
                 'setTaxExempt',
                 'tax_exempt',
                 TaxExempt::REVERSE,
-            ],
-            'taxIncluded' => [
-                'setTaxIncluded',
-                'is_tax_included',
-                true,
             ],
         ];
     }
@@ -276,7 +270,6 @@ class StoreOrdersTest extends TestCase
 
         return (new Order())
             ->setBilling($this->generateBilling())
-            ->setTaxIncluded(true)
             ->setItems([$item]);
     }
 
