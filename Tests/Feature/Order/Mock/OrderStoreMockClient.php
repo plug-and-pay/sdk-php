@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Tests\Feature\Order\Mock;
 
 use PlugAndPay\Sdk\Entity\Response;
 
-class OrderStoreClientMock extends OrderShowClientMock
+class OrderStoreMockClient extends OrderShowMockClient
 {
     protected array $requestBody;
 

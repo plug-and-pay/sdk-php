@@ -8,14 +8,14 @@ use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Service\OrderService;
-use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderUpdateClientMock;
+use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderUpdateMockClient;
 
 class UpdateOrdersTest extends TestCase
 {
     /** @test */
     public function update_basic_order(): void
     {
-        $client  = new OrderUpdateClientMock();
+        $client  = new OrderUpdateMockClient();
         $service = new OrderService($client);
 
         $service->update(1, function (Order $order) {
@@ -29,7 +29,7 @@ class UpdateOrdersTest extends TestCase
     /** @test */
     public function update_order_relations(): void
     {
-        $client  = (new OrderUpdateClientMock())->billing()->payment();
+        $client  = (new OrderUpdateMockClient())->billing()->payment();
         $service = new OrderService($client);
 
         $service->update(1, function (Order $order) {

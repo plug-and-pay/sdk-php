@@ -7,14 +7,14 @@ namespace PlugAndPay\Sdk\Tests\Feature\Order;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Service\OrderService;
-use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderDestroyClientMock;
+use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderDestroyMockClient;
 
 class DeleteOrdersTest extends TestCase
 {
     /** @test */
     public function delete_basic_order(): void
     {
-        $client  = new OrderDestroyClientMock(Response::HTTP_NO_CONTENT, []);
+        $client  = new OrderDestroyMockClient(Response::HTTP_NO_CONTENT, []);
         $service = new OrderService($client);
 
         $service->delete(1);

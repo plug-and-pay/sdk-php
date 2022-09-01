@@ -7,7 +7,7 @@ namespace PlugAndPay\Sdk\Tests\Feature\Order\Mock;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
-class OrderDestroyClientMock extends ClientMock
+class OrderDestroyMockClient extends ClientMock
 {
     private string $path;
 

@@ -22,7 +22,7 @@ use PlugAndPay\Sdk\Enum\TaxExempt;
 use PlugAndPay\Sdk\Exception\ValidationException;
 use PlugAndPay\Sdk\Service\OrderService;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
-use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderStoreClientMock;
+use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderStoreMockClient;
 
 class StoreOrdersTest extends TestCase
 {
@@ -178,7 +178,7 @@ class StoreOrdersTest extends TestCase
     /** @test */
     public function store_basic_order(): void
     {
-        $client  = new OrderStoreClientMock();
+        $client  = new OrderStoreMockClient();
         $service = new OrderService($client);
 
         $order = $this->generateOrder();
@@ -195,7 +195,7 @@ class StoreOrdersTest extends TestCase
     /** @test */
     public function store_order_billing_contact(): void
     {
-        $client  = new OrderStoreClientMock();
+        $client  = new OrderStoreMockClient();
         $service = new OrderService($client);
 
         $order = new Order();
@@ -228,7 +228,7 @@ class StoreOrdersTest extends TestCase
     /** @test */
     public function store_order_billing_address(): void
     {
-        $client  = new OrderStoreClientMock();
+        $client  = new OrderStoreMockClient();
         $service = new OrderService($client);
         $service->include(OrderIncludes::BILLING);
 

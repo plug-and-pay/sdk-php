@@ -8,7 +8,7 @@ use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\ExceptionFactory;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
-class OrderShowClientMock extends ClientMock
+class OrderShowMockClient extends ClientMock
 {
     public const RESPONSE_BASIC = [
         'id'              => 1,
