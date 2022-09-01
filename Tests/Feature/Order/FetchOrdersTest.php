@@ -33,6 +33,7 @@ class FetchOrdersTest extends TestCase
         static::assertSame('2019-01-16 00:00:00', $order->createdAt()->format('Y-m-d H:i:s'));
         static::assertSame('2019-01-16 00:00:00', $order->deletedAt()->format('Y-m-d H:i:s'));
         static::assertSame(1, $order->id());
+        static::assertSame('qfeio43asdf1f11', $order->customerId());
         static::assertSame('20214019-T', $order->invoiceNumber());
         static::assertSame('concept', $order->invoiceStatus());
         static::assertTrue($order->isFirst());
@@ -40,8 +41,8 @@ class FetchOrdersTest extends TestCase
         static::assertSame('live', $order->mode());
         static::assertSame('0b13e52d-b058-32fb-8507-10dec634a07c', $order->reference());
         static::assertSame('api', $order->source());
-        static::assertSame(75., $order->amount()->value());
-        static::assertSame(75., $order->amountWithTax()->value());
+        static::assertSame(75., $order->amount());
+        static::assertSame(75., $order->amountWithTax());
         static::assertSame('2019-01-16 00:00:00', $order->updatedAt()->format('Y-m-d H:i:s'));
     }
 
@@ -146,8 +147,8 @@ class FetchOrdersTest extends TestCase
         static::assertSame(1, $item->productId());
         static::assertSame('culpa', $item->label());
         static::assertSame(1, $item->quantity());
-        static::assertSame(75., $item->amount()->value());
-        static::assertSame(90.75, $item->amountWithTax()->value());
+        static::assertSame(75., $item->amount());
+        static::assertSame(90.75, $item->amountWithTax());
         static::assertNull($item->type());
     }
 
@@ -186,15 +187,13 @@ class FetchOrdersTest extends TestCase
 
         $order = $service->find(1);
 
-        static::assertSame(15.75, $order->taxes()[0]->amount()->value());
-        static::assertSame('EUR', $order->taxes()[0]->amount()->currency());
+        static::assertSame(10., $order->taxes()[0]->amount());
         static::assertSame('NL', $order->taxes()[0]->rate()->country());
         static::assertSame(57, $order->taxes()[0]->rate()->id());
         static::assertSame(21., $order->taxes()[0]->rate()->percentage());
 
         $tax = $order->items()[0]->tax();
-        static::assertSame(15.75, $tax->amount()->value());
-        static::assertSame('EUR', $tax->amount()->currency());
+        static::assertSame(10., $tax->amount());
         static::assertSame('NL', $tax->rate()->country());
         static::assertSame(57, $tax->rate()->id());
         static::assertSame(21., $tax->rate()->percentage());
@@ -208,8 +207,8 @@ class FetchOrdersTest extends TestCase
 
         $order = $service->find(1);
 
-        static::assertSame(DiscountType::SALE, $order->discounts()[0]->type());
-        static::assertSame(DiscountType::SALE, $order->items()[0]->discounts()[0]->type());
+        static::assertSame(DiscountType::PROMOTION, $order->totalDiscounts()[0]->type());
+        static::assertSame(DiscountType::PROMOTION, $order->items()[0]->discounts()[0]->type());
     }
 
     /** @test */
@@ -241,13 +240,13 @@ class FetchOrdersTest extends TestCase
     public function relationsProvider(): array
     {
         return [
-            'billing'      => ['billing'],
-            'comments'     => ['comments'],
-            'discounts'    => ['discounts'],
-            'items'        => ['items'],
-            'payment'      => ['payment'],
-            'tags'         => ['tags'],
-            'taxes'        => ['taxes'],
+            'billing'        => ['billing'],
+            'comments'       => ['comments'],
+            'totalDiscounts' => ['totalDiscounts'],
+            'items'          => ['items'],
+            'payment'        => ['payment'],
+            'tags'           => ['tags'],
+            'taxes'          => ['taxes'],
         ];
     }
 }

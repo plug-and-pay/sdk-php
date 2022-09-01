@@ -6,7 +6,6 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
 use Exception;
-use PlugAndPay\Sdk\Entity\Money;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Enum\OrderSource;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
@@ -20,6 +19,7 @@ class BodyToOrder
     {
         $order = (new Order(false))
             ->setCreatedAt(self::date($data, 'created_at'))
+            ->setCustomerId($data['customer_id'])
             ->setDeletedAt($data['deleted_at'] ? self::date($data, 'deleted_at') : null)
             ->setFirst($data['is_first'])
             ->setHidden($data['is_hidden'])
@@ -29,8 +29,8 @@ class BodyToOrder
             ->setMode($data['mode'])
             ->setReference($data['reference'])
             ->setSource($data['source'] ?? OrderSource::UNKNOWN)
-            ->setAmount(new Money((float)$data['amount']['value']))
-            ->setTotal(new Money((float)$data['amount_with_tax']['value']))
+            ->setAmount((float)$data['amount'])
+            ->setTotal((float)$data['amount_with_tax'])
             ->setUpdatedAt(self::date($data, 'updated_at'));
 
         if (isset($data['billing'])) {
@@ -45,8 +45,8 @@ class BodyToOrder
             $order->setItems(BodyToItems::build($data['items']));
         }
 
-        if (isset($data['discounts'])) {
-            $order->setDiscounts(BodyToDiscounts::buildMany($data['discounts']));
+        if (isset($data['total_discounts'])) {
+            $order->setTotalDiscounts(BodyToDiscounts::buildMany($data['total_discounts']));
         }
 
         if (isset($data['taxes'])) {

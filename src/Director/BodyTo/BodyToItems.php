@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use PlugAndPay\Sdk\Entity\Item;
-use PlugAndPay\Sdk\Entity\Money;
 
 class BodyToItems
 {
@@ -21,8 +20,8 @@ class BodyToItems
                 ->setProductId($itemData['product_id'])
                 ->setLabel($itemData['label'])
                 ->setQuantity($itemData['quantity'])
-                ->setAmount(new Money((float)$itemData['amount']['value']))
-                ->setTotal(new Money((float)$itemData['amount_with_tax']['value']))
+                ->setAmount((float)$itemData['amount'])
+                ->setTotal((float)$itemData['amount_with_tax'])
                 ->setType($itemData['type']);
 
             if (isset($itemData['discounts'])) {

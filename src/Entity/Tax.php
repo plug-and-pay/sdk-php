@@ -8,10 +8,10 @@ use BadFunctionCallException;
 
 class Tax
 {
-    private Money $amount;
+    private float $amount;
     private Rate $rate;
 
-    public function amount(): Money
+    public function amount(): float
     {
         return $this->amount;
     }
@@ -29,7 +29,7 @@ class Tax
         return $this->rate;
     }
 
-    public function setAmount(Money $amount): Tax
+    public function setAmount(float $amount): Tax
     {
         $this->amount = $amount;
         return $this;

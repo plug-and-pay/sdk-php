@@ -10,17 +10,20 @@ use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class Order
 {
+    private bool $allowEmptyRelations;
+    private float $amount;
+    private float $amountWithTax;
     private Billing $billing;
     /** @var \PlugAndPay\Sdk\Entity\Comment[] */
     private array $comments;
     private DateTimeImmutable $createdAt;
+    private string $customerId;
     private ?DateTimeImmutable $deletedAt;
     /** @var \PlugAndPay\Sdk\Entity\Discount[] */
-    private array $discounts;
+    private array $totalDiscounts;
     private bool $first;
     private bool $hidden;
     private int $id;
-    private bool $allowEmptyRelations;
     private ?string $invoiceNumber;
     private string $invoiceStatus;
     /** @var \PlugAndPay\Sdk\Entity\Item[] */
@@ -29,19 +32,27 @@ class Order
     private Payment $payment;
     private string $reference;
     private string $source;
-    private Money $amount;
     /** @var string[] */
     private array $tags;
     private string $taxExempt;
     private bool $taxIncludes;
     /** @var \PlugAndPay\Sdk\Entity\Payment[] */
     private array $taxes;
-    private Money $amountWithTax;
     private DateTimeImmutable $updatedAt;
 
     public function __construct(bool $allowEmptyRelations = true)
     {
         $this->allowEmptyRelations = $allowEmptyRelations;
+    }
+
+    public function amount(): float
+    {
+        return $this->amount;
+    }
+
+    public function amountWithTax(): float
+    {
+        return $this->amountWithTax;
     }
 
     public function billing(): Billing
@@ -75,6 +86,11 @@ class Order
         return $this->createdAt;
     }
 
+    public function customerId(): string
+    {
+        return $this->customerId;
+    }
+
     public function deletedAt(): ?DateTimeImmutable
     {
         return $this->deletedAt;
@@ -84,13 +100,13 @@ class Order
      * @return \PlugAndPay\Sdk\Entity\Discount[]
      * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
      */
-    public function discounts(): array
+    public function totalDiscounts(): array
     {
-        if (!isset($this->discounts)) {
-            throw new RelationNotLoadedException('discount');
+        if (!isset($this->totalDiscounts)) {
+            throw new RelationNotLoadedException('totalDiscounts');
         }
 
-        return $this->discounts;
+        return $this->totalDiscounts;
     }
 
     public function id(): int
@@ -170,6 +186,12 @@ class Order
         return $this->reference;
     }
 
+    public function setAmount(float $amount): self
+    {
+        $this->amount = $amount;
+        return $this;
+    }
+
     public function setBilling(Billing $billing): self
     {
         $this->billing = $billing;
@@ -194,6 +216,12 @@ class Order
         return $this;
     }
 
+    public function setCustomerId(string $customerId): self
+    {
+        $this->customerId = $customerId;
+        return $this;
+    }
+
     /**
      * @internal
      */
@@ -203,9 +231,9 @@ class Order
         return $this;
     }
 
-    public function setDiscounts(array $discounts): self
+    public function setTotalDiscounts(array $totalDiscounts): self
     {
-        $this->discounts = $discounts;
+        $this->totalDiscounts = $totalDiscounts;
         return $this;
     }
 
@@ -281,12 +309,6 @@ class Order
         return $this;
     }
 
-    public function setAmount(Money $amount): self
-    {
-        $this->amount = $amount;
-        return $this;
-    }
-
     public function setTags(array $tags): self
     {
         $this->tags = $tags;
@@ -313,7 +335,7 @@ class Order
         return $this;
     }
 
-    public function setTotal(Money $amountWithTax): self
+    public function setTotal(float $amountWithTax): self
     {
         $this->amountWithTax = $amountWithTax;
         return $this;
@@ -331,11 +353,6 @@ class Order
     public function source(): string
     {
         return $this->source;
-    }
-
-    public function amount(): Money
-    {
-        return $this->amount;
     }
 
     /**
@@ -367,11 +384,6 @@ class Order
         }
 
         return $this->taxes;
-    }
-
-    public function amountWithTax(): Money
-    {
-        return $this->amountWithTax;
     }
 
     public function updatedAt(): DateTimeImmutable

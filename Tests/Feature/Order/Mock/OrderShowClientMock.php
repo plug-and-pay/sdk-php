@@ -11,27 +11,20 @@ use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 class OrderShowClientMock extends ClientMock
 {
     public const RESPONSE_BASIC = [
-        'created_at'     => '2019-01-16T00:00:00.000000Z',
-        'deleted_at'     => '2019-01-16T00:00:00.000000Z',
-        'id'             => 1,
-        'invoice_number' => '20214019-T',
-        'invoice_status' => 'concept',
-        'is_first'       => true,
-        'is_hidden'      => false,
-        'mode'           => 'live',
-        'reference'      => '0b13e52d-b058-32fb-8507-10dec634a07c',
-        'source'         => 'api',
-        'amount'       =>
-            [
-                'currency' => 'EUR',
-                'value'    => '75.00',
-            ],
-        'amount_with_tax'          =>
-            [
-                'currency' => 'EUR',
-                'value'    => '75.00',
-            ],
-        'updated_at'     => '2019-01-16T00:00:00.000000Z',
+        'id'              => 1,
+        'amount'          => '75.00',
+        'amount_with_tax' => '75.00',
+        'created_at'      => '2019-01-16T00:00:00.000000Z',
+        'customer_id'     => 'qfeio43asdf1f11',
+        'deleted_at'      => '2019-01-16T00:00:00.000000Z',
+        'invoice_number'  => '20214019-T',
+        'invoice_status'  => 'concept',
+        'is_first'        => true,
+        'is_hidden'       => false,
+        'mode'            => 'live',
+        'reference'       => '0b13e52d-b058-32fb-8507-10dec634a07c',
+        'source'          => 'api',
+        'updated_at'      => '2019-01-16T00:00:00.000000Z',
     ];
     protected string $path;
 
@@ -57,6 +50,7 @@ class OrderShowClientMock extends ClientMock
                     'firstname'     => 'Bilal',
                     'invoice_email' => 'maarten.veenstra@example.net',
                     'lastname'      => 'de Wit',
+                    'tax_exempt'    => 'none',
                     'telephone'     => '(044) 4362837',
                     'website'       => 'https://www.vandewater.nl/velit-porro-ut-velit-soluta.html',
                     'vat_id_number' => 'NL000099998B57',
@@ -95,14 +89,14 @@ class OrderShowClientMock extends ClientMock
     {
         $this->responseBody['items'] = [
             $data + [
-                'id'         => 1,
-                'discounts'  => [],
-                'product_id' => 1,
-                'label'      => 'culpa',
-                'quantity'   => 1,
-                'type'       => null,
-                'amount'   => ['currency' => 'EUR', 'value' => '75.00'],
-                'amount_with_tax'      => ['currency' => 'EUR', 'value' => '90.75'],
+                'id'              => 1,
+                'discounts'       => [],
+                'product_id'      => 1,
+                'label'           => 'culpa',
+                'quantity'        => 1,
+                'type'            => null,
+                'amount'          => '75.00',
+                'amount_with_tax' => '90.75',
             ],
         ];
 
@@ -117,10 +111,16 @@ class OrderShowClientMock extends ClientMock
     public function payment(array $data = []): self
     {
         $this->responseBody['payment'] = $data + [
-                'order_id' => 1,
-                'paid_at'  => '2019-01-19T00:00:00.000000Z',
-                'status'   => 'paid',
-                'url'      => 'https://consequatur-quisquam.testing.test/orders/payment-link/0b13e52d-b058-32fb-8507-10dec634a07c',
+                'customer_id'    => 'qfeio43asdf1f11',
+                'mandate_id'     => 'qwertyasdf',
+                'method'         => 'banktransfer',
+                'type'           => 'mandate',
+                'order_id'       => 1,
+                'provider'       => 'mollie',
+                'transaction_id' => 'tr_123456mock',
+                'paid_at'        => '2019-01-19T00:00:00.000000Z',
+                'status'         => 'paid',
+                'url'            => 'https://consequatur-quisquam.testing.test/orders/payment-link/0b13e52d-b058-32fb-8507-10dec634a07c',
             ];
 
         return $this;
@@ -128,19 +128,20 @@ class OrderShowClientMock extends ClientMock
 
     public function discounts(array $data = []): self
     {
-        $this->responseBody['discounts'] = $data + [
+        $this->responseBody['total_discounts'] = $data + [
                 [
-                    'amount' => ['currency' => 'EUR', 'value' => '11.05'],
-                    'code'   => null,
-                    'type'   => 'sale',
+                    'amount'          => '100.00',
+                    'amount_with_tax' => '121.00',
+                    'code'            => 'u4lbf3',
+                    'type'            => 'promotion',
                 ],
             ];
 
         return $this->items(['discounts' => [
             [
-                'amount' => ['currency' => 'EUR', 'value' => '2.10'],
-                'code'   => null,
-                'type'   => 'sale',
+                'amount' => '2.10',
+                'code'   => 'u4lbf3',
+                'type'   => 'promotion',
             ],
         ]]);
     }
@@ -157,11 +158,9 @@ class OrderShowClientMock extends ClientMock
         $this->items();
 
         $this->responseBody['items'][0]['tax'] = [
-            'amount' => [
-                'currency' => 'EUR',
-                'value'    => '15.75',
-            ],
-            'rate'   => [
+            'amount'          => '10.00',
+            'amount_with_tax' => '12.10',
+            'rate'            => [
                 'country'    => 'NL',
                 'id'         => 57,
                 'percentage' => '21.0',
@@ -170,11 +169,9 @@ class OrderShowClientMock extends ClientMock
 
         $this->responseBody['taxes'] = [
             [
-                'amount' => [
-                    'currency' => 'EUR',
-                    'value'    => '15.75',
-                ],
-                'rate'   => [
+                'amount'          => '10.00',
+                'amount_with_tax' => '12.10',
+                'rate'            => [
                     'country'    => 'NL',
                     'id'         => 57,
                     'percentage' => '21.0',

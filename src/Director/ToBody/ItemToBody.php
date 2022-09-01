@@ -17,7 +17,7 @@ class ItemToBody
         }
 
         if ($item->isset('amount')) {
-            $result['amount'] = MoneyToBody::build($item->amount());
+            $result['amount'] = $item->amount();
         }
 
         if ($item->isset('label')) {

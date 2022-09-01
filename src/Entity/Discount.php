@@ -6,14 +6,14 @@ namespace PlugAndPay\Sdk\Entity;
 
 class Discount
 {
-    private Money $amount;
+    private float $amount;
     private ?string $code;
     /**
      * @see \PlugAndPay\Sdk\Entity\DiscountType
      */
     private string $type;
 
-    public function amount(): Money
+    public function amount(): float
     {
         return $this->amount;
     }
@@ -23,7 +23,7 @@ class Discount
         return $this->code;
     }
 
-    public function setAmount(Money $amount): Discount
+    public function setAmount(float $amount): Discount
     {
         $this->amount = $amount;
         return $this;

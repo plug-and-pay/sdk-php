@@ -13,13 +13,11 @@ use PlugAndPay\Sdk\Entity\Billing;
 use PlugAndPay\Sdk\Entity\Comment;
 use PlugAndPay\Sdk\Entity\Contact;
 use PlugAndPay\Sdk\Entity\Item;
-use PlugAndPay\Sdk\Entity\Money;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Entity\Payment;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Enum\CurrencyCodeIso;
 use PlugAndPay\Sdk\Enum\OrderIncludes;
-use PlugAndPay\Sdk\Enum\PaymentRequestType;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\TaxExempt;
 use PlugAndPay\Sdk\Exception\ValidationException;
@@ -91,7 +89,7 @@ class StoreOrdersTest extends TestCase
     public function convert_item_to_body(): void
     {
         $item = (new Item())
-            ->setAmount(new Money(10))
+            ->setAmount(10.)
             ->setLabel('the-label')
             ->setQuantity(1)
             ->setTaxByRateId(1);
@@ -103,7 +101,7 @@ class StoreOrdersTest extends TestCase
         static::assertEquals([
             'items' => [
                 [
-                    'amount'   => ['value' => 10., 'currency' => CurrencyCodeIso::EUR],
+                    'amount'   => '10.',
                     'label'    => 'the-label',
                     'quantity' => 1,
                     'tax'      => ['rate' => ['id' => 1]],

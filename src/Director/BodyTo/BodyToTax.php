@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
-use PlugAndPay\Sdk\Entity\Money;
 use PlugAndPay\Sdk\Entity\Rate;
 use PlugAndPay\Sdk\Entity\Tax;
 
@@ -13,12 +12,7 @@ class BodyToTax
     public static function build(array $data): Tax
     {
         return (new Tax())
-            ->setAmount(
-                new Money(
-                    (float)$data['amount']['value'],
-                    $data['amount']['currency']
-                )
-            )
+            ->setAmount((float)$data['amount'])
             ->setRate(
                 new Rate(
                     (float)$data['rate']['percentage'],

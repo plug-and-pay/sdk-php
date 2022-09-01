@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use PlugAndPay\Sdk\Entity\Discount;
-use PlugAndPay\Sdk\Entity\Money;
 
 class BodyToDiscounts
 {
@@ -17,7 +16,7 @@ class BodyToDiscounts
         $result = [];
         foreach ($data as $discount) {
             $result[] = (new Discount())
-                ->setAmount(new Money((float)$discount['amount']['value'], $discount['amount']['currency']))
+                ->setAmount((float)$discount['amount'])
                 ->setCode($discount['code'])
                 ->setType($discount['type']);
         }

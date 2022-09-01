@@ -8,8 +8,8 @@ use BadFunctionCallException;
 
 class Item
 {
-    private Money $amount;
-    private Money $amountWithTax;
+    private float $amount;
+    private float $amountWithTax;
     /**
      * @var Discount[]
      */
@@ -24,7 +24,7 @@ class Item
      */
     private ?string $type;
 
-    public function amount(): Money
+    public function amount(): float
     {
         return $this->amount;
     }
@@ -62,7 +62,7 @@ class Item
         return $this->quantity;
     }
 
-    public function setAmount(Money $amount): Item
+    public function setAmount(float $amount): Item
     {
         $this->amount = $amount;
 
@@ -111,7 +111,7 @@ class Item
         return $this;
     }
 
-    public function setTotal(Money $amountWithTax): Item
+    public function setTotal(float $amountWithTax): Item
     {
         $this->amountWithTax = $amountWithTax;
         return $this;
@@ -128,7 +128,7 @@ class Item
         return $this->tax;
     }
 
-    public function amountWithTax(): Money
+    public function amountWithTax(): float
     {
         return $this->amountWithTax;
     }
