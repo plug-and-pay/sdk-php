@@ -42,7 +42,6 @@ class StoreOrdersTest extends TestCase
                     'lastname'  => 'de Wit',
                 ],
             ],
-            'is_tax_included' => true,
             'items'           => [
                 [
                     'label' => 'the-label',
