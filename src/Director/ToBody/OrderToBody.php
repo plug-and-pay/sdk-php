@@ -43,6 +43,6 @@ class OrderToBody
             $result['tags'] = $order->tags();
         }
 
-        return ['data' => $result];
+        return $result;
     }
 }

@@ -18,11 +18,11 @@ class UpdateOrdersTest extends TestCase
         $client  = new OrderUpdateMockClient();
         $service = new OrderService($client);
 
-        $service->update(1, function (Order $order) {
+        $order = $service->update(1, function (Order $order) {
             $order->setHidden(true);
         });
 
-        static::assertEquals(['is_hidden' => true], $client->requestBody()['data']);
+        static::assertEquals(true, $order->isHidden());
         static::assertEquals('/v2/orders/1', $client->path());
     }
 
@@ -32,26 +32,15 @@ class UpdateOrdersTest extends TestCase
         $client  = (new OrderUpdateMockClient())->billing()->payment();
         $service = new OrderService($client);
 
-        $service->update(1, function (Order $order) {
+        $order = $service->update(1, function (Order $order) {
             $order->billing()->contact()->setEmail('updated@email.nl');
             $order->billing()->address()->setCountry('BE');
             $order->billing()->address()->setCountry('BE');
             $order->payment()->setStatus(PaymentStatus::PAID);
         });
 
-        static::assertEquals(
-            [
-                'billing' => [
-                    'address' => [
-                        'country' => 'BE',
-                    ],
-                    'contact' => [
-                        'email' => 'updated@email.nl',
-                    ],
-                ],
-                'payment' => [
-                    'status' => 'paid',
-                ],
-            ], $client->requestBody()['data']);
+        static::assertEquals('BE', $order->billing()->address()->country());
+        static::assertEquals('updated@email.nl', $order->billing()->contact()->email());
+        static::assertEquals('paid', $order->payment()->status());
     }
 }

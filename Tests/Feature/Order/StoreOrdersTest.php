@@ -32,24 +32,21 @@ class StoreOrdersTest extends TestCase
         $body = OrderToBody::build($this->generateOrder());
 
         static::assertEquals([
-            'data' =>
-                [
-                    'billing' => [
-                        'address' => [
-                            'country' => 'NL',
-                        ],
-                        'contact' => [
-                            'email'     => 'rosalie39@example.net',
-                            'firstname' => 'Bilal',
-                            'lastname'  => 'de Wit',
-                        ],
-                    ],
-                    'items'   => [
-                        [
-                            'label' => 'the-label',
-                        ],
-                    ],
+            'billing'         => [
+                'address' => [
+                    'country' => 'NL',
                 ],
+                'contact' => [
+                    'email'     => 'rosalie39@example.net',
+                    'firstname' => 'Bilal',
+                    'lastname'  => 'de Wit',
+                ],
+            ],
+            'items'           => [
+                [
+                    'label' => 'the-label',
+                ],
+            ],
         ], $body);
     }
 
@@ -61,10 +58,8 @@ class StoreOrdersTest extends TestCase
 
         $body = OrderToBody::build($order);
         static::assertEquals([
-            'data' => [
-                'comments' => [
-                    ['value' => 'the comment'],
-                ],
+            'comments' => [
+                ['value' => 'the comment'],
             ],
         ], $body);
     }
@@ -80,11 +75,9 @@ class StoreOrdersTest extends TestCase
 
         $body = OrderToBody::build($order);
         static::assertEquals([
-            'data' => [
-                'items' => [
-                    [
-                        'product_id' => 1,
-                    ],
+            'items' => [
+                [
+                    'product_id' => 1,
                 ],
             ],
         ], $body);
@@ -104,14 +97,12 @@ class StoreOrdersTest extends TestCase
 
         $body = OrderToBody::build($order);
         static::assertEquals([
-            'data' => [
-                'items' => [
-                    [
-                        'amount'   => '10.',
-                        'label'    => 'the-label',
-                        'quantity' => 1,
-                        'tax'      => ['rate' => ['id' => 1]],
-                    ],
+            'items' => [
+                [
+                    'amount'   => '10.',
+                    'label'    => 'the-label',
+                    'quantity' => 1,
+                    'tax'      => ['rate' => ['id' => 1]],
                 ],
             ],
         ], $body);
@@ -127,7 +118,7 @@ class StoreOrdersTest extends TestCase
 
         $body = OrderToBody::build($order);
 
-        static::assertEquals($value, $body['data'][$bodyField]);
+        static::assertEquals($value, $body[$bodyField]);
     }
 
     public function convert_order_fields_data_provider(): array
@@ -153,7 +144,7 @@ class StoreOrdersTest extends TestCase
     {
         $body = OrderToBody::build(new Order());
 
-        static::assertEquals(['data' => []], $body);
+        static::assertEquals([], $body);
     }
 
     /** @test */
@@ -165,10 +156,8 @@ class StoreOrdersTest extends TestCase
         $body = OrderToBody::build($order);
 
         static::assertEquals([
-            'data' => [
-                'payment' => [
-                    'status' => PaymentStatus::PROCESSING,
-                ],
+            'payment' => [
+                'status' => PaymentStatus::PROCESSING,
             ],
         ], $body);
     }
@@ -182,9 +171,7 @@ class StoreOrdersTest extends TestCase
         $body = OrderToBody::build($order);
 
         static::assertEquals([
-            'data' => [
-                'tags' => ['first_tag', 'second_tag'],
-            ],
+            'tags' => ['first_tag', 'second_tag'],
         ], $body);
     }
 
@@ -200,7 +187,7 @@ class StoreOrdersTest extends TestCase
 
         static::assertEquals(1, $order->id());
 
-        static::assertEquals(true, $client->requestBody()['data']['is_hidden']);
+        static::assertEquals(true, $client->requestBody()['is_hidden']);
         static::assertEquals('/v2/orders', $client->path());
         static::assertEquals(1, $order->id());
     }
@@ -235,7 +222,7 @@ class StoreOrdersTest extends TestCase
             'telephone'     => 'new telephone',
             'website'       => 'new website',
             'vat_id_number' => 'NL000099998B57',
-        ], $client->requestBody()['data']['billing']['contact']);
+        ], $client->requestBody()['billing']['contact']);
     }
 
     /** @test */
@@ -263,7 +250,7 @@ class StoreOrdersTest extends TestCase
             'housenumber' => '12',
             'street'      => 'WooStreet',
             'zipcode'     => '2233LL',
-        ], $client->requestBody()['data']['billing']['address']);
+        ], $client->requestBody()['billing']['address']);
     }
 
     private function generateBilling(): Billing
