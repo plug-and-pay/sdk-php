@@ -8,45 +8,45 @@ use DateTimeImmutable;
 
 class Payment
 {
-    private string $customerId;
-    private string $mandateId;
-    private string $method;
+    private ?string $customerId;
+    private ?string $mandateId;
+    private ?string $method;
     private int $orderId;
     private ?DateTimeImmutable $paidAt;
-    private string $provider;
+    private ?string $provider;
     private string $status;
-    private string $transactionId;
+    private ?string $transactionId;
     private string $type;
-    private string $url;
+    private ?string $url;
 
-    public function customerId(): string
+    public function customerId(): ?string
     {
         return $this->customerId;
     }
 
-    public function setCustomerId(string $customerId): Payment
+    public function setCustomerId(?string $customerId): Payment
     {
         $this->customerId = $customerId;
         return $this;
     }
 
-    public function mandateId(): string
+    public function mandateId(): ?string
     {
         return $this->mandateId;
     }
 
-    public function setMandateId(string $mandateId): Payment
+    public function setMandateId(?string $mandateId): Payment
     {
         $this->mandateId = $mandateId;
         return $this;
     }
 
-    public function method(): string
+    public function method(): ?string
     {
         return $this->method;
     }
 
-    public function setMethod(string $method): Payment
+    public function setMethod(?string $method): Payment
     {
         $this->method = $method;
         return $this;
@@ -74,12 +74,12 @@ class Payment
         return $this;
     }
 
-    public function provider(): string
+    public function provider(): ?string
     {
         return $this->provider;
     }
 
-    public function setProvider(string $provider): Payment
+    public function setProvider(?string $provider): Payment
     {
         $this->provider = $provider;
         return $this;
@@ -96,12 +96,12 @@ class Payment
         return $this;
     }
 
-    public function transactionId(): string
+    public function transactionId(): ?string
     {
         return $this->transactionId;
     }
 
-    public function setTransactionId(string $transactionId): Payment
+    public function setTransactionId(?string $transactionId): Payment
     {
         $this->transactionId = $transactionId;
         return $this;
@@ -118,12 +118,12 @@ class Payment
         return $this;
     }
 
-    public function url(): string
+    public function url(): ?string
     {
         return $this->url;
     }
 
-    public function setUrl(string $url): Payment
+    public function setUrl(?string $url): Payment
     {
         $this->url = $url;
         return $this;

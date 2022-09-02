@@ -134,18 +134,36 @@ class OrderShowMockClient extends ClientMock
         return $this->path;
     }
 
+    public function paymentOnlyBasic(array $data = []): self
+    {
+        $this->responseBody['data']['payment'] = $data + [
+                'customer_id'    => null,
+                'mandate_id'     => null,
+                'method'         => null,
+                'order_id'       => 1,
+                'paid_at'        => null,
+                'provider'       => null,
+                'status'         => 'open',
+                'transaction_id' => null,
+                'type'           => 'mail',
+                'url'            => 'https://consequatur-quisquam.testing.test/orders/payment-link/0b13e52d-b058-32fb-8507-10dec634a07c',
+            ];
+
+        return $this;
+    }
+
     public function payment(array $data = []): self
     {
         $this->responseBody['data']['payment'] = $data + [
                 'customer_id'    => 'qfeio43asdf1f11',
                 'mandate_id'     => 'qwertyasdf',
                 'method'         => 'banktransfer',
-                'type'           => 'mandate',
                 'order_id'       => 1,
-                'provider'       => 'mollie',
-                'transaction_id' => 'tr_123456mock',
                 'paid_at'        => '2019-01-19T00:00:00.000000Z',
+                'provider'       => 'mollie',
                 'status'         => 'paid',
+                'transaction_id' => 'tr_123456mock',
+                'type'           => 'mandate',
                 'url'            => 'https://consequatur-quisquam.testing.test/orders/payment-link/0b13e52d-b058-32fb-8507-10dec634a07c',
             ];
 

@@ -11,12 +11,12 @@ class BodyToContact
     public static function build(array $data): Contact
     {
         return (new Contact())
-            ->setCompany($data['company'] ?? null)
+            ->setCompany($data['company'])
             ->setEmail($data['email'])
             ->setFirstName($data['firstname'])
             ->setLastName($data['lastname'])
-            ->setTelephone($data['telephone'] ?? null)
-            ->setWebsite($data['website'] ?? null)
-            ->setVatIdNumber($data['vat_id_number'] ?? null);
+            ->setTelephone($data['telephone'])
+            ->setWebsite($data['website'])
+            ->setVatIdNumber($data['vat_id_number']);
     }
 }

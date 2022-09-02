@@ -114,6 +114,7 @@ class Client implements ClientInterface
 
     private function fromGuzzleResponse(ResponseInterface $response): Response
     {
-        return new Response($response->getStatusCode(), json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR));
+        $content = $response->getBody()->getContents();
+        return new Response($response->getStatusCode(), json_decode($content, true, 512, JSON_THROW_ON_ERROR));
     }
 }

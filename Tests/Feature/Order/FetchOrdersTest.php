@@ -178,6 +178,28 @@ class FetchOrdersTest extends TestCase
     }
 
     /** @test */
+    public function fetch_order_payment_non_filled(): void
+    {
+        $client  = (new OrderShowMockClient(['id' => 1]))->paymentOnlyBasic();
+        $service = new OrderService($client);
+
+        $order = $service->include(OrderIncludes::PAYMENT)->find(1);
+
+        $payment = $order->payment();
+        static::assertSame('/v2/orders/1?include=payment', $client->path());
+        static::assertNull($payment->customerId());
+        static::assertNull($payment->mandateId());
+        static::assertNull($payment->method());
+        static::assertSame('mail', $payment->type());
+        static::assertNull($payment->provider());
+        static::assertNull($payment->transactionId());
+        static::assertSame(1, $payment->orderId());
+        static::assertNull($payment->paidAt());
+        static::assertSame(PaymentStatus::OPEN, $payment->status());
+        static::assertSame('https://consequatur-quisquam.testing.test/orders/payment-link/0b13e52d-b058-32fb-8507-10dec634a07c', $payment->url());
+    }
+
+    /** @test */
     public function fetch_order_payment(): void
     {
         $client  = (new OrderShowMockClient(['id' => 1]))->payment();
