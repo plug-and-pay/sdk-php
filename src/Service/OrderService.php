@@ -40,7 +40,7 @@ class OrderService
         $query    = Parameters::toString(['include' => $this->includes]);
         $response = $this->client->post("/v2/orders$query", $body);
 
-        return BodyToOrder::build($response->body());
+        return BodyToOrder::build($response->body()['data']);
     }
 
     public function delete(int $orderId): void
@@ -55,7 +55,7 @@ class OrderService
     {
         $query    = Parameters::toString(['include' => $this->includes]);
         $response = $this->client->get("/v2/orders/$id$query");
-        return BodyToOrder::build($response->body());
+        return BodyToOrder::build($response->body()['data']);
     }
 
     /**
@@ -86,6 +86,6 @@ class OrderService
         $query    = Parameters::toString(['include' => $this->includes]);
         $response = $this->client->patch("/v2/orders/$orderId$query", $body);
 
-        return BodyToOrder::build($response->body());
+        return BodyToOrder::build($response->body()['data']);
     }
 }

@@ -92,6 +92,32 @@ class FetchOrdersTest extends TestCase
     }
 
     /** @test */
+    public function fetch_order_billing_basic(): void
+    {
+        $client  = (new OrderShowMockClient(['id' => 1]))->billingOnlyRequired();
+        $service = new OrderService($client);
+
+        $order = $service->find(1);
+
+        $billing = $order->billing();
+        $contact = $billing->contact();
+        static::assertNull($contact->company());
+        static::assertSame('rosalie39@example.net', $contact->email());
+        static::assertSame('Bilal', $contact->firstName());
+        static::assertSame('de Wit', $contact->lastName());
+        static::assertNull($contact->telephone());
+        static::assertNull($contact->website());
+        static::assertNull($contact->vatIdNumber());
+
+        $address = $billing->address();
+        static::assertNull($address->city());
+        static::assertNull($address->country());
+        static::assertNull($address->street());
+        static::assertNull($address->houseNumber());
+        static::assertNull($address->zipcode());
+    }
+
+    /** @test */
     public function fetch_order_billing_address_and_contact(): void
     {
         $client  = (new OrderShowMockClient(['id' => 1]))->billing();

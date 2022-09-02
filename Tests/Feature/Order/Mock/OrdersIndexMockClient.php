@@ -15,7 +15,7 @@ class OrdersIndexMockClient extends ClientMock
     public function __construct(array $data = [[]])
     {
         foreach ($data as $orderData) {
-            $this->responseBody[] = $orderData + OrderShowMockClient::RESPONSE_BASIC;
+            $this->responseBody[] = $orderData + OrderShowMockClient::BASIC_ORDER;
         }
     }
 

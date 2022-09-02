@@ -8,15 +8,15 @@ use BadFunctionCallException;
 
 class Contact
 {
-    private string $company;
+    private ?string $company;
     private string $email;
     private string $firstName;
     private string $lastName;
-    private string $telephone;
-    private string $vatIdNumber;
-    private string $website;
+    private ?string $telephone;
+    private ?string $vatIdNumber;
+    private ?string $website;
 
-    public function company(): string
+    public function company(): ?string
     {
         return $this->company;
     }
@@ -44,7 +44,7 @@ class Contact
         return $this->lastName;
     }
 
-    public function setCompany(string $company): self
+    public function setCompany(?string $company): self
     {
         $this->company = $company;
         return $this;
@@ -68,35 +68,35 @@ class Contact
         return $this;
     }
 
-    public function setTelephone(string $telephone): self
+    public function setTelephone(?string $telephone): self
     {
         $this->telephone = $telephone;
         return $this;
     }
 
-    public function setVatIdNumber(string $number): self
+    public function setVatIdNumber(?string $number): self
     {
         $this->vatIdNumber = $number;
         return $this;
     }
 
-    public function setWebsite(string $website): self
+    public function setWebsite(?string $website): self
     {
         $this->website = $website;
         return $this;
     }
 
-    public function telephone(): string
+    public function telephone(): ?string
     {
         return $this->telephone;
     }
 
-    public function vatIdNumber(): string
+    public function vatIdNumber(): ?string
     {
         return $this->vatIdNumber;
     }
 
-    public function website(): string
+    public function website(): ?string
     {
         return $this->website;
     }

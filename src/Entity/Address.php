@@ -8,18 +8,18 @@ use BadFunctionCallException;
 
 class Address
 {
-    private string $city;
-    private string $country;
-    private string $street;
-    private string $houseNumber;
-    private string $zipcode;
+    private ?string $city;
+    private ?string $country;
+    private ?string $street;
+    private ?string $houseNumber;
+    private ?string $zipcode;
 
-    public function city(): string
+    public function city(): ?string
     {
         return $this->city;
     }
 
-    public function country(): string
+    public function country(): ?string
     {
         return $this->country;
     }
@@ -32,47 +32,47 @@ class Address
         return isset($this->{$field});
     }
 
-    public function setCity(string $city): Address
+    public function setCity(?string $city): Address
     {
         $this->city = $city;
         return $this;
     }
 
-    public function setCountry(string $country): Address
+    public function setCountry(?string $country): Address
     {
         $this->country = $country;
         return $this;
     }
 
-    public function setStreet(string $street): Address
+    public function setStreet(?string $street): Address
     {
         $this->street = $street;
         return $this;
     }
 
-    public function setHouseNumber(string $houseNumber): Address
+    public function setHouseNumber(?string $houseNumber): Address
     {
         $this->houseNumber = $houseNumber;
         return $this;
     }
 
-    public function setZipcode(string $zipcode): Address
+    public function setZipcode(?string $zipcode): Address
     {
         $this->zipcode = $zipcode;
         return $this;
     }
 
-    public function street(): string
+    public function street(): ?string
     {
         return $this->street;
     }
 
-    public function houseNumber(): string
+    public function houseNumber(): ?string
     {
         return $this->houseNumber;
     }
 
-    public function zipcode(): string
+    public function zipcode(): ?string
     {
         return $this->zipcode;
     }

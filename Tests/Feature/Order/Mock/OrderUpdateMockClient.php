@@ -11,11 +11,11 @@ class OrderUpdateMockClient extends OrderShowMockClient
 {
     protected array $requestBody;
 
-    public function patch(string $path, array $body): Response
+    public function patch(string $path, array $data): Response
     {
-        $this->responseBody = Arr::mergeDistinct($this->responseBody, $body);
+        $this->responseBody = Arr::mergeDistinct($this->responseBody, ['data' => $data]);
         $this->path         = $path;
-        $this->requestBody  = $body;
+        $this->requestBody  = $data;
         return new Response(Response::HTTP_OK, $this->responseBody);
     }
 

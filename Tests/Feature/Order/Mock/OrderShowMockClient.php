@@ -10,7 +10,7 @@ use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
 class OrderShowMockClient extends ClientMock
 {
-    public const RESPONSE_BASIC = [
+    public const BASIC_ORDER = [
         'id'              => 1,
         'amount'          => '75.00',
         'amount_with_tax' => '75.00',
@@ -31,12 +31,12 @@ class OrderShowMockClient extends ClientMock
     /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(array $data = [])
     {
-        $this->responseBody = $data + self::RESPONSE_BASIC;
+        $this->responseBody = ['data' => $data + self::BASIC_ORDER];
     }
 
     public function billing(array $data = []): self
     {
-        $this->responseBody['billing'] = $data + [
+        $this->responseBody['data']['billing'] = $data + [
                 'address' => [
                     'city'        => '\'t Veld',
                     'country'     => 'NL',
@@ -60,9 +60,35 @@ class OrderShowMockClient extends ClientMock
         return $this;
     }
 
+    public function billingOnlyRequired(array $data = []): self
+    {
+        $this->responseBody['data']['billing'] = $data + [
+                'address' => [
+                    'city'        => null,
+                    'country'     => null,
+                    'street'      => null,
+                    'housenumber' => null,
+                    'zipcode'     => null,
+                ],
+                'contact' => [
+                    'company'       => null,
+                    'email'         => 'rosalie39@example.net',
+                    'firstname'     => 'Bilal',
+                    'invoice_email' => null,
+                    'lastname'      => 'de Wit',
+                    'tax_exempt'    => 'none',
+                    'telephone'     => null,
+                    'website'       => null,
+                    'vat_id_number' => null,
+                ],
+            ];
+
+        return $this;
+    }
+
     public function comments(array $data = []): self
     {
-        $this->responseBody['comments'] = $data + [
+        $this->responseBody['data']['comments'] = $data + [
                 [
                     'created_at' => '2019-01-16T12:00:00.000000Z',
                     'id'         => 1,
@@ -87,7 +113,7 @@ class OrderShowMockClient extends ClientMock
 
     public function items(array $data = []): self
     {
-        $this->responseBody['items'] = [
+        $this->responseBody['data']['items'] = [
             $data + [
                 'id'              => 1,
                 'discounts'       => [],
@@ -110,7 +136,7 @@ class OrderShowMockClient extends ClientMock
 
     public function payment(array $data = []): self
     {
-        $this->responseBody['payment'] = $data + [
+        $this->responseBody['data']['payment'] = $data + [
                 'customer_id'    => 'qfeio43asdf1f11',
                 'mandate_id'     => 'qwertyasdf',
                 'method'         => 'banktransfer',
@@ -128,7 +154,7 @@ class OrderShowMockClient extends ClientMock
 
     public function discounts(array $data = []): self
     {
-        $this->responseBody['total_discounts'] = $data + [
+        $this->responseBody['data']['total_discounts'] = $data + [
                 [
                     'amount'          => '100.00',
                     'amount_with_tax' => '121.00',
@@ -148,7 +174,7 @@ class OrderShowMockClient extends ClientMock
 
     public function tags(array $data): self
     {
-        $this->responseBody['tags'] = $data;
+        $this->responseBody['data']['tags'] = $data;
 
         return $this;
     }
@@ -157,7 +183,7 @@ class OrderShowMockClient extends ClientMock
     {
         $this->items();
 
-        $this->responseBody['items'][0]['tax'] = [
+        $this->responseBody['data']['items'][0]['tax'] = [
             'amount'          => '10.00',
             'amount_with_tax' => '12.10',
             'rate'            => [
@@ -167,7 +193,7 @@ class OrderShowMockClient extends ClientMock
             ],
         ];
 
-        $this->responseBody['taxes'] = [
+        $this->responseBody['data']['taxes'] = [
             [
                 'amount'          => '10.00',
                 'amount_with_tax' => '12.10',

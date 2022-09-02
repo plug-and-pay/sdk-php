@@ -71,9 +71,9 @@ class Client implements ClientInterface
      * @throws \PlugAndPay\Sdk\Exception\NotFoundException
      * @throws \PlugAndPay\Sdk\Exception\ValidationException
      */
-    public function patch(string $path, array $body): Response
+    public function patch(string $path, array $data): Response
     {
-        $response = $this->request(self::METHOD_PATCH, $path, $body);
+        $response = $this->request(self::METHOD_PATCH, $path, $data);
 
         return $this->fromGuzzleResponse($response);
     }

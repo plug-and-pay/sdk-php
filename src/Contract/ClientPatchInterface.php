@@ -8,5 +8,5 @@ use PlugAndPay\Sdk\Entity\Response;
 
 interface ClientPatchInterface
 {
-    public function patch(string $path, array $body): Response;
+    public function patch(string $path, array $data): Response;
 }

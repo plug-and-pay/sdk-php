@@ -22,7 +22,7 @@ class UpdateOrdersTest extends TestCase
             $order->setHidden(true);
         });
 
-        static::assertEquals(['is_hidden' => true], $client->requestBody());
+        static::assertEquals(['is_hidden' => true], $client->requestBody()['data']);
         static::assertEquals('/v2/orders/1', $client->path());
     }
 
@@ -52,6 +52,6 @@ class UpdateOrdersTest extends TestCase
                 'payment' => [
                     'status' => 'paid',
                 ],
-            ], $client->requestBody());
+            ], $client->requestBody()['data']);
     }
 }
