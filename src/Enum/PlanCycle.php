@@ -2,8 +2,8 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-class PlanCycle
+enum PlanCycle: string
 {
-    public const MONTHLY = 'monthly';
-    public const YEARLY = 'yearly';
+    case MONTHLY = 'monthly';
+    case YEARLY = 'yearly';
 }

@@ -2,14 +2,14 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-class OrderSource
+enum OrderSource: string
 {
-    public const ADMIN = 'admin';
-    public const API = 'api';
-    public const CHECKOUT = 'checkout';
-    public const IMPORT = 'import';
-    public const RECURRING = 'recurring';
-    public const UPGRADE = 'upgrade';
-    public const UPSELL = 'upsell';
-    public const UNKNOWN = 'unknown';
+    case ADMIN = 'admin';
+    case API = 'api';
+    case CHECKOUT = 'checkout';
+    case IMPORT = 'import';
+    case RECURRING = 'recurring';
+    case UPGRADE = 'upgrade';
+    case UPSELL = 'upsell';
+    case UNKNOWN = 'unknown';
 }

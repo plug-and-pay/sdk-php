@@ -16,7 +16,7 @@ class AddressToBody
         }
 
         if ($address->isset('country')) {
-            $result['country'] = $address->country();
+            $result['country'] = $address->country()?->value;
         }
 
         if ($address->isset('houseNumber')) {

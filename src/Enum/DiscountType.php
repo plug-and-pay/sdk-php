@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Enum;
 
-class DiscountType
+enum DiscountType: string
 {
-    public const PROMOTION = 'promotion';
-    public const SALE = 'sale';
-    public const TIER = 'tier';
+    case PROMOTION = 'promotion';
+    case SALE = 'sale';
+    case TIER = 'tier';
 }

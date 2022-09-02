@@ -2,12 +2,12 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-class PaymentStatus
+enum PaymentStatus: string
 {
-    public const CREDIT_INVOICE = 'credit_invoice';
-    public const CREDITED = 'credited';
-    public const OPEN = 'open';
-    public const PAID = 'paid';
-    public const PROCESSING = 'processing';
-    public const REVERSED = 'reversed';
+    case CREDIT_INVOICE = 'credit_invoice';
+    case CREDITED = 'credited';
+    case OPEN = 'open';
+    case PAID = 'paid';
+    case PROCESSING = 'processing';
+    case REVERSED = 'reversed';
 }

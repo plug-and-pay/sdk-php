@@ -2,8 +2,8 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-class InvoiceStatus
+enum InvoiceStatus: string
 {
-    public const FINAL = 'final';
-    public const CONCEPT = 'concept';
+    case FINAL = 'final';
+    case CONCEPT = 'concept';
 }

@@ -16,6 +16,7 @@ use PlugAndPay\Sdk\Entity\Item;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Entity\Payment;
 use PlugAndPay\Sdk\Entity\Response;
+use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\TaxExempt;
@@ -157,7 +158,7 @@ class StoreOrdersTest extends TestCase
 
         static::assertEquals([
             'payment' => [
-                'status' => PaymentStatus::PROCESSING,
+                'status' => PaymentStatus::PROCESSING->value,
             ],
         ], $body);
     }
@@ -235,7 +236,7 @@ class StoreOrdersTest extends TestCase
         $order = $this->generateOrder();
         $order->billing()->setAddress((new Address())
             ->setCity('WooCity')
-            ->setCountry('BE')
+            ->setCountry(CountryCode::BE)
             ->setStreet('WooStreet')
             ->setHouseNumber('12')
             ->setZipcode('2233LL')
@@ -256,7 +257,7 @@ class StoreOrdersTest extends TestCase
     private function generateBilling(): Billing
     {
         return (new Billing())
-            ->setAddress((new Address())->setCountry('NL'))
+            ->setAddress((new Address())->setCountry(CountryCode::NL))
             ->setContact((new Contact())
                 ->setEmail('rosalie39@example.net')
                 ->setFirstName('Bilal')

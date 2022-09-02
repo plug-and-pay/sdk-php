@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use PlugAndPay\Sdk\Entity\Item;
+use PlugAndPay\Sdk\Enum\ItemType;
 
 class BodyToItems
 {
@@ -22,7 +23,7 @@ class BodyToItems
                 ->setQuantity($itemData['quantity'])
                 ->setAmount((float)$itemData['amount'])
                 ->setTotal((float)$itemData['amount_with_tax'])
-                ->setType($itemData['type']);
+                ->setType($itemData['type'] ? ItemType::from($itemData['type']) : ItemType::STANDARD);
 
             if (isset($itemData['discounts'])) {
                 $item->setDiscounts(BodyToDiscounts::buildMany($itemData['discounts']));

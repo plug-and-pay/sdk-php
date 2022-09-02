@@ -5,18 +5,22 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Entity;
 
 use DateTimeImmutable;
+use PlugAndPay\Sdk\Enum\PaymentMethod;
+use PlugAndPay\Sdk\Enum\PaymentProvider;
+use PlugAndPay\Sdk\Enum\PaymentStatus;
+use PlugAndPay\Sdk\Enum\PaymentType;
 
 class Payment
 {
     private ?string $customerId;
     private ?string $mandateId;
-    private ?string $method;
+    private ?PaymentMethod $method;
     private int $orderId;
     private ?DateTimeImmutable $paidAt;
-    private ?string $provider;
-    private string $status;
+    private ?PaymentProvider $provider;
+    private PaymentStatus $status;
     private ?string $transactionId;
-    private string $type;
+    private PaymentType $type;
     private ?string $url;
 
     public function customerId(): ?string
@@ -24,7 +28,7 @@ class Payment
         return $this->customerId;
     }
 
-    public function setCustomerId(?string $customerId): Payment
+    public function setCustomerId(?string $customerId): self
     {
         $this->customerId = $customerId;
         return $this;
@@ -35,18 +39,18 @@ class Payment
         return $this->mandateId;
     }
 
-    public function setMandateId(?string $mandateId): Payment
+    public function setMandateId(?string $mandateId): self
     {
         $this->mandateId = $mandateId;
         return $this;
     }
 
-    public function method(): ?string
+    public function method(): ?PaymentMethod
     {
         return $this->method;
     }
 
-    public function setMethod(?string $method): Payment
+    public function setMethod(?PaymentMethod $method): self
     {
         $this->method = $method;
         return $this;
@@ -57,7 +61,7 @@ class Payment
         return $this->orderId;
     }
 
-    public function setOrderId(int $orderId): Payment
+    public function setOrderId(int $orderId): self
     {
         $this->orderId = $orderId;
         return $this;
@@ -68,29 +72,29 @@ class Payment
         return $this->paidAt;
     }
 
-    public function setPaidAt(?DateTimeImmutable $paidAt): Payment
+    public function setPaidAt(?DateTimeImmutable $paidAt): self
     {
         $this->paidAt = $paidAt;
         return $this;
     }
 
-    public function provider(): ?string
+    public function provider(): ?PaymentProvider
     {
         return $this->provider;
     }
 
-    public function setProvider(?string $provider): Payment
+    public function setProvider(?PaymentProvider $provider): self
     {
         $this->provider = $provider;
         return $this;
     }
 
-    public function status(): string
+    public function status(): PaymentStatus
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): Payment
+    public function setStatus(PaymentStatus $status): self
     {
         $this->status = $status;
         return $this;
@@ -101,18 +105,18 @@ class Payment
         return $this->transactionId;
     }
 
-    public function setTransactionId(?string $transactionId): Payment
+    public function setTransactionId(?string $transactionId): self
     {
         $this->transactionId = $transactionId;
         return $this;
     }
 
-    public function type(): string
+    public function type(): PaymentType
     {
         return $this->type;
     }
 
-    public function setType(string $type): Payment
+    public function setType(PaymentType $type): self
     {
         $this->type = $type;
         return $this;
@@ -123,7 +127,7 @@ class Payment
         return $this->url;
     }
 
-    public function setUrl(?string $url): Payment
+    public function setUrl(?string $url): self
     {
         $this->url = $url;
         return $this;

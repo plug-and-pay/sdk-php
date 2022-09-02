@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use PlugAndPay\Sdk\Entity\Discount;
+use PlugAndPay\Sdk\Enum\DiscountType;
 
 class BodyToDiscounts
 {
@@ -18,7 +19,7 @@ class BodyToDiscounts
             $result[] = (new Discount())
                 ->setAmount((float)$discount['amount'])
                 ->setCode($discount['code'])
-                ->setType($discount['type']);
+                ->setType(DiscountType::from($discount['type']));
         }
         return $result;
     }

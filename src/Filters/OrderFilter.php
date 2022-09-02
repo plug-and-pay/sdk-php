@@ -5,6 +5,14 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Filters;
 
 use DateTimeInterface;
+use PlugAndPay\Sdk\Enum\ContractType;
+use PlugAndPay\Sdk\Enum\CountryCode;
+use PlugAndPay\Sdk\Enum\Direction;
+use PlugAndPay\Sdk\Enum\InvoiceStatus;
+use PlugAndPay\Sdk\Enum\OrderMode;
+use PlugAndPay\Sdk\Enum\OrderSortType;
+use PlugAndPay\Sdk\Enum\OrderSource;
+use PlugAndPay\Sdk\Enum\PaymentStatus;
 
 class OrderFilter
 {
@@ -28,21 +36,21 @@ class OrderFilter
         return $this;
     }
 
-    public function contractType(string...$value): self
+    public function contractType(ContractType... $contractType): self
     {
-        $this->parameters['contract_type'] = $value;
+        $this->parameters['contract_type'] = $contractType;
         return $this;
     }
 
-    public function country(string $value): self
+    public function country(CountryCode $value): self
     {
-        $this->parameters['country'] = $value;
+        $this->parameters['country'] = $value->value;
         return $this;
     }
 
-    public function direction(string $value): self
+    public function direction(Direction $direction): self
     {
-        $this->parameters['direction'] = $value;
+        $this->parameters['direction'] = $direction->value;
         return $this;
     }
 
@@ -70,9 +78,9 @@ class OrderFilter
         return $this;
     }
 
-    public function invoiceStatus(string $value): self
+    public function invoiceStatus(InvoiceStatus $status): self
     {
-        $this->parameters['invoice_status'] = $value;
+        $this->parameters['invoice_status'] = $status->value;
         return $this;
     }
 
@@ -106,9 +114,9 @@ class OrderFilter
         return $this;
     }
 
-    public function mode(string $value): self
+    public function mode(OrderMode $mode): self
     {
-        $this->parameters['mode'] = $value;
+        $this->parameters['mode'] = $mode->value;
         return $this;
     }
 
@@ -123,7 +131,7 @@ class OrderFilter
         return $this->parameters;
     }
 
-    public function paymentStatus(string...$value): self
+    public function paymentStatus(PaymentStatus ...$value): self
     {
         $this->parameters['payment_status'] = $value;
         return $this;
@@ -159,15 +167,15 @@ class OrderFilter
         return $this;
     }
 
-    public function sort(string $value): self
+    public function sort(OrderSortType $value): self
     {
-        $this->parameters['sort'] = $value;
+        $this->parameters['sort'] = $value->value;
         return $this;
     }
 
-    public function source(string $value): self
+    public function source(OrderSource $source): self
     {
-        $this->parameters['source'] = $value;
+        $this->parameters['source'] = $source->value;
         return $this;
     }
 

@@ -2,11 +2,11 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-class ProductSortType
+enum ProductSortType: string
 {
-    public const ACTIVE_SUBSCRIPTIONS = 'active_subscriptions';
-    public const ID = 'id';
-    public const TITLE = 'title';
-    public const TOTAL_ORDERS = 'total_orders';
-    public const TOTAL_REVENUE = 'total_revenue';
+    case ACTIVE_SUBSCRIPTIONS = 'active_subscriptions';
+    case ID = 'id';
+    case TITLE = 'title';
+    case TOTAL_ORDERS = 'total_orders';
+    case TOTAL_REVENUE = 'total_revenue';
 }

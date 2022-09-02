@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Entity;
 
 use BadFunctionCallException;
+use PlugAndPay\Sdk\Enum\ItemType;
+use PlugAndPay\Sdk\Enum\ProductType;
 
 class Item
 {
@@ -19,10 +21,7 @@ class Item
     private int $productId;
     private int $quantity;
     private Tax $tax;
-    /**
-     * @see \PlugAndPay\Sdk\Enum\ProductType
-     */
-    private ?string $type;
+    private ItemType $type;
 
     public function amount(): float
     {
@@ -117,7 +116,7 @@ class Item
         return $this;
     }
 
-    public function setType(?string $type): Item
+    public function setType(ItemType $type): Item
     {
         $this->type = $type;
         return $this;
@@ -133,7 +132,7 @@ class Item
         return $this->amountWithTax;
     }
 
-    public function type(): ?string
+    public function type(): ItemType
     {
         return $this->type;
     }

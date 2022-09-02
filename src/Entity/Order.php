@@ -6,6 +6,10 @@ namespace PlugAndPay\Sdk\Entity;
 
 use BadFunctionCallException;
 use DateTimeImmutable;
+use PlugAndPay\Sdk\Enum\InvoiceStatus;
+use PlugAndPay\Sdk\Enum\OrderMode;
+use PlugAndPay\Sdk\Enum\OrderSource;
+use PlugAndPay\Sdk\Enum\TaxExempt;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class Order
@@ -24,16 +28,16 @@ class Order
     private bool $hidden;
     private int $id;
     private ?string $invoiceNumber;
-    private string $invoiceStatus;
+    private InvoiceStatus $invoiceStatus;
     /** @var \PlugAndPay\Sdk\Entity\Item[] */
     private array $items;
-    private string $mode;
+    private OrderMode $mode;
     private Payment $payment;
     private string $reference;
-    private string $source;
+    private OrderSource $source;
     /** @var string[] */
     private array $tags;
-    private string $taxExempt;
+    private TaxExempt $taxExempt;
     /** @var \PlugAndPay\Sdk\Entity\Tax[] */
     private array $taxes;
     private DateTimeImmutable $updatedAt;
@@ -112,7 +116,7 @@ class Order
         return $this->invoiceNumber;
     }
 
-    public function invoiceStatus(): string
+    public function invoiceStatus(): InvoiceStatus
     {
         return $this->invoiceStatus;
     }
@@ -148,7 +152,7 @@ class Order
         return $this->items;
     }
 
-    public function mode(): string
+    public function mode(): OrderMode
     {
         return $this->mode;
     }
@@ -252,7 +256,7 @@ class Order
     /**
      * @internal
      */
-    public function setInvoiceStatus(string $invoiceStatus): self
+    public function setInvoiceStatus(InvoiceStatus $invoiceStatus): self
     {
         $this->invoiceStatus = $invoiceStatus;
         return $this;
@@ -264,7 +268,7 @@ class Order
         return $this;
     }
 
-    public function setMode(string $mode): self
+    public function setMode(OrderMode $mode): self
     {
         $this->mode = $mode;
         return $this;
@@ -282,7 +286,7 @@ class Order
         return $this;
     }
 
-    public function setSource(string $source): self
+    public function setSource(OrderSource $source): self
     {
         $this->source = $source;
         return $this;
@@ -295,7 +299,7 @@ class Order
         return $this;
     }
 
-    public function setTaxExempt(string $taxExempt): self
+    public function setTaxExempt(TaxExempt $taxExempt): self
     {
         $this->taxExempt = $taxExempt;
 
@@ -323,7 +327,7 @@ class Order
         return $this;
     }
 
-    public function source(): string
+    public function source(): OrderSource
     {
         return $this->source;
     }
@@ -341,7 +345,7 @@ class Order
         return $this->tags;
     }
 
-    public function taxExempt(): string
+    public function taxExempt(): TaxExempt
     {
         return $this->taxExempt;
     }

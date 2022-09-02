@@ -2,8 +2,8 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-class Locale
+enum Locale: string
 {
-    public const EN = 'en';
-    public const NL = 'nl';
+    case EN = 'en';
+    case NL = 'nl';
 }

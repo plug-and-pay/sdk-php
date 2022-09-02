@@ -7,9 +7,18 @@ namespace PlugAndPay\Sdk\Tests\Feature\Order;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Entity\Response;
+use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\DiscountType;
+use PlugAndPay\Sdk\Enum\InvoiceStatus;
+use PlugAndPay\Sdk\Enum\ItemType;
 use PlugAndPay\Sdk\Enum\OrderIncludes;
+use PlugAndPay\Sdk\Enum\OrderMode;
+use PlugAndPay\Sdk\Enum\OrderSource;
+use PlugAndPay\Sdk\Enum\PaymentMethod;
+use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
+use PlugAndPay\Sdk\Enum\PaymentType;
+use PlugAndPay\Sdk\Enum\ProductType;
 use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Exception\UnauthenticatedException;
@@ -34,12 +43,12 @@ class FetchOrdersTest extends TestCase
         static::assertSame('2019-01-16 00:00:00', $order->deletedAt()->format('Y-m-d H:i:s'));
         static::assertSame(1, $order->id());
         static::assertSame('20214019-T', $order->invoiceNumber());
-        static::assertSame('concept', $order->invoiceStatus());
+        static::assertSame(InvoiceStatus::CONCEPT, $order->invoiceStatus());
         static::assertTrue($order->isFirst());
         static::assertFalse($order->isHidden());
-        static::assertSame('live', $order->mode());
+        static::assertSame(OrderMode::LIVE, $order->mode());
         static::assertSame('0b13e52d-b058-32fb-8507-10dec634a07c', $order->reference());
-        static::assertSame('api', $order->source());
+        static::assertSame(OrderSource::API, $order->source());
         static::assertSame(75., $order->amount());
         static::assertSame(75., $order->amountWithTax());
         static::assertSame('2019-01-16 00:00:00', $order->updatedAt()->format('Y-m-d H:i:s'));
@@ -137,7 +146,7 @@ class FetchOrdersTest extends TestCase
 
         $address = $billing->address();
         static::assertSame('\'t Veld', $address->city());
-        static::assertSame('NL', $address->country());
+        static::assertSame(CountryCode::NL, $address->country());
         static::assertSame('Sanderslaan', $address->street());
         static::assertSame('42', $address->houseNumber());
         static::assertSame('1448VB', $address->zipcode());
@@ -174,7 +183,7 @@ class FetchOrdersTest extends TestCase
         static::assertSame(1, $item->quantity());
         static::assertSame(75., $item->amount());
         static::assertSame(90.75, $item->amountWithTax());
-        static::assertNull($item->type());
+        static::assertSame(ItemType::STANDARD, $item->type());
     }
 
     /** @test */
@@ -190,7 +199,7 @@ class FetchOrdersTest extends TestCase
         static::assertNull($payment->customerId());
         static::assertNull($payment->mandateId());
         static::assertNull($payment->method());
-        static::assertSame('mail', $payment->type());
+        static::assertSame(PaymentType::MAIL, $payment->type());
         static::assertNull($payment->provider());
         static::assertNull($payment->transactionId());
         static::assertSame(1, $payment->orderId());
@@ -211,9 +220,9 @@ class FetchOrdersTest extends TestCase
         static::assertSame('/v2/orders/1?include=payment', $client->path());
         static::assertSame('qfeio43asdf1f11', $payment->customerId());
         static::assertSame('qwertyasdf', $payment->mandateId());
-        static::assertSame('banktransfer', $payment->method());
-        static::assertSame('mandate', $payment->type());
-        static::assertSame('mollie', $payment->provider());
+        static::assertSame(PaymentMethod::BANKTRANSFER, $payment->method());
+        static::assertSame(PaymentType::MANDATE, $payment->type());
+        static::assertSame(PaymentProvider::MOLLIE, $payment->provider());
         static::assertSame('tr_123456mock', $payment->transactionId());
         static::assertSame(1, $payment->orderId());
         static::assertSame('2019-01-19 00:00:00', $payment->paidAt()->format('Y-m-d H:i:s'));
@@ -241,13 +250,13 @@ class FetchOrdersTest extends TestCase
         $order = $service->find(1);
 
         static::assertSame(10., $order->taxes()[0]->amount());
-        static::assertSame('NL', $order->taxes()[0]->rate()->country());
+        static::assertSame(CountryCode::NL, $order->taxes()[0]->rate()->country());
         static::assertSame(57, $order->taxes()[0]->rate()->id());
         static::assertSame(21., $order->taxes()[0]->rate()->percentage());
 
         $tax = $order->items()[0]->tax();
         static::assertSame(10., $tax->amount());
-        static::assertSame('NL', $tax->rate()->country());
+        static::assertSame(CountryCode::NL, $tax->rate()->country());
         static::assertSame(57, $tax->rate()->id());
         static::assertSame(21., $tax->rate()->percentage());
     }
@@ -281,7 +290,7 @@ class FetchOrdersTest extends TestCase
         $client  = (new OrdersIndexMockClient());
         $service = new OrderService($client);
 
-        $filter = (new OrderFilter())->country('NL');
+        $filter = (new OrderFilter())->country(CountryCode::NL);
         $service->get($filter);
 
         static::assertSame('/v2/orders?country=NL', $client->path());

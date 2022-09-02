@@ -2,13 +2,13 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-class OrderIncludes
+enum OrderIncludes: string
 {
-    public const BILLING = 'billing';
-    public const COMMENTS = 'comments';
-    public const DISCOUNTS = 'discounts';
-    public const ITEMS = 'items';
-    public const PAYMENT = 'payment';
-    public const TAGS = 'tags';
-    public const TAXES = 'taxes';
+    case BILLING = 'billing';
+    case COMMENTS = 'comments';
+    case DISCOUNTS = 'discounts';
+    case ITEMS = 'items';
+    case PAYMENT = 'payment';
+    case TAGS = 'tags';
+    case TAXES = 'taxes';
 }

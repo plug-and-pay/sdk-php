@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Entity;
 
 use BadFunctionCallException;
+use PlugAndPay\Sdk\Enum\CountryCode;
 
 class Rate
 {
-    private string $country;
+    private CountryCode $country;
     private int $id;
     private float $percentage;
 
-    public function __construct(?float $percentage, ?string $country, int $id = null)
+    public function __construct(?float $percentage, ?CountryCode $country, int $id = null)
     {
         if ($percentage !== null) {
             $this->percentage = $percentage;
@@ -30,7 +31,7 @@ class Rate
         return new self(null, null, $id);
     }
 
-    public function country(): string
+    public function country(): CountryCode
     {
         return $this->country;
     }

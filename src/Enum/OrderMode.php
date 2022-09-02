@@ -2,8 +2,8 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-class OrderMode
+enum OrderMode: string
 {
-    public const TEST = 'test';
-    public const LIVE = 'live';
+    case TEST = 'test';
+    case LIVE = 'live';
 }

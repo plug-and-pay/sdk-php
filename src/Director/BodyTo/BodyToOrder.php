@@ -7,6 +7,8 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 use DateTimeImmutable;
 use Exception;
 use PlugAndPay\Sdk\Entity\Order;
+use PlugAndPay\Sdk\Enum\InvoiceStatus;
+use PlugAndPay\Sdk\Enum\OrderMode;
 use PlugAndPay\Sdk\Enum\OrderSource;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
@@ -24,10 +26,10 @@ class BodyToOrder
             ->setHidden($data['is_hidden'])
             ->setId($data['id'])
             ->setInvoiceNumber($data['invoice_number'])
-            ->setInvoiceStatus($data['invoice_status'])
-            ->setMode($data['mode'])
+            ->setInvoiceStatus(InvoiceStatus::from($data['invoice_status']))
+            ->setMode(OrderMode::from($data['mode']))
             ->setReference($data['reference'])
-            ->setSource($data['source'] ?? OrderSource::UNKNOWN)
+            ->setSource(OrderSource::tryFrom($data['source']) ?? OrderSource::UNKNOWN)
             ->setAmount((float)$data['amount'])
             ->setTotal((float)$data['amount_with_tax'])
             ->setUpdatedAt(self::date($data, 'updated_at'));

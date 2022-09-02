@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+use PlugAndPay\Sdk\Enum\DiscountType;
+
 class Discount
 {
     private float $amount;
     private ?string $code;
-    /**
-     * @see \PlugAndPay\Sdk\Entity\DiscountType
-     */
-    private string $type;
+    private DiscountType $type;
 
     public function amount(): float
     {
@@ -35,13 +34,13 @@ class Discount
         return $this;
     }
 
-    public function setType(string $type): Discount
+    public function setType(DiscountType $type): Discount
     {
         $this->type = $type;
         return $this;
     }
 
-    public function type(): string
+    public function type(): DiscountType
     {
         return $this->type;
     }

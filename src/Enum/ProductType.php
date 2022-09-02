@@ -2,9 +2,9 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-class ProductType
+enum ProductType: string
 {
-    public const INSTALLMENTS = 'installments';
-    public const ONE_OFF = 'one_off';
-    public const SUBSCRIPTION = 'subscription';
+    case INSTALLMENTS = 'installments';
+    case ONE_OFF = 'one_off';
+    case SUBSCRIPTION = 'subscription';
 }

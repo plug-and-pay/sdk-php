@@ -2,7 +2,7 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-class CurrencyCodeIso
+enum CurrencyCodeIso: string
 {
-    public const EUR = 'EUR';
+    case EUR = 'EUR';
 }

@@ -2,8 +2,8 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-class Direction
+enum Direction: string
 {
-    public const ASC = 'asc';
-    public const DESC = 'desc';
+    case ASC = 'asc';
+    case DESC = 'desc';
 }

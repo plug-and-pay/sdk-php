@@ -2,8 +2,8 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-class TaxExempt
+enum TaxExempt: string
 {
-    public const NONE = 'none';
-    public const REVERSE = 'reverse';
+    case NONE = 'none';
+    case REVERSE = 'reverse';
 }

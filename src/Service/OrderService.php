@@ -9,6 +9,7 @@ use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToOrder;
 use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
 use PlugAndPay\Sdk\Entity\Order;
+use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Filters\OrderFilter;
 use PlugAndPay\Sdk\Support\Parameters;
 
@@ -23,7 +24,7 @@ class OrderService
         $this->client = $client;
     }
 
-    public function include(string...$includes): self
+    public function include(OrderIncludes...$includes): self
     {
         $this->includes = $includes;
 

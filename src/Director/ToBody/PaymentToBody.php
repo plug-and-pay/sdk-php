@@ -11,7 +11,7 @@ class PaymentToBody
     public static function build(Payment $payment): array
     {
         return [
-            'status' => $payment->status(),
+            'status' => $payment->status()->value,
         ];
     }
 }

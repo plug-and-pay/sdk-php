@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Entity;
 
 use BadFunctionCallException;
+use PlugAndPay\Sdk\Enum\CountryCode;
 
 class Address
 {
     private ?string $city;
-    private ?string $country;
+    private ?CountryCode $country;
     private ?string $street;
     private ?string $houseNumber;
     private ?string $zipcode;
@@ -19,7 +20,7 @@ class Address
         return $this->city;
     }
 
-    public function country(): ?string
+    public function country(): ?CountryCode
     {
         return $this->country;
     }
@@ -38,7 +39,7 @@ class Address
         return $this;
     }
 
-    public function setCountry(?string $country): Address
+    public function setCountry(?CountryCode $country): Address
     {
         $this->country = $country;
         return $this;

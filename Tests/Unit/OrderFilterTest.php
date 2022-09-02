@@ -7,6 +7,7 @@ namespace PlugAndPay\Sdk\Tests\Unit;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Enum\ContractType;
+use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\Direction;
 use PlugAndPay\Sdk\Enum\InvoiceStatus;
 use PlugAndPay\Sdk\Enum\OrderMode;
@@ -21,11 +22,11 @@ class OrderFilterTest extends TestCase
      * @test
      * @dataProvider filterOptionsOneValue
      */
-    public function parameters_by_filter_one_value($method, $key, $value): void
+    public function parameters_by_filter_one_value($method, $key, $given, $expected = null): void
     {
         /** @var OrderFilter $filter */
-        $filter = (new OrderFilter())->{$method}($value);
-        static::assertSame([$key => $value], $filter->parameters());
+        $filter = (new OrderFilter())->{$method}($given);
+        static::assertSame([$key => $expected ?? $given], $filter->parameters());
     }
 
     public function filterOptionsOneValue(): array
@@ -33,27 +34,27 @@ class OrderFilterTest extends TestCase
         return [
             'affiliate_id'       => ['affiliateId', 'affiliate_id', 123],
             'checkout_id'        => ['checkoutId', 'checkout_id', 123],
-            'country'            => ['country', 'country', 'NL'],
-            'direction'          => ['direction', 'direction', Direction::ASC],
+            'country'            => ['country', 'country', CountryCode::NL, 'NL'],
+            'direction'          => ['direction', 'direction', Direction::ASC, 'asc'],
             'discount_code'      => ['discountCode', 'discount_code', '123'],
             'email'              => ['email', 'email', 'fake@test.nl'],
             'has_bump'           => ['hasBump', 'has_bump', true],
             'has_tax'            => ['hasTax', 'has_tax', true],
-            'invoice_status'     => ['invoiceStatus', 'invoice_status', InvoiceStatus::FINAL],
+            'invoice_status'     => ['invoiceStatus', 'invoice_status', InvoiceStatus::FINAL, 'final'],
             'is_deleted'         => ['isDeleted', 'is_deleted', true],
             'is_first'           => ['isFirst', 'is_first', true],
             'is_hidden'          => ['isHidden', 'is_hidden', true],
             'is_upsell'          => ['isUpsell', 'is_upsell', true],
             'limit'              => ['limit', 'limit', 10],
-            'mode'               => ['mode', 'mode', OrderMode::TEST],
+            'mode'               => ['mode', 'mode', OrderMode::TEST, 'test'],
             'page'               => ['page', 'page', 2],
             'product_id'         => ['productId', 'product_id', 123],
             'product_tag'        => ['productTag', 'product_tag', 'test-tag'],
             'query'              => ['query', 'q', 'Piet Niet'],
             'since_invoice_date' => ['sinceInvoiceDate', 'since_invoice_date', new DateTime()],
             'since_paid_at'      => ['sincePaidAt', 'since_paid_at', new DateTime()],
-            'sort'               => ['sort', 'sort', OrderSortType::INVOICE_DATE],
-            'source'             => ['source', 'source', OrderSource::API],
+            'sort'               => ['sort', 'sort', OrderSortType::INVOICE_DATE, 'invoice_date'],
+            'source'             => ['source', 'source', OrderSource::API, 'api'],
             'until_invoice_date' => ['untilInvoiceDate', 'until_invoice_date', new DateTime()],
             'until_paid_at'      => ['untilPaidAt', 'until_paid_at', new DateTime()],
         ];

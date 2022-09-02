@@ -6,6 +6,7 @@ namespace PlugAndPay\Sdk\Tests\Feature\Order;
 
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Order;
+use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Service\OrderService;
 use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderUpdateMockClient;
@@ -34,13 +35,13 @@ class UpdateOrdersTest extends TestCase
 
         $order = $service->update(1, function (Order $order) {
             $order->billing()->contact()->setEmail('updated@email.nl');
-            $order->billing()->address()->setCountry('BE');
-            $order->billing()->address()->setCountry('BE');
+            $order->billing()->address()->setCountry(CountryCode::BE);
+            $order->billing()->address()->setCountry(CountryCode::BE);
             $order->payment()->setStatus(PaymentStatus::PAID);
         });
 
-        static::assertEquals('BE', $order->billing()->address()->country());
+        static::assertEquals(CountryCode::BE, $order->billing()->address()->country());
         static::assertEquals('updated@email.nl', $order->billing()->contact()->email());
-        static::assertEquals('paid', $order->payment()->status());
+        static::assertEquals(PaymentStatus::PAID, $order->payment()->status());
     }
 }
