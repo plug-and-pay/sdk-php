@@ -18,18 +18,16 @@ use PlugAndPay\Sdk\Enum\PaymentMethod;
 use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\PaymentType;
-use PlugAndPay\Sdk\Enum\ProductType;
 use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Exception\UnauthenticatedException;
-use PlugAndPay\Sdk\Filters\OrderFilter;
 use PlugAndPay\Sdk\Service\OrderService;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderShowMockClient;
-use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrdersIndexMockClient;
 
-class FetchOrdersTest extends TestCase
+class ShowOrdersTest extends TestCase
 {
+
     /** @test */
     public function fetch_basic_order(): void
     {
@@ -271,29 +269,6 @@ class FetchOrdersTest extends TestCase
 
         static::assertSame(DiscountType::PROMOTION, $order->totalDiscounts()[0]->type());
         static::assertSame(DiscountType::PROMOTION, $order->items()[0]->discounts()[0]->type());
-    }
-
-    /** @test */
-    public function fetch_orders(): void
-    {
-        $client  = (new OrdersIndexMockClient());
-        $service = new OrderService($client);
-        $orders  = $service->include(OrderIncludes::PAYMENT)->get();
-
-        static::assertSame(1, $orders[0]->id());
-        static::assertSame('/v2/orders?include=payment', $client->path());
-    }
-
-    /** @test */
-    public function fetch_orders_with_filter(): void
-    {
-        $client  = (new OrdersIndexMockClient());
-        $service = new OrderService($client);
-
-        $filter = (new OrderFilter())->country(CountryCode::NL);
-        $service->get($filter);
-
-        static::assertSame('/v2/orders?country=NL', $client->path());
     }
 
     /**
