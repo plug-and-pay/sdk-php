@@ -14,7 +14,7 @@ class BodyToTax
     {
         return (new Tax())
             ->setAmount((float)$data['amount'])
-            ->setRate(
+            ->setTaxRate(
                 new Rate(
                     (float)$data['rate']['percentage'],
                     $data['rate']['country'] ? CountryCode::from($data['rate']['country']) : null,

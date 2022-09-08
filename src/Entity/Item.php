@@ -106,7 +106,7 @@ class Item
 
     public function setTaxByRateId(int $id): Item
     {
-        $this->tax = (new Tax())->setRate(Rate::byId($id));
+        $this->tax = (new Tax())->setTaxRate(Rate::byId($id));
         return $this;
     }
 

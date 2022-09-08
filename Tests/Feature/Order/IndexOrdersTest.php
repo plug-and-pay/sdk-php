@@ -14,7 +14,7 @@ use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrdersIndexMockClient;
 class IndexOrdersTest extends TestCase
 {
     /** @test */
-    public function fetch_orders(): void
+    public function index_orders(): void
     {
         $client  = (new OrdersIndexMockClient());
         $service = new OrderService($client);
@@ -25,7 +25,7 @@ class IndexOrdersTest extends TestCase
     }
 
     /** @test */
-    public function fetch_orders_with_filter(): void
+    public function index_orders_with_filter(): void
     {
         $client  = (new OrdersIndexMockClient());
         $service = new OrderService($client);
@@ -36,3 +36,4 @@ class IndexOrdersTest extends TestCase
         static::assertSame('/v2/orders?country=NL', $client->path());
     }
 }
+

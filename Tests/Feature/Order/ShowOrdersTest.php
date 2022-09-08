@@ -29,14 +29,13 @@ class ShowOrdersTest extends TestCase
 {
 
     /** @test */
-    public function fetch_basic_order(): void
+    public function show_basic_order(): void
     {
         $client  = new OrderShowMockClient(['id' => 1]);
         $service = new OrderService($client);
 
         $order = $service->find(1);
 
-        static::assertEquals(1, $order->id());
         static::assertSame('2019-01-16 00:00:00', $order->createdAt()->format('Y-m-d H:i:s'));
         static::assertSame('2019-01-16 00:00:00', $order->deletedAt()->format('Y-m-d H:i:s'));
         static::assertSame(1, $order->id());
@@ -56,7 +55,7 @@ class ShowOrdersTest extends TestCase
      * @test
      * @dataProvider relationsProvider
      */
-    public function fetch_none_loaded_relationships(string $relation): void
+    public function show_none_loaded_relationships(string $relation): void
     {
         $exception = null;
 
@@ -68,8 +67,24 @@ class ShowOrdersTest extends TestCase
         static::assertInstanceOf(RelationNotLoadedException::class, $exception);
     }
 
+    /**
+     * Data provider for show_none_loaded_relationships
+     */
+    public function relationsProvider(): array
+    {
+        return [
+            'billing'        => ['billing'],
+            'comments'       => ['comments'],
+            'totalDiscounts' => ['totalDiscounts'],
+            'items'          => ['items'],
+            'payment'        => ['payment'],
+            'tags'           => ['tags'],
+            'taxes'          => ['taxes'],
+        ];
+    }
+
     /** @test */
-    public function fetch_not_existing_order(): void
+    public function show_not_existing_order(): void
     {
         $client    = new ClientMock(Response::HTTP_NOT_FOUND);
         $service   = new OrderService($client);
@@ -84,7 +99,7 @@ class ShowOrdersTest extends TestCase
     }
 
     /** @test */
-    public function fetch_unauthorized_order(): void
+    public function show_unauthorized_order(): void
     {
         $client    = new ClientMock(Response::HTTP_UNAUTHORIZED);
         $service   = new OrderService($client);
@@ -99,7 +114,7 @@ class ShowOrdersTest extends TestCase
     }
 
     /** @test */
-    public function fetch_order_billing_basic(): void
+    public function show_order_billing_basic(): void
     {
         $client  = (new OrderShowMockClient(['id' => 1]))->billingOnlyRequired();
         $service = new OrderService($client);
@@ -125,7 +140,7 @@ class ShowOrdersTest extends TestCase
     }
 
     /** @test */
-    public function fetch_order_billing_address_and_contact(): void
+    public function show_order_billing_address_and_contact(): void
     {
         $client  = (new OrderShowMockClient(['id' => 1]))->billing();
         $service = new OrderService($client);
@@ -151,7 +166,7 @@ class ShowOrdersTest extends TestCase
     }
 
     /** @test */
-    public function fetch_order_comments(): void
+    public function show_order_comments(): void
     {
         $client  = (new OrderShowMockClient(['id' => 1]))->comments();
         $service = new OrderService($client);
@@ -166,7 +181,7 @@ class ShowOrdersTest extends TestCase
     }
 
     /** @test */
-    public function fetch_order_items(): void
+    public function show_order_items(): void
     {
         $client  = (new OrderShowMockClient(['id' => 1]))->items();
         $service = new OrderService($client);
@@ -185,7 +200,7 @@ class ShowOrdersTest extends TestCase
     }
 
     /** @test */
-    public function fetch_order_payment_non_filled(): void
+    public function show_order_payment_non_filled(): void
     {
         $client  = (new OrderShowMockClient(['id' => 1]))->paymentOnlyBasic();
         $service = new OrderService($client);
@@ -207,7 +222,7 @@ class ShowOrdersTest extends TestCase
     }
 
     /** @test */
-    public function fetch_order_payment(): void
+    public function show_order_payment(): void
     {
         $client  = (new OrderShowMockClient(['id' => 1]))->payment();
         $service = new OrderService($client);
@@ -229,7 +244,7 @@ class ShowOrdersTest extends TestCase
     }
 
     /** @test */
-    public function fetch_order_tags(): void
+    public function show_order_tags(): void
     {
         $client  = (new OrderShowMockClient(['id' => 1]))->tags(['first', 'second']);
         $service = new OrderService($client);
@@ -240,7 +255,7 @@ class ShowOrdersTest extends TestCase
     }
 
     /** @test */
-    public function fetch_order_taxes(): void
+    public function show_order_taxes(): void
     {
         $client  = (new OrderShowMockClient(['id' => 1]))->taxes();
         $service = new OrderService($client);
@@ -260,7 +275,7 @@ class ShowOrdersTest extends TestCase
     }
 
     /** @test */
-    public function fetch_order_discount(): void
+    public function show_order_discount(): void
     {
         $client  = (new OrderShowMockClient(['id' => 1]))->discounts();
         $service = new OrderService($client);
@@ -269,21 +284,5 @@ class ShowOrdersTest extends TestCase
 
         static::assertSame(DiscountType::PROMOTION, $order->totalDiscounts()[0]->type());
         static::assertSame(DiscountType::PROMOTION, $order->items()[0]->discounts()[0]->type());
-    }
-
-    /**
-     * Data provider for fetch_none_loaded_relationships
-     */
-    public function relationsProvider(): array
-    {
-        return [
-            'billing'        => ['billing'],
-            'comments'       => ['comments'],
-            'totalDiscounts' => ['totalDiscounts'],
-            'items'          => ['items'],
-            'payment'        => ['payment'],
-            'tags'           => ['tags'],
-            'taxes'          => ['taxes'],
-        ];
     }
 }
