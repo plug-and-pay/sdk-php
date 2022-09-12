@@ -62,67 +62,50 @@ class ProductShowMockClient extends ClientMock
                         'regular'      => [
                             'amount'          => '100.00',
                             'amount_with_tax' => '121.00',
+                        ],
+                        'tiers'        => [],
+                        'id'           => 1,
                     ],
-                    'tiers'        => [],
-                    'id'           => 1,
                 ],
-            ],
-            'shipping'        => null,
-            'tax'             => [
-                'rate' => [
-                    'id'         => 1234,
-                    'country'    => 'NL',
-                    'percentage' => '6.0',
+                'shipping'        => null,
+                'tax'             => [
+                    'rate' => [
+                        'id'         => 1234,
+                        'country'    => 'NL',
+                        'percentage' => '6.0',
+                    ],
                 ],
-            ],
-            'trial'           => null,
-        ];
+                'trial'           => null,
+            ];
 
         return $this;
     }
 
-//    public function pricingBasic(): self
-//    {
-//        $this->responseBody['data']['pricing'] = [
-//            'is_tax_included' => true,
-//            'prices'          => [
-//                [
-//                    'first'        => [
-//                        'amount'          => '100.00',
-//                        'amount_with_tax' => '121.00',
-//                    ],
-//                    'interval'     => 'monthly',
-//                    'is_suggested' => false,
-//                    'nr_of_cycles' => 12,
-//                    'original'     => [
-//                        'amount'          => '100.00',
-//                        'amount_with_tax' => '121.00',
-//                    ],
-//                    'regular'      => [
-//                        'amount'          => '100.00',
-//                        'amount_with_tax' => '121.00',
-//                    ],
-//                    'tiers'        => [
-//                        [
-//                            'amount'          => '100.00',
-//                            'amount_with_tax' => '121.00',
-//                            'quantity'        => 5,
-//                        ],
-//                    ],
-//                    'id'           => 1,
-//                ],
-//            ],
-//            'shipping'        => null,
-//            'tax'             => [
-//                'rate' => [
-//                    'id'         => 1234,
-//                    'country'    => 'NL',
-//                    'percentage' => '6.0',
-//                ],
-//            ],
-//            'trial'           => null,
-//        ];
-//
-//        return $this;
-//    }
+    public function taxProfile(bool $multipleRates = false): self
+    {
+        $rates = [[
+                      'id'         => 1234,
+                      'country'    => 'NL',
+                      'percentage' => '6.0',
+                  ]];
+
+        if ($multipleRates) {
+            $rates[] = [
+                'id'         => 5678,
+                'country'    => 'BE',
+                'percentage' => '3.0',
+            ];
+        }
+
+        $this->responseBody['data']['pricing']['tax'] = [
+            'profile' => [
+                'id'          => 123,
+                'is_editable' => false,
+                'label'       => 'High rate',
+                'rates'       => $rates,
+            ],
+        ];
+
+        return $this;
+    }
 }

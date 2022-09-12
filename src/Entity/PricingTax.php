@@ -11,6 +11,7 @@ class PricingTax
 {
     private bool $allowEmptyRelations;
     private TaxRate $rate;
+    private TaxProfile $profile;
 
     public function __construct(bool $allowEmptyRelations = true)
     {
@@ -25,13 +26,32 @@ class PricingTax
         return isset($this->{$field});
     }
 
+    public function profile(): TaxProfile
+    {
+        if (!isset($this->profile)) {
+            if ($this->allowEmptyRelations) {
+                $this->profile = new TaxProfile();
+            } else {
+                throw new RelationNotLoadedException('profile');
+            }
+        }
+
+        return $this->profile;
+    }
+
+    public function setProfile(TaxProfile $profile): self
+    {
+        $this->profile = $profile;
+        return $this;
+    }
+
     public function rate(): TaxRate
     {
         if (!isset($this->rate)) {
             if ($this->allowEmptyRelations) {
                 $this->rate = new TaxRate();
             } else {
-                throw new RelationNotLoadedException('taxRate');
+                throw new RelationNotLoadedException('rate');
             }
         }
 

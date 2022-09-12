@@ -141,6 +141,35 @@ class ShowProductsTest extends TestCase
     }
 
     /** @test */
+    public function show_product_pricing_with_tax_profile_one_rate(): void
+    {
+        $client  = (new ProductShowMockClient(['id' => 1]))
+            ->pricingBasic()
+            ->taxProfile();
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertSame(123, $product->pricing()->tax()->profile()->id());
+        static::assertSame(false, $product->pricing()->tax()->profile()->isEditable());
+        static::assertSame('High rate', $product->pricing()->tax()->profile()->label());
+        static::assertSame(1234, $product->pricing()->tax()->profile()->rates()[0]->id());
+    }
+
+    /** @test */
+    public function show_product_pricing_with_tax_profile_multiple_rates(): void
+    {
+        $client  = (new ProductShowMockClient(['id' => 1]))
+            ->pricingBasic()
+            ->taxProfile(multipleRates: true);
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertCount(2, $product->pricing()->tax()->profile()->rates());
+    }
+
+    /** @test */
     public function show_product_pricing_trial(): void
     {
         $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic([
@@ -158,4 +187,6 @@ class ShowProductsTest extends TestCase
         static::assertSame(12.1, $product->pricing()->trial()->amountWithTax());
         static::assertSame(15, $product->pricing()->trial()->duration());
     }
+
+    // @todo; test prices
 }
