@@ -48,20 +48,20 @@ class ProductShowMockClient extends ClientMock
         return $this->path;
     }
 
-    public function pricingBasic(): self
+    public function pricingBasic(array $pricing = []): self
     {
-        $this->responseBody['data']['pricing'] = [
-            'is_tax_included' => true,
-            'prices'          => [
-                [
-                    'first'        => null,
-                    'interval'     => null,
-                    'is_suggested' => false,
-                    'nr_of_cycles' => 1,
-                    'original'     => null,
-                    'regular'      => [
-                        'amount'          => '100.00',
-                        'amount_with_tax' => '121.00',
+        $this->responseBody['data']['pricing'] = $pricing + [
+                'is_tax_included' => false,
+                'prices'          => [
+                    [
+                        'first'        => null,
+                        'interval'     => null,
+                        'is_suggested' => false,
+                        'nr_of_cycles' => 1,
+                        'original'     => null,
+                        'regular'      => [
+                            'amount'          => '100.00',
+                            'amount_with_tax' => '121.00',
                     ],
                     'tiers'        => [],
                     'id'           => 1,

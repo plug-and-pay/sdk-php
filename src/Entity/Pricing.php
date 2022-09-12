@@ -14,9 +14,9 @@ class Pricing
      * @var Price[]
      */
     private array $prices;
-    private ?bool $shipping;
-    private Tax $tax;
-    private ?bool $trial;
+    private ?Shipping $shipping;
+    private PricingTax $tax;
+    private ?PricingTrial $trial;
 
     public function __construct(bool $allowEmptyRelations = true)
     {
@@ -63,39 +63,39 @@ class Pricing
         return $this;
     }
 
-    public function shipping(): ?bool
+    public function shipping(): ?Shipping
     {
         return $this->shipping;
     }
 
-    public function setShipping(?bool $shipping): Pricing
+    public function setShipping(?Shipping $shipping): Pricing
     {
         $this->shipping = $shipping;
         return $this;
     }
 
-    public function setTax(Tax $tax): Pricing
+    public function setTax(PricingTax $tax): Pricing
     {
         $this->tax = $tax;
         return $this;
     }
 
-    public function trial(): ?bool
+    public function trial(): ?PricingTrial
     {
         return $this->trial;
     }
 
-    public function setTrial(?bool $isTrial): Pricing
+    public function setTrial(?PricingTrial $trial): Pricing
     {
-        $this->trial = $isTrial;
+        $this->trial = $trial;
         return $this;
     }
 
-    public function tax(): Tax
+    public function tax(): PricingTax
     {
         if (!isset($this->tax)) {
             if ($this->allowEmptyRelations) {
-                $this->tax = new Tax($this->allowEmptyRelations);
+                $this->tax = new PricingTax($this->allowEmptyRelations);
             } else {
                 throw new RelationNotLoadedException('tax');
             }

@@ -7,10 +7,10 @@ namespace PlugAndPay\Sdk\Entity;
 use BadFunctionCallException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
-class ProductPricingTax
+class PricingTax
 {
     private bool $allowEmptyRelations;
-    private TaxRate $taxRate;
+    private TaxRate $rate;
 
     public function __construct(bool $allowEmptyRelations = true)
     {
@@ -25,16 +25,22 @@ class ProductPricingTax
         return isset($this->{$field});
     }
 
-    public function taxRate(): TaxRate
+    public function rate(): TaxRate
     {
-        if (!isset($this->taxRate)) {
+        if (!isset($this->rate)) {
             if ($this->allowEmptyRelations) {
-                $this->taxRate = new TaxRate();
+                $this->rate = new TaxRate();
             } else {
                 throw new RelationNotLoadedException('taxRate');
             }
         }
 
-        return $this->taxRate;
+        return $this->rate;
+    }
+
+    public function setRate(TaxRate $rate): self
+    {
+        $this->rate = $rate;
+        return $this;
     }
 }

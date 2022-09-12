@@ -87,7 +87,7 @@ class ShowProductsTest extends TestCase
         $product = $service->include(ProductIncludes::PRICING)->find(1);
 
         static::assertSame('/v2/products/1?include=pricing', $client->path());
-        static::assertSame(true, $product->pricing()->isTaxIncluded());
+        static::assertSame(false, $product->pricing()->isTaxIncluded());
         static::assertSame(null, $product->pricing()->shipping());
         static::assertSame(null, $product->pricing()->trial());
         static::assertSame(null, $product->pricing()->prices()[0]->first());
@@ -95,5 +95,67 @@ class ShowProductsTest extends TestCase
         static::assertSame(false, $product->pricing()->prices()[0]->isSuggested());
         static::assertSame(1, $product->pricing()->prices()[0]->nrOfCycles());
         static::assertSame(null, $product->pricing()->prices()[0]->original());
+    }
+
+    /** @test */
+    public function show_product_pricing_is_tax_included(): void
+    {
+        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic([
+            'is_tax_included' => true,
+        ]);
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertSame(true, $product->pricing()->isTaxIncluded());
+    }
+
+    /** @test */
+    public function show_product_pricing_shipping(): void
+    {
+        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic([
+            'shipping' => [
+                'amount'          => '10.00',
+                'amount_with_tax' => '12.10',
+            ],
+        ]);
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertSame(10., $product->pricing()->shipping()->amount());
+        static::assertSame(12.1, $product->pricing()->shipping()->amountWithTax());
+    }
+
+    /** @test */
+    public function show_product_pricing_with_tax_rate(): void
+    {
+        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic();
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertSame(1234, $product->pricing()->tax()->rate()->id());
+        static::assertSame('NL', $product->pricing()->tax()->rate()->country()->value);
+        static::assertSame(6., $product->pricing()->tax()->rate()->percentage());
+    }
+
+    /** @test */
+    public function show_product_pricing_trial(): void
+    {
+        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic([
+            'trial' => [
+                'amount'          => '10.00',
+                'amount_with_tax' => '12.10',
+                'duration'        => 15,
+            ],
+        ]);
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertSame(10., $product->pricing()->trial()->amount());
+        static::assertSame(12.1, $product->pricing()->trial()->amountWithTax());
+        static::assertSame(15, $product->pricing()->trial()->duration());
     }
 }

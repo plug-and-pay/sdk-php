@@ -15,8 +15,9 @@ class BodyToPricing
     {
         $pricing = (new Pricing())
             ->setTaxIncluded($data['is_tax_included'])
-            ->setShipping(null)
-            ->setTrial(null)
+            ->setShipping($data['shipping'] ? BodyToPricingShipping::build($data['shipping']) : null)
+            ->setTrial($data['trial'] ? BodyToPricingTrial::build($data['trial']) : null)
+            ->setTax(BodyToPricingTax::build($data['tax']))
             ->setPrices(BodyToPrice::build($data['prices']));
 
         return $pricing;
