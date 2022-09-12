@@ -48,22 +48,81 @@ class ProductShowMockClient extends ClientMock
         return $this->path;
     }
 
-    public function pricing(): self
+    public function pricingBasic(): self
     {
         $this->responseBody['data']['pricing'] = [
             'is_tax_included' => true,
-            'prices'          => [],
+            'prices'          => [
+                [
+                    'first'        => null,
+                    'interval'     => null,
+                    'is_suggested' => false,
+                    'nr_of_cycles' => 1,
+                    'original'     => null,
+                    'regular'      => [
+                        'amount'          => '100.00',
+                        'amount_with_tax' => '121.00',
+                    ],
+                    'tiers'        => [],
+                    'id'           => 1,
+                ],
+            ],
             'shipping'        => null,
             'tax'             => [
                 'rate' => [
-                    'id' => 1234,
-                    'country' => 'NL',
-                    'percentage' => '6.0'
+                    'id'         => 1234,
+                    'country'    => 'NL',
+                    'percentage' => '6.0',
                 ],
             ],
-            'trial' => null,
+            'trial'           => null,
         ];
 
         return $this;
     }
+
+//    public function pricingBasic(): self
+//    {
+//        $this->responseBody['data']['pricing'] = [
+//            'is_tax_included' => true,
+//            'prices'          => [
+//                [
+//                    'first'        => [
+//                        'amount'          => '100.00',
+//                        'amount_with_tax' => '121.00',
+//                    ],
+//                    'interval'     => 'monthly',
+//                    'is_suggested' => false,
+//                    'nr_of_cycles' => 12,
+//                    'original'     => [
+//                        'amount'          => '100.00',
+//                        'amount_with_tax' => '121.00',
+//                    ],
+//                    'regular'      => [
+//                        'amount'          => '100.00',
+//                        'amount_with_tax' => '121.00',
+//                    ],
+//                    'tiers'        => [
+//                        [
+//                            'amount'          => '100.00',
+//                            'amount_with_tax' => '121.00',
+//                            'quantity'        => 5,
+//                        ],
+//                    ],
+//                    'id'           => 1,
+//                ],
+//            ],
+//            'shipping'        => null,
+//            'tax'             => [
+//                'rate' => [
+//                    'id'         => 1234,
+//                    'country'    => 'NL',
+//                    'percentage' => '6.0',
+//                ],
+//            ],
+//            'trial'           => null,
+//        ];
+//
+//        return $this;
+//    }
 }

@@ -11,7 +11,7 @@ class Tax
 {
     private bool $allowEmptyRelations;
     private float $amount;
-    private TaxRate $taxRate;
+    private TaxRate $rate;
 
     public function __construct(bool $allowEmptyRelations = true)
     {
@@ -33,15 +33,15 @@ class Tax
 
     public function rate(): TaxRate
     {
-        if (!isset($this->taxRate)) {
+        if (!isset($this->rate)) {
             if ($this->allowEmptyRelations) {
-                $this->taxRate = new TaxRate();
+                $this->rate = new TaxRate();
             } else {
                 throw new RelationNotLoadedException('taxRate');
             }
         }
 
-        return $this->taxRate;
+        return $this->rate;
     }
 
     public function setAmount(float $amount): Tax
@@ -50,9 +50,9 @@ class Tax
         return $this;
     }
 
-    public function setTaxRate(TaxRate $rate): Tax
+    public function setRate(TaxRate $rate): Tax
     {
-        $this->taxRate = $rate;
+        $this->rate = $rate;
         return $this;
     }
 }

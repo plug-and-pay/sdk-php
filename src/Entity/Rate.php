@@ -26,11 +26,6 @@ class Rate
         }
     }
 
-    public static function byId(int $id)
-    {
-        return new self(null, null, $id);
-    }
-
     public function country(): CountryCode
     {
         return $this->country;

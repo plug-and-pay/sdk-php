@@ -8,7 +8,8 @@ use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToProduct;
 use PlugAndPay\Sdk\Entity\Product;
-use PlugAndPay\Sdk\Enum\OrderIncludes;
+use PlugAndPay\Sdk\Enum\ProductIncludes;
+use PlugAndPay\Sdk\Support\Parameters;
 
 class ProductService
 {
@@ -21,7 +22,7 @@ class ProductService
         $this->client = $client;
     }
 
-    public function include(OrderIncludes...$includes): self
+    public function include(ProductIncludes...$includes): self
     {
         $this->includes = $includes;
 
@@ -33,9 +34,8 @@ class ProductService
      */
     public function find(int $id): Product
     {
-//        $query    = Parameters::toString(['include' => $this->includes]);
-//        $response = $this->client->get("/v2/products/$id$query");
-        $response = $this->client->get("/v2/products/$id");
+        $query    = Parameters::toString(['include' => $this->includes]);
+        $response = $this->client->get("/v2/products/$id$query");
         return BodyToProduct::build($response->body()['data']);
     }
 }

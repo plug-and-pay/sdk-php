@@ -30,6 +30,10 @@ class BodyToProduct
             ->setType(ProductType::from($data['type']))
             ->setUpdatedAt(self::date($data, 'updated_at'));
 
+        if (isset($data['pricing'])) {
+            $product->setPricing(BodyToPricing::build($data['pricing']));
+        }
+
         return $product;
     }
 

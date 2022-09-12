@@ -1,4 +1,5 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php /** @noinspection PhpUnitTestsInspection */
+/** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -7,11 +8,9 @@ namespace PlugAndPay\Sdk\Tests\Feature\Product;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Pricing;
 use PlugAndPay\Sdk\Entity\Product;
-use PlugAndPay\Sdk\Enum\OrderIncludes;
+use PlugAndPay\Sdk\Enum\ProductIncludes;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
-use PlugAndPay\Sdk\Service\OrderService;
 use PlugAndPay\Sdk\Service\ProductService;
-use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderShowMockClient;
 use PlugAndPay\Sdk\Tests\Feature\Product\Mock\ProductShowMockClient;
 
 class ShowProductsTest extends TestCase
@@ -69,7 +68,7 @@ class ShowProductsTest extends TestCase
     public function fetch_none_loaded_rax_rate(): void
     {
         $exception = null;
-        $product = (new Product())->setPricing((new Pricing(false)));
+        $product   = (new Product())->setPricing((new Pricing(false)));
 
         try {
             $product->pricing()->tax()->rate();
@@ -80,15 +79,21 @@ class ShowProductsTest extends TestCase
     }
 
     /** @test */
-    public function show_product_pricing(): void
+    public function show_product_pricing_basic(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))->pricing();
+        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic();
         $service = new ProductService($client);
 
-        $order = $service->include(OrderIncludes::PAYMENT)->find(1);
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
 
-        $pricing = $order->pricing();
         static::assertSame('/v2/products/1?include=pricing', $client->path());
-        static::assertSame(5, $pricing->id());
+        static::assertSame(true, $product->pricing()->isTaxIncluded());
+        static::assertSame(null, $product->pricing()->shipping());
+        static::assertSame(null, $product->pricing()->trial());
+        static::assertSame(null, $product->pricing()->prices()[0]->first());
+        static::assertSame(null, $product->pricing()->prices()[0]->interval());
+        static::assertSame(false, $product->pricing()->prices()[0]->isSuggested());
+        static::assertSame(1, $product->pricing()->prices()[0]->nrOfCycles());
+        static::assertSame(null, $product->pricing()->prices()[0]->original());
     }
 }

@@ -4,33 +4,42 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+use BadFunctionCallException;
 use PlugAndPay\Sdk\Enum\CountryCode;
 
 class TaxRate
 {
     private int $id;
-    private CountryCode $countryCode;
+    private CountryCode $country;
     private float $percentage;
+
+    public function isset(string $field): bool
+    {
+        if (!method_exists($this, $field)) {
+            throw new BadFunctionCallException("Method '$field' does not exists");
+        }
+        return isset($this->{$field});
+    }
 
     public function id(): int
     {
         return $this->id;
     }
 
-    public function setId(int $id): TaxRate
+    public function setId(int $id): self
     {
         $this->id = $id;
         return $this;
     }
 
-    public function countryCode(): CountryCode
+    public function country(): CountryCode
     {
-        return $this->countryCode;
+        return $this->country;
     }
 
-    public function setCountryCode(CountryCode $countryCode): TaxRate
+    public function setCountry(CountryCode $country): self
     {
-        $this->countryCode = $countryCode;
+        $this->country = $country;
         return $this;
     }
 
@@ -39,7 +48,7 @@ class TaxRate
         return $this->percentage;
     }
 
-    public function setPercentage(float $percentage): TaxRate
+    public function setPercentage(float $percentage): self
     {
         $this->percentage = $percentage;
         return $this;
