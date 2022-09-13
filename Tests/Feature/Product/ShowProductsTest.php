@@ -90,11 +90,6 @@ class ShowProductsTest extends TestCase
         static::assertSame(false, $product->pricing()->isTaxIncluded());
         static::assertSame(null, $product->pricing()->shipping());
         static::assertSame(null, $product->pricing()->trial());
-        static::assertSame(null, $product->pricing()->prices()[0]->first());
-        static::assertSame(null, $product->pricing()->prices()[0]->interval());
-        static::assertSame(false, $product->pricing()->prices()[0]->isSuggested());
-        static::assertSame(1, $product->pricing()->prices()[0]->nrOfCycles());
-        static::assertSame(null, $product->pricing()->prices()[0]->original());
     }
 
     /** @test */
