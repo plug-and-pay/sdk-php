@@ -3,8 +3,9 @@
   "version": "0.1.0-alpha",
   "description": "This is a PHP SDK to make easier to communicate with the Plug&Pay API.",
   "keywords": [
-      "PlugAndPay",
-      "IMU"
+    "PlugAndPay",
+    "imu",
+    "Internet Marketing Unie"
   ],
   "homepage": "https://github.com/plug-and-pay/sdk-php",
   "license": "MIT",
