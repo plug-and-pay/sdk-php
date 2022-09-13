@@ -116,7 +116,7 @@ class ShowOrdersTest extends TestCase
     /** @test */
     public function show_order_billing_basic(): void
     {
-        $client  = (new OrderShowMockClient(['id' => 1]))->billingOnlyRequired();
+        $client  = (new OrderShowMockClient())->billingOnlyRequired();
         $service = new OrderService($client);
 
         $order = $service->find(1);
@@ -142,7 +142,7 @@ class ShowOrdersTest extends TestCase
     /** @test */
     public function show_order_billing_address_and_contact(): void
     {
-        $client  = (new OrderShowMockClient(['id' => 1]))->billing();
+        $client  = (new OrderShowMockClient())->billing();
         $service = new OrderService($client);
 
         $order = $service->find(1);
@@ -168,7 +168,7 @@ class ShowOrdersTest extends TestCase
     /** @test */
     public function show_order_comments(): void
     {
-        $client  = (new OrderShowMockClient(['id' => 1]))->comments();
+        $client  = (new OrderShowMockClient())->comments();
         $service = new OrderService($client);
 
         $order = $service->find(1);
@@ -183,7 +183,7 @@ class ShowOrdersTest extends TestCase
     /** @test */
     public function show_order_items(): void
     {
-        $client  = (new OrderShowMockClient(['id' => 1]))->items();
+        $client  = (new OrderShowMockClient())->items();
         $service = new OrderService($client);
         $order   = $service->find(1);
 
@@ -202,7 +202,7 @@ class ShowOrdersTest extends TestCase
     /** @test */
     public function show_order_payment_non_filled(): void
     {
-        $client  = (new OrderShowMockClient(['id' => 1]))->paymentOnlyBasic();
+        $client  = (new OrderShowMockClient())->paymentOnlyBasic();
         $service = new OrderService($client);
 
         $order = $service->include(OrderIncludes::PAYMENT)->find(1);
@@ -224,7 +224,7 @@ class ShowOrdersTest extends TestCase
     /** @test */
     public function show_order_payment(): void
     {
-        $client  = (new OrderShowMockClient(['id' => 1]))->payment();
+        $client  = (new OrderShowMockClient())->payment();
         $service = new OrderService($client);
 
         $order = $service->include(OrderIncludes::PAYMENT)->find(1);
@@ -246,7 +246,7 @@ class ShowOrdersTest extends TestCase
     /** @test */
     public function show_order_tags(): void
     {
-        $client  = (new OrderShowMockClient(['id' => 1]))->tags(['first', 'second']);
+        $client  = (new OrderShowMockClient())->tags(['first', 'second']);
         $service = new OrderService($client);
 
         $order = $service->find(1);
@@ -257,7 +257,7 @@ class ShowOrdersTest extends TestCase
     /** @test */
     public function show_order_taxes(): void
     {
-        $client  = (new OrderShowMockClient(['id' => 1]))->taxes();
+        $client  = (new OrderShowMockClient())->taxes();
         $service = new OrderService($client);
 
         $order = $service->find(1);
@@ -277,7 +277,7 @@ class ShowOrdersTest extends TestCase
     /** @test */
     public function show_order_discount(): void
     {
-        $client  = (new OrderShowMockClient(['id' => 1]))->discounts();
+        $client  = (new OrderShowMockClient())->discounts();
         $service = new OrderService($client);
 
         $order = $service->find(1);

@@ -81,7 +81,7 @@ class ShowProductsTest extends TestCase
     /** @test */
     public function show_product_pricing_basic(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic();
+        $client  = (new ProductShowMockClient())->pricingBasic();
         $service = new ProductService($client);
 
         $product = $service->include(ProductIncludes::PRICING)->find(1);
@@ -95,7 +95,7 @@ class ShowProductsTest extends TestCase
     /** @test */
     public function show_product_pricing_is_tax_included(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic([
+        $client = (new ProductShowMockClient())->pricingBasic([
             'is_tax_included' => true,
         ]);
         $service = new ProductService($client);
@@ -108,7 +108,7 @@ class ShowProductsTest extends TestCase
     /** @test */
     public function show_product_pricing_with_tax_rate(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic();
+        $client  = (new ProductShowMockClient())->pricingBasic();
         $service = new ProductService($client);
 
         $product = $service->include(ProductIncludes::PRICING)->find(1);
@@ -121,7 +121,7 @@ class ShowProductsTest extends TestCase
     /** @test */
     public function show_product_pricing_with_tax_profile_one_rate(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))
+        $client = (new ProductShowMockClient())
             ->pricingBasic()
             ->taxProfile();
         $service = new ProductService($client);
@@ -137,7 +137,7 @@ class ShowProductsTest extends TestCase
     /** @test */
     public function show_product_pricing_with_tax_profile_multiple_rates(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))
+        $client = (new ProductShowMockClient())
             ->pricingBasic()
             ->taxProfile(multipleRates: true);
         $service = new ProductService($client);
@@ -150,7 +150,7 @@ class ShowProductsTest extends TestCase
     /** @test */
     public function show_product_pricing_shipping(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic()->shipping();
+        $client  = (new ProductShowMockClient())->pricingBasic()->shipping();
         $service = new ProductService($client);
 
         $product = $service->include(ProductIncludes::SHIPPING)->find(1);
@@ -162,7 +162,7 @@ class ShowProductsTest extends TestCase
     /** @test */
     public function show_product_pricing_trial(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic([
+        $client = (new ProductShowMockClient())->pricingBasic([
             'trial' => [
                 'amount'          => '10.00',
                 'amount_with_tax' => '12.10',
@@ -181,7 +181,7 @@ class ShowProductsTest extends TestCase
     /** @test */
     public function show_product_pricing_with_basic_price(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic();
+        $client  = (new ProductShowMockClient())->pricingBasic();
         $service = new ProductService($client);
 
         $product = $service->include(ProductIncludes::PRICING)->find(1);
@@ -200,7 +200,7 @@ class ShowProductsTest extends TestCase
     /** @test */
     public function show_product_price_first(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic()->price('first', [
+        $client = (new ProductShowMockClient())->pricingBasic()->price('first', [
             'amount'          => '100.00',
             'amount_with_tax' => '121.00',
         ]);
@@ -215,7 +215,7 @@ class ShowProductsTest extends TestCase
     /** @test */
     public function show_product_price_interval(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic()->price('interval', 'monthly');
+        $client  = (new ProductShowMockClient())->pricingBasic()->price('interval', 'monthly');
         $service = new ProductService($client);
 
         $product = $service->include(ProductIncludes::PRICING)->find(1);
@@ -226,7 +226,7 @@ class ShowProductsTest extends TestCase
     /** @test */
     public function show_product_price_is_suggested(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic()->price('is_suggested', true);
+        $client  = (new ProductShowMockClient())->pricingBasic()->price('is_suggested', true);
         $service = new ProductService($client);
 
         $product = $service->include(ProductIncludes::PRICING)->find(1);
@@ -237,7 +237,7 @@ class ShowProductsTest extends TestCase
     /** @test */
     public function show_product_price_nr_of_cycles(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic()->price('nr_of_cycles', 12);
+        $client  = (new ProductShowMockClient())->pricingBasic()->price('nr_of_cycles', 12);
         $service = new ProductService($client);
 
         $product = $service->include(ProductIncludes::PRICING)->find(1);
@@ -248,7 +248,7 @@ class ShowProductsTest extends TestCase
     /** @test */
     public function show_product_price_original(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic()->price('original', [
+        $client = (new ProductShowMockClient())->pricingBasic()->price('original', [
             'amount'          => '100.00',
             'amount_with_tax' => '121.00',
         ]);
@@ -263,7 +263,7 @@ class ShowProductsTest extends TestCase
     /** @test */
     public function show_product_price_tiers(): void
     {
-        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic()->price('tiers', [
+        $client = (new ProductShowMockClient())->pricingBasic()->price('tiers', [
             [
                 'amount'          => '100.00',
                 'amount_with_tax' => '121.00',
