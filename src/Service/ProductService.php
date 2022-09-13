@@ -23,7 +23,7 @@ class ProductService
         $this->client = $client;
     }
 
-    public function include(ProductIncludes...$includes): self
+    public function include(ProductIncludes ...$includes): self
     {
         $this->includes = $includes;
 
