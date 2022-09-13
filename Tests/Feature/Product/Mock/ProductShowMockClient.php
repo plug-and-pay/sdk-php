@@ -89,6 +89,16 @@ class ProductShowMockClient extends ClientMock
         return $this;
     }
 
+    public function shipping(): self
+    {
+        $this->responseBody['data']['pricing']['shipping'] = [
+            'amount'          => '10.00',
+            'amount_with_tax' => '12.10',
+        ];
+
+        return $this;
+    }
+
     public function taxProfile(bool $multipleRates = false): self
     {
         $rates = [[
