@@ -52,8 +52,9 @@ class ProductShowMockClient extends ClientMock
     {
         $this->responseBody['data']['pricing'] = $pricing + [
                 'is_tax_included' => false,
-                'prices'          => [
+                'prices'   => [
                     [
+                        'id'           => 10,
                         'first'        => null,
                         'interval'     => null,
                         'is_suggested' => false,
@@ -64,19 +65,26 @@ class ProductShowMockClient extends ClientMock
                             'amount_with_tax' => '121.00',
                         ],
                         'tiers'        => [],
-                        'id'           => 1,
                     ],
                 ],
-                'shipping'        => null,
-                'tax'             => [
+                'shipping' => null,
+                'tax'      => [
                     'rate' => [
                         'id'         => 1234,
                         'country'    => 'NL',
                         'percentage' => '6.0',
                     ],
                 ],
-                'trial'           => null,
+                'trial'    => null,
             ];
+
+        return $this;
+    }
+
+
+    public function price(string $key, mixed $data): self
+    {
+        $this->responseBody['data']['pricing']['prices'][0][$key] = $data;
 
         return $this;
     }

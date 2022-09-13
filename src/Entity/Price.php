@@ -4,38 +4,39 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+use PlugAndPay\Sdk\Enum\Interval;
+
 class Price
 {
-    private ?bool $first;
-    private ?bool $interval;
+    private ?PriceFirst $first;
+    private ?Interval $interval;
     private ?bool $suggested;
     private int $nr_of_cycles;
-    private ?bool $original;
-    private float $regular;
-    private float $regularWithTax;
+    private ?PriceOriginal $original;
+    private PriceRegular $regular;
     /**
      * @var Tier[]
      */
     private array $tiers;
-    private ?bool $id;
+    private int $id;
 
-    public function first(): ?bool
+    public function first(): ?PriceFirst
     {
         return $this->first;
     }
 
-    public function setFirst(?bool $first): Price
+    public function setFirst(?PriceFirst $first): Price
     {
         $this->first = $first;
         return $this;
     }
 
-    public function interval(): ?bool
+    public function interval(): ?Interval
     {
         return $this->interval;
     }
 
-    public function setInterval(?bool $interval): Price
+    public function setInterval(?Interval $interval): Price
     {
         $this->interval = $interval;
         return $this;
@@ -63,36 +64,25 @@ class Price
         return $this;
     }
 
-    public function original(): ?bool
+    public function original(): ?PriceOriginal
     {
         return $this->original;
     }
 
-    public function setOriginal(?bool $original): Price
+    public function setOriginal(?PriceOriginal $original): Price
     {
         $this->original = $original;
         return $this;
     }
 
-    public function regular(): float
+    public function regular(): PriceRegular
     {
         return $this->regular;
     }
 
-    public function setRegular(float $regular): Price
+    public function setRegular(PriceRegular $regular): Price
     {
         $this->regular = $regular;
-        return $this;
-    }
-
-    public function regularWithTax(): float
-    {
-        return $this->regularWithTax;
-    }
-
-    public function setRegularWithTax(float $regularWithTax): Price
-    {
-        $this->regularWithTax = $regularWithTax;
         return $this;
     }
 
@@ -113,12 +103,12 @@ class Price
         return $this;
     }
 
-    public function id(): ?bool
+    public function id(): int
     {
         return $this->id;
     }
 
-    public function setId(?bool $id): Price
+    public function setId(int $id): Price
     {
         $this->id = $id;
         return $this;

@@ -111,23 +111,6 @@ class ShowProductsTest extends TestCase
     }
 
     /** @test */
-    public function show_product_pricing_shipping(): void
-    {
-        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic([
-            'shipping' => [
-                'amount'          => '10.00',
-                'amount_with_tax' => '12.10',
-            ],
-        ]);
-        $service = new ProductService($client);
-
-        $product = $service->include(ProductIncludes::PRICING)->find(1);
-
-        static::assertSame(10., $product->pricing()->shipping()->amount());
-        static::assertSame(12.1, $product->pricing()->shipping()->amountWithTax());
-    }
-
-    /** @test */
     public function show_product_pricing_with_tax_rate(): void
     {
         $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic();
@@ -188,5 +171,104 @@ class ShowProductsTest extends TestCase
         static::assertSame(15, $product->pricing()->trial()->duration());
     }
 
-    // @todo; test prices
+    /** @test */
+    public function show_product_pricing_with_basic_price(): void
+    {
+        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic();
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertSame(10, $product->pricing()->prices()[0]->id());
+        static::assertSame(null, $product->pricing()->prices()[0]->first());
+        static::assertSame(null, $product->pricing()->prices()[0]->interval());
+        static::assertSame(false, $product->pricing()->prices()[0]->isSuggested());
+        static::assertSame(1, $product->pricing()->prices()[0]->nrOfCycles());
+        static::assertSame(null, $product->pricing()->prices()[0]->original());
+        static::assertSame(100., $product->pricing()->prices()[0]->regular()->amount());
+        static::assertSame(121., $product->pricing()->prices()[0]->regular()->amountWithTax());
+        static::assertSame([], $product->pricing()->prices()[0]->tiers());
+    }
+
+    /** @test */
+    public function show_product_price_first(): void
+    {
+        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic()->price('first', [
+            'amount'          => '100.00',
+            'amount_with_tax' => '121.00',
+        ]);
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertSame(100., $product->pricing()->prices()[0]->first()->amount());
+        static::assertSame(121., $product->pricing()->prices()[0]->first()->amountWithTax());
+    }
+
+    /** @test */
+    public function show_product_price_interval(): void
+    {
+        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic()->price('interval', 'monthly');
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertSame('monthly', $product->pricing()->prices()[0]->interval()->value);
+    }
+
+    /** @test */
+    public function show_product_price_is_suggested(): void
+    {
+        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic()->price('is_suggested', true);
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertSame(true, $product->pricing()->prices()[0]->isSuggested());
+    }
+
+    /** @test */
+    public function show_product_price_nr_of_cycles(): void
+    {
+        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic()->price('nr_of_cycles', 12);
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertSame(12, $product->pricing()->prices()[0]->nrOfCycles());
+    }
+
+    /** @test */
+    public function show_product_price_original(): void
+    {
+        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic()->price('original', [
+            'amount'          => '100.00',
+            'amount_with_tax' => '121.00',
+        ]);
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertSame(100., $product->pricing()->prices()[0]->original()->amount());
+        static::assertSame(121., $product->pricing()->prices()[0]->original()->amountWithTax());
+    }
+
+    /** @test */
+    public function show_product_price_tiers(): void
+    {
+        $client  = (new ProductShowMockClient(['id' => 1]))->pricingBasic()->price('tiers', [
+            [
+                'amount'          => '100.00',
+                'amount_with_tax' => '121.00',
+                'quantity'        => 5,
+            ],
+        ]);
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertSame(100., $product->pricing()->prices()[0]->tiers()[0]->amount());
+        static::assertSame(121., $product->pricing()->prices()[0]->tiers()[0]->amountWithTax());
+        static::assertSame(5, $product->pricing()->prices()[0]->tiers()[0]->quantity());
+    }
 }

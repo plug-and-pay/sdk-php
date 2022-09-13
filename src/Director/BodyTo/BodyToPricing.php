@@ -18,7 +18,7 @@ class BodyToPricing
             ->setShipping($data['shipping'] ? BodyToPricingShipping::build($data['shipping']) : null)
             ->setTrial($data['trial'] ? BodyToPricingTrial::build($data['trial']) : null)
             ->setTax(BodyToPricingTax::build($data['tax']))
-            ->setPrices(BodyToPrice::build($data['prices']));
+            ->setPrices(BodyToPrice::buildMulti($data['prices']));
 
         return $pricing;
     }
