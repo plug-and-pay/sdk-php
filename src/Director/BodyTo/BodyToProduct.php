@@ -38,6 +38,20 @@ class BodyToProduct
     }
 
     /**
+     * @return Product[]
+     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
+     */
+    public static function buildMulti(array $data): array
+    {
+        $result = [];
+        foreach ($data as $order) {
+            $result[] = self::build($order);
+        }
+
+        return $result;
+    }
+
+    /**
      * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
      */
     private static function date(array $data, string $field): DateTimeImmutable

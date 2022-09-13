@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace PlugAndPay\Sdk\Tests\Feature\Order\Mock;
+namespace PlugAndPay\Sdk\Tests\Feature\Product\Mock;
 
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
-class OrdersIndexMockClient extends ClientMock
+class ProductIndexMockClient extends ClientMock
 {
     private string $path;
 
@@ -15,7 +15,7 @@ class OrdersIndexMockClient extends ClientMock
     public function __construct(array $data = [[]])
     {
         foreach ($data as $orderData) {
-            $this->responseBody[] = $orderData + OrderShowMockClient::BASIC_ORDER;
+            $this->responseBody[] = $orderData + ProductShowMockClient::BASIC_PRODUCT;
         }
     }
 

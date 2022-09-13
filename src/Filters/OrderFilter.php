@@ -157,13 +157,13 @@ class OrderFilter
 
     public function sinceInvoiceDate(DateTimeInterface $value): self
     {
-        $this->parameters['since_invoice_date'] = $value;
+        $this->parameters['since_invoice_date'] = $value->format('Y-m-d');
         return $this;
     }
 
     public function sincePaidAt(DateTimeInterface $value): self
     {
-        $this->parameters['since_paid_at'] = $value;
+        $this->parameters['since_paid_at'] = $value->format('Y-m-d H:i:s');
         return $this;
     }
 
@@ -181,13 +181,13 @@ class OrderFilter
 
     public function untilInvoiceDate(DateTimeInterface $value): self
     {
-        $this->parameters['until_invoice_date'] = $value;
+        $this->parameters['until_invoice_date'] = $value->format('Y-m-d');
         return $this;
     }
 
     public function untilPaidAt(DateTimeInterface $value): self
     {
-        $this->parameters['until_paid_at'] = $value;
+        $this->parameters['until_paid_at'] = $value->format('Y-m-d H:i:s');
         return $this;
     }
 }

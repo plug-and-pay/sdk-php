@@ -9,6 +9,7 @@ use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToProduct;
 use PlugAndPay\Sdk\Entity\Product;
 use PlugAndPay\Sdk\Enum\ProductIncludes;
+use PlugAndPay\Sdk\Filters\ProductFilter;
 use PlugAndPay\Sdk\Support\Parameters;
 
 class ProductService
@@ -27,6 +28,22 @@ class ProductService
         $this->includes = $includes;
 
         return $this;
+    }
+
+    /**
+     * @return Product[]
+     */
+    public function get(ProductFilter $productFilter = null): array
+    {
+        $parameters = $productFilter ? $productFilter->parameters() : [];
+        if (!empty($this->includes)) {
+            $parameters['include'] = $this->includes;
+        }
+        $query = Parameters::toString($parameters);
+
+        $response = $this->client->get("/v2/products$query");
+
+        return BodyToProduct::buildMulti($response->body()['data']);
     }
 
     /**
