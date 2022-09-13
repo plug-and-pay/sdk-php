@@ -1,5 +1,5 @@
 {
-  "name": "myparcelnl/sdk",
+  "name": "plug-and-pay/sdk-php",
   "version": "0.1.0-alpha",
   "description": "This is a PHP SDK to make easier to communicate with the Plug&Pay API.",
   "keywords": [
