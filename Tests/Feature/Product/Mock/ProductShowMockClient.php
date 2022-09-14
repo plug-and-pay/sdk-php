@@ -16,9 +16,13 @@ class ProductShowMockClient extends ClientMock
         'description'  => 'Quisquam recusandae asperiores accusamus',
         'id'           => 1,
         'is_physical'  => false,
+        'ledger'       => null,
         'public_title' => 'culpa',
         'sku'          => '70291520',
         'slug'         => 'culpa',
+        'stock'        => [
+            'is_enabled' => false,
+        ],
         'title'        => 'culpa',
         'type'         => 'one_off',
         'updated_at'   => '2019-01-16T00:00:00.000000Z',
@@ -52,7 +56,7 @@ class ProductShowMockClient extends ClientMock
     {
         $this->responseBody['data']['pricing'] = $pricing + [
                 'is_tax_included' => false,
-                'prices'   => [
+                'prices'          => [
                     [
                         'id'           => 10,
                         'first'        => null,
@@ -67,15 +71,15 @@ class ProductShowMockClient extends ClientMock
                         'tiers'        => [],
                     ],
                 ],
-                'shipping' => null,
-                'tax'      => [
+                'shipping'        => null,
+                'tax'             => [
                     'rate' => [
                         'id'         => 1234,
                         'country'    => 'NL',
                         'percentage' => '6.0',
                     ],
                 ],
-                'trial'    => null,
+                'trial'           => null,
             ];
 
         return $this;

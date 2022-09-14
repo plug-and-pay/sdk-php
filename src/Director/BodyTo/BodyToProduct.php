@@ -7,6 +7,7 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 use DateTimeImmutable;
 use Exception;
 use PlugAndPay\Sdk\Entity\Product;
+use PlugAndPay\Sdk\Entity\Stock;
 use PlugAndPay\Sdk\Enum\ProductType;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
@@ -17,15 +18,22 @@ class BodyToProduct
      */
     public static function build(array $data): Product
     {
+        $stock = (new Stock())
+            ->setEnabled($data['stock']['is_enabled'])
+            ->setHidden($data['stock']['is_hidden'] ?? true)
+            ->setValue($data['stock']['value'] ?? null);
+
         $product = (new Product())
             ->setCreatedAt(self::date($data, 'created_at'))
             ->setDeletedAt($data['deleted_at'] ? self::date($data, 'deleted_at') : null)
             ->setDescription($data['description'])
             ->setId($data['id'])
-            ->setIsPhysical($data['is_physical'])
+            ->setPhysical($data['is_physical'])
+            ->setLedger($data['ledger'])
             ->setPublicTitle($data['public_title'])
             ->setSku($data['sku'])
             ->setSlug($data['slug'])
+            ->setStock($stock)
             ->setTitle($data['title'])
             ->setType(ProductType::from($data['type']))
             ->setUpdatedAt(self::date($data, 'updated_at'));
