@@ -18,7 +18,7 @@ class Client implements ClientInterface
     private const METHOD_PATCH = 'PATCH';
     private const METHOD_POST = 'POST';
 
-    private const BASE_URL_PRODUCTION = 'http://api.plugandpay.localhost';
+    private const BASE_URL_PRODUCTION = 'https://api.plugandpay.nl';
 
     /**
      * @var \GuzzleHttp\Client
