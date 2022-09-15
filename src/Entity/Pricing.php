@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+use BadFunctionCallException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class Pricing
@@ -102,5 +103,13 @@ class Pricing
         }
 
         return $this->tax;
+    }
+
+    public function isset(string $field): bool
+    {
+        if (!property_exists($this, $field)) {
+            throw new BadFunctionCallException("Field '$field' does not exists");
+        }
+        return isset($this->{$field});
     }
 }

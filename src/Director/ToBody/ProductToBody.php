@@ -59,6 +59,10 @@ class ProductToBody
             $result['type'] = $product->type()->value;
         }
 
+        if ($product->isset('pricing')) {
+            $result['pricing'] = PricingToBody::build($product->pricing());
+        }
+
         return $result;
     }
 }

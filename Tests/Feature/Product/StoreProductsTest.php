@@ -8,8 +8,12 @@ namespace PlugAndPay\Sdk\Tests\Feature\Product;
 
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Director\ToBody\ProductToBody;
+use PlugAndPay\Sdk\Entity\Price;
+use PlugAndPay\Sdk\Entity\PriceFirst;
+use PlugAndPay\Sdk\Entity\Pricing;
 use PlugAndPay\Sdk\Entity\Product;
 use PlugAndPay\Sdk\Entity\Stock;
+use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Enum\ProductType;
 
 class StoreProductsTest extends TestCase
@@ -19,7 +23,7 @@ class StoreProductsTest extends TestCase
     {
         $body = ProductToBody::build($this->makeBaseProduct());
 
-        static::assertEquals([
+        static::assertSame([
             'title' => 'Pencil',
         ], $body);
     }
@@ -31,7 +35,7 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertEquals('Quisquam recusandae.', $body['description']);
+        static::assertSame('Quisquam recusandae.', $body['description']);
     }
 
     /** @test */
@@ -41,7 +45,7 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertEquals(true, $body['is_physical']);
+        static::assertSame(true, $body['is_physical']);
     }
 
     /** @test */
@@ -51,7 +55,7 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertEquals(true, $body['ledger']);
+        static::assertSame(1234, $body['ledger']);
     }
 
     /** @test */
@@ -61,7 +65,7 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertEquals('Culpa', $body['public_title']);
+        static::assertSame('Culpa', $body['public_title']);
     }
 
     /** @test */
@@ -71,7 +75,7 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertEquals('UGG-BB-PUR-06', $body['sku']);
+        static::assertSame('UGG-BB-PUR-06', $body['sku']);
     }
 
     /** @test */
@@ -81,7 +85,7 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertEquals('pencil', $body['slug']);
+        static::assertSame('pencil', $body['slug']);
     }
 
     /** @test */
@@ -91,7 +95,7 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertEquals('one_off', $body['type']);
+        static::assertSame('one_off', $body['type']);
     }
 
     /** @test */
@@ -101,7 +105,7 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertEquals(false, $body['stock']['is_enabled']);
+        static::assertSame(false, $body['stock']['is_enabled']);
         static::assertArrayNotHasKey('is_hidden', $body['stock']);
         static::assertArrayNotHasKey('value', $body['stock']);
     }
@@ -118,9 +122,58 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertEquals(true, $body['stock']['is_enabled']);
-        static::assertEquals(false, $body['stock']['is_hidden']);
-        static::assertEquals(10, $body['stock']['value']);
+        static::assertSame(true, $body['stock']['is_enabled']);
+        static::assertSame(false, $body['stock']['is_hidden']);
+        static::assertSame(10, $body['stock']['value']);
+    }
+
+    /** @test */
+    public function convert_product_is_tax_included(): void
+    {
+        $product = $this->makeBaseProduct()->setPricing(
+            (new Pricing())->setTaxIncluded(true)
+        );
+
+        $body = ProductToBody::build($product);
+
+        static::assertSame(true, $body['pricing']['is_tax_included']);
+    }
+
+    /** @test */
+    public function convert_product_pricing_prices(): void
+    {
+        $product = $this->makeBaseProduct()->setPricing(
+            (new Pricing())->setPrices([
+                (new Price())
+                    ->setSuggested(true)
+                    ->setInterval(Interval::MONTHLY)
+                    ->setNrOfCycles(12),
+            ])
+        );
+
+        $body = ProductToBody::build($product);
+
+        static::assertSame(true, $body['pricing']['prices'][0]['is_suggested']);
+        static::assertSame('monthly', $body['pricing']['prices'][0]['interval']);
+        static::assertSame(12, $body['pricing']['prices'][0]['nr_of_cycles']);
+    }
+
+    /** @test */
+    public function convert_product_pricing_prices_first(): void
+    {
+        $product = $this->makeBaseProduct()->setPricing(
+            (new Pricing())->setPrices([
+                (new Price())
+                    ->setFirst((new PriceFirst())
+                        ->setAmount(10)
+                        ->setAmountWithTax(12.1)),
+            ])
+        );
+
+        $body = ProductToBody::build($product);
+
+        static::assertSame(10.0, $body['pricing']['prices'][0]['first']['amount']);
+        static::assertSame(12.10, $body['pricing']['prices'][0]['first']['amount_with_tax']);
     }
 
     private function makeBaseProduct(): Product
