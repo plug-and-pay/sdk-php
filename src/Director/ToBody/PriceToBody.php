@@ -28,6 +28,14 @@ class PriceToBody
             $result['first'] = $price->first() ? PriceFirstToBody::build($price->first()) : null;
         }
 
+        if ($price->isset('original')) {
+            $result['original'] = $price->original() ? PriceOriginalToBody::build($price->original()) : null;
+        }
+
+        if ($price->isset('tiers')) {
+            $result['tiers'] = PriceTierToBody::buildMulti($price->tiers());
+        }
+
         return $result;
     }
 

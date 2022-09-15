@@ -10,6 +10,8 @@ use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Director\ToBody\ProductToBody;
 use PlugAndPay\Sdk\Entity\Price;
 use PlugAndPay\Sdk\Entity\PriceFirst;
+use PlugAndPay\Sdk\Entity\PriceOriginal;
+use PlugAndPay\Sdk\Entity\PriceTier;
 use PlugAndPay\Sdk\Entity\Pricing;
 use PlugAndPay\Sdk\Entity\Product;
 use PlugAndPay\Sdk\Entity\Stock;
@@ -174,6 +176,47 @@ class StoreProductsTest extends TestCase
 
         static::assertSame(10.0, $body['pricing']['prices'][0]['first']['amount']);
         static::assertSame(12.10, $body['pricing']['prices'][0]['first']['amount_with_tax']);
+    }
+
+    /** @test */
+    public function convert_product_pricing_prices_original(): void
+    {
+        $product = $this->makeBaseProduct()->setPricing(
+            (new Pricing())->setPrices([
+                (new Price())
+                    ->setOriginal((new PriceOriginal())
+                        ->setAmount(10)
+                        ->setAmountWithTax(12.1)),
+            ])
+        );
+
+        $body = ProductToBody::build($product);
+
+        static::assertSame(10.0, $body['pricing']['prices'][0]['original']['amount']);
+        static::assertSame(12.10, $body['pricing']['prices'][0]['original']['amount_with_tax']);
+    }
+
+    /** @test */
+    public function convert_product_pricing_prices_tiers(): void
+    {
+        $product = $this->makeBaseProduct()->setPricing(
+            (new Pricing())->setPrices([
+                (new Price())
+                    ->setTiers([
+                            (new PriceTier())
+                                ->setAmount(10)
+                                ->setAmountWithTax(12.1)
+                                ->setQuantity(2),
+                        ]
+                    ),
+            ])
+        );
+
+        $body = ProductToBody::build($product);
+
+        static::assertSame(10.0, $body['pricing']['prices'][0]['tiers'][0]['amount']);
+        static::assertSame(12.10, $body['pricing']['prices'][0]['tiers'][0]['amount_with_tax']);
+        static::assertSame(2, $body['pricing']['prices'][0]['tiers'][0]['quantity']);
     }
 
     private function makeBaseProduct(): Product
