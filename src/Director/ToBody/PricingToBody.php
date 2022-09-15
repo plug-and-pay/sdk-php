@@ -20,6 +20,10 @@ class PricingToBody
             $result['prices'] = PriceToBody::buildMulti($pricing->prices());
         }
 
+        if ($pricing->isset('shipping')) {
+            $result['shipping'] = ShippingToBody::build($pricing->shipping());
+        }
+
         return $result;
     }
 }

@@ -14,6 +14,7 @@ use PlugAndPay\Sdk\Entity\PriceOriginal;
 use PlugAndPay\Sdk\Entity\PriceTier;
 use PlugAndPay\Sdk\Entity\Pricing;
 use PlugAndPay\Sdk\Entity\Product;
+use PlugAndPay\Sdk\Entity\Shipping;
 use PlugAndPay\Sdk\Entity\Stock;
 use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Enum\ProductType;
@@ -217,6 +218,23 @@ class StoreProductsTest extends TestCase
         static::assertSame(10.0, $body['pricing']['prices'][0]['tiers'][0]['amount']);
         static::assertSame(12.10, $body['pricing']['prices'][0]['tiers'][0]['amount_with_tax']);
         static::assertSame(2, $body['pricing']['prices'][0]['tiers'][0]['quantity']);
+    }
+
+    /** @test */
+    public function convert_product_pricing_shipping(): void
+    {
+        $product = $this->makeBaseProduct()->setPricing(
+            (new Pricing())->setShipping(
+                (new Shipping())
+                    ->setAmount(10)
+                    ->setAmountWithTax(12.1)
+            )
+        );
+
+        $body = ProductToBody::build($product);
+
+        static::assertSame(10.0, $body['pricing']['shipping']['amount']);
+        static::assertSame(12.10, $body['pricing']['shipping']['amount_with_tax']);
     }
 
     private function makeBaseProduct(): Product
