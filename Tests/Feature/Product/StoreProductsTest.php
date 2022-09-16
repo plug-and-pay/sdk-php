@@ -13,9 +13,12 @@ use PlugAndPay\Sdk\Entity\PriceFirst;
 use PlugAndPay\Sdk\Entity\PriceOriginal;
 use PlugAndPay\Sdk\Entity\PriceTier;
 use PlugAndPay\Sdk\Entity\Pricing;
+use PlugAndPay\Sdk\Entity\PricingTax;
 use PlugAndPay\Sdk\Entity\Product;
 use PlugAndPay\Sdk\Entity\Shipping;
 use PlugAndPay\Sdk\Entity\Stock;
+use PlugAndPay\Sdk\Entity\TaxProfile;
+use PlugAndPay\Sdk\Entity\TaxRate;
 use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Enum\ProductType;
 
@@ -235,6 +238,40 @@ class StoreProductsTest extends TestCase
 
         static::assertSame(10.0, $body['pricing']['shipping']['amount']);
         static::assertSame(12.10, $body['pricing']['shipping']['amount_with_tax']);
+    }
+
+    /** @test */
+    public function convert_product_pricing_tax_rate(): void
+    {
+        $product = $this->makeBaseProduct()->setPricing(
+            (new Pricing())->setTax(
+                (new PricingTax())->setRate(
+                    (new TaxRate())
+                        ->setId(123)
+                )
+            )
+        );
+
+        $body = ProductToBody::build($product);
+
+        static::assertSame(123, $body['pricing']['tax']['rate']['id']);
+    }
+
+    /** @test */
+    public function convert_product_pricing_tax_profile(): void
+    {
+        $product = $this->makeBaseProduct()->setPricing(
+            (new Pricing())->setTax(
+                (new PricingTax())->setProfile(
+                    (new TaxProfile())
+                        ->setId(123)
+                )
+            )
+        );
+
+        $body = ProductToBody::build($product);
+
+        static::assertSame(123, $body['pricing']['tax']['profile']['id']);
     }
 
     private function makeBaseProduct(): Product

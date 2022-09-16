@@ -8,6 +8,9 @@ use PlugAndPay\Sdk\Entity\Pricing;
 
 class PricingToBody
 {
+    /**
+     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     */
     public static function build(Pricing $pricing): array
     {
         $result = [];
@@ -22,6 +25,10 @@ class PricingToBody
 
         if ($pricing->isset('shipping')) {
             $result['shipping'] = ShippingToBody::build($pricing->shipping());
+        }
+
+        if ($pricing->isset('tax')) {
+            $result['tax'] = PricingTaxToBody::build($pricing->tax());
         }
 
         return $result;
