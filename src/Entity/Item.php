@@ -6,7 +6,6 @@ namespace PlugAndPay\Sdk\Entity;
 
 use BadFunctionCallException;
 use PlugAndPay\Sdk\Enum\ItemType;
-use PlugAndPay\Sdk\Enum\ProductType;
 
 class Item
 {
@@ -106,7 +105,7 @@ class Item
 
     public function setTaxByRateId(int $id): Item
     {
-        $this->tax = (new Tax())->setRate(Rate::byId($id));
+        $this->tax = (new Tax())->setRate((new TaxRate())->setId($id));
         return $this;
     }
 

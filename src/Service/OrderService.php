@@ -24,7 +24,7 @@ class OrderService
         $this->client = $client;
     }
 
-    public function include(OrderIncludes...$includes): self
+    public function include(OrderIncludes ...$includes): self
     {
         $this->includes = $includes;
 

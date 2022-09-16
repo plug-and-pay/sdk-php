@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\ToBody;
 
-use PlugAndPay\Sdk\Entity\Rate;
+use PlugAndPay\Sdk\Entity\TaxRate;
 
 class RateToBody
 {
-    public static function build(Rate $rate): array
+    public static function build(TaxRate $rate): array
     {
         $result = [];
 

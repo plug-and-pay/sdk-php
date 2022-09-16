@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
-use PlugAndPay\Sdk\Entity\Rate;
 use PlugAndPay\Sdk\Entity\Tax;
-use PlugAndPay\Sdk\Enum\CountryCode;
 
 class BodyToTax
 {
@@ -14,13 +12,7 @@ class BodyToTax
     {
         return (new Tax())
             ->setAmount((float)$data['amount'])
-            ->setRate(
-                new Rate(
-                    (float)$data['rate']['percentage'],
-                    $data['rate']['country'] ? CountryCode::from($data['rate']['country']) : null,
-                    $data['rate']['id']
-                )
-            );
+            ->setRate(BodyToRate::build($data['rate']));
     }
 
     /**
