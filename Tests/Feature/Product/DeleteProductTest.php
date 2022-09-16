@@ -16,7 +16,7 @@ class DeleteProductTest extends TestCase
     /** @test */
     public function delete_product_not_fount_test(): void
     {
-        $client  = new ProductDestroyMockClient(Response::HTTP_NOT_FOUND, []);
+        $client  = new ProductDestroyMockClient(Response::HTTP_NOT_FOUND);
         $service = new ProductService($client);
         $exception = null;
 
