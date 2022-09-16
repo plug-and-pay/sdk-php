@@ -148,18 +148,6 @@ class ShowProductsTest extends TestCase
     }
 
     /** @test */
-    public function show_product_pricing_shipping(): void
-    {
-        $client  = (new ProductShowMockClient())->pricingBasic()->shipping();
-        $service = new ProductService($client);
-
-        $product = $service->include(ProductIncludes::SHIPPING)->find(1);
-
-        static::assertSame(10., $product->pricing()->shipping()->amount());
-        static::assertSame(12.1, $product->pricing()->shipping()->amountWithTax());
-    }
-
-    /** @test */
     public function show_product_pricing_trial(): void
     {
         $client = (new ProductShowMockClient())->pricingBasic([
