@@ -182,7 +182,7 @@ class Product
             if ($this->allowEmptyRelations) {
                 $this->pricing = new Pricing($this->allowEmptyRelations);
             } else {
-                throw new RelationNotLoadedException('billing');
+                throw new RelationNotLoadedException('pricing');
             }
         }
 
@@ -192,25 +192,6 @@ class Product
     public function setPricing(Pricing $pricing): self
     {
         $this->pricing = $pricing;
-        return $this;
-    }
-
-    public function shipping(): Shipping
-    {
-        if (!isset($this->shipping)) {
-            if ($this->allowEmptyRelations) {
-                $this->shipping = new Shipping();
-            } else {
-                throw new RelationNotLoadedException('billing');
-            }
-        }
-
-        return $this->shipping;
-    }
-
-    public function setShipping(Shipping $shipping): self
-    {
-        $this->shipping = $shipping;
         return $this;
     }
 
