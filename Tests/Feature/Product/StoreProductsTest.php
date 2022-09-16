@@ -339,6 +339,18 @@ class StoreProductsTest extends TestCase
         static::assertEquals('/v2/products?include=pricing', $client->path());
     }
 
+    /** @test */
+    public function store_product_including_relation_tax_rates(): void
+    {
+        $client  = (new ProductStoreMockClient());
+        $service = (new ProductService($client))->include(ProductIncludes::TAX_RATES);
+
+        $product = $this->makeBaseProduct();
+        $service->create($product);
+
+        static::assertEquals('/v2/products?include=tax_rates', $client->path());
+    }
+
     private function makeBaseProduct(): Product
     {
         return (new Product())->setTitle('Pencil');
