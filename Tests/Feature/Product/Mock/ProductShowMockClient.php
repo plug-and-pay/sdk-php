@@ -40,6 +40,7 @@ class ProductShowMockClient extends ClientMock
         if ($exception) {
             throw $exception;
         }
+
         return $response;
     }
 
@@ -80,7 +81,6 @@ class ProductShowMockClient extends ClientMock
 
         return $this;
     }
-
 
     public function price(string $key, mixed $data): self
     {

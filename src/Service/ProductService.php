@@ -31,6 +31,7 @@ class ProductService
     }
 
     /**
+     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
      * @return Product[]
      */
     public function get(ProductFilter $productFilter = null): array
