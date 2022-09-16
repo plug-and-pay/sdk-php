@@ -41,6 +41,7 @@ class ProductService
     }
 
     /**
+     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
      * @return Product[]
      */
     public function get(ProductFilter $productFilter = null): array
@@ -64,5 +65,10 @@ class ProductService
         $query    = Parameters::toString(['include' => $this->includes]);
         $response = $this->client->get("/v2/products/$id$query");
         return BodyToProduct::build($response->body()['data']);
+    }
+
+    public function delete(int $productId): void
+    {
+        $this->client->delete("/v2/products/$productId");
     }
 }

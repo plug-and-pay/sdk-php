@@ -27,8 +27,6 @@ class Client implements ClientInterface
 
     public function __construct(string $secretToken, string $baseUrl = null, GuzzleClient $guzzleClient = null)
     {
-        $baseUrl ??= 'https://api.plugandpay.nl';
-
         $this->guzzleClient = $guzzleClient ?? new GuzzleClient([
                 'base_uri' => $baseUrl ?? self::BASE_URL_PRODUCTION,
                 'headers'  => [

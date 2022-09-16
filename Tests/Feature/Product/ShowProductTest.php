@@ -13,7 +13,7 @@ use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Service\ProductService;
 use PlugAndPay\Sdk\Tests\Feature\Product\Mock\ProductShowMockClient;
 
-class ShowProductsTest extends TestCase
+class ShowProductTest extends TestCase
 {
     /** @test */
     public function show_basic_product(): void

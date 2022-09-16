@@ -25,7 +25,7 @@ use PlugAndPay\Sdk\Service\OrderService;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderShowMockClient;
 
-class ShowOrdersTest extends TestCase
+class ShowOrderTest extends TestCase
 {
 
     /** @test */
