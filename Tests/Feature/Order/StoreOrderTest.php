@@ -25,7 +25,7 @@ use PlugAndPay\Sdk\Service\OrderService;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderStoreMockClient;
 
-class StoreOrdersTest extends TestCase
+class StoreOrderTest extends TestCase
 {
     /** @test */
     public function convert_basic_order_to_body(): void

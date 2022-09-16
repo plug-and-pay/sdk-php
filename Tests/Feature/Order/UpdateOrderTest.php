@@ -11,7 +11,7 @@ use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Service\OrderService;
 use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderUpdateMockClient;
 
-class UpdateOrdersTest extends TestCase
+class UpdateOrderTest extends TestCase
 {
     /** @test */
     public function update_basic_order(): void
