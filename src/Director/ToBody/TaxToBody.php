@@ -13,7 +13,7 @@ class TaxToBody
         $result = [];
 
         if ($tax->isset('rate')) {
-            $result['rate'] = RateToBody::build($tax->rate());
+            $result['rate'] = TaxRateToBody::build($tax->rate());
         }
 
         return $result;

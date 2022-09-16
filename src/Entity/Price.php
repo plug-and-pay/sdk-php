@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+use BadFunctionCallException;
 use PlugAndPay\Sdk\Enum\Interval;
 
 class Price
@@ -15,7 +16,7 @@ class Price
     private ?PriceOriginal $original;
     private PriceRegular $regular;
     /**
-     * @var Tier[]
+     * @var PriceTier[]
      */
     private array $tiers;
     private int $id;
@@ -87,7 +88,7 @@ class Price
     }
 
     /**
-     * @return Tier[]
+     * @return PriceTier[]
      */
     public function tiers(): array
     {
@@ -95,7 +96,7 @@ class Price
     }
 
     /**
-     * @param Tier[] $tiers
+     * @param PriceTier[] $tiers
      */
     public function setTiers(array $tiers): Price
     {
@@ -112,5 +113,13 @@ class Price
     {
         $this->id = $id;
         return $this;
+    }
+
+    public function isset(string $field): bool
+    {
+        if (!property_exists($this, $field)) {
+            throw new BadFunctionCallException("Field '$field' does not exists");
+        }
+        return isset($this->{$field});
     }
 }

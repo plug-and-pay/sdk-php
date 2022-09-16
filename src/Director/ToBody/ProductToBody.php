@@ -15,12 +15,20 @@ class ProductToBody
     {
         $result = [];
 
+        if ($product->isset('title')) {
+            $result['title'] = $product->title();
+        }
+
         if ($product->isset('description')) {
             $result['description'] = $product->description();
         }
 
-        if ($product->isset('isPhysical')) {
+        if ($product->isset('physical')) {
             $result['is_physical'] = $product->isPhysical();
+        }
+
+        if ($product->isset('ledger')) {
+            $result['ledger'] = $product->ledger();
         }
 
         if ($product->isset('publicTitle')) {
@@ -35,17 +43,25 @@ class ProductToBody
             $result['slug'] = $product->slug();
         }
 
-        if ($product->isset('title')) {
-            $result['title'] = $product->title();
+        if ($product->isset('stock')) {
+            $result['stock'] = [
+                'is_enabled' => $product->stock()->isEnabled(),
+            ];
+            if ($product->stock()->isset('hidden')) {
+                $result['stock']['is_hidden'] = $product->stock()->isHidden();
+            }
+            if ($product->stock()->isset('value')) {
+                $result['stock']['value'] = $product->stock()->value();
+            }
         }
 
-//        if ($product->isset('type')) {
-//            $result['type'] = $product->type();
-//        }
-//
-//        if ($product->isset('pricing')) {
-//            $result['pricing'] = $product->pricing();
-//        }
+        if ($product->isset('type')) {
+            $result['type'] = $product->type()->value;
+        }
+
+        if ($product->isset('pricing')) {
+            $result['pricing'] = PricingToBody::build($product->pricing());
+        }
 
         return $result;
     }

@@ -16,11 +16,14 @@ class Product
     private ?DateTimeImmutable $deletedAt;
     private string $description;
     private int $id;
-    private bool $isPhysical;
+    private ?int $ledger;
+    private bool $physical;
     private Pricing $pricing;
+    private Shipping $shipping;
     private string $publicTitle;
     private string $sku;
     private string $slug;
+    private Stock $stock;
     private string $title;
     private ProductType $type;
     private DateTimeImmutable $updatedAt;
@@ -52,7 +55,12 @@ class Product
 
     public function isPhysical(): bool
     {
-        return $this->isPhysical;
+        return $this->physical;
+    }
+
+    public function ledger(): ?int
+    {
+        return $this->ledger;
     }
 
     public function publicTitle(): string
@@ -84,9 +92,15 @@ class Product
         return $this;
     }
 
-    public function setIsPhysical(bool $isPhysical): Product
+    public function setPhysical(bool $physical): Product
     {
-        $this->isPhysical = $isPhysical;
+        $this->physical = $physical;
+        return $this;
+    }
+
+    public function setLedger(?int $ledger): self
+    {
+        $this->ledger = $ledger;
         return $this;
     }
 
@@ -136,6 +150,17 @@ class Product
         return $this->slug;
     }
 
+    public function stock(): Stock
+    {
+        return $this->stock;
+    }
+
+    public function setStock(Stock $stock): self
+    {
+        $this->stock = $stock;
+        return $this;
+    }
+
     public function title(): string
     {
         return $this->title;
@@ -170,37 +195,30 @@ class Product
         return $this;
     }
 
+    public function shipping(): Shipping
+    {
+        if (!isset($this->shipping)) {
+            if ($this->allowEmptyRelations) {
+                $this->shipping = new Shipping();
+            } else {
+                throw new RelationNotLoadedException('billing');
+            }
+        }
+
+        return $this->shipping;
+    }
+
+    public function setShipping(Shipping $shipping): self
+    {
+        $this->shipping = $shipping;
+        return $this;
+    }
+
     public function isset(string $field): bool
     {
         if (!property_exists($this, $field)) {
-            throw new BadFunctionCallException("Method '$field' does not exists");
+            throw new BadFunctionCallException("Field '$field' does not exists");
         }
         return isset($this->{$field});
-    }
-
-    public function statistics(): Billing
-    {
-        if (!isset($this->billing)) {
-            if ($this->allowEmptyRelations) {
-//                $this->billing = new Billing($this->allowEmptyRelations);
-            } else {
-                throw new RelationNotLoadedException('statistics');
-            }
-        }
-
-        return $this->billing;
-    }
-
-    public function customFields(): Billing
-    {
-        if (!isset($this->billing)) {
-            if ($this->allowEmptyRelations) {
-//                $this->billing = new Billing($this->allowEmptyRelations);
-            } else {
-                throw new RelationNotLoadedException('customFields');
-            }
-        }
-
-        return $this->billing;
     }
 }
