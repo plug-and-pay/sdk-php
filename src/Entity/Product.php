@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+use BadFunctionCallException;
 use DateTimeImmutable;
 use PlugAndPay\Sdk\Enum\ProductType;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
@@ -167,6 +168,14 @@ class Product
     {
         $this->pricing = $pricing;
         return $this;
+    }
+
+    public function isset(string $field): bool
+    {
+        if (!property_exists($this, $field)) {
+            throw new BadFunctionCallException("Method '$field' does not exists");
+        }
+        return isset($this->{$field});
     }
 
     public function statistics(): Billing
