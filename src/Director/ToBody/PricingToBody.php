@@ -31,6 +31,10 @@ class PricingToBody
             $result['tax'] = PricingTaxToBody::build($pricing->tax());
         }
 
+        if ($pricing->isset('trial')) {
+            $result['trial'] = PricingTrialToBody::build($pricing->trial());
+        }
+
         return $result;
     }
 }

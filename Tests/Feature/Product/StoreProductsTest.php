@@ -14,6 +14,7 @@ use PlugAndPay\Sdk\Entity\PriceOriginal;
 use PlugAndPay\Sdk\Entity\PriceTier;
 use PlugAndPay\Sdk\Entity\Pricing;
 use PlugAndPay\Sdk\Entity\PricingTax;
+use PlugAndPay\Sdk\Entity\PricingTrial;
 use PlugAndPay\Sdk\Entity\Product;
 use PlugAndPay\Sdk\Entity\Shipping;
 use PlugAndPay\Sdk\Entity\Stock;
@@ -272,6 +273,25 @@ class StoreProductsTest extends TestCase
         $body = ProductToBody::build($product);
 
         static::assertSame(123, $body['pricing']['tax']['profile']['id']);
+    }
+
+    /** @test */
+    public function convert_product_pricing_trial(): void
+    {
+        $product = $this->makeBaseProduct()->setPricing(
+            (new Pricing())->setTrial(
+                (new PricingTrial())
+                    ->setAmount(10)
+                    ->setAmountWithTax(12.1)
+                    ->setDuration(14)
+            )
+        );
+
+        $body = ProductToBody::build($product);
+
+        static::assertSame(10.0, $body['pricing']['trial']['amount']);
+        static::assertSame(12.10, $body['pricing']['trial']['amount_with_tax']);
+        static::assertSame(14, $body['pricing']['trial']['duration']);
     }
 
     private function makeBaseProduct(): Product
