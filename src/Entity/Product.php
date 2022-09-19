@@ -182,7 +182,7 @@ class Product
             if ($this->allowEmptyRelations) {
                 $this->pricing = new Pricing($this->allowEmptyRelations);
             } else {
-                throw new RelationNotLoadedException('billing');
+                throw new RelationNotLoadedException('pricing');
             }
         }
 
@@ -201,7 +201,7 @@ class Product
             if ($this->allowEmptyRelations) {
                 $this->shipping = new Shipping();
             } else {
-                throw new RelationNotLoadedException('billing');
+                throw new RelationNotLoadedException('shipping');
             }
         }
 
