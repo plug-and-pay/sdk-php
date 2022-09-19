@@ -22,7 +22,7 @@ class Product
     private Shipping $shipping;
     private string $publicTitle;
     private string $sku;
-    private string $slug;
+    private ?string $slug;
     private Stock $stock;
     private string $title;
     private ProductType $type;
@@ -116,7 +116,7 @@ class Product
         return $this;
     }
 
-    public function setSlug(string $slug): Product
+    public function setSlug(?string $slug): Product
     {
         $this->slug = $slug;
         return $this;
@@ -145,7 +145,7 @@ class Product
         return $this->sku;
     }
 
-    public function slug(): string
+    public function slug(): ?string
     {
         return $this->slug;
     }
@@ -192,25 +192,6 @@ class Product
     public function setPricing(Pricing $pricing): self
     {
         $this->pricing = $pricing;
-        return $this;
-    }
-
-    public function shipping(): Shipping
-    {
-        if (!isset($this->shipping)) {
-            if ($this->allowEmptyRelations) {
-                $this->shipping = new Shipping();
-            } else {
-                throw new RelationNotLoadedException('shipping');
-            }
-        }
-
-        return $this->shipping;
-    }
-
-    public function setShipping(Shipping $shipping): self
-    {
-        $this->shipping = $shipping;
         return $this;
     }
 

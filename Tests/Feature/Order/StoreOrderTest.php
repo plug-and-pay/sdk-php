@@ -254,27 +254,8 @@ class StoreOrderTest extends TestCase
         ], $client->requestBody()['billing']['address']);
     }
 
-    private function generateBilling(): Billing
-    {
-        return (new Billing())
-            ->setAddress((new Address())->setCountry(CountryCode::NL))
-            ->setContact((new Contact())
-                ->setEmail('rosalie39@example.net')
-                ->setFirstName('Bilal')
-                ->setLastName('de Wit'));
-    }
-
-    private function generateOrder(): Order
-    {
-        $item = (new Item())->setLabel('the-label');
-
-        return (new Order())
-            ->setBilling($this->generateBilling())
-            ->setItems([$item]);
-    }
-
     /** @test */
-    public function fetch_order_with_validation_error(): void
+    public function create_order_with_validation_error(): void
     {
         $client    = new ClientMock(
             Response::HTTP_UNPROCESSABLE_ENTITY,
@@ -301,7 +282,7 @@ class StoreOrderTest extends TestCase
     }
 
     /** @test */
-    public function fetch_order_with_multiple_validation_errors(): void
+    public function create_order_with_multiple_validation_errors(): void
     {
         $client    = new ClientMock(
             Response::HTTP_UNPROCESSABLE_ENTITY,
@@ -329,5 +310,24 @@ class StoreOrderTest extends TestCase
         static::assertEquals('First error. Second error. Last error.', $exception->getMessage());
         static::assertEquals('First error.', $exception->errors()[0]->message());
         static::assertEquals('firstname', $exception->errors()[0]->field());
+    }
+
+    private function generateBilling(): Billing
+    {
+        return (new Billing())
+            ->setAddress((new Address())->setCountry(CountryCode::NL))
+            ->setContact((new Contact())
+                ->setEmail('rosalie39@example.net')
+                ->setFirstName('Bilal')
+                ->setLastName('de Wit'));
+    }
+
+    private function generateOrder(): Order
+    {
+        $item = (new Item())->setLabel('the-label');
+
+        return (new Order())
+            ->setBilling($this->generateBilling())
+            ->setItems([$item]);
     }
 }

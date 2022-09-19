@@ -21,7 +21,10 @@ use PlugAndPay\Sdk\Entity\Stock;
 use PlugAndPay\Sdk\Entity\TaxProfile;
 use PlugAndPay\Sdk\Entity\TaxRate;
 use PlugAndPay\Sdk\Enum\Interval;
+use PlugAndPay\Sdk\Enum\ProductIncludes;
 use PlugAndPay\Sdk\Enum\ProductType;
+use PlugAndPay\Sdk\Service\ProductService;
+use PlugAndPay\Sdk\Tests\Feature\Product\Mock\ProductStoreMockClient;
 
 class StoreProductsTest extends TestCase
 {
@@ -292,6 +295,60 @@ class StoreProductsTest extends TestCase
         static::assertSame(10.0, $body['pricing']['trial']['amount']);
         static::assertSame(12.10, $body['pricing']['trial']['amount_with_tax']);
         static::assertSame(14, $body['pricing']['trial']['duration']);
+    }
+
+    /** @test */
+    public function store_basic_product(): void
+    {
+        $client  = new ProductStoreMockClient();
+        $service = new ProductService($client);
+
+        $product = $this->makeBaseProduct();
+        $product->setType(ProductType::SUBSCRIPTION);
+        $product = $service->create($product);
+
+        static::assertEquals(1, $product->id());
+
+        static::assertEquals('/v2/products', $client->path());
+        static::assertEquals(1, $product->id());
+        static::assertEquals('subscription', $client->requestBody()['type']);
+    }
+
+    /** @test */
+    public function store_product_basic_pricing(): void
+    {
+        $client  = new ProductStoreMockClient();
+        $service = new ProductService($client);
+
+        $product = $this->makeBaseProduct();
+        $product->pricing()->setTaxIncluded(true);
+        $service->create($product);
+
+        static::assertEquals(true, $client->requestBody()['pricing']['is_tax_included']);
+    }
+
+    /** @test */
+    public function store_product_including_relation_pricing(): void
+    {
+        $client  = new ProductStoreMockClient();
+        $service = (new ProductService($client))->include(ProductIncludes::PRICING);
+
+        $product = $this->makeBaseProduct();
+        $service->create($product);
+
+        static::assertEquals('/v2/products?include=pricing', $client->path());
+    }
+
+    /** @test */
+    public function store_product_including_relation_tax_rates(): void
+    {
+        $client  = (new ProductStoreMockClient());
+        $service = (new ProductService($client))->include(ProductIncludes::TAX_RATES);
+
+        $product = $this->makeBaseProduct();
+        $service->create($product);
+
+        static::assertEquals('/v2/products?include=tax_rates', $client->path());
     }
 
     private function makeBaseProduct(): Product

@@ -31,7 +31,7 @@ class ShowProductTest extends TestCase
         static::assertSame(false, $product->isPhysical());
         static::assertSame('culpa', $product->publicTitle());
         static::assertSame('70291520', $product->sku());
-        static::assertSame('culpa', $product->slug());
+        static::assertSame(null, $product->slug());
         static::assertSame(false, $product->stock()->isEnabled());
         static::assertSame('culpa', $product->title());
         static::assertSame('one_off', $product->type()->value);
@@ -145,18 +145,6 @@ class ShowProductTest extends TestCase
         $product = $service->include(ProductIncludes::PRICING)->find(1);
 
         static::assertCount(2, $product->pricing()->tax()->profile()->rates());
-    }
-
-    /** @test */
-    public function show_product_pricing_shipping(): void
-    {
-        $client  = (new ProductShowMockClient())->pricingBasic()->shipping();
-        $service = new ProductService($client);
-
-        $product = $service->include(ProductIncludes::SHIPPING)->find(1);
-
-        static::assertSame(10., $product->pricing()->shipping()->amount());
-        static::assertSame(12.1, $product->pricing()->shipping()->amountWithTax());
     }
 
     /** @test */
