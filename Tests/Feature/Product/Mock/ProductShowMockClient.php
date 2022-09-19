@@ -63,7 +63,7 @@ class ProductShowMockClient extends ClientMock
                         'first'        => null,
                         'interval'     => null,
                         'is_suggested' => false,
-                        'nr_of_cycles' => 1,
+                        'nr_of_cycles' => null,
                         'original'     => null,
                         'regular'      => [
                             'amount'          => '100.00',

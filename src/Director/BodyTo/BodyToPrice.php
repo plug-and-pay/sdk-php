@@ -16,7 +16,7 @@ class BodyToPrice
             ->setFirst($data['first'] ? BodyToPriceFirst::build($data['first']) : null)
             ->setInterval(Interval::tryFrom((string)$data['interval']))
             ->setSuggested($data['is_suggested'])
-            ->setNrOfCycles($data['nr_of_cycles'])
+            ->setNrOfCycles($data['nr_of_cycles'] ?? 1)
             ->setOriginal($data['original'] ? BodyToPriceOriginal::build($data['original']) : null)
             ->setRegular(BodyToPriceRegular::build($data['regular']))
             ->setTiers(BodyToPriceTier::buildMulti($data['tiers']));
