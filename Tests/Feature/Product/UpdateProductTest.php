@@ -6,8 +6,6 @@ namespace PlugAndPay\Sdk\Tests\Feature\Product;
 
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Product;
-use PlugAndPay\Sdk\Enum\CountryCode;
-use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Service\ProductService;
 use PlugAndPay\Sdk\Tests\Feature\Product\Mock\ProductUpdateMockClient;
 
@@ -21,6 +19,20 @@ class UpdateProductTest extends TestCase
 
         $product = $service->update(1, function (Product $product) {
             $product->setDescription('Lorem Ipsum');
+        });
+
+        static::assertEquals('Lorem Ipsum', $product->description());
+        static::assertEquals('/v2/products/1', $client->path());
+    }
+
+    /** @test */
+    public function update_product_relation(): void
+    {
+        $client = (new ProductUpdateMockClient())->pricingBasic()->shipping();
+        $service = new ProductService($client);
+
+        $product = $service->update(1, function (Product $product) {
+            $product->shipping()->setAmount(11.95);
         });
 
         static::assertEquals('Lorem Ipsum', $product->description());
