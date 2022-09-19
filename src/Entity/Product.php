@@ -19,7 +19,6 @@ class Product
     private ?int $ledger;
     private bool $physical;
     private Pricing $pricing;
-    private Shipping $shipping;
     private string $publicTitle;
     private string $sku;
     private ?string $slug;
