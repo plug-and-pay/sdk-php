@@ -31,7 +31,7 @@ class ShowProductTest extends TestCase
         static::assertSame(false, $product->isPhysical());
         static::assertSame('culpa', $product->publicTitle());
         static::assertSame('70291520', $product->sku());
-        static::assertSame('culpa', $product->slug());
+        static::assertSame(null, $product->slug());
         static::assertSame(false, $product->stock()->isEnabled());
         static::assertSame('culpa', $product->title());
         static::assertSame('one_off', $product->type()->value);

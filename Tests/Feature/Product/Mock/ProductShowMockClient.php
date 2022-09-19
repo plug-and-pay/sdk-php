@@ -19,7 +19,7 @@ class ProductShowMockClient extends ClientMock
         'ledger'       => null,
         'public_title' => 'culpa',
         'sku'          => '70291520',
-        'slug'         => 'culpa',
+        'slug'         => null,
         'stock'        => [
             'is_enabled' => false,
         ],
