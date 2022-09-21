@@ -10,9 +10,16 @@ class ShippingToBody
 {
     public static function build(Shipping $shipping): array
     {
-        return [
-            'amount'          => $shipping->amount(),
-            'amount_with_tax' => $shipping->amountWithTax(),
-        ];
+        $result = [];
+
+        if ($shipping->isset('amount')) {
+            $result['amount'] = (string) $shipping->amount();
+        }
+
+        if ($shipping->isset('amountWithTax')) {
+            $result['amount_with_tax'] = (string) $shipping->amountWithTax();
+        }
+
+        return $result;
     }
 }
