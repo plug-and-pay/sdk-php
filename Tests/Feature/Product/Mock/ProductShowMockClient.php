@@ -11,17 +11,17 @@ use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 class ProductShowMockClient extends ClientMock
 {
     public const BASIC_PRODUCT = [
-        'created_at'   => '2019-01-16T00:00:00.000000Z',
-        'deleted_at'   => '2019-01-16T00:00:00.000000Z',
-        'description'  => 'Quisquam recusandae asperiores accusamus',
+        'created_at'   => '2021-01-16T00:00:00.000000Z',
+        'deleted_at'   => '2021-01-16T00:00:00.000000Z',
+        'description'  => 'Lorem Ipsum',
         'id'           => 1,
         'is_physical'  => false,
-        'public_title' => 'culpa',
+        'public_title' => 'Dolore',
         'sku'          => '70291520',
-        'slug'         => 'culpa',
-        'title'        => 'culpa',
+        'slug'         => 'dolore',
+        'title'        => 'dolore',
         'type'         => 'one_off',
-        'updated_at'   => '2019-01-16T00:00:00.000000Z',
+        'updated_at'   => '2021-01-16T00:00:00.000000Z',
     ];
     protected string $path;
 
