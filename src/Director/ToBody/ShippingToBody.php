@@ -13,11 +13,11 @@ class ShippingToBody
         $result = [];
 
         if ($shipping->isset('amount')) {
-            $result['amount'] = $shipping->amount();
+            $result['amount'] = (string) $shipping->amount();
         }
 
-        if ($shipping->isset('amount_with_tax')) {
-            $result['amount_with_tax'] = $shipping->amountWithTax();
+        if ($shipping->isset('amountWithTax')) {
+            $result['amount_with_tax'] = (string) $shipping->amountWithTax();
         }
 
         return $result;

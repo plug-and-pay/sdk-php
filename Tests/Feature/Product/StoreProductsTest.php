@@ -240,8 +240,8 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertSame(10.0, $body['pricing']['shipping']['amount']);
-        static::assertSame(12.10, $body['pricing']['shipping']['amount_with_tax']);
+        static::assertSame('10', $body['pricing']['shipping']['amount']);
+        static::assertSame('12.1', $body['pricing']['shipping']['amount_with_tax']);
     }
 
     /** @test */
