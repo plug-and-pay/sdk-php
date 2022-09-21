@@ -23,7 +23,6 @@ class IndexTaxRatesTest extends TestCase
         static::assertSame('/v2/tax-rates', $client->path());
     }
 
-
     /**
      * @dataProvider taxRateFilterDataProvider
      * @test
