@@ -7,8 +7,8 @@ namespace PlugAndPay\Sdk\Entity;
 use BadFunctionCallException;
 use DateTimeImmutable;
 use PlugAndPay\Sdk\Enum\InvoiceStatus;
-use PlugAndPay\Sdk\Enum\OrderMode;
-use PlugAndPay\Sdk\Enum\OrderSource;
+use PlugAndPay\Sdk\Enum\Mode;
+use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Enum\TaxExempt;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
@@ -31,10 +31,10 @@ class Order
     private InvoiceStatus $invoiceStatus;
     /** @var \PlugAndPay\Sdk\Entity\Item[] */
     private array $items;
-    private OrderMode $mode;
+    private Mode $mode;
     private Payment $payment;
     private string $reference;
-    private OrderSource $source;
+    private Source $source;
     /** @var string[] */
     private array $tags;
     private TaxExempt $taxExempt;
@@ -152,7 +152,7 @@ class Order
         return $this->items;
     }
 
-    public function mode(): OrderMode
+    public function mode(): Mode
     {
         return $this->mode;
     }
@@ -268,7 +268,7 @@ class Order
         return $this;
     }
 
-    public function setMode(OrderMode $mode): self
+    public function setMode(Mode $mode): self
     {
         $this->mode = $mode;
         return $this;
@@ -286,7 +286,7 @@ class Order
         return $this;
     }
 
-    public function setSource(OrderSource $source): self
+    public function setSource(Source $source): self
     {
         $this->source = $source;
         return $this;
@@ -302,7 +302,6 @@ class Order
     public function setTaxExempt(TaxExempt $taxExempt): self
     {
         $this->taxExempt = $taxExempt;
-
         return $this;
     }
 
@@ -327,7 +326,7 @@ class Order
         return $this;
     }
 
-    public function source(): OrderSource
+    public function source(): Source
     {
         return $this->source;
     }

@@ -8,8 +8,8 @@ use DateTimeImmutable;
 use Exception;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Enum\InvoiceStatus;
-use PlugAndPay\Sdk\Enum\OrderMode;
-use PlugAndPay\Sdk\Enum\OrderSource;
+use PlugAndPay\Sdk\Enum\Mode;
+use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
 class BodyToOrder
@@ -27,9 +27,9 @@ class BodyToOrder
             ->setId($data['id'])
             ->setInvoiceNumber($data['invoice_number'])
             ->setInvoiceStatus(InvoiceStatus::from($data['invoice_status']))
-            ->setMode(OrderMode::from($data['mode']))
+            ->setMode(Mode::from($data['mode']))
             ->setReference($data['reference'])
-            ->setSource(OrderSource::tryFrom($data['source']) ?? OrderSource::UNKNOWN)
+            ->setSource(Source::tryFrom($data['source']) ?? Source::UNKNOWN)
             ->setAmount((float)$data['amount'])
             ->setTotal((float)$data['amount_with_tax'])
             ->setUpdatedAt(self::date($data, 'updated_at'));

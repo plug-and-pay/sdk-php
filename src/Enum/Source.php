@@ -2,7 +2,7 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-enum OrderSource: string
+enum Source: string
 {
     case ADMIN = 'admin';
     case API = 'api';

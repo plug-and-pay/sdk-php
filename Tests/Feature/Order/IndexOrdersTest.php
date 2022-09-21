@@ -11,9 +11,9 @@ use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\Direction;
 use PlugAndPay\Sdk\Enum\InvoiceStatus;
 use PlugAndPay\Sdk\Enum\OrderIncludes;
-use PlugAndPay\Sdk\Enum\OrderMode;
+use PlugAndPay\Sdk\Enum\Mode;
 use PlugAndPay\Sdk\Enum\OrderSortType;
-use PlugAndPay\Sdk\Enum\OrderSource;
+use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Filters\OrderFilter;
 use PlugAndPay\Sdk\Service\OrderService;
@@ -148,7 +148,7 @@ class IndexOrdersTest extends TestCase
             ],
             [
                 'method'     => 'mode',
-                'value'      => OrderMode::LIVE,
+                'value'      => Mode::LIVE,
                 'queryKey'   => 'mode',
                 'queryValue' => 'live',
             ],
@@ -202,7 +202,7 @@ class IndexOrdersTest extends TestCase
             ],
             [
                 'method'     => 'source',
-                'value'      => OrderSource::UPGRADE,
+                'value'      => Source::UPGRADE,
                 'queryKey'   => 'source',
                 'queryValue' => 'upgrade',
             ],

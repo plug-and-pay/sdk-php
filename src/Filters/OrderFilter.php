@@ -9,9 +9,9 @@ use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\Direction;
 use PlugAndPay\Sdk\Enum\InvoiceStatus;
-use PlugAndPay\Sdk\Enum\OrderMode;
+use PlugAndPay\Sdk\Enum\Mode;
 use PlugAndPay\Sdk\Enum\OrderSortType;
-use PlugAndPay\Sdk\Enum\OrderSource;
+use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 
 class OrderFilter
@@ -114,7 +114,7 @@ class OrderFilter
         return $this;
     }
 
-    public function mode(OrderMode $mode): self
+    public function mode(Mode $mode): self
     {
         $this->parameters['mode'] = $mode->value;
         return $this;
@@ -173,7 +173,7 @@ class OrderFilter
         return $this;
     }
 
-    public function source(OrderSource $source): self
+    public function source(Source $source): self
     {
         $this->parameters['source'] = $source->value;
         return $this;
