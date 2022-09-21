@@ -13,14 +13,6 @@ class TaxRate
     private CountryCode $country;
     private float $percentage;
 
-    public function isset(string $field): bool
-    {
-        if (!method_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-        return isset($this->{$field});
-    }
-
     public function id(): int
     {
         return $this->id;
@@ -52,5 +44,13 @@ class TaxRate
     {
         $this->percentage = $percentage;
         return $this;
+    }
+
+    public function isset(string $field): bool
+    {
+        if (!method_exists($this, $field)) {
+            throw new BadFunctionCallException("Method '$field' does not exists");
+        }
+        return isset($this->{$field});
     }
 }
