@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+use BadFunctionCallException;
 use DateTimeImmutable;
 use PlugAndPay\Sdk\Enum\ProductType;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
@@ -15,11 +16,13 @@ class Product
     private ?DateTimeImmutable $deletedAt;
     private string $description;
     private int $id;
-    private bool $isPhysical;
+    private ?int $ledger;
+    private bool $physical;
     private Pricing $pricing;
     private string $publicTitle;
     private string $sku;
-    private string $slug;
+    private ?string $slug;
+    private Stock $stock;
     private string $title;
     private ProductType $type;
     private DateTimeImmutable $updatedAt;
@@ -51,7 +54,12 @@ class Product
 
     public function isPhysical(): bool
     {
-        return $this->isPhysical;
+        return $this->physical;
+    }
+
+    public function ledger(): ?int
+    {
+        return $this->ledger;
     }
 
     public function publicTitle(): string
@@ -83,9 +91,15 @@ class Product
         return $this;
     }
 
-    public function setIsPhysical(bool $isPhysical): Product
+    public function setPhysical(bool $physical): Product
     {
-        $this->isPhysical = $isPhysical;
+        $this->physical = $physical;
+        return $this;
+    }
+
+    public function setLedger(?int $ledger): self
+    {
+        $this->ledger = $ledger;
         return $this;
     }
 
@@ -101,7 +115,7 @@ class Product
         return $this;
     }
 
-    public function setSlug(string $slug): Product
+    public function setSlug(?string $slug): Product
     {
         $this->slug = $slug;
         return $this;
@@ -130,9 +144,20 @@ class Product
         return $this->sku;
     }
 
-    public function slug(): string
+    public function slug(): ?string
     {
         return $this->slug;
+    }
+
+    public function stock(): Stock
+    {
+        return $this->stock;
+    }
+
+    public function setStock(Stock $stock): self
+    {
+        $this->stock = $stock;
+        return $this;
     }
 
     public function title(): string
@@ -156,7 +181,7 @@ class Product
             if ($this->allowEmptyRelations) {
                 $this->pricing = new Pricing($this->allowEmptyRelations);
             } else {
-                throw new RelationNotLoadedException('billing');
+                throw new RelationNotLoadedException('pricing');
             }
         }
 
@@ -169,29 +194,11 @@ class Product
         return $this;
     }
 
-    public function statistics(): Billing
+    public function isset(string $field): bool
     {
-        if (!isset($this->billing)) {
-            if ($this->allowEmptyRelations) {
-//                $this->billing = new Billing($this->allowEmptyRelations);
-            } else {
-                throw new RelationNotLoadedException('statistics');
-            }
+        if (!property_exists($this, $field)) {
+            throw new BadFunctionCallException("Field '$field' does not exists");
         }
-
-        return $this->billing;
-    }
-
-    public function customFields(): Billing
-    {
-        if (!isset($this->billing)) {
-            if ($this->allowEmptyRelations) {
-//                $this->billing = new Billing($this->allowEmptyRelations);
-            } else {
-                throw new RelationNotLoadedException('customFields');
-            }
-        }
-
-        return $this->billing;
+        return isset($this->{$field});
     }
 }

@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Director\ToBody;
 
 use PlugAndPay\Sdk\Entity\TaxRate;
 
-class RateToBody
+class TaxRateToBody
 {
     public static function build(TaxRate $rate): array
     {

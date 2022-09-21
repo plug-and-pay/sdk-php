@@ -50,7 +50,7 @@ class Billing
     public function isset(string $field): bool
     {
         if (!method_exists($this, $field)) {
-            throw new BadFunctionCallException("Method '$field' does not exists");
+            throw new BadFunctionCallException("Field '$field' does not exists");
         }
         return isset($this->{$field});
     }

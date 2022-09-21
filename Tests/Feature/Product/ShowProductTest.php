@@ -24,13 +24,15 @@ class ShowProductTest extends TestCase
         $product = $service->find(1);
 
         static::assertSame(1, $product->id());
+        static::assertSame(null, $product->ledger());
         static::assertSame('2019-01-16 00:00:00', $product->createdAt()->format('Y-m-d H:i:s'));
         static::assertSame('2019-01-16 00:00:00', $product->deletedAt()->format('Y-m-d H:i:s'));
         static::assertSame('Quisquam recusandae asperiores accusamus', $product->description());
         static::assertSame(false, $product->isPhysical());
         static::assertSame('culpa', $product->publicTitle());
         static::assertSame('70291520', $product->sku());
-        static::assertSame('culpa', $product->slug());
+        static::assertSame(null, $product->slug());
+        static::assertSame(false, $product->stock()->isEnabled());
         static::assertSame('culpa', $product->title());
         static::assertSame('one_off', $product->type()->value);
         static::assertSame('2019-01-16 00:00:00', $product->updatedAt()->format('Y-m-d H:i:s'));
@@ -58,9 +60,7 @@ class ShowProductTest extends TestCase
     public function relationsProvider(): array
     {
         return [
-            'pricing'      => ['pricing'],
-            'statistics'   => ['statistics'],
-            'customFields' => ['customFields'],
+            'pricing' => ['pricing'],
         ];
     }
 
@@ -145,18 +145,6 @@ class ShowProductTest extends TestCase
         $product = $service->include(ProductIncludes::PRICING)->find(1);
 
         static::assertCount(2, $product->pricing()->tax()->profile()->rates());
-    }
-
-    /** @test */
-    public function show_product_pricing_shipping(): void
-    {
-        $client  = (new ProductShowMockClient())->pricingBasic()->shipping();
-        $service = new ProductService($client);
-
-        $product = $service->include(ProductIncludes::SHIPPING)->find(1);
-
-        static::assertSame(10., $product->pricing()->shipping()->amount());
-        static::assertSame(12.1, $product->pricing()->shipping()->amountWithTax());
     }
 
     /** @test */
@@ -263,7 +251,7 @@ class ShowProductTest extends TestCase
     /** @test */
     public function show_product_price_tiers(): void
     {
-        $client = (new ProductShowMockClient())->pricingBasic()->price('tiers', [
+        $client  = (new ProductShowMockClient())->pricingBasic()->price('tiers', [
             [
                 'amount'          => '100.00',
                 'amount_with_tax' => '121.00',
@@ -277,5 +265,24 @@ class ShowProductTest extends TestCase
         static::assertSame(100., $product->pricing()->prices()[0]->tiers()[0]->amount());
         static::assertSame(121., $product->pricing()->prices()[0]->tiers()[0]->amountWithTax());
         static::assertSame(5, $product->pricing()->prices()[0]->tiers()[0]->quantity());
+    }
+
+    /** @test */
+    public function show_product_stock_enabled(): void
+    {
+        $client  = (new ProductShowMockClient([
+            'stock' => [
+                'is_enabled' => true,
+                'is_hidden'  => true,
+                'value'      => 10,
+            ],
+        ]));
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertSame(true, $product->stock()->isEnabled());
+        static::assertSame(true, $product->stock()->isHidden());
+        static::assertSame(10, $product->stock()->value());
     }
 }
