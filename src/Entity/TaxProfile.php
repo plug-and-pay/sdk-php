@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+use BadFunctionCallException;
+
 class TaxProfile
 {
     private int $id;
@@ -55,4 +57,11 @@ class TaxProfile
         return $this;
     }
 
+    public function isset(string $field): bool
+    {
+        if (!method_exists($this, $field)) {
+            throw new BadFunctionCallException("Field '$field' does not exists");
+        }
+        return isset($this->{$field});
+    }
 }

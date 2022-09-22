@@ -7,6 +7,7 @@ namespace PlugAndPay\Sdk\Service;
 use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToProduct;
+use PlugAndPay\Sdk\Director\ToBody\ProductToBody;
 use PlugAndPay\Sdk\Entity\Product;
 use PlugAndPay\Sdk\Enum\ProductIncludes;
 use PlugAndPay\Sdk\Filters\ProductFilter;
@@ -21,6 +22,15 @@ class ProductService
     public function __construct(ClientInterface $client)
     {
         $this->client = $client;
+    }
+
+    public function create(Product $product): Product
+    {
+        $body     = ProductToBody::build($product);
+        $query    = Parameters::toString(['include' => $this->includes]);
+        $response = $this->client->post("/v2/products$query", $body);
+
+        return BodyToProduct::build($response->body()['data']);
     }
 
     public function include(ProductIncludes ...$includes): self

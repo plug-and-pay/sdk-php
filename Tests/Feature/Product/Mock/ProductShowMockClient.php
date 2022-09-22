@@ -11,17 +11,21 @@ use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 class ProductShowMockClient extends ClientMock
 {
     public const BASIC_PRODUCT = [
-        'created_at'   => '2021-01-16T00:00:00.000000Z',
-        'deleted_at'   => '2021-01-16T00:00:00.000000Z',
-        'description'  => 'Lorem Ipsum',
+        'created_at'   => '2019-01-16T00:00:00.000000Z',
+        'deleted_at'   => '2019-01-16T00:00:00.000000Z',
+        'description'  => 'Quisquam recusandae asperiores accusamus',
         'id'           => 1,
         'is_physical'  => false,
-        'public_title' => 'Dolore',
+        'ledger'       => null,
+        'public_title' => 'culpa',
         'sku'          => '70291520',
-        'slug'         => 'dolore',
-        'title'        => 'dolore',
+        'slug'         => null,
+        'stock'        => [
+            'is_enabled' => false,
+        ],
+        'title'        => 'culpa',
         'type'         => 'one_off',
-        'updated_at'   => '2021-01-16T00:00:00.000000Z',
+        'updated_at'   => '2019-01-16T00:00:00.000000Z',
     ];
     protected string $path;
 
@@ -53,13 +57,13 @@ class ProductShowMockClient extends ClientMock
     {
         $this->responseBody['data']['pricing'] = $pricing + [
                 'is_tax_included' => false,
-                'prices'   => [
+                'prices'          => [
                     [
                         'id'           => 10,
                         'first'        => null,
                         'interval'     => null,
                         'is_suggested' => false,
-                        'nr_of_cycles' => 1,
+                        'nr_of_cycles' => null,
                         'original'     => null,
                         'regular'      => [
                             'amount'          => '100.00',
@@ -68,15 +72,15 @@ class ProductShowMockClient extends ClientMock
                         'tiers'        => [],
                     ],
                 ],
-                'shipping' => null,
-                'tax'      => [
+                'shipping'        => null,
+                'tax'             => [
                     'rate' => [
                         'id'         => 1234,
                         'country'    => 'NL',
                         'percentage' => '6.0',
                     ],
                 ],
-                'trial'    => null,
+                'trial'           => null,
             ];
 
         return $this;
