@@ -28,12 +28,20 @@ class BodyToSubscription
             ->setMode(Mode::from($data['mode']))
             ->setSource(Source::tryFrom($data['source']) ?? Source::UNKNOWN);
 
+        if (isset($data['trial'])) {
+            $subscription->setTrial($data['trial'] ? BodyToSubscriptionTrial::build($data['trial']) : null);
+        }
+
+        if (isset($data['billing'])) {
+            $subscription->setBilling(BodyToBilling::build($data['billing']));
+        }
+
         if (isset($data['product'])) {
             $subscription->setProduct(BodyToProduct::build($data['product']));
         }
 
         if (isset($data['pricing'])) {
-            $subscription->setPricing(BodyToPricing::build($data['pricing']));
+            $subscription->setPricing(BodyToSubscriptionPricing::build($data['pricing']));
         }
 
         return $subscription;

@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Tests\Feature\Product;
 
 use PHPUnit\Framework\TestCase;
-use PlugAndPay\Sdk\Entity\Pricing;
+use PlugAndPay\Sdk\Entity\ProductPricing;
 use PlugAndPay\Sdk\Entity\Product;
 use PlugAndPay\Sdk\Enum\ProductIncludes;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
@@ -68,7 +68,7 @@ class ShowProductTest extends TestCase
     public function fetch_none_loaded_rax_rate(): void
     {
         $exception = null;
-        $product   = (new Product())->setPricing((new Pricing(false)));
+        $product   = (new Product())->setPricing((new ProductPricing(false)));
 
         try {
             $product->pricing()->tax()->rate();

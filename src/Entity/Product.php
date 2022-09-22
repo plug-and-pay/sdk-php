@@ -18,7 +18,7 @@ class Product
     private int $id;
     private ?int $ledger;
     private bool $physical;
-    private Pricing $pricing;
+    private ProductPricing $pricing;
     private string $publicTitle;
     private string $sku;
     private ?string $slug;
@@ -175,11 +175,11 @@ class Product
         return $this->updatedAt;
     }
 
-    public function pricing(): Pricing
+    public function pricing(): ProductPricing
     {
         if (!isset($this->pricing)) {
             if ($this->allowEmptyRelations) {
-                $this->pricing = new Pricing($this->allowEmptyRelations);
+                $this->pricing = new ProductPricing($this->allowEmptyRelations);
             } else {
                 throw new RelationNotLoadedException('pricing');
             }
@@ -188,7 +188,7 @@ class Product
         return $this->pricing;
     }
 
-    public function setPricing(Pricing $pricing): self
+    public function setPricing(ProductPricing $pricing): self
     {
         $this->pricing = $pricing;
         return $this;

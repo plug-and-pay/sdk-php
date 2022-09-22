@@ -12,7 +12,7 @@ use PlugAndPay\Sdk\Entity\Price;
 use PlugAndPay\Sdk\Entity\PriceFirst;
 use PlugAndPay\Sdk\Entity\PriceOriginal;
 use PlugAndPay\Sdk\Entity\PriceTier;
-use PlugAndPay\Sdk\Entity\Pricing;
+use PlugAndPay\Sdk\Entity\ProductPricing;
 use PlugAndPay\Sdk\Entity\PricingTax;
 use PlugAndPay\Sdk\Entity\PricingTrial;
 use PlugAndPay\Sdk\Entity\Product;
@@ -55,7 +55,7 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertSame(true, $body['is_physical']);
+        static::assertTrue($body['is_physical']);
     }
 
     /** @test */
@@ -115,7 +115,7 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertSame(false, $body['stock']['is_enabled']);
+        static::assertFalse($body['stock']['is_enabled']);
         static::assertArrayNotHasKey('is_hidden', $body['stock']);
         static::assertArrayNotHasKey('value', $body['stock']);
     }
@@ -141,19 +141,19 @@ class StoreProductsTest extends TestCase
     public function convert_product_is_tax_included(): void
     {
         $product = $this->makeBaseProduct()->setPricing(
-            (new Pricing())->setTaxIncluded(true)
+            (new ProductPricing())->setTaxIncluded(true)
         );
 
         $body = ProductToBody::build($product);
 
-        static::assertSame(true, $body['pricing']['is_tax_included']);
+        static::assertTrue($body['pricing']['is_tax_included']);
     }
 
     /** @test */
     public function convert_product_pricing_prices(): void
     {
         $product = $this->makeBaseProduct()->setPricing(
-            (new Pricing())->setPrices([
+            (new ProductPricing())->setPrices([
                 (new Price())
                     ->setSuggested(true)
                     ->setInterval(Interval::MONTHLY)
@@ -163,7 +163,7 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertSame(true, $body['pricing']['prices'][0]['is_suggested']);
+        static::assertTrue($body['pricing']['prices'][0]['is_suggested']);
         static::assertSame('monthly', $body['pricing']['prices'][0]['interval']);
         static::assertSame(12, $body['pricing']['prices'][0]['nr_of_cycles']);
     }
@@ -172,7 +172,7 @@ class StoreProductsTest extends TestCase
     public function convert_product_pricing_prices_first(): void
     {
         $product = $this->makeBaseProduct()->setPricing(
-            (new Pricing())->setPrices([
+            (new ProductPricing())->setPrices([
                 (new Price())
                     ->setFirst((new PriceFirst())
                         ->setAmount(10)
@@ -190,7 +190,7 @@ class StoreProductsTest extends TestCase
     public function convert_product_pricing_prices_original(): void
     {
         $product = $this->makeBaseProduct()->setPricing(
-            (new Pricing())->setPrices([
+            (new ProductPricing())->setPrices([
                 (new Price())
                     ->setOriginal((new PriceOriginal())
                         ->setAmount(10)
@@ -208,7 +208,7 @@ class StoreProductsTest extends TestCase
     public function convert_product_pricing_prices_tiers(): void
     {
         $product = $this->makeBaseProduct()->setPricing(
-            (new Pricing())->setPrices([
+            (new ProductPricing())->setPrices([
                 (new Price())
                     ->setTiers([
                             (new PriceTier())
@@ -231,7 +231,7 @@ class StoreProductsTest extends TestCase
     public function convert_product_pricing_shipping(): void
     {
         $product = $this->makeBaseProduct()->setPricing(
-            (new Pricing())->setShipping(
+            (new ProductPricing())->setShipping(
                 (new Shipping())
                     ->setAmount(10)
                     ->setAmountWithTax(12.1)
@@ -248,7 +248,7 @@ class StoreProductsTest extends TestCase
     public function convert_product_pricing_tax_rate(): void
     {
         $product = $this->makeBaseProduct()->setPricing(
-            (new Pricing())->setTax(
+            (new ProductPricing())->setTax(
                 (new PricingTax())->setRate(
                     (new TaxRate())
                         ->setId(123)
@@ -265,7 +265,7 @@ class StoreProductsTest extends TestCase
     public function convert_product_pricing_tax_profile(): void
     {
         $product = $this->makeBaseProduct()->setPricing(
-            (new Pricing())->setTax(
+            (new ProductPricing())->setTax(
                 (new PricingTax())->setProfile(
                     (new TaxProfile())
                         ->setId(123)
@@ -274,7 +274,6 @@ class StoreProductsTest extends TestCase
         );
 
         $body = ProductToBody::build($product);
-
         static::assertSame(123, $body['pricing']['tax']['profile']['id']);
     }
 
@@ -282,7 +281,7 @@ class StoreProductsTest extends TestCase
     public function convert_product_pricing_trial(): void
     {
         $product = $this->makeBaseProduct()->setPricing(
-            (new Pricing())->setTrial(
+            (new ProductPricing())->setTrial(
                 (new PricingTrial())
                     ->setAmount(10)
                     ->setAmountWithTax(12.1)

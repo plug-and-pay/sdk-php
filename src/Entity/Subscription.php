@@ -19,15 +19,14 @@ class Subscription
     private DateTimeImmutable $createdAt;
     private ?DateTimeImmutable $deletedAt;
     private Mode $mode;
-    private Pricing $pricing;
+    private SubscriptionPricing $pricing;
     private Product $product;
     private SubscriptionStatus $status;
     private Source $source;
-
-    // /** @var string[] */
-    // private array $tags; TODO:: make relation
-    // private string $meta; TODO:: make relation
-    // private Trial $trial; TODO:: make relation
+    private Billing $billing;
+    /** @var string[] */
+    private array $tags;
+    private SubscriptionTrial $trial;
 
     public function __construct(bool $allowEmptyRelations = true)
     {
@@ -98,11 +97,11 @@ class Subscription
         return $this;
     }
 
-    public function pricing(): Pricing
+    public function pricing(): SubscriptionPricing
     {
         if (!isset($this->pricing)) {
             if ($this->allowEmptyRelations) {
-                $this->pricing = new Pricing($this->allowEmptyRelations);
+                $this->pricing = new SubscriptionPricing($this->allowEmptyRelations);
             } else {
                 throw new RelationNotLoadedException('billing');
             }
@@ -111,7 +110,7 @@ class Subscription
         return $this->pricing;
     }
 
-    public function setPricing(Pricing $pricing): self
+    public function setPricing(SubscriptionPricing $pricing): self
     {
         $this->pricing = $pricing;
         return $this;
@@ -119,6 +118,14 @@ class Subscription
 
     public function product(): Product
     {
+        if (!isset($this->product)) {
+            if ($this->allowEmptyRelations) {
+                $this->product = new Product($this->allowEmptyRelations);
+            } else {
+                throw new RelationNotLoadedException('product');
+            }
+        }
+
         return $this->product;
     }
 
@@ -139,14 +146,6 @@ class Subscription
         return $this;
     }
 
-    public function isset(string $field): bool
-    {
-        if (!property_exists($this, $field)) {
-            throw new BadFunctionCallException("Method '$field' does not exists");
-        }
-        return isset($this->{$field});
-    }
-
     public function source(): Source
     {
         return $this->source;
@@ -156,5 +155,66 @@ class Subscription
     {
         $this->source = $source;
         return $this;
+    }
+
+    public function billing(): Billing
+    {
+        if (!isset($this->billing)) {
+            if ($this->allowEmptyRelations) {
+                $this->billing = new Billing($this->allowEmptyRelations);
+            } else {
+                throw new RelationNotLoadedException('billing');
+            }
+        }
+
+        return $this->billing;
+    }
+
+    public function setBilling(Billing $billing): self
+    {
+        $this->billing = $billing;
+        return $this;
+    }
+
+    public function tags(): array
+    {
+        if (!isset($this->tags)) {
+            throw new RelationNotLoadedException('tags');
+        }
+
+        return $this->tags;
+    }
+
+    public function setTags(array $tags): self
+    {
+        $this->tags = $tags;
+        return $this;
+    }
+
+    public function trial(): SubscriptionTrial
+    {
+        if (!isset($this->trial)) {
+            if ($this->allowEmptyRelations) {
+                $this->trial = new SubscriptionTrial();
+            } else {
+                throw new RelationNotLoadedException('trial');
+            }
+        }
+
+        return $this->trial;
+    }
+
+    public function setTrial(SubscriptionTrial $trial): self
+    {
+        $this->trial = $trial;
+        return $this;
+    }
+
+    public function isset(string $field): bool
+    {
+        if (!property_exists($this, $field)) {
+            throw new BadFunctionCallException("Method '$field' does not exists");
+        }
+        return isset($this->{$field});
     }
 }

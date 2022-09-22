@@ -7,7 +7,7 @@ namespace PlugAndPay\Sdk\Entity;
 use BadFunctionCallException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
-class Pricing
+class ProductPricing
 {
     private bool $allowEmptyRelations;
     private bool $taxIncluded;
@@ -29,7 +29,7 @@ class Pricing
         return $this->allowEmptyRelations;
     }
 
-    public function setAllowEmptyRelations(bool $allowEmptyRelations): Pricing
+    public function setAllowEmptyRelations(bool $allowEmptyRelations): ProductPricing
     {
         $this->allowEmptyRelations = $allowEmptyRelations;
         return $this;
@@ -40,7 +40,7 @@ class Pricing
         return $this->taxIncluded;
     }
 
-    public function setTaxIncluded(bool $isTaxIncluded): Pricing
+    public function setTaxIncluded(bool $isTaxIncluded): ProductPricing
     {
         $this->taxIncluded = $isTaxIncluded;
         return $this;
@@ -58,7 +58,7 @@ class Pricing
      * @param Price[] $prices
      * @return $this
      */
-    public function setPrices(array $prices): Pricing
+    public function setPrices(array $prices): ProductPricing
     {
         $this->prices = $prices;
         return $this;
@@ -69,13 +69,13 @@ class Pricing
         return $this->shipping;
     }
 
-    public function setShipping(?Shipping $shipping): Pricing
+    public function setShipping(?Shipping $shipping): ProductPricing
     {
         $this->shipping = $shipping;
         return $this;
     }
 
-    public function setTax(PricingTax $tax): Pricing
+    public function setTax(PricingTax $tax): ProductPricing
     {
         $this->tax = $tax;
         return $this;
@@ -86,7 +86,7 @@ class Pricing
         return $this->trial;
     }
 
-    public function setTrial(?PricingTrial $trial): Pricing
+    public function setTrial(?PricingTrial $trial): ProductPricing
     {
         $this->trial = $trial;
         return $this;
