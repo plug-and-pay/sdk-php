@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ThrowRawExceptionInspection */
 
 declare(strict_types=1);
 
@@ -95,6 +95,10 @@ class ProductShowMockClient extends ClientMock
 
     public function shipping(): self
     {
+        if(!isset($this->responseBody['data']['pricing'])) {
+            throw new \Exception('Method pricingBasic is required to receive shipping');
+        }
+
         $this->responseBody['data']['pricing']['shipping'] = [
             'amount'          => '10.00',
             'amount_with_tax' => '12.10',
