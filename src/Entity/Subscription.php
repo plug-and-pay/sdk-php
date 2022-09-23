@@ -106,7 +106,7 @@ class Subscription
             if ($this->allowEmptyRelations) {
                 $this->pricing = new SubscriptionPricing();
             } else {
-                throw new RelationNotLoadedException('billing');
+                throw new RelationNotLoadedException('pricing');
             }
         }
 
