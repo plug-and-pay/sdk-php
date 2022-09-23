@@ -24,7 +24,7 @@ class Subscription
     private SubscriptionStatus $status;
     private Source $source;
     private Billing $billing;
-    /** @var string[] */
+    /** @var \PlugAndPay\Sdk\Entity\Tag[] */
     private array $tags;
     private SubscriptionTrial $trial;
 
@@ -101,7 +101,7 @@ class Subscription
     {
         if (!isset($this->pricing)) {
             if ($this->allowEmptyRelations) {
-                $this->pricing = new SubscriptionPricing($this->allowEmptyRelations);
+                $this->pricing = new SubscriptionPricing();
             } else {
                 throw new RelationNotLoadedException('billing');
             }
@@ -176,6 +176,10 @@ class Subscription
         return $this;
     }
 
+    /**
+     * @return \PlugAndPay\Sdk\Entity\Tag[]
+     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     */
     public function tags(): array
     {
         if (!isset($this->tags)) {
@@ -185,6 +189,9 @@ class Subscription
         return $this->tags;
     }
 
+    /**
+     * @param \PlugAndPay\Sdk\Entity\Tag[] $tags
+     */
     public function setTags(array $tags): self
     {
         $this->tags = $tags;

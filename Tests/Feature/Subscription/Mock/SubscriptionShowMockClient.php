@@ -41,76 +41,88 @@ class SubscriptionShowMockClient extends ClientMock
         return $response;
     }
 
-    public function billing(array $data = []): self
+    public function billing(): self
     {
-        $this->responseBody['data']['billing'] = $data + [
-                'address' => [
-                    'city'        => '\'t Veld',
-                    'country'     => 'NL',
-                    'street'      => 'Sanderslaan',
-                    'housenumber' => '42',
-                    'zipcode'     => '1448VB',
-                ],
-                'contact' => [
-                    'company'       => 'Café Timmermans & Zn',
-                    'email'         => 'rosalie39@example.net',
-                    'firstname'     => 'Bilal',
-                    'invoice_email' => 'maarten.veenstra@example.net',
-                    'lastname'      => 'de Wit',
-                    'tax_exempt'    => 'none',
-                    'telephone'     => '(044) 4362837',
-                    'website'       => 'https://www.vandewater.nl/velit-porro-ut-velit-soluta.html',
-                    'vat_id_number' => 'NL000099998B57',
-                ],
-            ];
+        $this->responseBody['data']['billing'] = [
+            'address' => [
+                'city'        => '\'t Veld',
+                'country'     => 'NL',
+                'street'      => 'Sanderslaan',
+                'housenumber' => '42',
+                'zipcode'     => '1448VB',
+            ],
+            'contact' => [
+                'company'       => 'Café Timmermans & Zn',
+                'email'         => 'rosalie39@example.net',
+                'firstname'     => 'Bilal',
+                'invoice_email' => 'maarten.veenstra@example.net',
+                'lastname'      => 'de Wit',
+                'tax_exempt'    => 'none',
+                'telephone'     => '(044) 4362837',
+                'website'       => 'https://www.vandewater.nl/velit-porro-ut-velit-soluta.html',
+                'vat_id_number' => 'NL000099998B57',
+            ],
+        ];
 
         return $this;
     }
 
-    public function product(array $data = []): self
+    public function product(): self
     {
-        $this->responseBody['data']['product'] = $data + [
-                'created_at'   => '2019-01-16T00:00:00.000000Z',
-                'deleted_at'   => '2019-01-16T00:00:00.000000Z',
-                'description'  => 'Quisquam recusandae asperiores accusamus',
-                'id'           => 1,
-                'is_physical'  => false,
-                'ledger'       => null,
-                'public_title' => 'culpa',
-                'sku'          => '70291520',
-                'slug'         => null,
-                'stock'        => [
-                    'is_enabled' => false,
-                ],
-                'title'        => 'culpa',
-                'type'         => 'one_off',
-                'updated_at'   => '2019-01-16T00:00:00.000000Z',
-            ];
+        $this->responseBody['data']['product'] = [
+            'created_at'   => '2019-01-16T00:00:00.000000Z',
+            'deleted_at'   => '2019-01-16T00:00:00.000000Z',
+            'description'  => 'Quisquam recusandae asperiores accusamus',
+            'id'           => 1,
+            'is_physical'  => false,
+            'ledger'       => null,
+            'public_title' => 'culpa',
+            'sku'          => '70291520',
+            'slug'         => null,
+            'stock'        => [
+                'is_enabled' => false,
+            ],
+            'title'        => 'culpa',
+            'type'         => 'one_off',
+            'updated_at'   => '2019-01-16T00:00:00.000000Z',
+        ];
 
         return $this;
     }
 
-    public function pricing(array $data = []): self
+    public function pricing(): self
     {
-        $this->responseBody['data']['pricing'] = $data + [
-                'amount'          => '100.00',
-                'amount_with_tax' => '121.00',
-                'discounts'       => null,
-                'quantity'        => 10,
-                'tax'             => 21,
-                'is_tax_included' => true,
-            ];
+        $this->responseBody['data']['pricing'] = [
+            'amount'          => '100.00',
+            'amount_with_tax' => '121.00',
+            'discounts'       => null,
+            'quantity'        => 10,
+            'tax'             => 21,
+            'is_tax_included' => true,
+        ];
 
         return $this;
     }
 
-    public function trial(array $data = []): self
+    public function trial(): self
     {
-        $this->responseBody['data']['trial'] = $data + [
-                'end'       => '2019-01-16T00:00:00.000000Z',
-                'is_active' => true,
-                'start'     => '2019-01-16T00:00:00.000000Z',
-            ];
+        $this->responseBody['data']['trial'] = [
+            'end'       => '2019-01-16T00:00:00.000000Z',
+            'is_active' => true,
+            'start'     => '2019-01-16T00:00:00.000000Z',
+        ];
+
+        return $this;
+    }
+
+    public function tags(): self
+    {
+        $this->responseBody['data']['tags'] = [
+            [
+                'name' => 'Lorem Ipsum Dolore',
+            ],
+
+        ];
 
         return $this;
     }

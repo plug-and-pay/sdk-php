@@ -44,6 +44,10 @@ class BodyToSubscription
             $subscription->setPricing(BodyToSubscriptionPricing::build($data['pricing']));
         }
 
+        if (isset($data['tags'])) {
+            $subscription->setTags(BodyToTag::buildMulti($data['tags']));
+        }
+
         return $subscription;
     }
 
