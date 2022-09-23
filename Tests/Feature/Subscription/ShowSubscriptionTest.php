@@ -132,7 +132,6 @@ class ShowSubscriptionTest extends TestCase
         static::assertSame('2019-01-16 00:00:00', $product->updatedAt()->format('Y-m-d H:i:s'));
     }
 
-    // TODO:: Create Tag model and relation
     /** @test */
     public function show_subscription_with_tags(): void
     {
