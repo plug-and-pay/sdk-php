@@ -67,6 +67,21 @@ class ProductService
         return BodyToProduct::build($response->body()['data']);
     }
 
+    /**
+     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
+     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     */
+    public function update(int $productId, callable $update): Product
+    {
+        $product = new Product(true);
+        $update($product);
+        $body     = ProductToBody::build($product);
+        $query    = Parameters::toString(['include' => $this->includes]);
+        $response = $this->client->patch("/v2/products/$productId$query", $body);
+
+        return BodyToProduct::build($response->body()['data']);
+    }
+
     public function delete(int $productId): void
     {
         $this->client->delete("/v2/products/$productId");
