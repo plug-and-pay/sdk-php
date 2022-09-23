@@ -97,6 +97,9 @@ class Subscription
         return $this;
     }
 
+    /**
+     * @throws RelationNotLoadedException
+     */
     public function pricing(): SubscriptionPricing
     {
         if (!isset($this->pricing)) {
@@ -116,6 +119,9 @@ class Subscription
         return $this;
     }
 
+    /**
+     * @throws RelationNotLoadedException
+     */
     public function product(): Product
     {
         if (!isset($this->product)) {
@@ -157,6 +163,9 @@ class Subscription
         return $this;
     }
 
+    /**
+     * @throws RelationNotLoadedException
+     */
     public function billing(): Billing
     {
         if (!isset($this->billing)) {
@@ -177,8 +186,7 @@ class Subscription
     }
 
     /**
-     * @return string[]
-     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     * @throws RelationNotLoadedException
      */
     public function tags(): array
     {
@@ -189,15 +197,15 @@ class Subscription
         return $this->tags;
     }
 
-    /**
-     * @param string[] $tags
-     */
     public function setTags(array $tags): self
     {
         $this->tags = $tags;
         return $this;
     }
 
+    /**
+     * @throws RelationNotLoadedException
+     */
     public function trial(): SubscriptionTrial
     {
         if (!isset($this->trial)) {
@@ -222,6 +230,7 @@ class Subscription
         if (!property_exists($this, $field)) {
             throw new BadFunctionCallException("Method '$field' does not exists");
         }
+
         return isset($this->{$field});
     }
 }

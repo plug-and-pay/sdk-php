@@ -23,14 +23,15 @@ class Tax
         return $this->amount;
     }
 
-    public function isset(string $field): bool
+    public function setAmount(float $amount): self
     {
-        if (!method_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-        return isset($this->{$field});
+        $this->amount = $amount;
+        return $this;
     }
 
+    /**
+     * @throws RelationNotLoadedException
+     */
     public function rate(): TaxRate
     {
         if (!isset($this->rate)) {
@@ -44,15 +45,18 @@ class Tax
         return $this->rate;
     }
 
-    public function setAmount(float $amount): Tax
-    {
-        $this->amount = $amount;
-        return $this;
-    }
-
-    public function setRate(TaxRate $rate): Tax
+    public function setRate(TaxRate $rate): self
     {
         $this->rate = $rate;
         return $this;
+    }
+
+    public function isset(string $field): bool
+    {
+        if (!method_exists($this, $field)) {
+            throw new BadFunctionCallException("Field '$field' does not exists");
+        }
+
+        return isset($this->{$field});
     }
 }

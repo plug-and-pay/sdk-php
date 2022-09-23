@@ -9,24 +9,33 @@ use PlugAndPay\Sdk\Enum\Interval;
 
 class Price
 {
+    private int $id;
     private ?PriceFirst $first;
     private ?Interval $interval;
     private ?bool $suggested;
     private int $nr_of_cycles;
     private ?PriceOriginal $original;
     private PriceRegular $regular;
-    /**
-     * @var PriceTier[]
-     */
+    /** @var PriceTier[] */
     private array $tiers;
-    private int $id;
+
+    public function id(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     public function first(): ?PriceFirst
     {
         return $this->first;
     }
 
-    public function setFirst(?PriceFirst $first): Price
+    public function setFirst(?PriceFirst $first): self
     {
         $this->first = $first;
         return $this;
@@ -37,7 +46,7 @@ class Price
         return $this->interval;
     }
 
-    public function setInterval(?Interval $interval): Price
+    public function setInterval(?Interval $interval): self
     {
         $this->interval = $interval;
         return $this;
@@ -48,7 +57,7 @@ class Price
         return $this->suggested;
     }
 
-    public function setSuggested(?bool $suggested): Price
+    public function setSuggested(?bool $suggested): self
     {
         $this->suggested = $suggested;
         return $this;
@@ -59,7 +68,7 @@ class Price
         return $this->nr_of_cycles;
     }
 
-    public function setNrOfCycles(int $nrOfCycles): Price
+    public function setNrOfCycles(int $nrOfCycles): self
     {
         $this->nr_of_cycles = $nrOfCycles;
         return $this;
@@ -70,7 +79,7 @@ class Price
         return $this->original;
     }
 
-    public function setOriginal(?PriceOriginal $original): Price
+    public function setOriginal(?PriceOriginal $original): self
     {
         $this->original = $original;
         return $this;
@@ -81,37 +90,20 @@ class Price
         return $this->regular;
     }
 
-    public function setRegular(PriceRegular $regular): Price
+    public function setRegular(PriceRegular $regular): self
     {
         $this->regular = $regular;
         return $this;
     }
 
-    /**
-     * @return PriceTier[]
-     */
     public function tiers(): array
     {
         return $this->tiers;
     }
 
-    /**
-     * @param PriceTier[] $tiers
-     */
-    public function setTiers(array $tiers): Price
+    public function setTiers(array $tiers): self
     {
         $this->tiers = $tiers;
-        return $this;
-    }
-
-    public function id(): int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): Price
-    {
-        $this->id = $id;
         return $this;
     }
 
@@ -120,6 +112,7 @@ class Price
         if (!property_exists($this, $field)) {
             throw new BadFunctionCallException("Field '$field' does not exists");
         }
+
         return isset($this->{$field});
     }
 }

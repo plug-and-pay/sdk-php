@@ -139,6 +139,7 @@ class Payment
         if (!property_exists($this, $field)) {
             throw new BadFunctionCallException("Field '$field' does not exists");
         }
+
         return isset($this->{$field});
     }
 }

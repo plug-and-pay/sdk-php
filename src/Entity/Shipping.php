@@ -16,7 +16,7 @@ class Shipping
         return $this->amount;
     }
 
-    public function setAmount(float $amount): Shipping
+    public function setAmount(float $amount): self
     {
         $this->amount = $amount;
         return $this;
@@ -27,7 +27,7 @@ class Shipping
         return $this->amountWithTax;
     }
 
-    public function setAmountWithTax(float $amountWithTax): Shipping
+    public function setAmountWithTax(float $amountWithTax): self
     {
         $this->amountWithTax = $amountWithTax;
         return $this;
@@ -38,6 +38,7 @@ class Shipping
         if (!property_exists($this, $field)) {
             throw new BadFunctionCallException("Field '$field' does not exists");
         }
+
         return isset($this->{$field});
     }
 }

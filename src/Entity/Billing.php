@@ -26,6 +26,12 @@ class Billing
         return $this->address;
     }
 
+    public function setAddress(Address $address): self
+    {
+        $this->address = $address;
+        return $this;
+    }
+
     public function contact(): Contact
     {
         if ($this->allowEmptyRelations && !$this->isset('contact')) {
@@ -33,12 +39,6 @@ class Billing
         }
 
         return $this->contact;
-    }
-
-    public function setAddress(Address $address): self
-    {
-        $this->address = $address;
-        return $this;
     }
 
     public function setContact(Contact $contact): self
@@ -52,6 +52,7 @@ class Billing
         if (!method_exists($this, $field)) {
             throw new BadFunctionCallException("Field '$field' does not exists");
         }
+
         return isset($this->{$field});
     }
 }

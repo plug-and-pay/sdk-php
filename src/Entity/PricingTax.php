@@ -18,14 +18,9 @@ class PricingTax
         $this->allowEmptyRelations = $allowEmptyRelations;
     }
 
-    public function isset(string $field): bool
-    {
-        if (!method_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-        return isset($this->{$field});
-    }
-
+    /**
+     * @throws RelationNotLoadedException
+     */
     public function profile(): TaxProfile
     {
         if (!isset($this->profile)) {
@@ -45,6 +40,9 @@ class PricingTax
         return $this;
     }
 
+    /**
+     * @throws RelationNotLoadedException
+     */
     public function rate(): TaxRate
     {
         if (!isset($this->rate)) {
@@ -62,5 +60,14 @@ class PricingTax
     {
         $this->rate = $rate;
         return $this;
+    }
+
+    public function isset(string $field): bool
+    {
+        if (!method_exists($this, $field)) {
+            throw new BadFunctionCallException("Field '$field' does not exists");
+        }
+
+        return isset($this->{$field});
     }
 }

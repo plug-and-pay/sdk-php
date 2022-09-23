@@ -18,18 +18,18 @@ class Order
     private float $amount;
     private float $amountWithTax;
     private Billing $billing;
-    /** @var \PlugAndPay\Sdk\Entity\Comment[] */
+    /** @var Comment[] */
     private array $comments;
     private DateTimeImmutable $createdAt;
     private ?DateTimeImmutable $deletedAt;
-    /** @var \PlugAndPay\Sdk\Entity\Discount[] */
+    /** @var Discount[] */
     private array $totalDiscounts;
     private bool $first;
     private bool $hidden;
     private int $id;
     private ?string $invoiceNumber;
     private InvoiceStatus $invoiceStatus;
-    /** @var \PlugAndPay\Sdk\Entity\Item[] */
+    /** @var Item[] */
     private array $items;
     private Mode $mode;
     private Payment $payment;
@@ -38,7 +38,7 @@ class Order
     /** @var string[] */
     private array $tags;
     private TaxExempt $taxExempt;
-    /** @var \PlugAndPay\Sdk\Entity\Tax[] */
+    /** @var Tax[] */
     private array $taxes;
     private DateTimeImmutable $updatedAt;
 
@@ -47,9 +47,29 @@ class Order
         $this->allowEmptyRelations = $allowEmptyRelations;
     }
 
+    public function id(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @internal
+     */
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     public function amount(): float
     {
         return $this->amount;
+    }
+
+    public function setAmount(float $amount): self
+    {
+        $this->amount = $amount;
+        return $this;
     }
 
     public function amountWithTax(): float
@@ -57,6 +77,15 @@ class Order
         return $this->amountWithTax;
     }
 
+    public function setTotal(float $amountWithTax): self
+    {
+        $this->amountWithTax = $amountWithTax;
+        return $this;
+    }
+
+    /**
+     * @throws RelationNotLoadedException
+     */
     public function billing(): Billing
     {
         if (!isset($this->billing)) {
@@ -70,9 +99,14 @@ class Order
         return $this->billing;
     }
 
+    public function setBilling(Billing $billing): self
+    {
+        $this->billing = $billing;
+        return $this;
+    }
+
     /**
-     * @return \PlugAndPay\Sdk\Entity\Comment[]
-     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     * @throws RelationNotLoadedException
      */
     public function comments(): array
     {
@@ -83,9 +117,24 @@ class Order
         return $this->comments;
     }
 
+    public function setComments(array $comments): self
+    {
+        $this->comments = $comments;
+        return $this;
+    }
+
     public function createdAt(): DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @internal
+     */
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
     }
 
     public function deletedAt(): ?DateTimeImmutable
@@ -94,8 +143,16 @@ class Order
     }
 
     /**
-     * @return \PlugAndPay\Sdk\Entity\Discount[]
-     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     * @internal
+     */
+    public function setDeletedAt(?DateTimeImmutable $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
+        return $this;
+    }
+
+    /**
+     * @throws RelationNotLoadedException
      */
     public function totalDiscounts(): array
     {
@@ -106,9 +163,10 @@ class Order
         return $this->totalDiscounts;
     }
 
-    public function id(): int
+    public function setTotalDiscounts(array $totalDiscounts): self
     {
-        return $this->id;
+        $this->totalDiscounts = $totalDiscounts;
+        return $this;
     }
 
     public function invoiceNumber(): ?string
@@ -116,9 +174,27 @@ class Order
         return $this->invoiceNumber;
     }
 
+    /**
+     * @internal
+     */
+    public function setInvoiceNumber(?string $invoiceNumber): self
+    {
+        $this->invoiceNumber = $invoiceNumber;
+        return $this;
+    }
+
     public function invoiceStatus(): InvoiceStatus
     {
         return $this->invoiceStatus;
+    }
+
+    /**
+     * @internal
+     */
+    public function setInvoiceStatus(InvoiceStatus $invoiceStatus): self
+    {
+        $this->invoiceStatus = $invoiceStatus;
+        return $this;
     }
 
     public function isFirst(): bool
@@ -126,22 +202,28 @@ class Order
         return $this->first;
     }
 
+    /**
+     * @internal
+     */
+    public function setFirst(bool $first): self
+    {
+        $this->first = $first;
+        return $this;
+    }
+
     public function isHidden(): bool
     {
         return $this->hidden;
     }
 
-    public function isset(string $field): bool
+    public function setHidden(bool $hidden): self
     {
-        if (!property_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-        return isset($this->{$field});
+        $this->hidden = $hidden;
+        return $this;
     }
 
     /**
-     * @return \PlugAndPay\Sdk\Entity\Item[]
-     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     * @throws RelationNotLoadedException
      */
     public function items(): array
     {
@@ -152,11 +234,26 @@ class Order
         return $this->items;
     }
 
+    public function setItems(array $items): self
+    {
+        $this->items = $items;
+        return $this;
+    }
+
     public function mode(): Mode
     {
         return $this->mode;
     }
 
+    public function setMode(Mode $mode): self
+    {
+        $this->mode = $mode;
+        return $this;
+    }
+
+    /**
+     * @throws RelationNotLoadedException
+     */
     public function payment(): Payment
     {
         if (!isset($this->payment)) {
@@ -170,114 +267,15 @@ class Order
         return $this->payment;
     }
 
-    public function reference(): string
-    {
-        return $this->reference;
-    }
-
-    public function setAmount(float $amount): self
-    {
-        $this->amount = $amount;
-        return $this;
-    }
-
-    public function setBilling(Billing $billing): self
-    {
-        $this->billing = $billing;
-        return $this;
-    }
-
-    /**
-     * @param Comment[] $comments
-     */
-    public function setComments(array $comments): self
-    {
-        $this->comments = $comments;
-        return $this;
-    }
-
-    /**
-     * @internal
-     */
-    public function setCreatedAt(DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-
-    /**
-     * @internal
-     */
-    public function setDeletedAt(?DateTimeImmutable $deletedAt): self
-    {
-        $this->deletedAt = $deletedAt;
-        return $this;
-    }
-
-    public function setTotalDiscounts(array $totalDiscounts): self
-    {
-        $this->totalDiscounts = $totalDiscounts;
-        return $this;
-    }
-
-    /**
-     * @internal
-     */
-    public function setFirst(bool $first): self
-    {
-        $this->first = $first;
-        return $this;
-    }
-
-    public function setHidden(bool $hidden): self
-    {
-        $this->hidden = $hidden;
-        return $this;
-    }
-
-    /**
-     * @internal
-     */
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    /**
-     * @internal
-     */
-    public function setInvoiceNumber(?string $invoiceNumber): self
-    {
-        $this->invoiceNumber = $invoiceNumber;
-        return $this;
-    }
-
-    /**
-     * @internal
-     */
-    public function setInvoiceStatus(InvoiceStatus $invoiceStatus): self
-    {
-        $this->invoiceStatus = $invoiceStatus;
-        return $this;
-    }
-
-    public function setItems(array $items): self
-    {
-        $this->items = $items;
-        return $this;
-    }
-
-    public function setMode(Mode $mode): self
-    {
-        $this->mode = $mode;
-        return $this;
-    }
-
     public function setPayment(Payment $payment): self
     {
         $this->payment = $payment;
         return $this;
+    }
+
+    public function reference(): string
+    {
+        return $this->reference;
     }
 
     public function setReference(string $reference): self
@@ -286,17 +284,38 @@ class Order
         return $this;
     }
 
+    public function source(): Source
+    {
+        return $this->source;
+    }
+
     public function setSource(Source $source): self
     {
         $this->source = $source;
         return $this;
     }
 
+    /**
+     * @throws RelationNotLoadedException
+     */
+    public function tags(): array
+    {
+        if (!isset($this->tags)) {
+            throw new RelationNotLoadedException('tags');
+        }
+
+        return $this->tags;
+    }
+
     public function setTags(array $tags): self
     {
         $this->tags = $tags;
-
         return $this;
+    }
+
+    public function taxExempt(): TaxExempt
+    {
+        return $this->taxExempt;
     }
 
     public function setTaxExempt(TaxExempt $taxExempt): self
@@ -305,16 +324,27 @@ class Order
         return $this;
     }
 
+    /**
+     * @throws RelationNotLoadedException
+     */
+    public function taxes(): array
+    {
+        if (!isset($this->taxes)) {
+            throw new RelationNotLoadedException('taxes');
+        }
+
+        return $this->taxes;
+    }
+
     public function setTaxes(array $taxes): self
     {
         $this->taxes = $taxes;
         return $this;
     }
 
-    public function setTotal(float $amountWithTax): self
+    public function updatedAt(): DateTimeImmutable
     {
-        $this->amountWithTax = $amountWithTax;
-        return $this;
+        return $this->updatedAt;
     }
 
     /**
@@ -326,44 +356,12 @@ class Order
         return $this;
     }
 
-    public function source(): Source
+    public function isset(string $field): bool
     {
-        return $this->source;
-    }
-
-    /**
-     * @return string[]
-     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
-     */
-    public function tags(): array
-    {
-        if (!isset($this->tags)) {
-            throw new RelationNotLoadedException('tags');
+        if (!property_exists($this, $field)) {
+            throw new BadFunctionCallException("Field '$field' does not exists");
         }
 
-        return $this->tags;
-    }
-
-    public function taxExempt(): TaxExempt
-    {
-        return $this->taxExempt;
-    }
-
-    /**
-     * @return Tax[]
-     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException()
-     */
-    public function taxes(): array
-    {
-        if (!isset($this->taxes)) {
-            throw new RelationNotLoadedException('taxes');
-        }
-
-        return $this->taxes;
-    }
-
-    public function updatedAt(): DateTimeImmutable
-    {
-        return $this->updatedAt;
+        return isset($this->{$field});
     }
 }

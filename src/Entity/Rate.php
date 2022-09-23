@@ -26,14 +26,19 @@ class Rate
         }
     }
 
+    public function id(): int
+    {
+        return $this->id;
+    }
+
     public function country(): CountryCode
     {
         return $this->country;
     }
 
-    public function id(): int
+    public function percentage(): float
     {
-        return $this->id;
+        return $this->percentage;
     }
 
     public function isset(string $field): bool
@@ -41,11 +46,7 @@ class Rate
         if (!method_exists($this, $field)) {
             throw new BadFunctionCallException("Field '$field' does not exists");
         }
-        return isset($this->{$field});
-    }
 
-    public function percentage(): float
-    {
-        return $this->percentage;
+        return isset($this->{$field});
     }
 }

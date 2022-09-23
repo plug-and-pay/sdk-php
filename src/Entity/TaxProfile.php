@@ -18,7 +18,7 @@ class TaxProfile
         return $this->id;
     }
 
-    public function setId(int $id): TaxProfile
+    public function setId(int $id): self
     {
         $this->id = $id;
         return $this;
@@ -29,7 +29,7 @@ class TaxProfile
         return $this->editable;
     }
 
-    public function setEditable(bool $editable): TaxProfile
+    public function setEditable(bool $editable): self
     {
         $this->editable = $editable;
         return $this;
@@ -40,7 +40,7 @@ class TaxProfile
         return $this->label;
     }
 
-    public function setLabel(string $label): TaxProfile
+    public function setLabel(string $label): self
     {
         $this->label = $label;
         return $this;
@@ -51,7 +51,7 @@ class TaxProfile
         return $this->rates;
     }
 
-    public function setRates(array $rates): TaxProfile
+    public function setRates(array $rates): self
     {
         $this->rates = $rates;
         return $this;
@@ -62,6 +62,7 @@ class TaxProfile
         if (!method_exists($this, $field)) {
             throw new BadFunctionCallException("Field '$field' does not exists");
         }
+
         return isset($this->{$field});
     }
 }

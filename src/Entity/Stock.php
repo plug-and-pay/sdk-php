@@ -17,7 +17,7 @@ class Stock
         return $this->enabled;
     }
 
-    public function setEnabled(bool $enabled): Stock
+    public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
         return $this;
@@ -28,7 +28,7 @@ class Stock
         return $this->hidden;
     }
 
-    public function setHidden(bool $hidden): Stock
+    public function setHidden(bool $hidden): self
     {
         $this->hidden = $hidden;
         return $this;
@@ -39,7 +39,7 @@ class Stock
         return $this->value;
     }
 
-    public function setValue(?int $value): Stock
+    public function setValue(?int $value): self
     {
         $this->value = $value;
         return $this;
@@ -50,6 +50,7 @@ class Stock
         if (!property_exists($this, $field)) {
             throw new BadFunctionCallException("Field '$field' does not exists");
         }
+
         return isset($this->{$field});
     }
 }

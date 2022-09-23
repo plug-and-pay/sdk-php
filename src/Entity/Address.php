@@ -20,46 +20,20 @@ class Address
         return $this->city;
     }
 
-    public function country(): ?CountryCode
-    {
-        return $this->country;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!method_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-        return isset($this->{$field});
-    }
-
-    public function setCity(?string $city): Address
+    public function setCity(?string $city): self
     {
         $this->city = $city;
         return $this;
     }
 
-    public function setCountry(?CountryCode $country): Address
+    public function country(): ?CountryCode
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?CountryCode $country): self
     {
         $this->country = $country;
-        return $this;
-    }
-
-    public function setStreet(?string $street): Address
-    {
-        $this->street = $street;
-        return $this;
-    }
-
-    public function setHouseNumber(?string $houseNumber): Address
-    {
-        $this->houseNumber = $houseNumber;
-        return $this;
-    }
-
-    public function setZipcode(?string $zipcode): Address
-    {
-        $this->zipcode = $zipcode;
         return $this;
     }
 
@@ -68,13 +42,40 @@ class Address
         return $this->street;
     }
 
+    public function setStreet(?string $street): Address
+    {
+        $this->street = $street;
+        return $this;
+    }
+
     public function houseNumber(): ?string
     {
         return $this->houseNumber;
     }
 
+    public function setHouseNumber(?string $houseNumber): self
+    {
+        $this->houseNumber = $houseNumber;
+        return $this;
+    }
+
     public function zipcode(): ?string
     {
         return $this->zipcode;
+    }
+
+    public function setZipcode(?string $zipcode): self
+    {
+        $this->zipcode = $zipcode;
+        return $this;
+    }
+
+    public function isset(string $field): bool
+    {
+        if (!method_exists($this, $field)) {
+            throw new BadFunctionCallException("Field '$field' does not exists");
+        }
+
+        return isset($this->{$field});
     }
 }

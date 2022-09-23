@@ -32,9 +32,26 @@ class Product
         $this->allowEmptyRelations = $allowEmptyRelations;
     }
 
+    public function id(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     public function createdAt(): DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
     }
 
     public function deletedAt(): ?DateTimeImmutable
@@ -42,14 +59,21 @@ class Product
         return $this->deletedAt;
     }
 
+    public function setDeletedAt(?DateTimeImmutable $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
+        return $this;
+    }
+
     public function description(): string
     {
         return $this->description;
     }
 
-    public function id(): int
+    public function setDescription(string $description): self
     {
-        return $this->id;
+        $this->description = $description;
+        return $this;
     }
 
     public function isPhysical(): bool
@@ -57,44 +81,15 @@ class Product
         return $this->physical;
     }
 
-    public function ledger(): ?int
-    {
-        return $this->ledger;
-    }
-
-    public function publicTitle(): string
-    {
-        return $this->publicTitle;
-    }
-
-    public function setCreatedAt(DateTimeImmutable $createdAt): Product
-    {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-
-    public function setDeletedAt(?DateTimeImmutable $deletedAt): Product
-    {
-        $this->deletedAt = $deletedAt;
-        return $this;
-    }
-
-    public function setDescription(string $description): Product
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    public function setId(int $id): Product
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function setPhysical(bool $physical): Product
+    public function setPhysical(bool $physical): self
     {
         $this->physical = $physical;
         return $this;
+    }
+
+    public function ledger(): ?int
+    {
+        return $this->ledger;
     }
 
     public function setLedger(?int $ledger): self
@@ -103,39 +98,14 @@ class Product
         return $this;
     }
 
-    public function setPublicTitle(string $publicTitle): Product
+    public function publicTitle(): string
+    {
+        return $this->publicTitle;
+    }
+
+    public function setPublicTitle(string $publicTitle): self
     {
         $this->publicTitle = $publicTitle;
-        return $this;
-    }
-
-    public function setSku(string $sku): Product
-    {
-        $this->sku = $sku;
-        return $this;
-    }
-
-    public function setSlug(?string $slug): Product
-    {
-        $this->slug = $slug;
-        return $this;
-    }
-
-    public function setTitle(string $title): Product
-    {
-        $this->title = $title;
-        return $this;
-    }
-
-    public function setType(ProductType $type): Product
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    public function setUpdatedAt(DateTimeImmutable $updatedAt): Product
-    {
-        $this->updatedAt = $updatedAt;
         return $this;
     }
 
@@ -144,13 +114,69 @@ class Product
         return $this->sku;
     }
 
+    public function setSku(string $sku): self
+    {
+        $this->sku = $sku;
+        return $this;
+    }
+
     public function slug(): ?string
     {
         return $this->slug;
     }
 
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    public function title(): string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    public function type(): ProductType
+    {
+        return $this->type;
+    }
+
+    public function setType(ProductType $type): self
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    public function updatedAt(): DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @throws RelationNotLoadedException
+     */
     public function stock(): Stock
     {
+        if (!isset($this->stock)) {
+            if ($this->allowEmptyRelations) {
+                $this->stock = new Stock();
+            } else {
+                throw new RelationNotLoadedException('stock');
+            }
+        }
+
         return $this->stock;
     }
 
@@ -160,21 +186,9 @@ class Product
         return $this;
     }
 
-    public function title(): string
-    {
-        return $this->title;
-    }
-
-    public function type(): ProductType
-    {
-        return $this->type;
-    }
-
-    public function updatedAt(): DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
+    /**
+     * @throws RelationNotLoadedException
+     */
     public function pricing(): ProductPricing
     {
         if (!isset($this->pricing)) {
@@ -199,6 +213,7 @@ class Product
         if (!property_exists($this, $field)) {
             throw new BadFunctionCallException("Field '$field' does not exists");
         }
+
         return isset($this->{$field});
     }
 }

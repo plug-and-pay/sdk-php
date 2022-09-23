@@ -18,7 +18,7 @@ class Comment
         return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeImmutable $createdAt): Comment
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
         return $this;
@@ -29,7 +29,7 @@ class Comment
         return $this->id;
     }
 
-    public function setId(int $id): Comment
+    public function setId(int $id): self
     {
         $this->id = $id;
         return $this;
@@ -40,7 +40,7 @@ class Comment
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(DateTimeImmutable $updatedAt): Comment
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
         return $this;
@@ -51,7 +51,7 @@ class Comment
         return $this->value;
     }
 
-    public function setValue(string $value): Comment
+    public function setValue(string $value): self
     {
         $this->value = $value;
         return $this;

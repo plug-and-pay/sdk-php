@@ -21,33 +21,15 @@ class Contact
         return $this->company;
     }
 
-    public function email(): string
-    {
-        return $this->email;
-    }
-
-    public function firstName(): string
-    {
-        return $this->firstName;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!method_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-        return isset($this->{$field});
-    }
-
-    public function lastName(): string
-    {
-        return $this->lastName;
-    }
-
     public function setCompany(?string $company): self
     {
         $this->company = $company;
         return $this;
+    }
+
+    public function email(): string
+    {
+        return $this->email;
     }
 
     public function setEmail(string $email): self
@@ -56,10 +38,20 @@ class Contact
         return $this;
     }
 
+    public function firstName(): string
+    {
+        return $this->firstName;
+    }
+
     public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
         return $this;
+    }
+
+    public function lastName(): string
+    {
+        return $this->lastName;
     }
 
     public function setLastName(string $lastName): self
@@ -68,10 +60,20 @@ class Contact
         return $this;
     }
 
+    public function telephone(): ?string
+    {
+        return $this->telephone;
+    }
+
     public function setTelephone(?string $telephone): self
     {
         $this->telephone = $telephone;
         return $this;
+    }
+
+    public function vatIdNumber(): ?string
+    {
+        return $this->vatIdNumber;
     }
 
     public function setVatIdNumber(?string $number): self
@@ -80,24 +82,23 @@ class Contact
         return $this;
     }
 
+    public function website(): ?string
+    {
+        return $this->website;
+    }
+
     public function setWebsite(?string $website): self
     {
         $this->website = $website;
         return $this;
     }
 
-    public function telephone(): ?string
+    public function isset(string $field): bool
     {
-        return $this->telephone;
-    }
+        if (!method_exists($this, $field)) {
+            throw new BadFunctionCallException("Field '$field' does not exists");
+        }
 
-    public function vatIdNumber(): ?string
-    {
-        return $this->vatIdNumber;
-    }
-
-    public function website(): ?string
-    {
-        return $this->website;
+        return isset($this->{$field});
     }
 }

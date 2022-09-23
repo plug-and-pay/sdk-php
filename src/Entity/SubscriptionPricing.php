@@ -18,7 +18,7 @@ class SubscriptionPricing
         return $this->amount;
     }
 
-    public function setAmount(string $amount): SubscriptionPricing
+    public function setAmount(string $amount): self
     {
         $this->amount = $amount;
         return $this;
@@ -29,7 +29,7 @@ class SubscriptionPricing
         return $this->amountWithTax;
     }
 
-    public function setAmountWithTax(string $amountWithTax): SubscriptionPricing
+    public function setAmountWithTax(string $amountWithTax): self
     {
         $this->amountWithTax = $amountWithTax;
         return $this;
@@ -40,7 +40,7 @@ class SubscriptionPricing
         return $this->discounts;
     }
 
-    public function setDiscounts(array $discounts): SubscriptionPricing
+    public function setDiscounts(array $discounts): self
     {
         $this->discounts = $discounts;
         return $this;
@@ -51,7 +51,7 @@ class SubscriptionPricing
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): SubscriptionPricing
+    public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
         return $this;
@@ -62,7 +62,7 @@ class SubscriptionPricing
         return $this->tax;
     }
 
-    public function setTax(float $tax): SubscriptionPricing
+    public function setTax(float $tax): self
     {
         $this->tax = $tax;
         return $this;
@@ -73,7 +73,7 @@ class SubscriptionPricing
         return $this->isTaxIncluded;
     }
 
-    public function setIsTaxIncluded(bool $isTaxIncluded): SubscriptionPricing
+    public function setIsTaxIncluded(bool $isTaxIncluded): self
     {
         $this->isTaxIncluded = $isTaxIncluded;
         return $this;
