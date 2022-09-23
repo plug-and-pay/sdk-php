@@ -45,7 +45,7 @@ class BodyToSubscription
         }
 
         if (isset($data['tags'])) {
-            $subscription->setTags(BodyToTag::buildMulti($data['tags']));
+            $subscription->setTags($data['tags']);
         }
 
         return $subscription;

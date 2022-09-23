@@ -24,7 +24,7 @@ class Subscription
     private SubscriptionStatus $status;
     private Source $source;
     private Billing $billing;
-    /** @var \PlugAndPay\Sdk\Entity\Tag[] */
+    /** @var string[] */
     private array $tags;
     private SubscriptionTrial $trial;
 
@@ -177,7 +177,7 @@ class Subscription
     }
 
     /**
-     * @return \PlugAndPay\Sdk\Entity\Tag[]
+     * @return string[]
      * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
      */
     public function tags(): array
@@ -190,7 +190,7 @@ class Subscription
     }
 
     /**
-     * @param \PlugAndPay\Sdk\Entity\Tag[] $tags
+     * @param string[] $tags
      */
     public function setTags(array $tags): self
     {

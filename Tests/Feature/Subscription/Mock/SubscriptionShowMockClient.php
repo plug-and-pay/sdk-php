@@ -115,14 +115,9 @@ class SubscriptionShowMockClient extends ClientMock
         return $this;
     }
 
-    public function tags(): self
+    public function tags(array $data): self
     {
-        $this->responseBody['data']['tags'] = [
-            [
-                'name' => 'Lorem Ipsum Dolore',
-            ],
-
-        ];
+        $this->responseBody['data']['tags'] = $data;
 
         return $this;
     }

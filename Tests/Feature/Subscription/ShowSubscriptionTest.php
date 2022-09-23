@@ -136,13 +136,12 @@ class ShowSubscriptionTest extends TestCase
     /** @test */
     public function show_subscription_with_tags(): void
     {
-        $client = (new SubscriptionShowMockClient())->tags();
+        $client = (new SubscriptionShowMockClient())->tags(['first', 'second']);
         $service = new SubscriptionService($client);
 
         $subscription = $service->include(SubscriptionIncludes::TAGS)->find(1);
 
-        $tag = $subscription->tags()[0];
-        static::assertSame('Lorem Ipsum Dolore', $tag->name());
+        static::assertSame(['first', 'second'], $subscription->tags());
     }
 
     /** @test */
