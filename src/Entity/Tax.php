@@ -38,7 +38,7 @@ class Tax
             if ($this->allowEmptyRelations) {
                 $this->rate = new TaxRate();
             } else {
-                throw new RelationNotLoadedException('taxRate');
+                throw new RelationNotLoadedException('rate');
             }
         }
 
