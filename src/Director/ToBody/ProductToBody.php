@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\ToBody;
 
 use PlugAndPay\Sdk\Entity\Product;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class ProductToBody
 {
     /**
-     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     * @throws RelationNotLoadedException
      */
     public static function build(Product $product): array
     {

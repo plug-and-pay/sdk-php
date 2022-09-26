@@ -15,7 +15,7 @@ use PlugAndPay\Sdk\Exception\DecodeResponseException;
 class BodyToSubscription
 {
     /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
+     * @throws DecodeResponseException
      */
     public static function build(array $data): Subscription
     {
@@ -66,7 +66,7 @@ class BodyToSubscription
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
+     * @throws DecodeResponseException
      */
     private static function date(array $data, string $field): DateTimeImmutable
     {

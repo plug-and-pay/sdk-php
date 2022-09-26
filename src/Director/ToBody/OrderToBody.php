@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\ToBody;
 
 use PlugAndPay\Sdk\Entity\Order;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class OrderToBody
 {
     /**
-     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     * @throws RelationNotLoadedException
      */
     public static function build(Order $order): array
     {

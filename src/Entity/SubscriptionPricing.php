@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+use BadFunctionCallException;
+
 class SubscriptionPricing
 {
     private string $amount;
@@ -77,5 +79,14 @@ class SubscriptionPricing
     {
         $this->isTaxIncluded = $isTaxIncluded;
         return $this;
+    }
+
+    public function isset(string $field): bool
+    {
+        if (!property_exists($this, $field)) {
+            throw new BadFunctionCallException("Method '$field' does not exists");
+        }
+
+        return isset($this->{$field});
     }
 }

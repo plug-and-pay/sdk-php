@@ -1,0 +1,53 @@
+<?php
+
+declare(strict_types=1);
+
+namespace PlugAndPay\Sdk\Director\ToBody;
+
+use PlugAndPay\Sdk\Entity\Subscription;
+use PlugAndPay\Sdk\Entity\SubscriptionTrial;
+use PlugAndPay\Sdk\Enum\Source;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
+
+class SubscriptionToBody
+{
+    /**
+     * @throws RelationNotLoadedException
+     */
+    public static function build(Subscription $subscription): array
+    {
+        $result = [];
+
+        if ($subscription->isset('mode')) {
+            $result['mode'] = $subscription->mode()->value;
+        }
+
+        if ($subscription->isset('pricing')) {
+            $result['pricing'] = SubscriptionPricingToBody::build($subscription->pricing());
+        }
+
+        if ($subscription->isset('product')) {
+            $result['product'] = ProductToBody::build($subscription->product());
+        }
+
+        if ($subscription->isset('status')) {
+            $result['status'] = $subscription->status()->value;
+        }
+
+        if ($subscription->isset('billing')) {
+            $result['billing'] = BillingToBody::build($subscription->billing());
+        }
+
+        if ($subscription->isset('tags')) {
+            $result['tags'] = $subscription->tags();
+        }
+
+        if ($subscription->isset('trial')) {
+            $result['trial'] = SubscriptionTrialToBody::build($subscription->trial());
+        }
+
+        $result['source'] = Source::API->value;
+
+        return $result;
+    }
+}
