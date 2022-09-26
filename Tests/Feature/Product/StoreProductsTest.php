@@ -22,7 +22,7 @@ use PlugAndPay\Sdk\Entity\TaxProfile;
 use PlugAndPay\Sdk\Entity\TaxRate;
 use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Enum\ProductIncludes;
-use PlugAndPay\Sdk\Enum\ProductType;
+use PlugAndPay\Sdk\Enum\Type;
 use PlugAndPay\Sdk\Service\ProductService;
 use PlugAndPay\Sdk\Tests\Feature\Product\Mock\ProductStoreMockClient;
 
@@ -101,7 +101,7 @@ class StoreProductsTest extends TestCase
     /** @test */
     public function convert_product_type(): void
     {
-        $product = $this->makeBaseProduct()->setType(ProductType::ONE_OFF);
+        $product = $this->makeBaseProduct()->setType(Type::ONE_OFF);
 
         $body = ProductToBody::build($product);
 
@@ -303,7 +303,7 @@ class StoreProductsTest extends TestCase
         $service = new ProductService($client);
 
         $product = $this->makeBaseProduct();
-        $product->setType(ProductType::SUBSCRIPTION);
+        $product->setType(Type::SUBSCRIPTION);
         $product = $service->create($product);
 
         static::assertEquals(1, $product->id());

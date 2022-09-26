@@ -2,7 +2,7 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-enum ProductType: string
+enum Type: string
 {
     case ONE_OFF = 'one_off';
     case SUBSCRIPTION = 'subscription';

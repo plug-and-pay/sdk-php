@@ -9,6 +9,7 @@ use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToSubscription;
 use PlugAndPay\Sdk\Entity\Subscription;
 use PlugAndPay\Sdk\Enum\SubscriptionIncludes;
+use PlugAndPay\Sdk\Exception\DecodeResponseException;
 use PlugAndPay\Sdk\Support\Parameters;
 
 class SubscriptionService
@@ -37,5 +38,22 @@ class SubscriptionService
         $response = $this->client->get("/v2/subscriptions/$id$query");
 
         return BodyToSubscription::build($response->body()['data']);
+    }
+
+    /**
+     * @return Subscription[]
+     * @throws DecodeResponseException
+     */
+    public function get($subscriptionFilter = null): array
+    {
+        $parameters = $subscriptionFilter ? $subscriptionFilter->parameters() : [];
+        if (!empty($this->includes)) {
+            $parameters['include'] = $this->includes;
+        }
+        $query = Parameters::toString($parameters);
+
+        $response = $this->client->get("/v2/subscriptions$query");
+
+        return BodyToSubscription::buildMulti($response->body()['data']);
     }
 }
