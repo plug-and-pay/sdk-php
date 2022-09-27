@@ -5,4 +5,5 @@ namespace PlugAndPay\Sdk\Enum;
 enum PaymentProvider: string
 {
     case MOLLIE = 'mollie';
+    case STRIPE = 'stripe';
 }

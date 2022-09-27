@@ -16,6 +16,10 @@ class ProductToBody
     {
         $result = [];
 
+        if ($product->isset('id')) {
+            $result['id'] = $product->id();
+        }
+
         if ($product->isset('title')) {
             $result['title'] = $product->title();
         }

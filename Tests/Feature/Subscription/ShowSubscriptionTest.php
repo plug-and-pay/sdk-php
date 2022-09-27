@@ -105,7 +105,6 @@ class ShowSubscriptionTest extends TestCase
         static::assertSame('121.00', $pricing->amountWithTax());
         static::assertSame([], $pricing->discounts());
         static::assertSame(10, $pricing->quantity());
-        static::assertSame(21.0, $pricing->tax());
         static::assertTrue($pricing->isTaxIncluded());
     }
 

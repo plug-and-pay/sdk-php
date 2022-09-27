@@ -23,7 +23,7 @@ class Subscription
     private Product $product;
     private SubscriptionStatus $status;
     private Source $source;
-    private Billing $billing;
+    private SubscriptionBilling $billing;
     /** @var string[] */
     private array $tags;
     private SubscriptionTrial $trial;
@@ -166,20 +166,20 @@ class Subscription
     /**
      * @throws RelationNotLoadedException
      */
-    public function billing(): Billing
+    public function billing(): SubscriptionBilling
     {
         if (!isset($this->billing)) {
             if ($this->allowEmptyRelations) {
-                $this->billing = new Billing($this->allowEmptyRelations);
+                $this->billing = new SubscriptionBilling($this->allowEmptyRelations);
             } else {
-                throw new RelationNotLoadedException('billing');
+                throw new RelationNotLoadedException('subscriptionBilling');
             }
         }
 
         return $this->billing;
     }
 
-    public function setBilling(Billing $billing): self
+    public function setBilling(SubscriptionBilling $billing): self
     {
         $this->billing = $billing;
         return $this;

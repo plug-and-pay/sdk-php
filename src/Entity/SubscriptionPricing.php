@@ -12,7 +12,7 @@ class SubscriptionPricing
     private string $amountWithTax;
     private array $discounts;
     private int $quantity;
-    private float $tax;
+    private Tax $tax;
     private bool $isTaxIncluded;
 
     public function amount(): string
@@ -59,12 +59,12 @@ class SubscriptionPricing
         return $this;
     }
 
-    public function tax(): float
+    public function tax(): Tax
     {
         return $this->tax;
     }
 
-    public function setTax(float $tax): self
+    public function setTax(Tax $tax): self
     {
         $this->tax = $tax;
         return $this;

@@ -9,7 +9,7 @@ namespace PlugAndPay\Sdk\Tests\Feature\Order;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
 use PlugAndPay\Sdk\Entity\Address;
-use PlugAndPay\Sdk\Entity\Billing;
+use PlugAndPay\Sdk\Entity\OrderBilling;
 use PlugAndPay\Sdk\Entity\Comment;
 use PlugAndPay\Sdk\Entity\Contact;
 use PlugAndPay\Sdk\Entity\Item;
@@ -312,9 +312,9 @@ class StoreOrderTest extends TestCase
         static::assertEquals('firstname', $exception->errors()[0]->field());
     }
 
-    private function generateBilling(): Billing
+    private function generateBilling(): OrderBilling
     {
-        return (new Billing())
+        return (new OrderBilling())
             ->setAddress((new Address())->setCountry(CountryCode::NL))
             ->setContact((new Contact())
                 ->setEmail('rosalie39@example.net')

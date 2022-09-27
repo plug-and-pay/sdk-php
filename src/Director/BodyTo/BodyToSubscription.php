@@ -26,14 +26,14 @@ class BodyToSubscription
             ->setDeletedAt($data['deleted_at'] ? self::date($data, 'deleted_at') : null)
             ->setStatus(SubscriptionStatus::from($data['status']))
             ->setMode(Mode::from($data['mode']))
-            ->setSource(Source::tryFrom($data['source']) ?? Source::UNKNOWN);
+            ->setSource(Source::tryFrom($data['source'] ?? '') ?? Source::UNKNOWN);
 
         if (isset($data['trial'])) {
             $subscription->setTrial($data['trial'] ? BodyToSubscriptionTrial::build($data['trial']) : null);
         }
 
         if (isset($data['billing'])) {
-            $subscription->setBilling(BodyToBilling::build($data['billing']));
+            $subscription->setBilling(BodyToSubscriptionBilling::build($data['billing']));
         }
 
         if (isset($data['product'])) {

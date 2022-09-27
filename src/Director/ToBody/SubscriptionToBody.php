@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\ToBody;
 
 use PlugAndPay\Sdk\Entity\Subscription;
-use PlugAndPay\Sdk\Entity\SubscriptionTrial;
 use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
@@ -35,7 +34,7 @@ class SubscriptionToBody
         }
 
         if ($subscription->isset('billing')) {
-            $result['billing'] = BillingToBody::build($subscription->billing());
+            $result['billing'] = SubscriptionBillingToBody::build($subscription->billing());
         }
 
         if ($subscription->isset('tags')) {

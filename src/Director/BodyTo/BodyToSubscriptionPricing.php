@@ -18,8 +18,11 @@ class BodyToSubscriptionPricing
             ->setAmountWithTax($data['amount_with_tax'])
             ->setDiscounts($data['discounts'] ?? [])
             ->setQuantity($data['quantity'])
-            ->setTax($data['tax'])
             ->setIsTaxIncluded($data['is_tax_included']);
+
+        if (isset($data['tax'])) {
+            $subscriptionPricing->setTax(BodyToTax::build($data['tax']));
+        }
 
         return $subscriptionPricing;
     }

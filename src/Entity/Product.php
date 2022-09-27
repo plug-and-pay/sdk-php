@@ -20,7 +20,7 @@ class Product
     private bool $physical;
     private ProductPricing $pricing;
     private string $publicTitle;
-    private string $sku;
+    private ?string $sku;
     private ?string $slug;
     private Stock $stock;
     private string $title;
@@ -109,12 +109,12 @@ class Product
         return $this;
     }
 
-    public function sku(): string
+    public function sku(): ?string
     {
         return $this->sku;
     }
 
-    public function setSku(string $sku): self
+    public function setSku(?string $sku): self
     {
         $this->sku = $sku;
         return $this;

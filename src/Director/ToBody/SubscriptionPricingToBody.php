@@ -33,7 +33,7 @@ class SubscriptionPricingToBody
         }
 
         if ($pricing->isset('tax')) {
-            $result['tax'] = $pricing->tax();
+            $result['tax'] = TaxToBody::build($pricing->tax());
         }
 
         if ($pricing->isset('isTaxIncluded')) {

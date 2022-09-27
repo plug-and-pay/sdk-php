@@ -25,7 +25,7 @@ class OrderToBody
         }
 
         if ($order->isset('billing')) {
-            $result['billing'] = BillingToBody::build($order->billing());
+            $result['billing'] = OrderBillingToBody::build($order->billing());
         }
 
         if ($order->isset('comments')) {

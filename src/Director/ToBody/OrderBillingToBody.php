@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\ToBody;
 
-use PlugAndPay\Sdk\Entity\Billing;
+use PlugAndPay\Sdk\Entity\OrderBilling;
 
-class BillingToBody
+class OrderBillingToBody
 {
-    public static function build(Billing $billing): array
+    public static function build(OrderBilling $billing): array
     {
         $result = [];
 
