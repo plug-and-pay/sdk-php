@@ -13,7 +13,6 @@ class SubscriptionBillingScheduleToBody
         $result = [];
 
         if ($schedule->isset('interval')) {
-            var_dump($schedule->interval()->value);
             $result['interval'] = $schedule->interval()->value;
         }
 
