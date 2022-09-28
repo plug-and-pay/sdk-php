@@ -35,7 +35,7 @@ class SubscriptionPaymentOptionsToBody
         }
 
         if ($paymentOptions->isset('type')) {
-            $result['type'] = $paymentOptions->type();
+            $result['type'] = $paymentOptions->type()->value;
         }
 
         return $result;
