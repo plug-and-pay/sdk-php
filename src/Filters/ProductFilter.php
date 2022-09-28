@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Filters;
 
 use PlugAndPay\Sdk\Enum\Direction;
 use PlugAndPay\Sdk\Enum\ProductSortType;
-use PlugAndPay\Sdk\Enum\ProductType;
+use PlugAndPay\Sdk\Enum\Type;
 
 class ProductFilter
 {
@@ -60,7 +60,7 @@ class ProductFilter
         return $this;
     }
 
-    public function type(ProductType $value): self
+    public function type(Type $value): self
     {
         $this->parameters['type'] = $value->value;
         return $this;

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Subscription;
 use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\Mode;
-use PlugAndPay\Sdk\Enum\ProductType;
+use PlugAndPay\Sdk\Enum\Type;
 use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Enum\SubscriptionIncludes;
 use PlugAndPay\Sdk\Enum\SubscriptionStatus;
@@ -128,7 +128,7 @@ class ShowSubscriptionTest extends TestCase
         static::assertSame('70291520', $product->sku());
         static::assertNull($product->slug());
         static::assertSame('culpa', $product->title());
-        static::assertSame(ProductType::ONE_OFF, $product->type());
+        static::assertSame(Type::ONE_OFF, $product->type());
         static::assertSame('2019-01-16 00:00:00', $product->updatedAt()->format('Y-m-d H:i:s'));
     }
 
