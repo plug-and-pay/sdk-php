@@ -27,7 +27,7 @@ class SubscriptionPaymentOptionsToBody
         }
 
         if ($paymentOptions->isset('provider')) {
-            $result['provider'] = $paymentOptions->provider();
+            $result['provider'] = $paymentOptions->provider()->value;
         }
 
         if ($paymentOptions->isset('transactionId')) {

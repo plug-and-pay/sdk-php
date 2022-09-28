@@ -15,7 +15,7 @@ class SubscriptionTrialToBody
         $result = [];
 
         if ($trial->isset('endDate')) {
-            $result['end'] = $trial->endDate();
+            $result['end'] = $trial->endDate()->format('Y-m-d');
         }
 
         if ($trial->isset('isActive')) {
@@ -23,7 +23,7 @@ class SubscriptionTrialToBody
         }
 
         if ($trial->isset('startDate')) {
-            $result['start'] = $trial->startDate();
+            $result['start'] = $trial->startDate()->format('Y-m-d');
         }
 
         return $result;
