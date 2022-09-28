@@ -11,9 +11,7 @@ class Item
 {
     private float $amount;
     private float $amountWithTax;
-    /**
-     * @var Discount[]
-     */
+    /** @var Discount[] */
     private array $discounts;
     private int $id;
     private string $label;
@@ -22,9 +20,26 @@ class Item
     private Tax $tax;
     private ItemType $type;
 
+    public function id(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     public function amount(): float
     {
         return $this->amount;
+    }
+
+    public function setAmount(float $amount): self
+    {
+        $this->amount = $amount;
+        return $this;
     }
 
     public function discounts(): array
@@ -32,17 +47,10 @@ class Item
         return $this->discounts;
     }
 
-    public function id(): int
+    public function setDiscounts(array $discounts): self
     {
-        return $this->id;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!method_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-        return isset($this->{$field});
+        $this->discounts = $discounts;
+        return $this;
     }
 
     public function label(): string
@@ -50,9 +58,21 @@ class Item
         return $this->label;
     }
 
+    public function setLabel(string $label): self
+    {
+        $this->label = $label;
+        return $this;
+    }
+
     public function productId(): int
     {
         return $this->productId;
+    }
+
+    public function setProductId(int $productId): self
+    {
+        $this->productId = $productId;
+        return $this;
     }
 
     public function quantity(): int
@@ -60,64 +80,9 @@ class Item
         return $this->quantity;
     }
 
-    public function setAmount(float $amount): Item
-    {
-        $this->amount = $amount;
-
-        return $this;
-    }
-
-    public function setDiscounts(array $discounts): Item
-    {
-        $this->discounts = $discounts;
-        return $this;
-    }
-
-    public function setId(int $id): Item
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function setLabel(string $label): Item
-    {
-        $this->label = $label;
-        return $this;
-    }
-
-    public function setProductId(int $productId): Item
-    {
-        $this->productId = $productId;
-        return $this;
-    }
-
-    public function setQuantity(int $quantity): Item
+    public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
-        return $this;
-    }
-
-    public function setTax(Tax $tax): Item
-    {
-        $this->tax = $tax;
-        return $this;
-    }
-
-    public function setTaxByRateId(int $id): Item
-    {
-        $this->tax = (new Tax())->setRate((new TaxRate())->setId($id));
-        return $this;
-    }
-
-    public function setTotal(float $amountWithTax): Item
-    {
-        $this->amountWithTax = $amountWithTax;
-        return $this;
-    }
-
-    public function setType(ItemType $type): Item
-    {
-        $this->type = $type;
         return $this;
     }
 
@@ -126,13 +91,46 @@ class Item
         return $this->tax;
     }
 
+    public function setTax(Tax $tax): self
+    {
+        $this->tax = $tax;
+        return $this;
+    }
+
+    public function setTaxByRateId(int $id): self
+    {
+        $this->tax = (new Tax())->setRate((new TaxRate())->setId($id));
+        return $this;
+    }
+
     public function amountWithTax(): float
     {
         return $this->amountWithTax;
     }
 
+    public function setTotal(float $amountWithTax): self
+    {
+        $this->amountWithTax = $amountWithTax;
+        return $this;
+    }
+
     public function type(): ItemType
     {
         return $this->type;
+    }
+
+    public function setType(ItemType $type): self
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    public function isset(string $field): bool
+    {
+        if (!method_exists($this, $field)) {
+            throw new BadFunctionCallException("Field '$field' does not exists");
+        }
+
+        return isset($this->{$field});
     }
 }

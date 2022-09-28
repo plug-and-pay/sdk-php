@@ -2,7 +2,7 @@
 
 namespace PlugAndPay\Sdk\Enum;
 
-enum OrderMode: string
+enum Mode: string
 {
     case TEST = 'test';
     case LIVE = 'live';

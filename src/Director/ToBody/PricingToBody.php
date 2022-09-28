@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\ToBody;
 
-use PlugAndPay\Sdk\Entity\Pricing;
+use PlugAndPay\Sdk\Entity\ProductPricing;
 
 class PricingToBody
 {
     /**
      * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
      */
-    public static function build(Pricing $pricing): array
+    public static function build(ProductPricing $pricing): array
     {
         $result = [];
 

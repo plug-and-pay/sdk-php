@@ -7,13 +7,11 @@ namespace PlugAndPay\Sdk\Entity;
 use BadFunctionCallException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
-class Pricing
+class ProductPricing
 {
     private bool $allowEmptyRelations;
     private bool $taxIncluded;
-    /***
-     * @var Price[]
-     */
+    /*** @var Price[] */
     private array $prices;
     private ?Shipping $shipping;
     private PricingTax $tax;
@@ -24,41 +22,23 @@ class Pricing
         $this->allowEmptyRelations = $allowEmptyRelations;
     }
 
-    public function isAllowEmptyRelations(): bool
-    {
-        return $this->allowEmptyRelations;
-    }
-
-    public function setAllowEmptyRelations(bool $allowEmptyRelations): Pricing
-    {
-        $this->allowEmptyRelations = $allowEmptyRelations;
-        return $this;
-    }
-
     public function isTaxIncluded(): bool
     {
         return $this->taxIncluded;
     }
 
-    public function setTaxIncluded(bool $isTaxIncluded): Pricing
+    public function setTaxIncluded(bool $isTaxIncluded): self
     {
         $this->taxIncluded = $isTaxIncluded;
         return $this;
     }
 
-    /**
-     * @return Price[]
-     */
     public function prices(): array
     {
         return $this->prices;
     }
 
-    /**
-     * @param Price[] $prices
-     * @return $this
-     */
-    public function setPrices(array $prices): Pricing
+    public function setPrices(array $prices): self
     {
         $this->prices = $prices;
         return $this;
@@ -69,29 +49,15 @@ class Pricing
         return $this->shipping;
     }
 
-    public function setShipping(?Shipping $shipping): Pricing
+    public function setShipping(?Shipping $shipping): self
     {
         $this->shipping = $shipping;
         return $this;
     }
 
-    public function setTax(PricingTax $tax): Pricing
-    {
-        $this->tax = $tax;
-        return $this;
-    }
-
-    public function trial(): ?PricingTrial
-    {
-        return $this->trial;
-    }
-
-    public function setTrial(?PricingTrial $trial): Pricing
-    {
-        $this->trial = $trial;
-        return $this;
-    }
-
+    /**
+     * @throws RelationNotLoadedException
+     */
     public function tax(): PricingTax
     {
         if (!isset($this->tax)) {
@@ -105,11 +71,29 @@ class Pricing
         return $this->tax;
     }
 
+    public function setTax(PricingTax $tax): self
+    {
+        $this->tax = $tax;
+        return $this;
+    }
+
+    public function trial(): ?PricingTrial
+    {
+        return $this->trial;
+    }
+
+    public function setTrial(?PricingTrial $trial): self
+    {
+        $this->trial = $trial;
+        return $this;
+    }
+
     public function isset(string $field): bool
     {
         if (!property_exists($this, $field)) {
             throw new BadFunctionCallException("Field '$field' does not exists");
         }
+
         return isset($this->{$field});
     }
 }

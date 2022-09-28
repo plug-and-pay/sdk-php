@@ -17,31 +17,31 @@ class Discount
         return $this->amount;
     }
 
-    public function code(): ?string
-    {
-        return $this->code;
-    }
-
-    public function setAmount(float $amount): Discount
+    public function setAmount(float $amount): self
     {
         $this->amount = $amount;
         return $this;
     }
 
-    public function setCode(?string $code): Discount
+    public function code(): ?string
     {
-        $this->code = $code;
-        return $this;
+        return $this->code;
     }
 
-    public function setType(DiscountType $type): Discount
+    public function setCode(?string $code): self
     {
-        $this->type = $type;
+        $this->code = $code;
         return $this;
     }
 
     public function type(): DiscountType
     {
         return $this->type;
+    }
+
+    public function setType(DiscountType $type): self
+    {
+        $this->type = $type;
+        return $this;
     }
 }

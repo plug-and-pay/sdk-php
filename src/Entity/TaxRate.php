@@ -51,6 +51,7 @@ class TaxRate
         if (!method_exists($this, $field)) {
             throw new BadFunctionCallException("Method '$field' does not exists");
         }
+
         return isset($this->{$field});
     }
 }
