@@ -36,7 +36,6 @@ class UpdateOrderTest extends TestCase
         $order = $service->update(1, function (Order $order) {
             $order->billing()->contact()->setEmail('updated@email.nl');
             $order->billing()->address()->setCountry(CountryCode::BE);
-            $order->billing()->address()->setCountry(CountryCode::BE);
             $order->payment()->setStatus(PaymentStatus::PAID);
         });
 
