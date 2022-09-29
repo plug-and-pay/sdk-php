@@ -72,6 +72,21 @@ class SubscriptionService
         return BodyToSubscription::build($response->body()['data']);
     }
 
+    /**
+     * @throws DecodeResponseException
+     * @throws RelationNotLoadedException
+     */
+    public function update(int $subscriptionId, callable $update): Subscription
+    {
+        $subscription = new Subscription(true);
+        $update($subscription);
+        $body     = SubscriptionToBody::build($subscription);
+        $query    = Parameters::toString(['include' => $this->includes]);
+        $response = $this->client->patch("/v2/subscriptions/$subscriptionId$query", $body);
+
+        return BodyToSubscription::build($response->body()['data']);
+    }
+
 
     public function delete(int $subscriptionId): void
     {
