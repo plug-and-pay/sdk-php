@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
+use Exception;
 use PlugAndPay\Sdk\Entity\Payment;
 use PlugAndPay\Sdk\Enum\PaymentMethod;
 use PlugAndPay\Sdk\Enum\PaymentProvider;
@@ -13,6 +14,9 @@ use PlugAndPay\Sdk\Enum\PaymentType;
 
 class BodyToPayment
 {
+    /**
+     * @throws Exception
+     */
     public static function build(array $data): Payment
     {
         return (new Payment())

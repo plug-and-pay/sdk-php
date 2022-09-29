@@ -10,6 +10,8 @@ use PlugAndPay\Sdk\Director\BodyTo\BodyToProduct;
 use PlugAndPay\Sdk\Director\ToBody\ProductToBody;
 use PlugAndPay\Sdk\Entity\Product;
 use PlugAndPay\Sdk\Enum\ProductIncludes;
+use PlugAndPay\Sdk\Exception\DecodeResponseException;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Filters\ProductFilter;
 use PlugAndPay\Sdk\Support\Parameters;
 
@@ -24,6 +26,10 @@ class ProductService
         $this->client = $client;
     }
 
+    /**
+     * @throws RelationNotLoadedException
+     * @throws DecodeResponseException
+     */
     public function create(Product $product): Product
     {
         $body     = ProductToBody::build($product);
@@ -41,8 +47,8 @@ class ProductService
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
      * @return Product[]
+     * @throws DecodeResponseException
      */
     public function get(ProductFilter $productFilter = null): array
     {
@@ -58,7 +64,7 @@ class ProductService
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
+     * @throws DecodeResponseException
      */
     public function find(int $id): Product
     {
@@ -68,8 +74,8 @@ class ProductService
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
-     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     * @throws DecodeResponseException
+     * @throws RelationNotLoadedException
      */
     public function update(int $productId, callable $update): Product
     {

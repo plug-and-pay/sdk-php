@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Order\Mock;
 
+use JsonException;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\ExceptionFactory;
 use PlugAndPay\Sdk\Exception\NotFoundException;
@@ -17,7 +18,7 @@ class OrderDestroyMockClient extends ClientMock
     /**
      * @throws NotFoundException
      * @throws ValidationException
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function delete(string $path): Response
     {

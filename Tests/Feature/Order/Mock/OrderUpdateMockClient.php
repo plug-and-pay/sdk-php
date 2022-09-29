@@ -23,9 +23,4 @@ class OrderUpdateMockClient extends OrderShowMockClient
     {
         return $this->path;
     }
-
-    public function requestBody(): array
-    {
-        return $this->requestBody;
-    }
 }

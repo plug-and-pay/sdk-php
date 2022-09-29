@@ -23,9 +23,4 @@ class ProductUpdateMockClient extends ProductShowMockClient
     {
         return $this->path;
     }
-
-    public function requestBody(): array
-    {
-        return $this->requestBody;
-    }
 }

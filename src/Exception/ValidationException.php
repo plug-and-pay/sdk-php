@@ -21,7 +21,7 @@ class ValidationException extends Exception
     }
 
     /**
-     * @return \PlugAndPay\Sdk\Entity\Error[]
+     * @return Error[]
      */
     public function errors(): array
     {

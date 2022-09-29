@@ -14,7 +14,7 @@ use PlugAndPay\Sdk\Exception\DecodeResponseException;
 class BodyToProduct
 {
     /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
+     * @throws DecodeResponseException
      */
     public static function build(array $data): Product
     {
@@ -47,7 +47,7 @@ class BodyToProduct
 
     /**
      * @return Product[]
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
+     * @throws DecodeResponseException
      */
     public static function buildMulti(array $data): array
     {
@@ -60,7 +60,7 @@ class BodyToProduct
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
+     * @throws DecodeResponseException
      */
     private static function date(array $data, string $field): DateTimeImmutable
     {

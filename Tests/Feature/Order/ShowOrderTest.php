@@ -27,7 +27,6 @@ use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderShowMockClient;
 
 class ShowOrderTest extends TestCase
 {
-
     /** @test */
     public function show_basic_order(): void
     {

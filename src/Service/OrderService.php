@@ -10,6 +10,8 @@ use PlugAndPay\Sdk\Director\BodyTo\BodyToOrder;
 use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Enum\OrderIncludes;
+use PlugAndPay\Sdk\Exception\DecodeResponseException;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Filters\OrderFilter;
 use PlugAndPay\Sdk\Support\Parameters;
 
@@ -32,8 +34,8 @@ class OrderService
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
-     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     * @throws DecodeResponseException
+     * @throws RelationNotLoadedException
      */
     public function create(Order $order): Order
     {
@@ -50,7 +52,7 @@ class OrderService
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
+     * @throws DecodeResponseException
      */
     public function find(int $id): Order
     {
@@ -61,6 +63,7 @@ class OrderService
 
     /**
      * @return Order[]
+     * @throws DecodeResponseException
      */
     public function get(OrderFilter $orderFilter = null): array
     {
@@ -76,8 +79,8 @@ class OrderService
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
-     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     * @throws DecodeResponseException
+     * @throws RelationNotLoadedException
      */
     public function update(int $orderId, callable $update): Order
     {

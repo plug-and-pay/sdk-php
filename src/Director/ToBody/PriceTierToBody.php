@@ -18,7 +18,7 @@ class PriceTierToBody
     }
 
     /**
-     * @param \PlugAndPay\Sdk\Entity\PriceTier[] $tiers
+     * @param PriceTier[] $tiers
      */
     public static function buildMulti(array $tiers): array
     {

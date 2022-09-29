@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Entity;
 
 use BadFunctionCallException;
-use DateTimeImmutable;
-use PlugAndPay\Sdk\Enum\PaymentMethod;
 use PlugAndPay\Sdk\Enum\PaymentProvider;
-use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\PaymentType;
 
 class SubscriptionPaymentOptions

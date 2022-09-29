@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Subscription\Mock;
 
+use JsonException;
 use PlugAndPay\Sdk\Entity\Response;
-use PlugAndPay\Sdk\Entity\Tax;
 use PlugAndPay\Sdk\Exception\ExceptionFactory;
+use PlugAndPay\Sdk\Exception\NotFoundException;
+use PlugAndPay\Sdk\Exception\ValidationException;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
 class SubscriptionShowMockClient extends ClientMock
@@ -29,6 +31,11 @@ class SubscriptionShowMockClient extends ClientMock
         $this->responseBody = ['data' => $data + self::BASIC_SUBSCRIPTION];
     }
 
+    /**
+     * @throws NotFoundException
+     * @throws ValidationException
+     * @throws JsonException
+     */
     public function get(string $path): Response
     {
         $this->path = $path;

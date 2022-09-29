@@ -15,7 +15,8 @@ use PlugAndPay\Sdk\Exception\DecodeResponseException;
 class BodyToOrder
 {
     /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
+     * @throws DecodeResponseException
+     * @throws Exception
      */
     public static function build(array $data): Order
     {
@@ -67,6 +68,7 @@ class BodyToOrder
 
     /**
      * @return Order[]
+     * @throws DecodeResponseException
      */
     public static function buildMulti(array $data): array
     {
@@ -79,7 +81,7 @@ class BodyToOrder
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
+     * @throws DecodeResponseException
      */
     private static function date(array $data, string $field): DateTimeImmutable
     {

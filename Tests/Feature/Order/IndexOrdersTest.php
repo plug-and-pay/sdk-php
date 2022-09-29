@@ -47,6 +47,9 @@ class IndexOrdersTest extends TestCase
         static::assertSame("/v2/orders?$queryKey=$queryValue", $client->path());
     }
 
+    /**
+     * Data provider for index_orders_with_filter
+     */
     public function orderFilterDataProvider(): array
     {
         return [

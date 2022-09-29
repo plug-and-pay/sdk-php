@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Order\Mock;
 
+use JsonException;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\ExceptionFactory;
+use PlugAndPay\Sdk\Exception\NotFoundException;
+use PlugAndPay\Sdk\Exception\ValidationException;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
 class OrderShowMockClient extends ClientMock
@@ -99,6 +102,11 @@ class OrderShowMockClient extends ClientMock
         return $this;
     }
 
+    /**
+     * @throws NotFoundException
+     * @throws ValidationException
+     * @throws JsonException
+     */
     public function get(string $path): Response
     {
         $this->path = $path;
@@ -197,7 +205,7 @@ class OrderShowMockClient extends ClientMock
         return $this;
     }
 
-    public function taxes(array $data = []): self
+    public function taxes(): self
     {
         $this->items();
 
