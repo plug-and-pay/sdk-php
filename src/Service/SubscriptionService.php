@@ -72,7 +72,6 @@ class SubscriptionService
         return BodyToSubscription::build($response->body()['data']);
     }
 
-
     public function delete(int $subscriptionId): void
     {
         $this->client->delete("/v2/subscriptions/$subscriptionId");
