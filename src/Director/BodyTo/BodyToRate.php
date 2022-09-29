@@ -12,11 +12,10 @@ class BodyToRate
 {
     public static function build(array $data): TaxRate
     {
-        return
-            (new TaxRate())
-                ->setId($data['id'])
-                ->setCountry($data['country'] ? CountryCode::from($data['country']) : null)
-                ->setPercentage((float)$data['percentage']);
+        return (new TaxRate())
+            ->setId($data['id'])
+            ->setCountry($data['country'] ? CountryCode::from($data['country']) : null)
+            ->setPercentage((float)$data['percentage']);
     }
 
     /**

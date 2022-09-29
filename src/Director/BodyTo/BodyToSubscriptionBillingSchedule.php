@@ -6,13 +6,8 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
 use Exception;
-use PlugAndPay\Sdk\Entity\Subscription;
-use PlugAndPay\Sdk\Entity\SubscriptionBilling;
 use PlugAndPay\Sdk\Entity\SubscriptionBillingSchedule;
 use PlugAndPay\Sdk\Enum\Interval;
-use PlugAndPay\Sdk\Enum\Mode;
-use PlugAndPay\Sdk\Enum\Source;
-use PlugAndPay\Sdk\Enum\SubscriptionStatus;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
 class BodyToSubscriptionBillingSchedule
@@ -22,7 +17,7 @@ class BodyToSubscriptionBillingSchedule
      */
     public static function build(array $data): SubscriptionBillingSchedule
     {
-        $billingSchedule = (new SubscriptionBillingSchedule())
+        return (new SubscriptionBillingSchedule())
             ->setInterval(Interval::from($data['interval']))
             ->setLast($data['last'])
             ->setLastAt($data['last_at'] ? self::date($data, 'last_at') : null)
@@ -31,10 +26,7 @@ class BodyToSubscriptionBillingSchedule
             ->setNext($data['next'])
             ->setNextAt($data['next_at'] ? self::date($data, 'next_at') : null)
             ->setNext($data['remaining'])
-            ->setTerminationAt($data['termination_at'] ? self::date($data, 'termination_at') : null)
-        ;
-
-        return $billingSchedule;
+            ->setTerminationAt($data['termination_at'] ? self::date($data, 'termination_at') : null);
     }
 
     /**

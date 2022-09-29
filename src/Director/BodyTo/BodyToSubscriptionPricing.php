@@ -8,9 +8,6 @@ use PlugAndPay\Sdk\Entity\SubscriptionPricing;
 
 class BodyToSubscriptionPricing
 {
-    /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
-     */
     public static function build(array $data): SubscriptionPricing
     {
         $subscriptionPricing = (new SubscriptionPricing())

@@ -5,10 +5,14 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
+use Exception;
 use PlugAndPay\Sdk\Entity\Comment;
 
 class BodyToComment
 {
+    /**
+     * @throws Exception
+     */
     public static function build(array $data): Comment
     {
         return (new Comment())
@@ -21,6 +25,7 @@ class BodyToComment
     /**
      * @param $comments
      * @return Comment[]
+     * @throws Exception
      */
     public static function buildMulti($comments): array
     {

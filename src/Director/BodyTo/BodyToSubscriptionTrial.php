@@ -12,20 +12,18 @@ use PlugAndPay\Sdk\Exception\DecodeResponseException;
 class BodyToSubscriptionTrial
 {
     /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
+     * @throws DecodeResponseException
      */
     public static function build(array $data): SubscriptionTrial
     {
-        $trial = (new SubscriptionTrial())
+        return (new SubscriptionTrial())
             ->setEndDate(self::date($data, 'end'))
             ->setStartDate(self::date($data, 'start'))
             ->setIsActive($data['is_active']);
-
-        return $trial;
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
+     * @throws DecodeResponseException
      */
     private static function date(array $data, string $field): DateTimeImmutable
     {

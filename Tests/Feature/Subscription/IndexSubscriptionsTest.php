@@ -5,21 +5,14 @@ namespace Feature\Subscription;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Enum\CountryCode;
-use PlugAndPay\Sdk\Enum\Direction;
 use PlugAndPay\Sdk\Enum\Interval;
-use PlugAndPay\Sdk\Enum\InvoiceStatus;
 use PlugAndPay\Sdk\Enum\Mode;
-use PlugAndPay\Sdk\Enum\OrderSortType;
-use PlugAndPay\Sdk\Enum\PaymentStatus;
-use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Enum\SubscriptionIncludes;
 use PlugAndPay\Sdk\Enum\SubscriptionStatus;
 use PlugAndPay\Sdk\Enum\ContractType;
-use PlugAndPay\Sdk\Filters\OrderFilter;
+use PlugAndPay\Sdk\Exception\DecodeResponseException;
 use PlugAndPay\Sdk\Filters\SubscriptionFilter;
-use PlugAndPay\Sdk\Service\OrderService;
 use PlugAndPay\Sdk\Service\SubscriptionService;
-use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderIndexMockClient;
 use PlugAndPay\Sdk\Tests\Feature\Subscription\Mock\SubscriptionIndexMockClient;
 
 class IndexSubscriptionsTest extends TestCase
@@ -36,8 +29,9 @@ class IndexSubscriptionsTest extends TestCase
     }
 
     /**
-     * @dataProvider subscriptionFilterDataProvider
      * @test
+     * @dataProvider subscriptionFilterDataProvider
+     * @throws DecodeResponseException
      */
     public function index_subscriptions_with_filter(string $method, mixed $value, string $queryKey, string $queryValue): void
     {
@@ -50,6 +44,9 @@ class IndexSubscriptionsTest extends TestCase
         static::assertSame("/v2/subscriptions?$queryKey=$queryValue", $client->path());
     }
 
+    /**
+     * Data provider for index_subscriptions_with_filter
+     */
     public function subscriptionFilterDataProvider(): array
     {
         return [

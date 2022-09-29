@@ -17,6 +17,7 @@ class IndexTaxRatesTest extends TestCase
     {
         $client   = (new TaxRatesIndexMockClient());
         $service  = new TaxRateService($client);
+
         $taxRates = $service->get();
 
         static::assertSame(1, $taxRates[0]->id());
@@ -24,8 +25,8 @@ class IndexTaxRatesTest extends TestCase
     }
 
     /**
-     * @dataProvider taxRateFilterDataProvider
      * @test
+     * @dataProvider taxRateFilterDataProvider
      */
     public function index_tax_rate_with_filter(string $method, mixed $value, string $queryKey, string $queryValue): void
     {
@@ -38,6 +39,9 @@ class IndexTaxRatesTest extends TestCase
         static::assertSame("/v2/tax-rates?$queryKey=$queryValue", $client->path());
     }
 
+    /**
+     * Data provider for index_tax_rate_with_filter
+     */
     public function taxRateFilterDataProvider(): array
     {
         return [

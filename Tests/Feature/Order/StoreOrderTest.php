@@ -138,9 +138,7 @@ class StoreOrderTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function convert_order_without_filled_order(): void
     {
         $body = OrderToBody::build(new Order());

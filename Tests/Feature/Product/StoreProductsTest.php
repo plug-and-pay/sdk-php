@@ -132,8 +132,8 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertSame(true, $body['stock']['is_enabled']);
-        static::assertSame(false, $body['stock']['is_hidden']);
+        static::assertTrue($body['stock']['is_enabled']);
+        static::assertFalse($body['stock']['is_hidden']);
         static::assertSame(10, $body['stock']['value']);
     }
 

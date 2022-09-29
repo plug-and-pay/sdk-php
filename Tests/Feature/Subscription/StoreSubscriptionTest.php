@@ -28,12 +28,16 @@ use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentType;
 use PlugAndPay\Sdk\Enum\SubscriptionIncludes;
 use PlugAndPay\Sdk\Enum\ContractType;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Service\SubscriptionService;
 use PlugAndPay\Sdk\Tests\Feature\Subscription\Mock\SubscriptionStoreMockClient;
 
 class StoreSubscriptionTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @throws RelationNotLoadedException
+     */
     public function convert_basic_subscription_to_body(): void
     {
         $body = SubscriptionToBody::build($this->generateSubscription());
@@ -69,7 +73,10 @@ class StoreSubscriptionTest extends TestCase
         ], $body);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws RelationNotLoadedException
+     */
     public function convert_subscription_pricing_to_body(): void
     {
         $taxRate = (new TaxRate)
@@ -109,7 +116,10 @@ class StoreSubscriptionTest extends TestCase
         ], $body);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws RelationNotLoadedException
+     */
     public function convert_subscription_product_to_body(): void
     {
         $priceTiers = (new PriceTier)
@@ -199,7 +209,10 @@ class StoreSubscriptionTest extends TestCase
         ], $body);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws RelationNotLoadedException
+     */
     public function convert_subscription_billing_to_body(): void
     {
         $paymentOptions = (new SubscriptionPaymentOptions)
@@ -286,7 +299,10 @@ class StoreSubscriptionTest extends TestCase
         ], $body);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws RelationNotLoadedException
+     */
     public function convert_subscription_trial_to_body(): void
     {
         $trial = (new SubscriptionTrial)
@@ -307,7 +323,10 @@ class StoreSubscriptionTest extends TestCase
         ], $body);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws RelationNotLoadedException
+     */
     public function convert_subscription_without_filled_subscription(): void
     {
         $body = SubscriptionToBody::build(new Subscription());

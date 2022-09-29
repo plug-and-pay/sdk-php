@@ -8,9 +8,7 @@ use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\UnauthenticatedException;
-use PlugAndPay\Sdk\Service\OrderService;
 use PlugAndPay\Sdk\Service\SubscriptionService;
-use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderDestroyMockClient;
 use PlugAndPay\Sdk\Tests\Feature\Subscription\Mock\SubscriptionDestroyMockClient;
 
 class DestroySubscriptionTest extends TestCase

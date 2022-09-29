@@ -41,6 +41,9 @@ class IndexProductsTest extends TestCase
         static::assertSame("/v2/products?$queryKey=$queryValue", $client->path());
     }
 
+    /**
+     * Data provider for index_products_with_filter
+     */
     public function productFilterDataProvider(): array
     {
         return [

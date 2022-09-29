@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Exception;
 
 use Exception;
+use JsonException;
 use PlugAndPay\Sdk\Entity\Response;
 
 class ExceptionFactory
 {
     /**
-     * @return \PlugAndPay\Sdk\Exception\ValidationException|\PlugAndPay\Sdk\Exception\NotFoundException
-     * @throws \JsonException
+     * @return ValidationException|NotFoundException
+     * @throws JsonException
      */
     public static function create(int $status, string $body = ''): ?Exception
     {

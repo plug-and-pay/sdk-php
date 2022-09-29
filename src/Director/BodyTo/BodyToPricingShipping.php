@@ -8,9 +8,6 @@ use PlugAndPay\Sdk\Entity\Shipping;
 
 class BodyToPricingShipping
 {
-    /**
-     * @throws \PlugAndPay\Sdk\Exception\DecodeResponseException
-     */
     public static function build(array $data): Shipping
     {
         return (new Shipping())

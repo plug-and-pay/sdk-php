@@ -6,9 +6,13 @@ namespace PlugAndPay\Sdk\Service;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
+use JsonException;
 use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\ExceptionFactory;
+use PlugAndPay\Sdk\Exception\NotFoundException;
+use PlugAndPay\Sdk\Exception\ValidationException;
 use Psr\Http\Message\ResponseInterface;
 
 class Client implements ClientInterface
@@ -21,7 +25,7 @@ class Client implements ClientInterface
     private const BASE_URL_PRODUCTION = 'https://api.plugandpay.nl';
 
     /**
-     * @var \GuzzleHttp\Client
+     * @var GuzzleClient
      */
     private GuzzleClient $guzzleClient;
 
@@ -38,10 +42,10 @@ class Client implements ClientInterface
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \JsonException
-     * @throws \PlugAndPay\Sdk\Exception\NotFoundException
-     * @throws \PlugAndPay\Sdk\Exception\ValidationException
+     * @throws GuzzleException
+     * @throws JsonException
+     * @throws NotFoundException
+     * @throws ValidationException
      */
     public function delete(string $path): Response
     {
@@ -51,10 +55,10 @@ class Client implements ClientInterface
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \JsonException
-     * @throws \PlugAndPay\Sdk\Exception\NotFoundException
-     * @throws \PlugAndPay\Sdk\Exception\ValidationException
+     * @throws GuzzleException
+     * @throws JsonException
+     * @throws NotFoundException
+     * @throws ValidationException
      */
     public function get(string $path): Response
     {
@@ -64,10 +68,10 @@ class Client implements ClientInterface
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \JsonException
-     * @throws \PlugAndPay\Sdk\Exception\NotFoundException
-     * @throws \PlugAndPay\Sdk\Exception\ValidationException
+     * @throws GuzzleException
+     * @throws JsonException
+     * @throws NotFoundException
+     * @throws ValidationException
      */
     public function patch(string $path, array $data): Response
     {
@@ -77,10 +81,10 @@ class Client implements ClientInterface
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \JsonException
-     * @throws \PlugAndPay\Sdk\Exception\NotFoundException
-     * @throws \PlugAndPay\Sdk\Exception\ValidationException
+     * @throws GuzzleException
+     * @throws JsonException
+     * @throws NotFoundException
+     * @throws ValidationException
      */
     public function post(string $path, array $body): Response
     {
@@ -90,10 +94,10 @@ class Client implements ClientInterface
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\NotFoundException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \PlugAndPay\Sdk\Exception\ValidationException
-     * @throws \JsonException
+     * @throws NotFoundException
+     * @throws GuzzleException
+     * @throws ValidationException
+     * @throws JsonException
      */
     private function request(string $method, string $path, array $body = []): ResponseInterface
     {
@@ -110,6 +114,9 @@ class Client implements ClientInterface
         }
     }
 
+    /**
+     * @throws JsonException
+     */
     private function fromGuzzleResponse(ResponseInterface $response): Response
     {
         $content = $response->getBody()->getContents();

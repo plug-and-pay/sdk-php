@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Subscription;
 
-use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Subscription;
 use PlugAndPay\Sdk\Enum\Mode;

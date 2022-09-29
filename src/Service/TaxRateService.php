@@ -21,13 +21,6 @@ class TaxRateService
         $this->client = $client;
     }
 
-    public function include(TaxRateIncludes ...$includes): self
-    {
-        $this->includes = $includes;
-
-        return $this;
-    }
-
     /**
      * @return Rate[]
      */

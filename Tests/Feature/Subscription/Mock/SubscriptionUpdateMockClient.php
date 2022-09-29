@@ -23,9 +23,4 @@ class SubscriptionUpdateMockClient extends SubscriptionShowMockClient
     {
         return $this->path;
     }
-
-    public function requestBody(): array
-    {
-        return $this->requestBody;
-    }
 }

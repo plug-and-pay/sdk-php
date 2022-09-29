@@ -3,13 +3,9 @@
 namespace PlugAndPay\Sdk\Director\ToBody;
 
 use PlugAndPay\Sdk\Entity\SubscriptionTrial;
-use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class SubscriptionTrialToBody
 {
-    /**
-     * @throws RelationNotLoadedException
-     */
     public static function build(SubscriptionTrial $trial): array
     {
         $result = [];

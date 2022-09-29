@@ -4,14 +4,22 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Product\Mock;
 
+use JsonException;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\ExceptionFactory;
+use PlugAndPay\Sdk\Exception\NotFoundException;
+use PlugAndPay\Sdk\Exception\ValidationException;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
 class ProductDestroyMockClient extends ClientMock
 {
     private string $path;
 
+    /**
+     * @throws NotFoundException
+     * @throws ValidationException
+     * @throws JsonException
+     */
     public function delete(string $path): Response
     {
         $this->path = $path;

@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Product\Mock;
 
+use Exception;
+use JsonException;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\ExceptionFactory;
+use PlugAndPay\Sdk\Exception\NotFoundException;
+use PlugAndPay\Sdk\Exception\ValidationException;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
 class ProductShowMockClient extends ClientMock
@@ -35,6 +39,11 @@ class ProductShowMockClient extends ClientMock
         $this->responseBody = ['data' => $data + self::BASIC_PRODUCT];
     }
 
+    /**
+     * @throws NotFoundException
+     * @throws ValidationException
+     * @throws JsonException
+     */
     public function get(string $path): Response
     {
         $this->path = $path;
@@ -93,10 +102,13 @@ class ProductShowMockClient extends ClientMock
         return $this;
     }
 
+    /**
+     * @throws Exception
+     */
     public function shipping(): self
     {
         if(!isset($this->responseBody['data']['pricing'])) {
-            throw new \Exception('Method pricingBasic is required to receive shipping');
+            throw new Exception('Method pricingBasic is required to receive shipping');
         }
 
         $this->responseBody['data']['pricing']['shipping'] = [

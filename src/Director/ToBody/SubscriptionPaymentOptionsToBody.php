@@ -4,16 +4,10 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\ToBody;
 
-use PlugAndPay\Sdk\Entity\Subscription;
 use PlugAndPay\Sdk\Entity\SubscriptionPaymentOptions;
-use PlugAndPay\Sdk\Enum\Source;
-use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class SubscriptionPaymentOptionsToBody
 {
-    /**
-     * @throws RelationNotLoadedException
-     */
     public static function build(SubscriptionPaymentOptions $paymentOptions): array
     {
         $result = [];

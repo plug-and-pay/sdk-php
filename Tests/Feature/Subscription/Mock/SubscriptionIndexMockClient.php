@@ -6,7 +6,6 @@ namespace PlugAndPay\Sdk\Tests\Feature\Subscription\Mock;
 
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
-use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderShowMockClient;
 
 class SubscriptionIndexMockClient extends ClientMock
 {
