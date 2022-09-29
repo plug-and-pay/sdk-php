@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Entity;
 
 use BadFunctionCallException;
 use DateTimeImmutable;
-use PlugAndPay\Sdk\Enum\Type;
+use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class Product
@@ -24,7 +24,7 @@ class Product
     private ?string $slug;
     private Stock $stock;
     private string $title;
-    private Type $type;
+    private ContractType $type;
     private DateTimeImmutable $updatedAt;
 
     public function __construct(bool $allowEmptyRelations = true)
@@ -142,12 +142,12 @@ class Product
         return $this;
     }
 
-    public function type(): Type
+    public function type(): ContractType
     {
         return $this->type;
     }
 
-    public function setType(Type $type): self
+    public function setType(ContractType $type): self
     {
         $this->type = $type;
         return $this;

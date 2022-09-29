@@ -27,7 +27,7 @@ use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentType;
 use PlugAndPay\Sdk\Enum\SubscriptionIncludes;
-use PlugAndPay\Sdk\Enum\Type;
+use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Service\SubscriptionService;
 use PlugAndPay\Sdk\Tests\Feature\Subscription\Mock\SubscriptionStoreMockClient;
 
@@ -154,7 +154,7 @@ class StoreSubscriptionTest extends TestCase
             ->setPublicTitle('lorem')
             ->setSku('123456-GE')
             ->setSlug('lorem')
-            ->setType(Type::SUBSCRIPTION)
+            ->setType(ContractType::SUBSCRIPTION)
             ->setPricing($pricing);
 
         $subscription = (new Subscription())
@@ -424,7 +424,7 @@ class StoreSubscriptionTest extends TestCase
             ->setPublicTitle('lorem')
             ->setSku('123456-GE')
             ->setSlug('lorem')
-            ->setType(Type::SUBSCRIPTION)
+            ->setType(ContractType::SUBSCRIPTION)
             ->setPricing($pricing);
 
         $subscription = (new Subscription())
