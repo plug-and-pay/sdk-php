@@ -8,7 +8,7 @@ use DateTimeImmutable;
 use Exception;
 use PlugAndPay\Sdk\Entity\Product;
 use PlugAndPay\Sdk\Entity\Stock;
-use PlugAndPay\Sdk\Enum\Type;
+use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
 class BodyToProduct
@@ -35,7 +35,7 @@ class BodyToProduct
             ->setSlug($data['slug'])
             ->setStock($stock)
             ->setTitle($data['title'])
-            ->setType(Type::from($data['type']))
+            ->setType(ContractType::from($data['type']))
             ->setUpdatedAt(self::date($data, 'updated_at'));
 
         if (isset($data['pricing'])) {

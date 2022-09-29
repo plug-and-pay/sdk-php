@@ -4,7 +4,6 @@ namespace Feature\Subscription;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
-use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\Direction;
 use PlugAndPay\Sdk\Enum\Interval;
@@ -15,7 +14,7 @@ use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Enum\SubscriptionIncludes;
 use PlugAndPay\Sdk\Enum\SubscriptionStatus;
-use PlugAndPay\Sdk\Enum\Type;
+use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Filters\OrderFilter;
 use PlugAndPay\Sdk\Filters\SubscriptionFilter;
 use PlugAndPay\Sdk\Service\OrderService;
@@ -152,7 +151,7 @@ class IndexSubscriptionsTest extends TestCase
             ],
             [
                 'method'     => 'type',
-                'value'      => Type::SUBSCRIPTION,
+                'value'      => ContractType::SUBSCRIPTION,
                 'queryKey'   => 'type',
                 'queryValue' => 'subscription',
             ],

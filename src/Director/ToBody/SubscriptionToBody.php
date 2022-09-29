@@ -45,7 +45,9 @@ class SubscriptionToBody
             $result['trial'] = SubscriptionTrialToBody::build($subscription->trial());
         }
 
-        $result['source'] = Source::API->value;
+        if ($subscription->isset('source')) {
+            $result['source'] = Source::API->value;
+        }
 
         return $result;
     }
