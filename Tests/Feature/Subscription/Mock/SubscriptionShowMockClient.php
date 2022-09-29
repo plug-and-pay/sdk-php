@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Tests\Feature\Subscription\Mock;
 
 use PlugAndPay\Sdk\Entity\Response;
+use PlugAndPay\Sdk\Entity\Tax;
 use PlugAndPay\Sdk\Exception\ExceptionFactory;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
@@ -44,14 +45,14 @@ class SubscriptionShowMockClient extends ClientMock
     public function billing(): self
     {
         $this->responseBody['data']['billing'] = [
-            'address' => [
+            'address'         => [
                 'city'        => '\'t Veld',
                 'country'     => 'NL',
                 'street'      => 'Sanderslaan',
                 'housenumber' => '42',
                 'zipcode'     => '1448VB',
             ],
-            'contact' => [
+            'contact'         => [
                 'company'       => 'Café Timmermans & Zn',
                 'email'         => 'rosalie39@example.net',
                 'firstname'     => 'Bilal',
@@ -62,6 +63,24 @@ class SubscriptionShowMockClient extends ClientMock
                 'website'       => 'https://www.vandewater.nl/velit-porro-ut-velit-soluta.html',
                 'vat_id_number' => 'NL000099998B57',
             ],
+            'schedule'        => [
+                'interval' => 'monthly',
+                'last' => 1,
+                'last_at' => '2022-01-01',
+                'latest' => 1,
+                'latest_at' => '2022-01-01',
+                'next' => 1,
+                'next_at' => '2022-01-01',
+                'remaining' => 1,
+                'termination_at' => '2022-01-01',
+            ],
+            'payment_options' => [
+                'customer_id' => 1,
+                'mandate_id' => 1,
+                'provider' => 'mollie',
+                'transaction_id' => 1,
+                'type' => 'mandate',
+            ]
         ];
 
         return $this;
@@ -97,7 +116,6 @@ class SubscriptionShowMockClient extends ClientMock
             'amount_with_tax' => '121.00',
             'discounts'       => null,
             'quantity'        => 10,
-            'tax'             => 21,
             'is_tax_included' => true,
         ];
 

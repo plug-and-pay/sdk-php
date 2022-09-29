@@ -17,7 +17,7 @@ class Order
     private bool $allowEmptyRelations;
     private float $amount;
     private float $amountWithTax;
-    private Billing $billing;
+    private OrderBilling $billing;
     /** @var Comment[] */
     private array $comments;
     private DateTimeImmutable $createdAt;
@@ -86,11 +86,11 @@ class Order
     /**
      * @throws RelationNotLoadedException
      */
-    public function billing(): Billing
+    public function billing(): OrderBilling
     {
         if (!isset($this->billing)) {
             if ($this->allowEmptyRelations) {
-                $this->billing = new Billing($this->allowEmptyRelations);
+                $this->billing = new OrderBilling($this->allowEmptyRelations);
             } else {
                 throw new RelationNotLoadedException('billing');
             }
@@ -99,7 +99,7 @@ class Order
         return $this->billing;
     }
 
-    public function setBilling(Billing $billing): self
+    public function setBilling(OrderBilling $billing): self
     {
         $this->billing = $billing;
         return $this;

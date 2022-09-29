@@ -9,7 +9,7 @@ use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Enum\Mode;
 use PlugAndPay\Sdk\Enum\SubscriptionStatus;
-use PlugAndPay\Sdk\Enum\Type;
+use PlugAndPay\Sdk\Enum\ContractType;
 
 class SubscriptionFilter
 {
@@ -111,7 +111,7 @@ class SubscriptionFilter
         return $this;
     }
 
-    public function type(Type $type): self
+    public function type(ContractType $type): self
     {
         $this->parameters['type'] = $type->value;
         return $this;

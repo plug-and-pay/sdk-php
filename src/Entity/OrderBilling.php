@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Entity;
 
 use BadFunctionCallException;
 
-class Billing
+class OrderBilling
 {
     private Address $address;
     private Contact $contact;

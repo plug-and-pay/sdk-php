@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Subscription;
 use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\Mode;
-use PlugAndPay\Sdk\Enum\Type;
+use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Enum\SubscriptionIncludes;
 use PlugAndPay\Sdk\Enum\SubscriptionStatus;
@@ -105,7 +105,6 @@ class ShowSubscriptionTest extends TestCase
         static::assertSame('121.00', $pricing->amountWithTax());
         static::assertSame([], $pricing->discounts());
         static::assertSame(10, $pricing->quantity());
-        static::assertSame(21.0, $pricing->tax());
         static::assertTrue($pricing->isTaxIncluded());
     }
 
@@ -128,7 +127,7 @@ class ShowSubscriptionTest extends TestCase
         static::assertSame('70291520', $product->sku());
         static::assertNull($product->slug());
         static::assertSame('culpa', $product->title());
-        static::assertSame(Type::ONE_OFF, $product->type());
+        static::assertSame(ContractType::ONE_OFF, $product->type());
         static::assertSame('2019-01-16 00:00:00', $product->updatedAt()->format('Y-m-d H:i:s'));
     }
 

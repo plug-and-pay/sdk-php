@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\ToBody;
 
 use PlugAndPay\Sdk\Entity\Order;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class OrderToBody
 {
     /**
-     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     * @throws RelationNotLoadedException
      */
     public static function build(Order $order): array
     {
@@ -24,7 +25,7 @@ class OrderToBody
         }
 
         if ($order->isset('billing')) {
-            $result['billing'] = BillingToBody::build($order->billing());
+            $result['billing'] = OrderBillingToBody::build($order->billing());
         }
 
         if ($order->isset('comments')) {

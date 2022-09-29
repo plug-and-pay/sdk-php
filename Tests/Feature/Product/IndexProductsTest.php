@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Enum\Direction;
 use PlugAndPay\Sdk\Enum\ProductIncludes;
 use PlugAndPay\Sdk\Enum\ProductSortType;
-use PlugAndPay\Sdk\Enum\Type;
+use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Filters\ProductFilter;
 use PlugAndPay\Sdk\Service\ProductService;
 use PlugAndPay\Sdk\Tests\Feature\Product\Mock\ProductIndexMockClient;
@@ -94,7 +94,7 @@ class IndexProductsTest extends TestCase
             ],
             [
                 'method'     => 'type',
-                'value'      => Type::ONE_OFF,
+                'value'      => ContractType::ONE_OFF,
                 'queryKey'   => 'type',
                 'queryValue' => 'one_off',
             ],

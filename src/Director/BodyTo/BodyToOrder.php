@@ -35,7 +35,7 @@ class BodyToOrder
             ->setUpdatedAt(self::date($data, 'updated_at'));
 
         if (isset($data['billing'])) {
-            $order->setBilling(BodyToBilling::build($data['billing']));
+            $order->setBilling(BodyToOrderBilling::build($data['billing']));
         }
 
         if (isset($data['comments'])) {
