@@ -39,7 +39,6 @@ class StoreSubscriptionTest extends TestCase
         $body = SubscriptionToBody::build($this->generateSubscription());
 
         static::assertEquals([
-            'source'  => 'api',
             'billing' => [
                 'address'         => [
                     'country' => 'AL',
@@ -107,7 +106,6 @@ class StoreSubscriptionTest extends TestCase
                 ],
                 'is_tax_included' => false,
             ],
-            'source'  => 'api',
         ], $body);
     }
 
@@ -198,7 +196,6 @@ class StoreSubscriptionTest extends TestCase
                     ],
                 ],
             ],
-            'source'  => 'api'
         ], $body);
     }
 
@@ -286,7 +283,6 @@ class StoreSubscriptionTest extends TestCase
                     'type'           => 'manual',
                 ],
             ],
-            'source'  => 'api'
         ], $body);
     }
 
@@ -308,7 +304,6 @@ class StoreSubscriptionTest extends TestCase
                 'is_active' => true,
                 'start'     => '2022-01-01',
             ],
-            'source' => 'api',
         ], $body);
     }
 
@@ -317,7 +312,7 @@ class StoreSubscriptionTest extends TestCase
     {
         $body = SubscriptionToBody::build(new Subscription());
 
-        static::assertEquals(['source' => 'api'], $body);
+        static::assertEquals([], $body);
     }
 
     /** @test */
