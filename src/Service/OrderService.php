@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Service;
 
+use Exception;
 use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToOrder;
+use PlugAndPay\Sdk\Director\BodyTo\BodyToPayment;
 use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
 use PlugAndPay\Sdk\Entity\Order;
+use PlugAndPay\Sdk\Entity\Payment;
 use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
@@ -91,5 +94,14 @@ class OrderService
         $response = $this->client->patch("/v2/orders/$orderId$query", $body);
 
         return BodyToOrder::build($response->body()['data']);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function findPayment(int $orderId): Payment
+    {
+        $response = $this->client->get("/v2/orders/$orderId/payment");
+        return BodyToPayment::build($response->body()['data']);
     }
 }
