@@ -100,7 +100,7 @@ class StoreOrderTest extends TestCase
         static::assertEquals([
             'items' => [
                 [
-                    'amount'   => '10.',
+                    'amount'   => '10',
                     'label'    => 'the-label',
                     'quantity' => 1,
                     'tax'      => ['rate' => ['id' => 1]],
@@ -185,7 +185,6 @@ class StoreOrderTest extends TestCase
         $order = $service->create($order);
 
         static::assertEquals(1, $order->id());
-
         static::assertEquals(true, $client->requestBody()['is_hidden']);
         static::assertEquals('/v2/orders', $client->path());
         static::assertEquals(1, $order->id());
