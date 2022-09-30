@@ -15,6 +15,7 @@ use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 class Order
 {
     private bool $allowEmptyRelations;
+    private int $id;
     private float $amount;
     private float $amountWithTax;
     private OrderBilling $billing;
@@ -26,7 +27,6 @@ class Order
     private array $totalDiscounts;
     private bool $first;
     private bool $hidden;
-    private int $id;
     private ?string $invoiceNumber;
     private InvoiceStatus $invoiceStatus;
     /** @var Item[] */

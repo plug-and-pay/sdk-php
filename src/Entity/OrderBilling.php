@@ -8,9 +8,9 @@ use BadFunctionCallException;
 
 class OrderBilling
 {
+    private bool $allowEmptyRelations;
     private Address $address;
     private Contact $contact;
-    private bool $allowEmptyRelations;
 
     public function __construct(bool $allowEmptyRelations = true)
     {

@@ -18,6 +18,9 @@ class TaxRate
         return $this->id;
     }
 
+    /**
+     * @internal
+     */
     public function setId(int $id): self
     {
         $this->id = $id;
