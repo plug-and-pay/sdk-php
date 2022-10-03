@@ -22,8 +22,7 @@ class UpdateOrderPaymentTest extends TestCase
             $payment->setStatus(PaymentStatus::OPEN);
         });
 
-        dd($orderPayment);
-
+        static::assertEquals('open', $orderPayment->status()->value);
         static::assertEquals('/v2/orders/1/payment', $client->path());
     }
 }
