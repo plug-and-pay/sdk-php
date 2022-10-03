@@ -18,12 +18,7 @@ class ShowOrderPaymentTest extends TestCase
 
         $orderPayment = $service->findPayment(11);
 
-        static::assertSame('1', $orderPayment->customerId());
-        static::assertSame('1', $orderPayment->mandateId());
-        static::assertSame('mollie', $orderPayment->provider()->value);
-        static::assertSame('1', $orderPayment->transactionId());
         static::assertSame('manual', $orderPayment->type()->value);
-        static::assertSame('applepay', $orderPayment->method()->value);
         static::assertSame(11, $orderPayment->orderId());
         static::assertSame('2022-09-30', $orderPayment->paidAt()->format('Y-m-d'));
         static::assertSame('paid', $orderPayment->status()->value);

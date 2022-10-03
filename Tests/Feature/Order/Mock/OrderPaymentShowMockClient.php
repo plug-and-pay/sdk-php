@@ -11,12 +11,7 @@ class OrderPaymentShowMockClient extends ClientMock
 {
     private string $path;
     private const BASIC_ORDER_PAYMENT = [
-        'customer_id'    => '1',
-        'mandate_id'     => '1',
-        'provider'       => 'mollie',
-        'transaction_id' => '1',
         'type'           => 'manual',
-        'method'         => 'applepay',
         'order_id'       => 11,
         'paid_at'        => '2022-09-30T08:34:44.000000Z',
         'status'         => 'paid',
