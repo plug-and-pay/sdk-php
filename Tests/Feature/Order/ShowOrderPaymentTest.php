@@ -20,8 +20,7 @@ class ShowOrderPaymentTest extends TestCase
 
         static::assertSame('manual', $orderPayment->type()->value);
         static::assertSame(11, $orderPayment->orderId());
-        static::assertSame('2022-09-30', $orderPayment->paidAt()->format('Y-m-d'));
         static::assertSame('paid', $orderPayment->status()->value);
-        static::assertSame('https://plugandpay.nl/orders/payment-link/ec57a6b6-4fe2-45de-9aff-2183ec60ea20', $orderPayment->url());
+        static::assertSame('https://consequatur-quisquam.testing.test/orders/payment-link/0b13e52d-b058-32fb-8507-10dec634a07c', $orderPayment->url());
     }
 }

@@ -11,11 +11,16 @@ class OrderPaymentShowMockClient extends ClientMock
 {
     private string $path;
     private const BASIC_ORDER_PAYMENT = [
-        'type'           => 'manual',
+        'customer_id'    => null,
+        'mandate_id'     => null,
+        'method'         => null,
         'order_id'       => 11,
-        'paid_at'        => '2022-09-30T08:34:44.000000Z',
+        'paid_at'        => null,
+        'provider'       => null,
         'status'         => 'paid',
-        'url'            => 'https://plugandpay.nl/orders/payment-link/ec57a6b6-4fe2-45de-9aff-2183ec60ea20',
+        'transaction_id' => null,
+        'type'           => 'manual',
+        'url'            => 'https://consequatur-quisquam.testing.test/orders/payment-link/0b13e52d-b058-32fb-8507-10dec634a07c',
     ];
 
     /** @noinspection PhpMissingParentConstructorInspection */
