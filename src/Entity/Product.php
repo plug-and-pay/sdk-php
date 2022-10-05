@@ -12,10 +12,10 @@ use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 class Product
 {
     private bool $allowEmptyRelations;
+    private int $id;
     private DateTimeImmutable $createdAt;
     private ?DateTimeImmutable $deletedAt;
     private string $description;
-    private int $id;
     private ?int $ledger;
     private bool $physical;
     private ProductPricing $pricing;

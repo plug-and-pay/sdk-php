@@ -9,6 +9,7 @@ use PlugAndPay\Sdk\Enum\DiscountType;
 class Discount
 {
     private float $amount;
+    private float $amountWithTax;
     private ?string $code;
     private DiscountType $type;
 
@@ -20,6 +21,17 @@ class Discount
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
+        return $this;
+    }
+
+    public function amountWithTax(): float
+    {
+        return $this->amountWithTax;
+    }
+
+    public function setAmountWithTax(float $amountWithTax): self
+    {
+        $this->amountWithTax = $amountWithTax;
         return $this;
     }
 

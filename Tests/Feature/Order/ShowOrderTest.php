@@ -189,7 +189,6 @@ class ShowOrderTest extends TestCase
         $item = $order->items()[0];
 
         static::assertSame([], $item->discounts());
-        static::assertSame(1, $item->id());
         static::assertSame(1, $item->productId());
         static::assertSame('culpa', $item->label());
         static::assertSame(1, $item->quantity());

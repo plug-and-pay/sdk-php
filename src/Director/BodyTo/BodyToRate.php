@@ -15,7 +15,7 @@ class BodyToRate
         return (new TaxRate())
             ->setId($data['id'])
             ->setCountry($data['country'] ? CountryCode::from($data['country']) : null)
-            ->setPercentage((float)$data['percentage']);
+            ->setPercentage((float) $data['percentage']);
     }
 
     /**
