@@ -16,12 +16,12 @@ class Payment
     private ?string $customerId;
     private ?string $mandateId;
     private ?PaymentMethod $method;
-    private int $orderId;
+    private ?int $orderId;
     private ?DateTimeImmutable $paidAt;
     private ?PaymentProvider $provider;
-    private PaymentStatus $status;
+    private ?PaymentStatus $status;
     private ?string $transactionId;
-    private PaymentType $type;
+    private ?PaymentType $type;
     private ?string $url;
 
     public function customerId(): ?string
@@ -57,12 +57,12 @@ class Payment
         return $this;
     }
 
-    public function orderId(): int
+    public function orderId(): ?int
     {
         return $this->orderId;
     }
 
-    public function setOrderId(int $orderId): self
+    public function setOrderId(?int $orderId): self
     {
         $this->orderId = $orderId;
         return $this;
@@ -90,12 +90,12 @@ class Payment
         return $this;
     }
 
-    public function status(): PaymentStatus
+    public function status(): ?PaymentStatus
     {
         return $this->status;
     }
 
-    public function setStatus(PaymentStatus $status): self
+    public function setStatus(?PaymentStatus $status): self
     {
         $this->status = $status;
         return $this;
@@ -112,12 +112,12 @@ class Payment
         return $this;
     }
 
-    public function type(): PaymentType
+    public function type(): ?PaymentType
     {
         return $this->type;
     }
 
-    public function setType(PaymentType $type): self
+    public function setType(?PaymentType $type): self
     {
         $this->type = $type;
         return $this;

@@ -20,15 +20,15 @@ class BodyToOrderPayment
     public static function build(array $data): Payment
     {
         return (new Payment())
-            ->setCustomerId($data['customer_id'])
-            ->setMandateId($data['mandate_id'])
-            ->setMethod($data['method'] ? PaymentMethod::from($data['method']) : null)
-            ->setType(PaymentType::from($data['type']))
-            ->setProvider($data['provider'] ? PaymentProvider::from($data['provider']) : null)
-            ->setTransactionId($data['transaction_id'])
-            ->setOrderId($data['order_id'])
+            ->setCustomerId($data['customer_id'] ?? null)
+            ->setMandateId($data['mandate_id'] ?? null)
+            ->setMethod(PaymentMethod::tryFrom($data['method'] ?? ''))
+            ->setType(PaymentType::tryFrom($data['type'] ?? ''))
+            ->setProvider(PaymentProvider::tryFrom($data['provider'] ?? ''))
+            ->setTransactionId($data['transaction_id'] ?? null)
+            ->setOrderId($data['order_id'] ?? null)
             ->setPaidAt(!empty($data['paid_at']) ? new DateTimeImmutable($data['paid_at']) : null)
             ->setStatus(PaymentStatus::from($data['status']))
-            ->setUrl($data['url']);
+            ->setUrl($data['url'] ?? null);
     }
 }
