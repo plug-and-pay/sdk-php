@@ -5,15 +5,22 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Entity;
 
 use BadFunctionCallException;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class SubscriptionPricing
 {
+    private bool $allowEmptyRelations;
     private string $amount;
     private string $amountWithTax;
     private array $discounts;
     private int $quantity;
     private Tax $tax;
     private bool $isTaxIncluded;
+
+    public function __construct(bool $allowEmptyRelations = true)
+    {
+        $this->allowEmptyRelations = $allowEmptyRelations;
+    }
 
     public function amount(): string
     {
@@ -59,8 +66,19 @@ class SubscriptionPricing
         return $this;
     }
 
+    /**
+     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     */
     public function tax(): Tax
     {
+        if (!isset($this->tax)) {
+            if ($this->allowEmptyRelations) {
+                $this->tax = new Tax();
+            } else {
+                throw new RelationNotLoadedException('pricing');
+            }
+        }
+
         return $this->tax;
     }
 
