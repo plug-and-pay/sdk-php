@@ -11,8 +11,8 @@ class BodyToSubscriptionPricing
     public static function build(array $data): SubscriptionPricing
     {
         $subscriptionPricing = (new SubscriptionPricing())
-            ->setAmount((float) $data['amount'])
-            ->setAmountWithTax((float) $data['amount_with_tax'])
+            ->setAmount($data['amount'])
+            ->setAmountWithTax($data['amount_with_tax'])
             ->setDiscounts($data['discounts'] ?? [])
             ->setQuantity($data['quantity'])
             ->setIsTaxIncluded($data['is_tax_included']);

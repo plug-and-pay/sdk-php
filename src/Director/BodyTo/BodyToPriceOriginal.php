@@ -11,7 +11,7 @@ class BodyToPriceOriginal
     public static function build(array $data): PriceOriginal
     {
         return (new PriceOriginal())
-            ->setAmount((float) $data['amount'])
-            ->setAmountWithTax((float) $data['amount_with_tax']);
+            ->setAmount((float)$data['amount'])
+            ->setAmountWithTax((float)$data['amount_with_tax']);
     }
 }

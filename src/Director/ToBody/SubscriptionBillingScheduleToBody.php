@@ -21,7 +21,7 @@ class SubscriptionBillingScheduleToBody
         }
 
         if ($schedule->isset('lastAt')) {
-            $result['last_at'] = $schedule->lastAt()?->format('Y-m-d');
+            $result['last_at'] = $schedule->lastAt()->format('Y-m-d');
         }
 
         if ($schedule->isset('latest')) {
@@ -29,7 +29,7 @@ class SubscriptionBillingScheduleToBody
         }
 
         if ($schedule->isset('latestAt')) {
-            $result['latest_at'] = $schedule->latestAt()?->format('Y-m-d');
+            $result['latest_at'] = $schedule->latestAt()->format('Y-m-d');
         }
 
         if ($schedule->isset('next')) {
@@ -37,7 +37,7 @@ class SubscriptionBillingScheduleToBody
         }
 
         if ($schedule->isset('nextAt')) {
-            $result['next_at'] = $schedule->nextAt()?->format('Y-m-d');
+            $result['next_at'] = $schedule->nextAt()->format('Y-m-d');
         }
 
         if ($schedule->isset('remaining')) {
@@ -45,7 +45,7 @@ class SubscriptionBillingScheduleToBody
         }
 
         if ($schedule->isset('terminationAt')) {
-            $result['termination_at'] = $schedule->terminationAt()?->format('Y-m-d');
+            $result['termination_at'] = $schedule->terminationAt()->format('Y-m-d');
         }
 
         return $result;

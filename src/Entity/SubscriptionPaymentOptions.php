@@ -10,29 +10,29 @@ use PlugAndPay\Sdk\Enum\PaymentType;
 
 class SubscriptionPaymentOptions
 {
-    private ?string $customerId;
-    private ?string $mandateId;
+    private ?int $customerId;
+    private ?int $mandateId;
     private ?PaymentProvider $provider;
     private ?int $transactionId;
     private PaymentType $type;
 
-    public function customerId(): ?string
+    public function customerId(): ?int
     {
         return $this->customerId;
     }
 
-    public function setCustomerId(?string $customerId): self
+    public function setCustomerId(?int $customerId): self
     {
         $this->customerId = $customerId;
         return $this;
     }
 
-    public function mandateId(): ?string
+    public function mandateId(): ?int
     {
         return $this->mandateId;
     }
 
-    public function setMandateId(?string $mandateId): self
+    public function setMandateId(?int $mandateId): self
     {
         $this->mandateId = $mandateId;
         return $this;

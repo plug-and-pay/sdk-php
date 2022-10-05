@@ -17,8 +17,7 @@ class BodyToDiscounts
         $result = [];
         foreach ($data as $discount) {
             $result[] = (new Discount())
-                ->setAmount((float) $discount['amount'])
-                ->setAmountWithTax((float) $discount['amount_with_tax'])
+                ->setAmount((float)$discount['amount'])
                 ->setCode($discount['code'])
                 ->setType(DiscountType::from($discount['type']));
         }

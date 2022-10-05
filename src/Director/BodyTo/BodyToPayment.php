@@ -12,7 +12,7 @@ use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\PaymentType;
 
-class BodyToOrderPayment
+class BodyToPayment
 {
     /**
      * @throws Exception

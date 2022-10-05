@@ -8,9 +8,9 @@ use Exception;
 use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToOrder;
-use PlugAndPay\Sdk\Director\BodyTo\BodyToOrderPayment;
+use PlugAndPay\Sdk\Director\BodyTo\BodyToPayment;
 use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
-use PlugAndPay\Sdk\Director\ToBody\OrderPaymentToBody;
+use PlugAndPay\Sdk\Director\ToBody\PaymentToBody;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Entity\Payment;
 use PlugAndPay\Sdk\Enum\OrderIncludes;
@@ -103,7 +103,7 @@ class OrderService
     public function findPayment(int $orderId): Payment
     {
         $response = $this->client->get("/v2/orders/$orderId/payment");
-        return BodyToOrderPayment::build($response->body()['data']);
+        return BodyToPayment::build($response->body()['data']);
     }
 
     /**
@@ -113,9 +113,9 @@ class OrderService
     {
         $payment  = new Payment();
         $update($payment);
-        $body     = OrderPaymentToBody::build($payment);
+        $body     = PaymentToBody::build($payment);
         $response = $this->client->patch("/v2/orders/$orderId/payment", $body);
 
-        return BodyToOrderPayment::build($response->body()['data']);
+        return BodyToPayment::build($response->body()['data']);
     }
 }

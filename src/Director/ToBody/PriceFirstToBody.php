@@ -11,8 +11,8 @@ class PriceFirstToBody
     public static function build(PriceFirst $first): array
     {
         return [
-            'amount'          => (string) $first->amount(),
-            'amount_with_tax' => (string) $first->amountWithTax(),
+            'amount'          => $first->amount(),
+            'amount_with_tax' => $first->amountWithTax(),
         ];
     }
 }

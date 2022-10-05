@@ -8,31 +8,30 @@ use BadFunctionCallException;
 
 class SubscriptionPricing
 {
-    private float $amount;
-    private float $amountWithTax;
-    /** @var Discount[] */
+    private string $amount;
+    private string $amountWithTax;
     private array $discounts;
     private int $quantity;
     private Tax $tax;
     private bool $isTaxIncluded;
 
-    public function amount(): float
+    public function amount(): string
     {
         return $this->amount;
     }
 
-    public function setAmount(float $amount): self
+    public function setAmount(string $amount): self
     {
         $this->amount = $amount;
         return $this;
     }
 
-    public function amountWithTax(): float
+    public function amountWithTax(): string
     {
         return $this->amountWithTax;
     }
 
-    public function setAmountWithTax(float $amountWithTax): self
+    public function setAmountWithTax(string $amountWithTax): self
     {
         $this->amountWithTax = $amountWithTax;
         return $this;

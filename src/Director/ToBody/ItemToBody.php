@@ -17,11 +17,7 @@ class ItemToBody
         }
 
         if ($item->isset('amount')) {
-            $result['amount'] = (string) $item->amount();
-        }
-
-        if ($item->isset('amountWithTax')) {
-            $result['amount_with_tax'] = (string) $item->amountWithTax();
+            $result['amount'] = $item->amount();
         }
 
         if ($item->isset('label')) {

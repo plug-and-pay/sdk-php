@@ -42,9 +42,9 @@ class OrderFilter
         return $this;
     }
 
-    public function country(CountryCode $countryCode): self
+    public function country(CountryCode $value): self
     {
-        $this->parameters['country'] = $countryCode->value;
+        $this->parameters['country'] = $value->value;
         return $this;
     }
 
