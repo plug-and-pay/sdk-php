@@ -15,6 +15,8 @@ class SubscriptionPaymentOptions
     private ?PaymentProvider $provider;
     private ?int $transactionId;
     private PaymentType $type;
+    private ?string $iban;
+    private ?string $name;
 
     public function customerId(): ?string
     {
@@ -68,6 +70,28 @@ class SubscriptionPaymentOptions
     public function setType(PaymentType $type): self
     {
         $this->type = $type;
+        return $this;
+    }
+
+    public function iban(): ?string
+    {
+        return $this->iban;
+    }
+
+    public function setIban(?string $iban): self
+    {
+        $this->iban = $iban;
+        return $this;
+    }
+
+    public function name(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
         return $this;
     }
 
