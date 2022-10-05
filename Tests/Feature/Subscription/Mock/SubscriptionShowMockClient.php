@@ -82,8 +82,8 @@ class SubscriptionShowMockClient extends ClientMock
                 'termination_at' => '2022-01-01',
             ],
             'payment_options' => [
-                'customer_id' => 1,
-                'mandate_id' => 1,
+                'customer_id' => 'asdasds',
+                'mandate_id' => 'asdasd',
                 'provider' => 'mollie',
                 'transaction_id' => 1,
                 'type' => 'mandate',
