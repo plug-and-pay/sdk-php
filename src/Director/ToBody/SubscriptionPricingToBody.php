@@ -21,7 +21,7 @@ class SubscriptionPricingToBody
         }
 
         if ($pricing->isset('discounts')) {
-            $result['discounts'] = $pricing->discounts();
+            $result['discounts'] = SubscriptionPricingDiscountToBody::buildMulti($pricing->discounts());
         }
 
         if ($pricing->isset('quantity')) {
