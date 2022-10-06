@@ -182,8 +182,8 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertSame(10.1, $body['pricing']['prices'][0]['first']['amount']);
-        static::assertSame(12.10, $body['pricing']['prices'][0]['first']['amount_with_tax']);
+        static::assertSame('10.1', $body['pricing']['prices'][0]['first']['amount']);
+        static::assertSame('12.1', $body['pricing']['prices'][0]['first']['amount_with_tax']);
     }
 
     /** @test */
@@ -200,8 +200,8 @@ class StoreProductsTest extends TestCase
 
         $body = ProductToBody::build($product);
 
-        static::assertSame(10.0, $body['pricing']['prices'][0]['original']['amount']);
-        static::assertSame(12.10, $body['pricing']['prices'][0]['original']['amount_with_tax']);
+        static::assertEquals('10', $body['pricing']['prices'][0]['original']['amount']);
+        static::assertSame('12.1', $body['pricing']['prices'][0]['original']['amount_with_tax']);
     }
 
     /** @test */
