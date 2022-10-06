@@ -104,7 +104,7 @@ class Subscription
     {
         if (!isset($this->pricing)) {
             if ($this->allowEmptyRelations) {
-                $this->pricing = new SubscriptionPricing();
+                $this->pricing = new SubscriptionPricing($this->allowEmptyRelations);
             } else {
                 throw new RelationNotLoadedException('pricing');
             }

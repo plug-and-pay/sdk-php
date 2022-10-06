@@ -30,7 +30,7 @@ class UpdateSubscriptionTest extends TestCase
     /** @test */
     public function update_subscription_billing(): void
     {
-        $client  = (new SubscriptionUpdateMockClient())->billing();
+        $client  = (new SubscriptionUpdateMockClient())->billing()->pricing()->tax();
         $service = new SubscriptionService($client);
 
         $subscription = $service->update(1, function (Subscription $subscription) {
@@ -38,11 +38,13 @@ class UpdateSubscriptionTest extends TestCase
             $subscription->billing()->contact()->setWebsite('plugandpay.nl');
             $subscription->billing()->schedule()->setNext(1);
             $subscription->billing()->paymentOptions()->setType(PaymentType::MANUAL);
+            $subscription->pricing()->tax()->setAmount(10.);
         });
 
         static::assertEquals('2121DP', $subscription->billing()->address()->zipcode());
         static::assertEquals('plugandpay.nl', $subscription->billing()->contact()->website());
         static::assertEquals(1, $subscription->billing()->schedule()->next());
         static::assertEquals('manual', $subscription->billing()->paymentOptions()->type()->value);
+        static::assertEquals(10., $subscription->pricing()->tax()->amount());
     }
 }
