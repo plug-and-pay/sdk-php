@@ -113,7 +113,8 @@ class StoreSubscriptionTest extends TestCase
                 ],
                 'quantity'        => 10,
                 'tax'             => [
-                    'rate' => [],
+                    'amount' => 21,
+                    'rate'   => [],
                 ],
                 'is_tax_included' => false,
             ],
@@ -198,6 +199,10 @@ class StoreSubscriptionTest extends TestCase
                             'original'     => [
                                 'amount'          => 200.0,
                                 'amount_with_tax' => 242.0,
+                            ],
+                            'regular'      => [
+                                'amount'          => 100,
+                                'amount_with_tax' => 121,
                             ],
                             "tiers"        => [
                                 0 => [
@@ -392,7 +397,8 @@ class StoreSubscriptionTest extends TestCase
             ],
             'quantity'        => 10,
             'tax'             => [
-                'rate' => []
+                'amount' => 21,
+                'rate'   => []
             ],
             'is_tax_included' => false,
         ], $client->requestBody()['pricing']);
@@ -478,6 +484,10 @@ class StoreSubscriptionTest extends TestCase
                         'original'     => [
                             'amount'          => 200.0,
                             'amount_with_tax' => 242.0,
+                        ],
+                        'regular'     => [
+                            'amount'          => 100.0,
+                            'amount_with_tax' => 121.0,
                         ],
                         'tiers'        => [
                             0 => [
