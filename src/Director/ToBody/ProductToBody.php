@@ -49,9 +49,9 @@ class ProductToBody
         }
 
         if ($product->isset('stock')) {
-            $result['stock'] = [
-                'is_enabled' => $product->stock()->isEnabled(),
-            ];
+            if ($product->stock()->isset('is_enabled')) {
+                $result['stock'] = ['is_enabled' => $product->stock()->isEnabled()];
+            }
             if ($product->stock()->isset('hidden')) {
                 $result['stock']['is_hidden'] = $product->stock()->isHidden();
             }
