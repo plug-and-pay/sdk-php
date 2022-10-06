@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+use BadFunctionCallException;
+
 class PriceTier
 {
     private float $amount;
@@ -41,5 +43,14 @@ class PriceTier
     {
         $this->quantity = $quantity;
         return $this;
+    }
+
+    public function isset(string $field): bool
+    {
+        if (!property_exists($this, $field)) {
+            throw new BadFunctionCallException("Field '$field' does not exists");
+        }
+
+        return isset($this->{$field});
     }
 }

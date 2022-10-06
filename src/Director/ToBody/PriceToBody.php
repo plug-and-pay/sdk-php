@@ -32,6 +32,10 @@ class PriceToBody
             $result['original'] = $price->original() ? PriceOriginalToBody::build($price->original()) : null;
         }
 
+        if ($price->isset('regular')) {
+            $result['regular'] = $price->original() ? PriceRegularToBody::build($price->regular()) : null;
+        }
+
         if ($price->isset('tiers')) {
             $result['tiers'] = PriceTierToBody::buildMulti($price->tiers());
         }

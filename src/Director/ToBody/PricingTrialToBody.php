@@ -10,10 +10,20 @@ class PricingTrialToBody
 {
     public static function build(PricingTrial $trial): array
     {
-        return [
-            'amount'          => $trial->amount(),
-            'amount_with_tax' => $trial->amountWithTax(),
-            'duration'        => $trial->duration(),
-        ];
+        $result = [];
+
+        if ($trial->isset('amount')) {
+            $result['amount'] = (string) $trial->amount();
+        }
+
+        if ($trial->isset('amountWithTax')) {
+            $result['amount_with_tax'] = (string) $trial->amountWithTax();
+        }
+
+        if ($trial->isset('duration')) {
+            $result['duration'] = $trial->duration();
+        }
+
+        return $result;
     }
 }

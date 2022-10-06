@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\ToBody;
 
 use PlugAndPay\Sdk\Entity\SubscriptionPricing;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class SubscriptionPricingToBody
 {
+    /**
+     * @throws RelationNotLoadedException
+     */
     public static function build(SubscriptionPricing $pricing): array
     {
         $result = [];
