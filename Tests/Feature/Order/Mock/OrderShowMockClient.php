@@ -110,7 +110,7 @@ class OrderShowMockClient extends ClientMock
     public function get(string $path): Response
     {
         $this->path = $path;
-        $response   = new Response(Response::HTTP_OK, $this->responseBody);
+        $response = new Response(Response::HTTP_OK, $this->responseBody);
 
         $exception = ExceptionFactory::create($response->status(), json_encode($response->body(), JSON_THROW_ON_ERROR));
         if ($exception) {
@@ -191,9 +191,10 @@ class OrderShowMockClient extends ClientMock
 
         return $this->items(['discounts' => [
             [
-                'amount' => '2.10',
-                'code'   => 'u4lbf3',
-                'type'   => 'promotion',
+                'amount'          => '10.00',
+                'amount_with_tax' => '12.10',
+                'code'            => 'u4lbf3',
+                'type'            => 'promotion',
             ],
         ]]);
     }

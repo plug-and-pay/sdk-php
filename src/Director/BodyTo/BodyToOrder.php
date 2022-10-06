@@ -56,7 +56,7 @@ class BodyToOrder
         }
 
         if (isset($data['payment'])) {
-            $order->setPayment(BodyToPayment::build($data['payment']));
+            $order->setPayment(BodyToOrderPayment::build($data['payment']));
         }
 
         if (isset($data['tags'])) {

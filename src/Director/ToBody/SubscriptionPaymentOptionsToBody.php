@@ -28,6 +28,14 @@ class SubscriptionPaymentOptionsToBody
             $result['transaction_id'] = $paymentOptions->transactionId();
         }
 
+        if ($paymentOptions->isset('iban')) {
+            $result['iban'] = $paymentOptions->iban();
+        }
+
+        if ($paymentOptions->isset('name')) {
+            $result['name'] = $paymentOptions->name();
+        }
+
         if ($paymentOptions->isset('type')) {
             $result['type'] = $paymentOptions->type()->value;
         }

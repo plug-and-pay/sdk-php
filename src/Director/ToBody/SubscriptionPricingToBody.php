@@ -17,15 +17,15 @@ class SubscriptionPricingToBody
         $result = [];
 
         if ($pricing->isset('amount')) {
-            $result['amount'] = $pricing->amount();
+            $result['amount'] = (string) $pricing->amount();
         }
 
         if ($pricing->isset('amountWithTax')) {
-            $result['amount_with_tax'] = $pricing->amountWithTax();
+            $result['amount_with_tax'] = (string) $pricing->amountWithTax();
         }
 
         if ($pricing->isset('discounts')) {
-            $result['discounts'] = $pricing->discounts();
+            $result['discounts'] = SubscriptionPricingDiscountToBody::buildMulti($pricing->discounts());
         }
 
         if ($pricing->isset('quantity')) {

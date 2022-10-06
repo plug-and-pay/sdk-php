@@ -88,7 +88,7 @@ class StoreOrderTest extends TestCase
     public function convert_item_to_body(): void
     {
         $item = (new Item())
-            ->setAmount(10.)
+            ->setAmount(10.1)
             ->setLabel('the-label')
             ->setQuantity(1)
             ->setTaxByRateId(1);
@@ -100,7 +100,7 @@ class StoreOrderTest extends TestCase
         static::assertEquals([
             'items' => [
                 [
-                    'amount'   => '10.',
+                    'amount'   => '10.1',
                     'label'    => 'the-label',
                     'quantity' => 1,
                     'tax'      => ['rate' => ['id' => 1]],

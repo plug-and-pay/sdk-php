@@ -37,7 +37,7 @@ class OrderToBody
         }
 
         if ($order->isset('payment')) {
-            $result['payment'] = PaymentToBody::build($order->payment());
+            $result['payment'] = OrderPaymentToBody::build($order->payment());
         }
 
         if ($order->isset('tags')) {
