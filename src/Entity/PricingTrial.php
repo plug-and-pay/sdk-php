@@ -8,27 +8,27 @@ use BadFunctionCallException;
 
 class PricingTrial
 {
-    private ?float $amount;
-    private ?float $amountWithTax;
+    private float $amount;
+    private float $amountWithTax;
     private int $duration;
 
-    public function amount(): ?float
+    public function amount(): float
     {
         return $this->amount;
     }
 
-    public function setAmount(?float $amount): self
+    public function setAmount(float $amount): self
     {
         $this->amount = $amount;
         return $this;
     }
 
-    public function amountWithTax(): ?float
+    public function amountWithTax(): float
     {
         return $this->amountWithTax;
     }
 
-    public function setAmountWithTax(?float $amountWithTax): self
+    public function setAmountWithTax(float $amountWithTax): self
     {
         $this->amountWithTax = $amountWithTax;
         return $this;

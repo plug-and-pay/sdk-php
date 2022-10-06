@@ -17,11 +17,11 @@ class SubscriptionPricingToBody
         $result = [];
 
         if ($pricing->isset('amount')) {
-            $result['amount'] = (string) $pricing->amount();
+            $result['amount'] = (string)$pricing->amount();
         }
 
         if ($pricing->isset('amountWithTax')) {
-            $result['amount_with_tax'] = (string) $pricing->amountWithTax();
+            $result['amount_with_tax'] = (string)$pricing->amountWithTax();
         }
 
         if ($pricing->isset('discounts')) {

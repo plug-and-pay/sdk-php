@@ -13,11 +13,11 @@ class PricingTrialToBody
         $result = [];
 
         if ($trial->isset('amount')) {
-            $result['amount'] = (string) $trial->amount();
+            $result['amount'] = (string)$trial->amount();
         }
 
         if ($trial->isset('amountWithTax')) {
-            $result['amount_with_tax'] = (string) $trial->amountWithTax();
+            $result['amount_with_tax'] = (string)$trial->amountWithTax();
         }
 
         if ($trial->isset('duration')) {

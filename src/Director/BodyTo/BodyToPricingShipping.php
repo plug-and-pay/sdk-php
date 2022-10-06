@@ -11,7 +11,7 @@ class BodyToPricingShipping
     public static function build(array $data): Shipping
     {
         return (new Shipping())
-            ->setAmount((float) $data['amount'])
-            ->setAmountWithTax((float) $data['amount_with_tax']);
+            ->setAmount((float)$data['amount'])
+            ->setAmountWithTax((float)$data['amount_with_tax']);
     }
 }

@@ -14,11 +14,11 @@ class PriceRegularToBody
         $result = [];
 
         if ($regular->isset('amount')) {
-            $result['amount'] = (string) $regular->amount();
+            $result['amount'] = (string)$regular->amount();
         }
 
         if ($regular->isset('amountWithTax')) {
-            $result['amount_with_tax'] = (string) $regular->amountWithTax();
+            $result['amount_with_tax'] = (string)$regular->amountWithTax();
         }
 
         return $result;

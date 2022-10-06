@@ -17,11 +17,12 @@ class BodyToItems
         $result = [];
         foreach ($data as $itemData) {
             $item = (new Item())
+                ->setId($itemData['id'])
                 ->setProductId($itemData['product_id'])
                 ->setLabel($itemData['label'])
                 ->setQuantity($itemData['quantity'])
-                ->setAmount((float) $itemData['amount'])
-                ->setTotal((float) $itemData['amount_with_tax'])
+                ->setAmount((float)$itemData['amount'])
+                ->setTotal((float)$itemData['amount_with_tax'])
                 ->setType($itemData['type'] ? ItemType::from($itemData['type']) : ItemType::STANDARD);
 
             if (isset($itemData['discounts'])) {
