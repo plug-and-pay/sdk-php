@@ -1,6 +1,6 @@
 {
   "name": "plug-and-pay/sdk-php",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "This is a PHP SDK to make easier to communicate with the Plug&Pay API.",
   "keywords": [
     "PlugAndPay",
