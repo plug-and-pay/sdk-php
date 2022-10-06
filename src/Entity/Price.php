@@ -15,7 +15,7 @@ class Price
     private ?bool $suggested;
     private int $nr_of_cycles;
     private ?PriceOriginal $original;
-    private ?PriceRegular $regular;
+    private PriceRegular $regular;
     /** @var PriceTier[] */
     private array $tiers;
 
@@ -85,12 +85,12 @@ class Price
         return $this;
     }
 
-    public function regular(): ?PriceRegular
+    public function regular(): PriceRegular
     {
         return $this->regular;
     }
 
-    public function setRegular(?PriceRegular $regular): self
+    public function setRegular(PriceRegular $regular): self
     {
         $this->regular = $regular;
         return $this;
