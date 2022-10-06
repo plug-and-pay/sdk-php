@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace PlugAndPay\Sdk\Tests\Feature\Order;
+namespace PlugAndPay\Sdk\Tests\Feature\OrderPayment;
 
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Payment;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
-use PlugAndPay\Sdk\Service\OrderService;
-use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderPaymentUpdateMockClient;
+use PlugAndPay\Sdk\Service\OrderPaymentService;
+use PlugAndPay\Sdk\Tests\Feature\OrderPayment\Mock\OrderPaymentUpdateMockClient;
 
 class UpdateOrderPaymentTest extends TestCase
 {
@@ -16,13 +16,14 @@ class UpdateOrderPaymentTest extends TestCase
     public function update_basic_order_payment(): void
     {
         $client  = new OrderPaymentUpdateMockClient();
-        $service = new OrderService($client);
+        $service = new OrderPaymentService($client);
 
-        $orderPayment = $service->updateOrderPayment(1, function (Payment $payment) {
+        $paymentId = 1;
+        $payment = $service->update($paymentId, function (Payment $payment) {
             $payment->setStatus(PaymentStatus::OPEN);
         });
 
-        static::assertEquals('open', $orderPayment->status()->value);
+        static::assertEquals('open', $payment->status()->value);
         static::assertEquals('/v2/orders/1/payment', $client->path());
     }
 }
