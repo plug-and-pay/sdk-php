@@ -96,26 +96,4 @@ class OrderService
 
         return BodyToOrder::build($response->body()['data']);
     }
-
-    /**
-     * @throws Exception
-     */
-    public function findPayment(int $orderId): Payment
-    {
-        $response = $this->client->get("/v2/orders/$orderId/payment");
-        return BodyToOrderPayment::build($response->body()['data']);
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function updateOrderPayment(int $orderId, callable $update): Payment
-    {
-        $payment  = new Payment();
-        $update($payment);
-        $body     = OrderPaymentToBody::build($payment);
-        $response = $this->client->patch("/v2/orders/$orderId/payment", $body);
-
-        return BodyToOrderPayment::build($response->body()['data']);
-    }
 }
