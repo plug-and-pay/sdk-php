@@ -33,7 +33,7 @@ class PriceToBody
         }
 
         if ($price->isset('regular')) {
-            $result['regular'] = $price->original() ? PriceRegularToBody::build($price->regular()) : null;
+            $result['regular'] = $price->regular() ? PriceRegularToBody::build($price->regular()) : null;
         }
 
         if ($price->isset('tiers')) {
