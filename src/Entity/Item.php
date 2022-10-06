@@ -9,26 +9,20 @@ use PlugAndPay\Sdk\Enum\ItemType;
 
 class Item
 {
-    private float $amount;
-    private float $amountWithTax;
+    protected float $amount;
+    protected float $amountWithTax;
     /** @var Discount[] */
-    private array $discounts;
-    private int $id;
-    private string $label;
-    private int $productId;
-    private int $quantity;
-    private Tax $tax;
-    private ItemType $type;
+    protected array $discounts;
+    protected int $id;
+    protected string $label;
+    protected int $productId;
+    protected int $quantity;
+    protected Tax $tax;
+    protected ItemType $type;
 
     public function id(): int
     {
         return $this->id;
-    }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
     }
 
     public function amount(): float
@@ -45,12 +39,6 @@ class Item
     public function discounts(): array
     {
         return $this->discounts;
-    }
-
-    public function setDiscounts(array $discounts): self
-    {
-        $this->discounts = $discounts;
-        return $this;
     }
 
     public function label(): string
@@ -108,7 +96,7 @@ class Item
         return $this->amountWithTax;
     }
 
-    public function setTotal(float $amountWithTax): self
+    public function setAmountWithTax(float $amountWithTax): self
     {
         $this->amountWithTax = $amountWithTax;
         return $this;
@@ -117,12 +105,6 @@ class Item
     public function type(): ItemType
     {
         return $this->type;
-    }
-
-    public function setType(ItemType $type): self
-    {
-        $this->type = $type;
-        return $this;
     }
 
     public function isset(string $field): bool

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+/**
+ * @internal
+ */
 class Error
 {
     private string $field;
@@ -15,11 +18,17 @@ class Error
         $this->field   = $field;
     }
 
+    /**
+     * @internal
+     */
     public function field(): string
     {
         return $this->field;
     }
 
+    /**
+     * @internal
+     */
     public function message(): string
     {
         return $this->message;

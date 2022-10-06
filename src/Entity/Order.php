@@ -14,33 +14,33 @@ use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class Order
 {
-    private bool $allowEmptyRelations;
-    private float $amount;
-    private float $amountWithTax;
-    private OrderBilling $billing;
+    protected bool $allowEmptyRelations;
+    protected float $amount;
+    protected float $amountWithTax;
+    protected OrderBilling $billing;
     /** @var Comment[] */
-    private array $comments;
-    private DateTimeImmutable $createdAt;
-    private ?DateTimeImmutable $deletedAt;
+    protected array $comments;
+    protected DateTimeImmutable $createdAt;
+    protected ?DateTimeImmutable $deletedAt;
     /** @var Discount[] */
-    private array $totalDiscounts;
-    private bool $first;
-    private bool $hidden;
-    private int $id;
-    private ?string $invoiceNumber;
-    private InvoiceStatus $invoiceStatus;
+    protected array $totalDiscounts;
+    protected bool $first;
+    protected bool $hidden;
+    protected int $id;
+    protected ?string $invoiceNumber;
+    protected InvoiceStatus $invoiceStatus;
     /** @var Item[] */
-    private array $items;
-    private Mode $mode;
-    private Payment $payment;
-    private string $reference;
-    private Source $source;
+    protected array $items;
+    protected Mode $mode;
+    protected Payment $payment;
+    protected string $reference;
+    protected Source $source;
     /** @var string[] */
-    private array $tags;
-    private TaxExempt $taxExempt;
+    protected array $tags;
+    protected TaxExempt $taxExempt;
     /** @var Tax[] */
-    private array $taxes;
-    private DateTimeImmutable $updatedAt;
+    protected array $taxes;
+    protected DateTimeImmutable $updatedAt;
 
     public function __construct(bool $allowEmptyRelations = true)
     {
@@ -50,15 +50,6 @@ class Order
     public function id(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @internal
-     */
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
     }
 
     public function amount(): float
@@ -75,12 +66,6 @@ class Order
     public function amountWithTax(): float
     {
         return $this->amountWithTax;
-    }
-
-    public function setTotal(float $amountWithTax): self
-    {
-        $this->amountWithTax = $amountWithTax;
-        return $this;
     }
 
     /**
@@ -128,27 +113,9 @@ class Order
         return $this->createdAt;
     }
 
-    /**
-     * @internal
-     */
-    public function setCreatedAt(DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-
     public function deletedAt(): ?DateTimeImmutable
     {
         return $this->deletedAt;
-    }
-
-    /**
-     * @internal
-     */
-    public function setDeletedAt(?DateTimeImmutable $deletedAt): self
-    {
-        $this->deletedAt = $deletedAt;
-        return $this;
     }
 
     /**
@@ -163,24 +130,9 @@ class Order
         return $this->totalDiscounts;
     }
 
-    public function setTotalDiscounts(array $totalDiscounts): self
-    {
-        $this->totalDiscounts = $totalDiscounts;
-        return $this;
-    }
-
     public function invoiceNumber(): ?string
     {
         return $this->invoiceNumber;
-    }
-
-    /**
-     * @internal
-     */
-    public function setInvoiceNumber(?string $invoiceNumber): self
-    {
-        $this->invoiceNumber = $invoiceNumber;
-        return $this;
     }
 
     public function invoiceStatus(): InvoiceStatus
@@ -188,27 +140,9 @@ class Order
         return $this->invoiceStatus;
     }
 
-    /**
-     * @internal
-     */
-    public function setInvoiceStatus(InvoiceStatus $invoiceStatus): self
-    {
-        $this->invoiceStatus = $invoiceStatus;
-        return $this;
-    }
-
     public function isFirst(): bool
     {
         return $this->first;
-    }
-
-    /**
-     * @internal
-     */
-    public function setFirst(bool $first): self
-    {
-        $this->first = $first;
-        return $this;
     }
 
     public function isHidden(): bool
@@ -278,21 +212,9 @@ class Order
         return $this->reference;
     }
 
-    public function setReference(string $reference): self
-    {
-        $this->reference = $reference;
-        return $this;
-    }
-
     public function source(): Source
     {
         return $this->source;
-    }
-
-    public function setSource(Source $source): self
-    {
-        $this->source = $source;
-        return $this;
     }
 
     /**
@@ -336,24 +258,9 @@ class Order
         return $this->taxes;
     }
 
-    public function setTaxes(array $taxes): self
-    {
-        $this->taxes = $taxes;
-        return $this;
-    }
-
     public function updatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * @internal
-     */
-    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-        return $this;
     }
 
     public function isset(string $field): bool

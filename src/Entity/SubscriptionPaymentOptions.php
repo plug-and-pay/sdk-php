@@ -10,23 +10,17 @@ use PlugAndPay\Sdk\Enum\PaymentType;
 
 class SubscriptionPaymentOptions
 {
-    private ?string $customerId;
-    private ?string $mandateId;
-    private ?PaymentProvider $provider;
-    private ?int $transactionId;
-    private PaymentType $type;
-    private ?string $iban;
-    private ?string $name;
+    protected ?string $customerId;
+    protected ?string $mandateId;
+    protected ?PaymentProvider $provider;
+    protected ?int $transactionId;
+    protected PaymentType $type;
+    protected ?string $iban;
+    protected ?string $name;
 
     public function customerId(): ?string
     {
         return $this->customerId;
-    }
-
-    public function setCustomerId(?string $customerId): self
-    {
-        $this->customerId = $customerId;
-        return $this;
     }
 
     public function mandateId(): ?string
@@ -45,21 +39,9 @@ class SubscriptionPaymentOptions
         return $this->provider;
     }
 
-    public function setProvider(?PaymentProvider $provider): self
-    {
-        $this->provider = $provider;
-        return $this;
-    }
-
     public function transactionId(): ?int
     {
         return $this->transactionId;
-    }
-
-    public function setTransactionId(?int $transactionId): self
-    {
-        $this->transactionId = $transactionId;
-        return $this;
     }
 
     public function type(): PaymentType

@@ -9,9 +9,9 @@ use PlugAndPay\Sdk\Enum\CountryCode;
 
 class TaxRate
 {
-    private int $id;
-    private CountryCode $country;
-    private float $percentage;
+    protected int $id;
+    protected CountryCode $country;
+    protected float $percentage;
 
     public function id(): int
     {
@@ -29,21 +29,9 @@ class TaxRate
         return $this->country;
     }
 
-    public function setCountry(CountryCode $country): self
-    {
-        $this->country = $country;
-        return $this;
-    }
-
     public function percentage(): float
     {
         return $this->percentage;
-    }
-
-    public function setPercentage(float $percentage): self
-    {
-        $this->percentage = $percentage;
-        return $this;
     }
 
     public function isset(string $field): bool

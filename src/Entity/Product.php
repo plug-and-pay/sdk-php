@@ -11,21 +11,21 @@ use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class Product
 {
-    private bool $allowEmptyRelations;
-    private int $id;
-    private DateTimeImmutable $createdAt;
-    private ?DateTimeImmutable $deletedAt;
-    private string $description;
-    private ?int $ledger;
-    private bool $physical;
-    private ProductPricing $pricing;
-    private string $publicTitle;
-    private ?string $sku;
-    private ?string $slug;
-    private Stock $stock;
-    private string $title;
-    private ContractType $type;
-    private DateTimeImmutable $updatedAt;
+    protected bool $allowEmptyRelations;
+    protected int $id;
+    protected DateTimeImmutable $createdAt;
+    protected ?DateTimeImmutable $deletedAt;
+    protected string $description;
+    protected ?int $ledger;
+    protected bool $physical;
+    protected ProductPricing $pricing;
+    protected string $publicTitle;
+    protected ?string $sku;
+    protected ?string $slug;
+    protected Stock $stock;
+    protected string $title;
+    protected ContractType $type;
+    protected DateTimeImmutable $updatedAt;
 
     public function __construct(bool $allowEmptyRelations = true)
     {
@@ -37,32 +37,14 @@ class Product
         return $this->id;
     }
 
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
-
     public function createdAt(): DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-
     public function deletedAt(): ?DateTimeImmutable
     {
         return $this->deletedAt;
-    }
-
-    public function setDeletedAt(?DateTimeImmutable $deletedAt): self
-    {
-        $this->deletedAt = $deletedAt;
-        return $this;
     }
 
     public function description(): string
@@ -156,12 +138,6 @@ class Product
     public function updatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-        return $this;
     }
 
     /**

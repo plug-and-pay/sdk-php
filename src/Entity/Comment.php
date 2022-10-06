@@ -8,20 +8,14 @@ use DateTimeImmutable;
 
 class Comment
 {
-    private DateTimeImmutable $createdAt;
-    private int $id;
-    private DateTimeImmutable $updatedAt;
-    private string $value;
+    protected DateTimeImmutable $createdAt;
+    protected int $id;
+    protected DateTimeImmutable $updatedAt;
+    protected string $value;
 
     public function createdAt(): DateTimeImmutable
     {
         return $this->createdAt;
-    }
-
-    public function setCreatedAt(DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-        return $this;
     }
 
     public function id(): int
@@ -29,9 +23,9 @@ class Comment
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setValue(string $value): self
     {
-        $this->id = $id;
+        $this->value = $value;
         return $this;
     }
 
@@ -40,20 +34,8 @@ class Comment
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-        return $this;
-    }
-
     public function value(): string
     {
         return $this->value;
-    }
-
-    public function setValue(string $value): self
-    {
-        $this->value = $value;
-        return $this;
     }
 }
