@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PlugAndPay\Sdk\Tests\Feature\Order\Mock;
+namespace PlugAndPay\Sdk\Tests\Feature\OrderPayment\Mock;
 
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
