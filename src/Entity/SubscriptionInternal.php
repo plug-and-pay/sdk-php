@@ -52,6 +52,15 @@ class SubscriptionInternal extends Subscription
     /**
      * @internal
      */
+    public function setProduct(Product $product): self
+    {
+        $this->product = $product;
+        return $this;
+    }
+
+    /**
+     * @internal
+     */
     public function setSource(Source $source): self
     {
         $this->source = $source;

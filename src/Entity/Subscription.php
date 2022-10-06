@@ -102,9 +102,9 @@ class Subscription
         return $this->product;
     }
 
-    public function setProduct(Product $product): self
+    public function setProductId(int $id): self
     {
-        $this->product = $product;
+        $this->product = (new ProductInternal())->setId($id);
         return $this;
     }
 

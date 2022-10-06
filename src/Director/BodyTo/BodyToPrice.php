@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use PlugAndPay\Sdk\Entity\Price;
+use PlugAndPay\Sdk\Entity\PriceInternal;
 use PlugAndPay\Sdk\Enum\Interval;
 
 class BodyToPrice
 {
     public static function build(array $data): Price
     {
-        return (new Price())
+        return (new PriceInternal())
             ->setId($data['id'])
             ->setFirst($data['first'] ? BodyToPriceFirst::build($data['first']) : null)
             ->setInterval(Interval::tryFrom((string)$data['interval']))
