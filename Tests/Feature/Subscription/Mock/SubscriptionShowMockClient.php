@@ -14,14 +14,14 @@ use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 class SubscriptionShowMockClient extends ClientMock
 {
     public const BASIC_SUBSCRIPTION = [
-        "id"           => 1,
-        "cancelled_at" => null,
-        "created_at"   => "2022-09-20T08:15:24.000000Z",
-        "deleted_at"   => null,
-        "mode"         => 'live',
+        'id'           => 1,
+        'cancelled_at' => null,
+        'created_at'   => '2022-09-20T08:15:24.000000Z',
+        'deleted_at'   => null,
+        'mode'         => 'live',
         'source'       => 'api',
-        "status"       => 'active',
-        "updated_at"   => "2022-09-20T08:15:24.000000Z",
+        'status'       => 'active',
+        'updated_at'   => '2022-09-20T08:15:24.000000Z',
     ];
     protected string $path;
 
@@ -135,6 +135,20 @@ class SubscriptionShowMockClient extends ClientMock
             'end'       => '2019-01-16T00:00:00.000000Z',
             'is_active' => true,
             'start'     => '2019-01-16T00:00:00.000000Z',
+        ];
+
+        return $this;
+    }
+
+    public function tax(): self
+    {
+        $this->responseBody['data']['pricing']['tax'] = [
+            'amount' => '10.00',
+            'rate'   => [
+                'id'         => 1234,
+                'country'    => 'NL',
+                'percentage' => '6.0',
+            ],
         ];
 
         return $this;
