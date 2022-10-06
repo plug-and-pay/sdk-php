@@ -11,7 +11,7 @@ class BodyToPriceRegular
     public static function build(array $data): PriceRegular
     {
         return (new PriceRegular())
-            ->setAmount((float) $data['amount'])
-            ->setAmountWithTax((float) $data['amount_with_tax']);
+            ->setAmount((float)$data['amount'])
+            ->setAmountWithTax((float)$data['amount_with_tax']);
     }
 }
