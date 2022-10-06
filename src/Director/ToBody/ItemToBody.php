@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\ToBody;
 
 use PlugAndPay\Sdk\Entity\Item;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class ItemToBody
 {
+    /**
+     * @throws RelationNotLoadedException
+     */
     public static function build(Item $item): array
     {
         $result = [];
@@ -17,7 +21,11 @@ class ItemToBody
         }
 
         if ($item->isset('amount')) {
-            $result['amount'] = $item->amount();
+            $result['amount'] = (string) $item->amount();
+        }
+
+        if ($item->isset('amountWithTax')) {
+            $result['amount_with_tax'] = (string) $item->amountWithTax();
         }
 
         if ($item->isset('label')) {

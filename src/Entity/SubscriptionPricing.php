@@ -10,8 +10,9 @@ use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 class SubscriptionPricing
 {
     private bool $allowEmptyRelations;
-    private string $amount;
-    private string $amountWithTax;
+    private float $amount;
+    private float $amountWithTax;
+    /** @var Discount[] */
     private array $discounts;
     private int $quantity;
     private Tax $tax;
@@ -22,23 +23,23 @@ class SubscriptionPricing
         $this->allowEmptyRelations = $allowEmptyRelations;
     }
 
-    public function amount(): string
+    public function amount(): float
     {
         return $this->amount;
     }
 
-    public function setAmount(string $amount): self
+    public function setAmount(float $amount): self
     {
         $this->amount = $amount;
         return $this;
     }
 
-    public function amountWithTax(): string
+    public function amountWithTax(): float
     {
         return $this->amountWithTax;
     }
 
-    public function setAmountWithTax(string $amountWithTax): self
+    public function setAmountWithTax(float $amountWithTax): self
     {
         $this->amountWithTax = $amountWithTax;
         return $this;
@@ -67,7 +68,7 @@ class SubscriptionPricing
     }
 
     /**
-     * @throws \PlugAndPay\Sdk\Exception\RelationNotLoadedException
+     * @throws RelationNotLoadedException
      */
     public function tax(): Tax
     {

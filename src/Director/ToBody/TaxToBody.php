@@ -20,6 +20,10 @@ class TaxToBody
             $result['rate'] = TaxRateToBody::build($tax->rate());
         }
 
+        if ($tax->isset('amount')) {
+            $result['amount'] = $tax->amount();
+        }
+
         return $result;
     }
 }

@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Director\ToBody\SubscriptionToBody;
 use PlugAndPay\Sdk\Entity\Address;
 use PlugAndPay\Sdk\Entity\Contact;
+use PlugAndPay\Sdk\Entity\Discount;
 use PlugAndPay\Sdk\Entity\Price;
 use PlugAndPay\Sdk\Entity\PriceFirst;
 use PlugAndPay\Sdk\Entity\PriceOriginal;
@@ -23,6 +24,7 @@ use PlugAndPay\Sdk\Entity\SubscriptionTrial;
 use PlugAndPay\Sdk\Entity\Tax;
 use PlugAndPay\Sdk\Entity\TaxRate;
 use PlugAndPay\Sdk\Enum\CountryCode;
+use PlugAndPay\Sdk\Enum\DiscountType;
 use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentType;
@@ -88,9 +90,9 @@ class StoreSubscriptionTest extends TestCase
             ->setRate($taxRate);
 
         $pricing = (new SubscriptionPricing())
-            ->setAmount('100.00')
-            ->setAmountWithTax('120.00')
-            ->setDiscounts(['10.00'])
+            ->setAmount(100.00)
+            ->setAmountWithTax(120.00)
+            ->setDiscounts([(new Discount())->setAmount(100.00)])
             ->setQuantity(10)
             ->setTax($tax)
             ->setIsTaxIncluded(false);
@@ -102,14 +104,17 @@ class StoreSubscriptionTest extends TestCase
 
         static::assertEquals([
             'pricing' => [
-                'amount'          => '100.00',
-                'amount_with_tax' => '120.00',
+                'amount'          => '100',
+                'amount_with_tax' => '120',
                 'discounts'       => [
-                    0 => '10.00',
+                    [
+                        'amount' => '100',
+                    ],
                 ],
                 'quantity'        => 10,
                 'tax'             => [
-                    'rate' => [],
+                    'amount' => 21,
+                    'rate'   => [],
                 ],
                 'is_tax_included' => false,
             ],
@@ -194,6 +199,10 @@ class StoreSubscriptionTest extends TestCase
                             'original'     => [
                                 'amount'          => 200.0,
                                 'amount_with_tax' => 242.0,
+                            ],
+                            'regular'      => [
+                                'amount'          => 100,
+                                'amount_with_tax' => 121,
                             ],
                             "tiers"        => [
                                 0 => [
@@ -315,7 +324,7 @@ class StoreSubscriptionTest extends TestCase
 
         $body = SubscriptionToBody::build($subscription);
         static::assertEquals([
-            'trial'  => [
+            'trial' => [
                 'end'       => '2022-12-01',
                 'is_active' => true,
                 'start'     => '2022-01-01',
@@ -364,9 +373,9 @@ class StoreSubscriptionTest extends TestCase
             ->setRate($taxRate);
 
         $pricing = (new SubscriptionPricing())
-            ->setAmount('100.00')
-            ->setAmountWithTax('120.00')
-            ->setDiscounts(['10.00'])
+            ->setAmount(100.00)
+            ->setAmountWithTax(120.00)
+            ->setDiscounts([(new Discount())->setAmount(10.00)])
             ->setQuantity(10)
             ->setTax($tax)
             ->setIsTaxIncluded(false);
@@ -379,14 +388,17 @@ class StoreSubscriptionTest extends TestCase
         )->create($subscription);
         static::assertEquals(1, $subscription->id());
         static::assertEquals([
-            'amount'          => '100.00',
-            'amount_with_tax' => '120.00',
+            'amount'          => '100',
+            'amount_with_tax' => '120',
             'discounts'       => [
-                0 => '10.00'
+                [
+                    'amount' => '10',
+                ]
             ],
             'quantity'        => 10,
             'tax'             => [
-                'rate' => []
+                'amount' => 21,
+                'rate'   => []
             ],
             'is_tax_included' => false,
         ], $client->requestBody()['pricing']);
@@ -472,6 +484,10 @@ class StoreSubscriptionTest extends TestCase
                         'original'     => [
                             'amount'          => 200.0,
                             'amount_with_tax' => 242.0,
+                        ],
+                        'regular'     => [
+                            'amount'          => 100.0,
+                            'amount_with_tax' => 121.0,
                         ],
                         'tiers'        => [
                             0 => [

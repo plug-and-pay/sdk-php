@@ -191,9 +191,10 @@ class OrderShowMockClient extends ClientMock
 
         return $this->items(['discounts' => [
             [
-                'amount' => '2.10',
-                'code'   => 'u4lbf3',
-                'type'   => 'promotion',
+                'amount'          => '10.00',
+                'amount_with_tax' => '12.10',
+                'code'            => 'u4lbf3',
+                'type'            => 'promotion',
             ],
         ]]);
     }
