@@ -32,8 +32,8 @@ class BodyToOrder
             ->setMode(Mode::from($data['mode']))
             ->setReference($data['reference'])
             ->setSource(Source::tryFrom($data['source']) ?? Source::UNKNOWN)
-            ->setAmount((float)$data['amount'])
-            ->setAmountWithTax((float)$data['amount_with_tax'])
+            ->setAmount((float) $data['amount'])
+            ->setAmountWithTax((float) $data['amount_with_tax'])
             ->setUpdatedAt(self::date($data, 'updated_at'));
 
         if (isset($data['billing'])) {
@@ -90,7 +90,7 @@ class BodyToOrder
             return new DateTimeImmutable($data[$field]);
         } catch (Exception $e) {
             /** @noinspection JsonEncodingApiUsageInspection */
-            $body = (string)json_encode($data, JSON_ERROR_NONE);
+            $body = (string) json_encode($data, JSON_ERROR_NONE);
             throw new DecodeResponseException($body, $field, $e);
         }
     }

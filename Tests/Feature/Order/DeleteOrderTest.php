@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -16,8 +18,8 @@ class DeleteOrderTest extends TestCase
     /** @test */
     public function delete_order_not_found(): void
     {
-        $client  = new OrderDestroyMockClient(Response::HTTP_NOT_FOUND, []);
-        $service = new OrderService($client);
+        $client    = new OrderDestroyMockClient(Response::HTTP_NOT_FOUND, []);
+        $service   = new OrderService($client);
         $exception = null;
 
         try {
@@ -31,8 +33,8 @@ class DeleteOrderTest extends TestCase
     /** @test */
     public function delete_order_unauthenticated(): void
     {
-        $client  = new OrderDestroyMockClient(Response::HTTP_UNAUTHORIZED, []);
-        $service = new OrderService($client);
+        $client    = new OrderDestroyMockClient(Response::HTTP_UNAUTHORIZED, []);
+        $service   = new OrderService($client);
         $exception = null;
 
         try {

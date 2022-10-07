@@ -23,7 +23,7 @@ class OrderDestroyMockClient extends ClientMock
     public function delete(string $path): Response
     {
         $this->path = $path;
-        $exception = ExceptionFactory::create($this->status);
+        $exception  = ExceptionFactory::create($this->status);
         if ($exception) {
             throw $exception;
         }

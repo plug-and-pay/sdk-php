@@ -37,6 +37,7 @@ class PricingTax
     public function setProfile(TaxProfile $profile): self
     {
         $this->profile = $profile;
+
         return $this;
     }
 
@@ -59,6 +60,7 @@ class PricingTax
     public function setRate(TaxRate $rate): self
     {
         $this->rate = $rate;
+
         return $this;
     }
 

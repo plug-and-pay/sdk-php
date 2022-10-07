@@ -20,6 +20,7 @@ class PriceTier
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
+
         return $this;
     }
 
@@ -31,6 +32,7 @@ class PriceTier
     public function setAmountWithTax(float $amountWithTax): self
     {
         $this->amountWithTax = $amountWithTax;
+
         return $this;
     }
 
@@ -42,6 +44,7 @@ class PriceTier
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
         return $this;
     }
 

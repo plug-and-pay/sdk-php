@@ -1,6 +1,7 @@
 <?php
+
 /** @noinspection EfferentObjectCouplingInspection */
-/** @noinspection PhpUnhandledExceptionInspection */
+/* @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -9,11 +10,11 @@ namespace PlugAndPay\Sdk\Tests\Feature\Order;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
 use PlugAndPay\Sdk\Entity\Address;
-use PlugAndPay\Sdk\Entity\OrderBilling;
 use PlugAndPay\Sdk\Entity\Comment;
 use PlugAndPay\Sdk\Entity\Contact;
 use PlugAndPay\Sdk\Entity\Item;
 use PlugAndPay\Sdk\Entity\Order;
+use PlugAndPay\Sdk\Entity\OrderBilling;
 use PlugAndPay\Sdk\Entity\Payment;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Enum\CountryCode;
@@ -232,7 +233,8 @@ class StoreOrderTest extends TestCase
         $service->include(OrderIncludes::BILLING);
 
         $order = $this->generateOrder();
-        $order->billing()->setAddress((new Address())
+        $order->billing()->setAddress(
+            (new Address())
             ->setCity('WooCity')
             ->setCountry(CountryCode::BE)
             ->setStreet('WooStreet')

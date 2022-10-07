@@ -37,6 +37,7 @@ class Payment
     public function setMandateId(?string $mandateId): self
     {
         $this->mandateId = $mandateId;
+
         return $this;
     }
 
@@ -68,6 +69,7 @@ class Payment
     public function setStatus(?PaymentStatus $status): self
     {
         $this->status = $status;
+
         return $this;
     }
 
@@ -84,6 +86,7 @@ class Payment
     public function setType(?PaymentType $type): self
     {
         $this->type = $type;
+
         return $this;
     }
 

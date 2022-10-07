@@ -22,6 +22,7 @@ class SubscriptionIndexMockClient extends ClientMock
     public function get(string $path): Response
     {
         $this->path = $path;
+
         return new Response(Response::HTTP_OK, ['data' => $this->responseBody]);
     }
 

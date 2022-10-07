@@ -1,4 +1,6 @@
-<?php /** @noinspection SpellCheckingInspection */
+<?php
+
+/** @noinspection SpellCheckingInspection */
 
 namespace PlugAndPay\Sdk\Enum;
 

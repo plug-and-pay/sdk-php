@@ -1,6 +1,7 @@
 <?php
+
 /** @noinspection EfferentObjectCouplingInspection */
-/** @noinspection PhpUnhandledExceptionInspection */
+/* @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -12,17 +13,17 @@ use PlugAndPay\Sdk\Entity\Price;
 use PlugAndPay\Sdk\Entity\PriceFirst;
 use PlugAndPay\Sdk\Entity\PriceOriginal;
 use PlugAndPay\Sdk\Entity\PriceTier;
-use PlugAndPay\Sdk\Entity\ProductPricing;
 use PlugAndPay\Sdk\Entity\PricingTax;
 use PlugAndPay\Sdk\Entity\PricingTrial;
 use PlugAndPay\Sdk\Entity\Product;
+use PlugAndPay\Sdk\Entity\ProductPricing;
 use PlugAndPay\Sdk\Entity\Shipping;
 use PlugAndPay\Sdk\Entity\Stock;
 use PlugAndPay\Sdk\Entity\TaxProfile;
 use PlugAndPay\Sdk\Entity\TaxRate;
+use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Enum\ProductIncludes;
-use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Service\ProductService;
 use PlugAndPay\Sdk\Tests\Feature\Product\Mock\ProductStoreMockClient;
 
@@ -210,7 +211,8 @@ class StoreProductsTest extends TestCase
         $product = $this->makeBaseProduct()->setPricing(
             (new ProductPricing())->setPrices([
                 (new Price())
-                    ->setTiers([
+                    ->setTiers(
+                        [
                             (new PriceTier())
                                 ->setAmount(10)
                                 ->setAmountWithTax(12.1)

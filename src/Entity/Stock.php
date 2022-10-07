@@ -20,6 +20,7 @@ class Stock
     public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
+
         return $this;
     }
 
@@ -31,6 +32,7 @@ class Stock
     public function setHidden(bool $hidden): self
     {
         $this->hidden = $hidden;
+
         return $this;
     }
 
@@ -42,6 +44,7 @@ class Stock
     public function setValue(?int $value): self
     {
         $this->value = $value;
+
         return $this;
     }
 

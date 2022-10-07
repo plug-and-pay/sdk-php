@@ -30,6 +30,7 @@ class ProductPricing
     public function setTaxIncluded(bool $isTaxIncluded): self
     {
         $this->taxIncluded = $isTaxIncluded;
+
         return $this;
     }
 
@@ -41,6 +42,7 @@ class ProductPricing
     public function setPrices(array $prices): self
     {
         $this->prices = $prices;
+
         return $this;
     }
 
@@ -52,6 +54,7 @@ class ProductPricing
     public function setShipping(?Shipping $shipping): self
     {
         $this->shipping = $shipping;
+
         return $this;
     }
 
@@ -74,6 +77,7 @@ class ProductPricing
     public function setTax(PricingTax $tax): self
     {
         $this->tax = $tax;
+
         return $this;
     }
 
@@ -85,6 +89,7 @@ class ProductPricing
     public function setTrial(?PricingTrial $trial): self
     {
         $this->trial = $trial;
+
         return $this;
     }
 

@@ -26,6 +26,7 @@ class Comment
     public function setValue(string $value): self
     {
         $this->value = $value;
+
         return $this;
     }
 

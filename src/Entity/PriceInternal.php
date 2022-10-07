@@ -15,6 +15,7 @@ class PriceInternal extends Price
     public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 }

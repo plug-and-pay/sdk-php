@@ -26,6 +26,7 @@ class OrderPaymentService
     public function find(int $orderId): Payment
     {
         $response = $this->client->get("/v2/orders/$orderId/payment");
+
         return BodyToOrderPayment::build($response->body()['data']);
     }
 

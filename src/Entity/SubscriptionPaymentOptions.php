@@ -46,30 +46,35 @@ class SubscriptionPaymentOptions
     public function setIban(?string $iban): self
     {
         $this->iban = $iban;
+
         return $this;
     }
 
     public function setMandateId(?string $mandateId): self
     {
         $this->mandateId = $mandateId;
+
         return $this;
     }
 
     public function setName(?string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
     public function setProvider(?PaymentProvider $provider): self
     {
         $this->provider = $provider;
+
         return $this;
     }
 
     public function setType(PaymentType $type): self
     {
         $this->type = $type;
+
         return $this;
     }
 

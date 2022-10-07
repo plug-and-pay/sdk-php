@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -11,13 +13,13 @@ use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\DiscountType;
 use PlugAndPay\Sdk\Enum\InvoiceStatus;
 use PlugAndPay\Sdk\Enum\ItemType;
-use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Enum\Mode;
-use PlugAndPay\Sdk\Enum\Source;
+use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Enum\PaymentMethod;
 use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\PaymentType;
+use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Exception\UnauthenticatedException;
@@ -67,7 +69,7 @@ class ShowOrderTest extends TestCase
     }
 
     /**
-     * Data provider for show_none_loaded_relationships
+     * Data provider for show_none_loaded_relationships.
      */
     public function relationsProvider(): array
     {

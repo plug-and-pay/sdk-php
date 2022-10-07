@@ -11,9 +11,9 @@ class TaxRatesIndexMockClient extends ClientMock
 {
     private string $path;
     private const BASIC_COUNTRY = [
-        "id"         => 1,
-        "country"    => "NL",
-        "percentage" => "6.0"
+        'id'         => 1,
+        'country'    => 'NL',
+        'percentage' => '6.0',
     ];
 
     /** @noinspection PhpMissingParentConstructorInspection */
@@ -27,6 +27,7 @@ class TaxRatesIndexMockClient extends ClientMock
     public function get(string $path): Response
     {
         $this->path = $path;
+
         return new Response(Response::HTTP_OK, ['data' => $this->responseBody]);
     }
 

@@ -40,7 +40,7 @@ class IndexTaxRatesTest extends TestCase
     }
 
     /**
-     * Data provider for index_tax_rate_with_filter
+     * Data provider for index_tax_rate_with_filter.
      */
     public function taxRateFilterDataProvider(): array
     {
@@ -54,4 +54,3 @@ class IndexTaxRatesTest extends TestCase
         ];
     }
 }
-

@@ -13,6 +13,7 @@ class TaxRateFilter
     public function country(CountryCode $value): self
     {
         $this->parameters['country'] = $value->value;
+
         return $this;
     }
 

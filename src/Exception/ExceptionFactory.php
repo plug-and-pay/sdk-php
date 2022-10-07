@@ -1,4 +1,6 @@
-<?php /** @noinspection MultipleReturnStatementsInspection */
+<?php
+
+/** @noinspection MultipleReturnStatementsInspection */
 
 declare(strict_types=1);
 
@@ -19,6 +21,7 @@ class ExceptionFactory
         switch ($status) {
             case Response::HTTP_UNPROCESSABLE_ENTITY:
                 $body = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+
                 return new ValidationException($body['errors']);
             case Response::HTTP_NOT_FOUND:
                 return new NotFoundException();

@@ -18,6 +18,7 @@ class Arr
                 $merged[$key] = $value;
             }
         }
+
         return $merged;
     }
 }

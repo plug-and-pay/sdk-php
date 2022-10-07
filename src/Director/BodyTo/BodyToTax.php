@@ -11,7 +11,7 @@ class BodyToTax
     public static function build(array $data): Tax
     {
         return (new Tax())
-            ->setAmount((float)$data['amount'])
+            ->setAmount((float) $data['amount'])
             ->setRate(BodyToRate::build($data['rate']));
     }
 
@@ -24,6 +24,7 @@ class BodyToTax
         foreach ($data as $tax) {
             $result[] = self::build($tax);
         }
+
         return $result;
     }
 }

@@ -19,6 +19,7 @@ class OrderStoreMockClient extends OrderShowMockClient
     {
         $this->path        = $path;
         $this->requestBody = $body;
+
         return new Response(Response::HTTP_CREATED, $this->responseBody);
     }
 

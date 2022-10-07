@@ -60,6 +60,7 @@ class Order
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
+
         return $this;
     }
 
@@ -87,6 +88,7 @@ class Order
     public function setBilling(OrderBilling $billing): self
     {
         $this->billing = $billing;
+
         return $this;
     }
 
@@ -105,6 +107,7 @@ class Order
     public function setComments(array $comments): self
     {
         $this->comments = $comments;
+
         return $this;
     }
 
@@ -153,6 +156,7 @@ class Order
     public function setHidden(bool $hidden): self
     {
         $this->hidden = $hidden;
+
         return $this;
     }
 
@@ -171,6 +175,7 @@ class Order
     public function setItems(array $items): self
     {
         $this->items = $items;
+
         return $this;
     }
 
@@ -182,6 +187,7 @@ class Order
     public function setMode(Mode $mode): self
     {
         $this->mode = $mode;
+
         return $this;
     }
 
@@ -204,6 +210,7 @@ class Order
     public function setPayment(Payment $payment): self
     {
         $this->payment = $payment;
+
         return $this;
     }
 
@@ -232,6 +239,7 @@ class Order
     public function setTags(array $tags): self
     {
         $this->tags = $tags;
+
         return $this;
     }
 
@@ -243,6 +251,7 @@ class Order
     public function setTaxExempt(TaxExempt $taxExempt): self
     {
         $this->taxExempt = $taxExempt;
+
         return $this;
     }
 

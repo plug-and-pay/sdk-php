@@ -19,6 +19,7 @@ class SubscriptionStoreMockClient extends SubscriptionShowMockClient
     {
         $this->path        = $path;
         $this->requestBody = $body;
+
         return new Response(Response::HTTP_CREATED, $this->responseBody);
     }
 

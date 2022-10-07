@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -6,9 +8,9 @@ namespace PlugAndPay\Sdk\Tests\Feature\Subscription;
 
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Subscription;
+use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\Mode;
-use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Enum\SubscriptionIncludes;
 use PlugAndPay\Sdk\Enum\SubscriptionStatus;
@@ -21,7 +23,7 @@ class ShowSubscriptionTest extends TestCase
     /** @test */
     public function show_basic_subscription(): void
     {
-        $client = new SubscriptionShowMockClient(['id' => 1]);
+        $client  = new SubscriptionShowMockClient(['id' => 1]);
         $service = new SubscriptionService($client);
 
         $subscription = $service->find(1);
@@ -53,7 +55,7 @@ class ShowSubscriptionTest extends TestCase
     }
 
     /**
-     * Data provider for show_none_loaded_relationships
+     * Data provider for show_none_loaded_relationships.
      */
     public function relationsProvider(): array
     {
@@ -69,11 +71,11 @@ class ShowSubscriptionTest extends TestCase
     /** @test */
     public function show_subscription_with_billing_address_and_contact(): void
     {
-        $client = (new SubscriptionShowMockClient())->billing();
+        $client  = (new SubscriptionShowMockClient())->billing();
         $service = new SubscriptionService($client);
 
         $subscription = $service->include(SubscriptionIncludes::BILLING)->find(1);
-        $billing = $subscription->billing();
+        $billing      = $subscription->billing();
 
         $contact = $billing->contact();
         static::assertSame('Café Timmermans & Zn', $contact->company());
@@ -95,7 +97,7 @@ class ShowSubscriptionTest extends TestCase
     /** @test */
     public function show_subscription_with_pricing(): void
     {
-        $client = (new SubscriptionShowMockClient())->pricing();
+        $client  = (new SubscriptionShowMockClient())->pricing();
         $service = new SubscriptionService($client);
 
         $subscription = $service->include(SubscriptionIncludes::PRICING)->find(1);
@@ -111,7 +113,7 @@ class ShowSubscriptionTest extends TestCase
     /** @test */
     public function show_subscription_with_product(): void
     {
-        $client = (new SubscriptionShowMockClient())->product();
+        $client  = (new SubscriptionShowMockClient())->product();
         $service = new SubscriptionService($client);
 
         $subscription = $service->include(SubscriptionIncludes::PRODUCT)->find(1);
@@ -134,7 +136,7 @@ class ShowSubscriptionTest extends TestCase
     /** @test */
     public function show_subscription_with_tags(): void
     {
-        $client = (new SubscriptionShowMockClient())->tags(['first', 'second']);
+        $client  = (new SubscriptionShowMockClient())->tags(['first', 'second']);
         $service = new SubscriptionService($client);
 
         $subscription = $service->include(SubscriptionIncludes::TAGS)->find(1);
@@ -145,7 +147,7 @@ class ShowSubscriptionTest extends TestCase
     /** @test */
     public function show_subscription_with_trial(): void
     {
-        $client = (new SubscriptionShowMockClient())->trial();
+        $client  = (new SubscriptionShowMockClient())->trial();
         $service = new SubscriptionService($client);
 
         $subscription = $service->include(SubscriptionIncludes::TRIAL)->find(1);
