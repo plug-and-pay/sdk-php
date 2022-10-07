@@ -8,28 +8,18 @@ use PlugAndPay\Sdk\Director\ToBody\SubscriptionToBody;
 use PlugAndPay\Sdk\Entity\Address;
 use PlugAndPay\Sdk\Entity\Contact;
 use PlugAndPay\Sdk\Entity\Discount;
-use PlugAndPay\Sdk\Entity\Price;
-use PlugAndPay\Sdk\Entity\PriceFirst;
-use PlugAndPay\Sdk\Entity\PriceOriginal;
-use PlugAndPay\Sdk\Entity\PriceRegular;
-use PlugAndPay\Sdk\Entity\PriceTier;
-use PlugAndPay\Sdk\Entity\Product;
-use PlugAndPay\Sdk\Entity\ProductPricing;
 use PlugAndPay\Sdk\Entity\Subscription;
 use PlugAndPay\Sdk\Entity\SubscriptionBilling;
 use PlugAndPay\Sdk\Entity\SubscriptionBillingSchedule;
 use PlugAndPay\Sdk\Entity\SubscriptionPaymentOptions;
 use PlugAndPay\Sdk\Entity\SubscriptionPricing;
-use PlugAndPay\Sdk\Entity\SubscriptionTrial;
 use PlugAndPay\Sdk\Entity\Tax;
 use PlugAndPay\Sdk\Entity\TaxRate;
 use PlugAndPay\Sdk\Enum\CountryCode;
-use PlugAndPay\Sdk\Enum\DiscountType;
 use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentType;
 use PlugAndPay\Sdk\Enum\SubscriptionIncludes;
-use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Service\SubscriptionService;
 use PlugAndPay\Sdk\Tests\Feature\Subscription\Mock\SubscriptionStoreMockClient;
@@ -55,23 +45,23 @@ class StoreSubscriptionTest extends TestCase
                     'lastname'  => 'de Wit',
                 ],
                 'payment_options' => [
-                    'type' => 'manual'
+                    'type' => 'manual',
                 ],
                 'schedule'        => [
                     'next_at'  => '2022-01-01',
                     'interval' => 'monthly',
-                ]
+                ],
             ],
             'product' => [
-                'id' => 8
+                'id' => 8,
             ],
             'pricing' => [
                 'tax' => [
                     'rate' => [
-                        'id' => 1
-                    ]
-                ]
-            ]
+                        'id' => 1,
+                    ],
+                ],
+            ],
         ], $body);
     }
 
@@ -81,9 +71,7 @@ class StoreSubscriptionTest extends TestCase
      */
     public function convert_subscription_pricing_to_body(): void
     {
-        $taxRate = (new TaxRate)
-            ->setCountry(CountryCode::AL)
-            ->setPercentage(21.00);
+        $taxRate = (new TaxRate)->setId(12);
 
         $tax = (new Tax())
             ->setAmount(21.00)
@@ -114,7 +102,9 @@ class StoreSubscriptionTest extends TestCase
                 'quantity'        => 10,
                 'tax'             => [
                     'amount' => 21,
-                    'rate'   => [],
+                    'rate'   => [
+                        'id' => 12,
+                    ],
                 ],
                 'is_tax_included' => false,
             ],
@@ -127,93 +117,13 @@ class StoreSubscriptionTest extends TestCase
      */
     public function convert_subscription_product_to_body(): void
     {
-        $priceTiers = (new PriceTier)
-            ->setAmount(10.00)
-            ->setAmountWithTax(12.10)
-            ->setQuantity(10);
-
-        $priceRegular = (new PriceRegular)
-            ->setAmount(100)
-            ->setAmountWithTax(121.00);
-
-        $priceOriginal = (new PriceOriginal)
-            ->setAmount(200.00)
-            ->setAmountWithTax(242.00);
-
-        $priceFirst = (new PriceFirst)
-            ->setAmount(100.00)
-            ->setAmountWithTax(121.00);
-
-        $price = (new Price)
-            ->setId(1)
-            ->setFirst($priceFirst)
-            ->setInterval(Interval::MONTHLY)
-            ->setSuggested(false)
-            ->setNrOfCycles(10)
-            ->setOriginal($priceOriginal)
-            ->setRegular($priceRegular)
-            ->setTiers([$priceTiers]);
-
-        $pricing = (new ProductPricing)
-            ->setTaxIncluded(true)
-            ->setPrices([$price]);
-
-        $product = (new Product())
-            ->setId(1)
-            ->setTitle('Lorem')
-            ->setDescription('Lorem Ipsum')
-            ->setPhysical(false)
-            ->setLedger(123)
-            ->setPublicTitle('lorem')
-            ->setSku('123456-GE')
-            ->setSlug('lorem')
-            ->setType(ContractType::SUBSCRIPTION)
-            ->setPricing($pricing);
-
         $subscription = (new Subscription())
-            ->setProduct($product);
+            ->setProductId(1);
 
         $body = SubscriptionToBody::build($subscription);
         static::assertEquals([
             'product' => [
-                'id'           => 1,
-                'title'        => 'Lorem',
-                "description"  => "Lorem Ipsum",
-                'is_physical'  => false,
-                'ledger'       => 123,
-                'public_title' => "lorem",
-                'sku'          => "123456-GE",
-                'slug'         => "lorem",
-                'type'         => "subscription",
-                'pricing'      => [
-                    'is_tax_included' => true,
-                    'prices'          => [
-                        0 => [
-                            'is_suggested' => false,
-                            'interval'     => 'monthly',
-                            'nr_of_cycles' => 10,
-                            'first'        => [
-                                'amount'          => 100.0,
-                                'amount_with_tax' => 121.0,
-                            ],
-                            'original'     => [
-                                'amount'          => 200.0,
-                                'amount_with_tax' => 242.0,
-                            ],
-                            'regular'      => [
-                                'amount'          => 100,
-                                'amount_with_tax' => 121,
-                            ],
-                            "tiers"        => [
-                                0 => [
-                                    "amount"          => 10.0,
-                                    "amount_with_tax" => 12.1,
-                                    "quantity"        => 10
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
+                'id' => 1,
             ],
         ], $body);
     }
@@ -225,18 +135,12 @@ class StoreSubscriptionTest extends TestCase
     public function convert_subscription_billing_to_body(): void
     {
         $paymentOptions = (new SubscriptionPaymentOptions)
-            ->setCustomerId(1)
             ->setMandateId(1)
             ->setProvider(PaymentProvider::MOLLIE)
-            ->setTransactionId(10)
             ->setType(PaymentType::MANUAL);
 
         $schedule = (new SubscriptionBillingSchedule)
             ->setInterval(Interval::MONTHLY)
-            ->setLast(1)
-            ->setLastAt(new DateTimeImmutable('2022-01-01'))
-            ->setLatest(1)
-            ->setLatestAt(new DateTimeImmutable('2022-04-01'))
             ->setNext(1)
             ->setNextAt(new DateTimeImmutable('2022-05-01'))
             ->setRemaining(6)
@@ -288,46 +192,16 @@ class StoreSubscriptionTest extends TestCase
                 ],
                 'schedule'        => [
                     'interval'       => 'monthly',
-                    'last'           => 1,
-                    'last_at'        => '2022-01-01',
-                    'latest'         => 1,
-                    'latest_at'      => '2022-04-01',
                     'next'           => 1,
                     'next_at'        => '2022-05-01',
                     'remaining'      => 6,
                     'termination_at' => '2022-10-01',
                 ],
                 'payment_options' => [
-                    'customer_id'    => 1,
-                    'mandate_id'     => 1,
-                    'provider'       => 'mollie',
-                    'transaction_id' => 10,
-                    'type'           => 'manual',
+                    'mandate_id' => '1',
+                    'provider'   => 'mollie',
+                    'type'       => 'manual',
                 ],
-            ],
-        ], $body);
-    }
-
-    /**
-     * @test
-     * @throws RelationNotLoadedException
-     */
-    public function convert_subscription_trial_to_body(): void
-    {
-        $trial = (new SubscriptionTrial)
-            ->setEndDate(new DateTimeImmutable('2022-12-01'))
-            ->setIsActive(1)
-            ->setStartDate(new DateTimeImmutable('2022-01-01'));
-
-        $subscription = (new Subscription())
-            ->setTrial($trial);
-
-        $body = SubscriptionToBody::build($subscription);
-        static::assertEquals([
-            'trial' => [
-                'end'       => '2022-12-01',
-                'is_active' => true,
-                'start'     => '2022-01-01',
             ],
         ], $body);
     }
@@ -346,7 +220,7 @@ class StoreSubscriptionTest extends TestCase
     /** @test */
     public function store_basic_order(): void
     {
-        $client = new SubscriptionStoreMockClient();
+        $client  = new SubscriptionStoreMockClient();
         $service = new SubscriptionService($client);
 
         $subscription = $this->generateSubscription();
@@ -361,12 +235,11 @@ class StoreSubscriptionTest extends TestCase
     /** @test */
     public function store_subscription_pricing(): void
     {
-        $client = new SubscriptionStoreMockClient();
+        $client  = new SubscriptionStoreMockClient();
         $service = new SubscriptionService($client);
 
         $taxRate = (new TaxRate)
-            ->setCountry(CountryCode::AL)
-            ->setPercentage(21.00);
+            ->setId(12);
 
         $tax = (new Tax())
             ->setAmount(21.00)
@@ -393,12 +266,14 @@ class StoreSubscriptionTest extends TestCase
             'discounts'       => [
                 [
                     'amount' => '10',
-                ]
+                ],
             ],
             'quantity'        => 10,
             'tax'             => [
                 'amount' => 21,
-                'rate'   => []
+                'rate'   => [
+                    'id' => 12,
+                ],
             ],
             'is_tax_included' => false,
         ], $client->requestBody()['pricing']);
@@ -407,120 +282,34 @@ class StoreSubscriptionTest extends TestCase
     /** @test */
     public function store_subscription_product_pricing(): void
     {
-        $client = new SubscriptionStoreMockClient();
+        $client  = new SubscriptionStoreMockClient();
         $service = new SubscriptionService($client);
 
-        $priceTiers = (new PriceTier)
-            ->setAmount(10.00)
-            ->setAmountWithTax(12.10)
-            ->setQuantity(10);
-
-        $priceRegular = (new PriceRegular)
-            ->setAmount(100)
-            ->setAmountWithTax(121.00);
-
-        $priceOriginal = (new PriceOriginal)
-            ->setAmount(200.00)
-            ->setAmountWithTax(242.00);
-
-        $priceFirst = (new PriceFirst)
-            ->setAmount(100.00)
-            ->setAmountWithTax(121.00);
-
-        $price = (new Price)
-            ->setId(1)
-            ->setFirst($priceFirst)
-            ->setInterval(Interval::MONTHLY)
-            ->setSuggested(false)
-            ->setNrOfCycles(10)
-            ->setOriginal($priceOriginal)
-            ->setRegular($priceRegular)
-            ->setTiers([$priceTiers]);
-
-        $pricing = (new ProductPricing)
-            ->setTaxIncluded(true)
-            ->setPrices([$price]);
-
-        $product = (new Product())
-            ->setId(1)
-            ->setTitle('Lorem')
-            ->setDescription('Lorem Ipsum')
-            ->setPhysical(false)
-            ->setLedger(123)
-            ->setPublicTitle('lorem')
-            ->setSku('123456-GE')
-            ->setSlug('lorem')
-            ->setType(ContractType::SUBSCRIPTION)
-            ->setPricing($pricing);
-
         $subscription = (new Subscription())
-            ->setProduct($product);
+            ->setProductId(1);
 
         $subscription = $service->include(
             SubscriptionIncludes::PRODUCT,
         )->create($subscription);
         static::assertEquals(1, $subscription->id());
         static::assertEquals([
-            'id'           => 1,
-            'title'        => 'Lorem',
-            'description'  => 'Lorem Ipsum',
-            'is_physical'  => false,
-            'ledger'       => 123,
-            'public_title' => 'lorem',
-            'sku'          => '123456-GE',
-            'slug'         => 'lorem',
-            'type'         => 'subscription',
-            'pricing'      => [
-                'is_tax_included' => true,
-                'prices'          => [
-                    0 => [
-                        'is_suggested' => false,
-                        'interval'     => 'monthly',
-                        'nr_of_cycles' => 10,
-                        'first'        => [
-                            'amount'          => 100.0,
-                            'amount_with_tax' => 121.0,
-                        ],
-                        'original'     => [
-                            'amount'          => 200.0,
-                            'amount_with_tax' => 242.0,
-                        ],
-                        'regular'     => [
-                            'amount'          => 100.0,
-                            'amount_with_tax' => 121.0,
-                        ],
-                        'tiers'        => [
-                            0 => [
-                                'amount'          => 10.0,
-                                'amount_with_tax' => 12.1,
-                                'quantity'        => 10,
-                            ],
-                        ],
-                    ],
-                ],
-            ]
+            'id' => 1,
         ], $client->requestBody()['product']);
     }
 
     /** @test */
     public function store_subscription_billing(): void
     {
-        $client = new SubscriptionStoreMockClient();
+        $client  = new SubscriptionStoreMockClient();
         $service = new SubscriptionService($client);
 
         $paymentOptions = (new SubscriptionPaymentOptions)
-            ->setCustomerId(1)
             ->setMandateId(1)
             ->setProvider(PaymentProvider::MOLLIE)
-            ->setTransactionId(10)
             ->setType(PaymentType::MANUAL);
 
         $schedule = (new SubscriptionBillingSchedule)
             ->setInterval(Interval::MONTHLY)
-            ->setLast(1)
-            ->setLastAt(new DateTimeImmutable('2022-01-01'))
-            ->setLatest(1)
-            ->setLatestAt(new DateTimeImmutable('2022-04-01'))
             ->setNext(1)
             ->setNextAt(new DateTimeImmutable('2022-05-01'))
             ->setRemaining(6)
@@ -554,6 +343,7 @@ class StoreSubscriptionTest extends TestCase
         $subscription = $service->include(
             SubscriptionIncludes::BILLING,
         )->create($subscription);
+
         static::assertEquals(1, $subscription->id());
         static::assertEquals([
             'address'         => [
@@ -573,22 +363,16 @@ class StoreSubscriptionTest extends TestCase
                 'vat_id_number' => '123456789',
             ],
             'schedule'        => [
-                'interval'       => 'monthly',
-                'last'           => 1,
-                'last_at'        => '2022-01-01',
-                'latest'         => 1,
-                'latest_at'      => '2022-04-01',
                 'next'           => 1,
                 'next_at'        => '2022-05-01',
                 'remaining'      => 6,
                 'termination_at' => '2022-10-01',
+                'interval'       => 'monthly',
             ],
             'payment_options' => [
-                'customer_id'    => 1,
-                'mandate_id'     => 1,
-                'provider'       => 'mollie',
-                'transaction_id' => 10,
-                'type'           => 'manual',
+                'mandate_id' => '1',
+                'type'       => 'manual',
+                'provider'   => 'mollie',
             ],
         ], $client->requestBody()['billing']);
     }
@@ -596,7 +380,7 @@ class StoreSubscriptionTest extends TestCase
     /** @test */
     public function store_subscription_tags(): void
     {
-        $client = new SubscriptionStoreMockClient();
+        $client  = new SubscriptionStoreMockClient();
         $service = new SubscriptionService($client);
 
         $tags = ['first', 'second', 'third'];
@@ -615,38 +399,10 @@ class StoreSubscriptionTest extends TestCase
         ], $client->requestBody()['tags']);
     }
 
-    /** @test */
-    public function store_subscription_trial(): void
-    {
-        $client = new SubscriptionStoreMockClient();
-        $service = new SubscriptionService($client);
-
-        $trial = (new SubscriptionTrial)
-            ->setEndDate(new DateTimeImmutable('2022-12-01'))
-            ->setIsActive(1)
-            ->setStartDate(new DateTimeImmutable('2022-01-01'));
-
-        $subscription = (new Subscription())
-            ->setTrial($trial);
-
-        $subscription = $service->include(
-            SubscriptionIncludes::TRIAL,
-        )->create($subscription);
-        static::assertEquals(1, $subscription->id());
-        static::assertEquals([
-            'end'       => '2022-12-01',
-            'is_active' => true,
-            'start'     => '2022-01-01',
-        ], $client->requestBody()['trial']);
-    }
-
     private function generateSubscription(): Subscription
     {
         return (new Subscription())
-            ->setProduct(
-                (new Product)
-                    ->setId(8)
-            )
+            ->setProductId(8)
             ->setPricing(
                 (new SubscriptionPricing)
                     ->setTax(

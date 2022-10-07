@@ -7,6 +7,7 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 use DateTimeImmutable;
 use Exception;
 use PlugAndPay\Sdk\Entity\Comment;
+use PlugAndPay\Sdk\Entity\CommentInternal;
 
 class BodyToComment
 {
@@ -15,7 +16,7 @@ class BodyToComment
      */
     public static function build(array $data): Comment
     {
-        return (new Comment())
+        return (new CommentInternal())
             ->setCreatedAt(new DateTimeImmutable($data['created_at']))
             ->setId($data['id'])
             ->setUpdatedAt(new DateTimeImmutable($data['updated_at']))

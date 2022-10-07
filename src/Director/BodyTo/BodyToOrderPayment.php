@@ -7,6 +7,7 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 use DateTimeImmutable;
 use Exception;
 use PlugAndPay\Sdk\Entity\Payment;
+use PlugAndPay\Sdk\Entity\PaymentInternal;
 use PlugAndPay\Sdk\Enum\PaymentMethod;
 use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
@@ -19,7 +20,7 @@ class BodyToOrderPayment
      */
     public static function build(array $data): Payment
     {
-        return (new Payment())
+        return (new PaymentInternal())
             ->setCustomerId($data['customer_id'] ?? null)
             ->setMandateId($data['mandate_id'] ?? null)
             ->setMethod(PaymentMethod::tryFrom($data['method'] ?? ''))

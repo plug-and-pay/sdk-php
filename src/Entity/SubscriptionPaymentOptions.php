@@ -10,23 +10,22 @@ use PlugAndPay\Sdk\Enum\PaymentType;
 
 class SubscriptionPaymentOptions
 {
-    private ?string $customerId;
-    private ?string $mandateId;
-    private ?PaymentProvider $provider;
-    private ?int $transactionId;
-    private PaymentType $type;
-    private ?string $iban;
-    private ?string $name;
+    protected ?string $customerId;
+    protected ?string $iban;
+    protected ?string $mandateId;
+    protected ?string $name;
+    protected ?PaymentProvider $provider;
+    protected ?int $transactionId;
+    protected PaymentType $type;
 
     public function customerId(): ?string
     {
         return $this->customerId;
     }
 
-    public function setCustomerId(?string $customerId): self
+    public function iban(): ?string
     {
-        $this->customerId = $customerId;
-        return $this;
+        return $this->iban;
     }
 
     public function mandateId(): ?string
@@ -34,48 +33,14 @@ class SubscriptionPaymentOptions
         return $this->mandateId;
     }
 
-    public function setMandateId(?string $mandateId): self
+    public function name(): ?string
     {
-        $this->mandateId = $mandateId;
-        return $this;
+        return $this->name;
     }
 
     public function provider(): ?PaymentProvider
     {
         return $this->provider;
-    }
-
-    public function setProvider(?PaymentProvider $provider): self
-    {
-        $this->provider = $provider;
-        return $this;
-    }
-
-    public function transactionId(): ?int
-    {
-        return $this->transactionId;
-    }
-
-    public function setTransactionId(?int $transactionId): self
-    {
-        $this->transactionId = $transactionId;
-        return $this;
-    }
-
-    public function type(): PaymentType
-    {
-        return $this->type;
-    }
-
-    public function setType(PaymentType $type): self
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    public function iban(): ?string
-    {
-        return $this->iban;
     }
 
     public function setIban(?string $iban): self
@@ -84,15 +49,38 @@ class SubscriptionPaymentOptions
         return $this;
     }
 
-    public function name(): ?string
+    public function setMandateId(?string $mandateId): self
     {
-        return $this->name;
+        $this->mandateId = $mandateId;
+        return $this;
     }
 
     public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;
+    }
+
+    public function setProvider(?PaymentProvider $provider): self
+    {
+        $this->provider = $provider;
+        return $this;
+    }
+
+    public function setType(PaymentType $type): self
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    public function transactionId(): ?int
+    {
+        return $this->transactionId;
+    }
+
+    public function type(): PaymentType
+    {
+        return $this->type;
     }
 
     public function isset(string $field): bool

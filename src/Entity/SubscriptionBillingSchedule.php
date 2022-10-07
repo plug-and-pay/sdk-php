@@ -10,15 +10,15 @@ use PlugAndPay\Sdk\Enum\Interval;
 
 class SubscriptionBillingSchedule
 {
-    private Interval $interval;
-    private ?int $last;
-    private ?DateTimeImmutable $lastAt;
-    private ?int $latest;
-    private ?DateTimeImmutable $latestAt;
-    private ?int $next;
-    private ?DateTimeImmutable $nextAt;
-    private int $remaining;
-    private ?DateTimeImmutable $terminationAt;
+    protected Interval $interval;
+    protected ?int $last;
+    protected ?DateTimeImmutable $lastAt;
+    protected ?int $latest;
+    protected ?DateTimeImmutable $latestAt;
+    protected ?int $next;
+    protected ?DateTimeImmutable $nextAt;
+    protected int $remaining;
+    protected ?DateTimeImmutable $terminationAt;
 
     public function interval(): Interval
     {
@@ -36,21 +36,9 @@ class SubscriptionBillingSchedule
         return $this->last;
     }
 
-    public function setLast(?int $last): self
-    {
-        $this->last = $last;
-        return $this;
-    }
-
     public function lastAt(): ?DateTimeImmutable
     {
         return $this->lastAt;
-    }
-
-    public function setLastAt(?DateTimeImmutable $lastAt): self
-    {
-        $this->lastAt = $lastAt;
-        return $this;
     }
 
     public function latest(): ?int
@@ -58,21 +46,9 @@ class SubscriptionBillingSchedule
         return $this->latest;
     }
 
-    public function setLatest(?int $latest): self
-    {
-        $this->latest = $latest;
-        return $this;
-    }
-
     public function latestAt(): ?DateTimeImmutable
     {
         return $this->latestAt;
-    }
-
-    public function setLatestAt(?DateTimeImmutable $latestAt): self
-    {
-        $this->latestAt = $latestAt;
-        return $this;
     }
 
     public function next(): ?int

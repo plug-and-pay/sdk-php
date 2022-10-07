@@ -7,6 +7,7 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 use DateTimeImmutable;
 use Exception;
 use PlugAndPay\Sdk\Entity\Product;
+use PlugAndPay\Sdk\Entity\ProductInternal;
 use PlugAndPay\Sdk\Entity\Stock;
 use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
@@ -23,7 +24,7 @@ class BodyToProduct
             ->setHidden($data['stock']['is_hidden'] ?? true)
             ->setValue($data['stock']['value'] ?? null);
 
-        $product = (new Product())
+        $product = (new ProductInternal())
             ->setCreatedAt(self::date($data, 'created_at'))
             ->setDeletedAt($data['deleted_at'] ? self::date($data, 'deleted_at') : null)
             ->setDescription($data['description'])

@@ -7,6 +7,7 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 use DateTimeImmutable;
 use Exception;
 use PlugAndPay\Sdk\Entity\Order;
+use PlugAndPay\Sdk\Entity\OrderInternal;
 use PlugAndPay\Sdk\Enum\InvoiceStatus;
 use PlugAndPay\Sdk\Enum\Mode;
 use PlugAndPay\Sdk\Enum\Source;
@@ -20,7 +21,7 @@ class BodyToOrder
      */
     public static function build(array $data): Order
     {
-        $order = (new Order(false))
+        $order = (new OrderInternal(false))
             ->setCreatedAt(self::date($data, 'created_at'))
             ->setDeletedAt($data['deleted_at'] ? self::date($data, 'deleted_at') : null)
             ->setFirst($data['is_first'])
@@ -32,7 +33,7 @@ class BodyToOrder
             ->setReference($data['reference'])
             ->setSource(Source::tryFrom($data['source']) ?? Source::UNKNOWN)
             ->setAmount((float)$data['amount'])
-            ->setTotal((float)$data['amount_with_tax'])
+            ->setAmountWithTax((float)$data['amount_with_tax'])
             ->setUpdatedAt(self::date($data, 'updated_at'));
 
         if (isset($data['billing'])) {

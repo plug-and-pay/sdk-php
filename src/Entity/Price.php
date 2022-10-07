@@ -9,25 +9,19 @@ use PlugAndPay\Sdk\Enum\Interval;
 
 class Price
 {
-    private int $id;
-    private ?PriceFirst $first;
-    private ?Interval $interval;
-    private ?bool $suggested;
-    private int $nr_of_cycles;
-    private ?PriceOriginal $original;
-    private PriceRegular $regular;
+    protected int $id;
+    protected ?PriceFirst $first;
+    protected ?Interval $interval;
+    protected ?bool $suggested;
+    protected int $nr_of_cycles;
+    protected ?PriceOriginal $original;
+    protected PriceRegular $regular;
     /** @var PriceTier[] */
-    private array $tiers;
+    protected array $tiers;
 
     public function id(): int
     {
         return $this->id;
-    }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
     }
 
     public function first(): ?PriceFirst

@@ -13,20 +13,20 @@ use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class Subscription
 {
-    private bool $allowEmptyRelations;
-    private int $id;
-    private ?DateTimeImmutable $cancelledAt;
-    private DateTimeImmutable $createdAt;
-    private ?DateTimeImmutable $deletedAt;
-    private Mode $mode;
-    private SubscriptionPricing $pricing;
-    private Product $product;
-    private SubscriptionStatus $status;
-    private Source $source;
-    private SubscriptionBilling $billing;
+    protected bool $allowEmptyRelations;
+    protected int $id;
+    protected ?DateTimeImmutable $cancelledAt;
+    protected DateTimeImmutable $createdAt;
+    protected ?DateTimeImmutable $deletedAt;
+    protected Mode $mode;
+    protected SubscriptionPricing $pricing;
+    protected Product $product;
+    protected SubscriptionStatus $status;
+    protected Source $source;
+    protected SubscriptionBilling $billing;
     /** @var string[] */
-    private array $tags;
-    private SubscriptionTrial $trial;
+    protected array $tags;
+    protected SubscriptionTrial $trial;
 
     public function __construct(bool $allowEmptyRelations = true)
     {
@@ -38,24 +38,9 @@ class Subscription
         return $this->id;
     }
 
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
-
     public function cancelledAt(): ?DateTimeImmutable
     {
         return $this->cancelledAt;
-    }
-
-    /**
-     * @internal
-     */
-    public function setCancelledAt(?DateTimeImmutable $cancelledAt): self
-    {
-        $this->cancelledAt = $cancelledAt;
-        return $this;
     }
 
     public function createdAt(): DateTimeImmutable
@@ -63,27 +48,9 @@ class Subscription
         return $this->createdAt;
     }
 
-    /**
-     * @internal
-     */
-    public function setCreatedAt(DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-
     public function deletedAt(): ?DateTimeImmutable
     {
         return $this->deletedAt;
-    }
-
-    /**
-     * @internal
-     */
-    public function setDeletedAt(?DateTimeImmutable $deletedAt): self
-    {
-        $this->deletedAt = $deletedAt;
-        return $this;
     }
 
     public function mode(): Mode
@@ -135,9 +102,9 @@ class Subscription
         return $this->product;
     }
 
-    public function setProduct(Product $product): self
+    public function setProductId(int $id): self
     {
-        $this->product = $product;
+        $this->product = (new ProductInternal())->setId($id);
         return $this;
     }
 
@@ -146,21 +113,9 @@ class Subscription
         return $this->status;
     }
 
-    public function setStatus(SubscriptionStatus $status): self
-    {
-        $this->status = $status;
-        return $this;
-    }
-
     public function source(): Source
     {
         return $this->source;
-    }
-
-    public function setSource(Source $source): self
-    {
-        $this->source = $source;
-        return $this;
     }
 
     /**
@@ -217,12 +172,6 @@ class Subscription
         }
 
         return $this->trial;
-    }
-
-    public function setTrial(SubscriptionTrial $trial): self
-    {
-        $this->trial = $trial;
-        return $this;
     }
 
     public function isset(string $field): bool

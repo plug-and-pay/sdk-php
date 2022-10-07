@@ -7,6 +7,7 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 use DateTimeImmutable;
 use Exception;
 use PlugAndPay\Sdk\Entity\Subscription;
+use PlugAndPay\Sdk\Entity\SubscriptionInternal;
 use PlugAndPay\Sdk\Enum\Mode;
 use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Enum\SubscriptionStatus;
@@ -19,7 +20,7 @@ class BodyToSubscription
      */
     public static function build(array $data): Subscription
     {
-        $subscription = (new Subscription(false))
+        $subscription = (new SubscriptionInternal(false))
             ->setId($data['id'])
             ->setCancelledAt($data['cancelled_at'] ? self::date($data, 'cancelled_at') : null)
             ->setCreatedAt(self::date($data, 'created_at'))
