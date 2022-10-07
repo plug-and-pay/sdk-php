@@ -57,7 +57,7 @@ class StoreSubscriptionTest extends TestCase
             'pricing' => [
                 'tax' => [
                     'rate' => [
-                        'id' => 1,
+                        'id' => 123,
                     ],
                 ],
             ],
@@ -100,7 +100,7 @@ class StoreSubscriptionTest extends TestCase
                 'tax'             => [
                     'amount' => 21,
                     'rate'   => [
-                        'id' => 12,
+                        'id' => 123,
                     ],
                 ],
                 'is_tax_included' => false,
@@ -266,7 +266,7 @@ class StoreSubscriptionTest extends TestCase
             'tax'             => [
                 'amount' => 21,
                 'rate'   => [
-                    'id' => 12,
+                    'id' => 123,
                 ],
             ],
             'is_tax_included' => false,

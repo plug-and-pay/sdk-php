@@ -9,11 +9,11 @@ namespace PlugAndPay\Sdk\Tests\Feature\Order;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
 use PlugAndPay\Sdk\Entity\Address;
-use PlugAndPay\Sdk\Entity\OrderBilling;
 use PlugAndPay\Sdk\Entity\Comment;
 use PlugAndPay\Sdk\Entity\Contact;
 use PlugAndPay\Sdk\Entity\Item;
 use PlugAndPay\Sdk\Entity\Order;
+use PlugAndPay\Sdk\Entity\OrderBilling;
 use PlugAndPay\Sdk\Entity\Payment;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Enum\CountryCode;
@@ -91,7 +91,7 @@ class StoreOrderTest extends TestCase
             ->setAmount(10.1)
             ->setLabel('the-label')
             ->setQuantity(1)
-            ->setTaxByRateId(1);
+            ->setTaxByRateId(123);
 
         $order = (new Order())
             ->setItems([$item]);
@@ -103,7 +103,7 @@ class StoreOrderTest extends TestCase
                     'amount'   => '10.1',
                     'label'    => 'the-label',
                     'quantity' => 1,
-                    'tax'      => ['rate' => ['id' => 1]],
+                    'tax'      => ['rate' => ['id' => 123]],
                 ],
             ],
         ], $body);
