@@ -14,7 +14,6 @@ use PlugAndPay\Sdk\Entity\SubscriptionBillingSchedule;
 use PlugAndPay\Sdk\Entity\SubscriptionPaymentOptions;
 use PlugAndPay\Sdk\Entity\SubscriptionPricing;
 use PlugAndPay\Sdk\Entity\Tax;
-use PlugAndPay\Sdk\Entity\TaxRate;
 use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Enum\PaymentProvider;
@@ -71,11 +70,9 @@ class StoreSubscriptionTest extends TestCase
      */
     public function convert_subscription_pricing_to_body(): void
     {
-        $taxRate = (new TaxRate)->setId(12);
-
         $tax = (new Tax())
             ->setAmount(21.00)
-            ->setRate($taxRate);
+            ->setRateId(12);
 
         $pricing = (new SubscriptionPricing())
             ->setAmount(100.00)
@@ -238,12 +235,9 @@ class StoreSubscriptionTest extends TestCase
         $client  = new SubscriptionStoreMockClient();
         $service = new SubscriptionService($client);
 
-        $taxRate = (new TaxRate)
-            ->setId(12);
-
         $tax = (new Tax())
             ->setAmount(21.00)
-            ->setRate($taxRate);
+            ->setRateId(12);
 
         $pricing = (new SubscriptionPricing())
             ->setAmount(100.00)
@@ -406,11 +400,7 @@ class StoreSubscriptionTest extends TestCase
             ->setPricing(
                 (new SubscriptionPricing)
                     ->setTax(
-                        (new Tax)
-                            ->setRate(
-                                (new TaxRate)
-                                    ->setId(1)
-                            )
+                        (new Tax)->setRateId(1)
                     )
             )
             ->setBilling(
