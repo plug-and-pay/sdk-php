@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
-use PlugAndPay\Sdk\Entity\Subscription;
 use PlugAndPay\Sdk\Entity\SubscriptionBilling;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
