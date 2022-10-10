@@ -55,6 +55,7 @@ class Product
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -66,6 +67,7 @@ class Product
     public function setPhysical(bool $physical): self
     {
         $this->physical = $physical;
+
         return $this;
     }
 
@@ -77,6 +79,7 @@ class Product
     public function setLedger(?int $ledger): self
     {
         $this->ledger = $ledger;
+
         return $this;
     }
 
@@ -88,6 +91,7 @@ class Product
     public function setPublicTitle(string $publicTitle): self
     {
         $this->publicTitle = $publicTitle;
+
         return $this;
     }
 
@@ -99,6 +103,7 @@ class Product
     public function setSku(?string $sku): self
     {
         $this->sku = $sku;
+
         return $this;
     }
 
@@ -110,6 +115,7 @@ class Product
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
         return $this;
     }
 
@@ -121,6 +127,7 @@ class Product
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -132,6 +139,7 @@ class Product
     public function setType(ContractType $type): self
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -159,6 +167,7 @@ class Product
     public function setStock(Stock $stock): self
     {
         $this->stock = $stock;
+
         return $this;
     }
 
@@ -181,6 +190,7 @@ class Product
     public function setPricing(ProductPricing $pricing): self
     {
         $this->pricing = $pricing;
+
         return $this;
     }
 

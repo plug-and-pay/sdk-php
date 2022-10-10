@@ -17,6 +17,7 @@ class TaxRateInternal extends TaxRate
     public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -26,6 +27,7 @@ class TaxRateInternal extends TaxRate
     public function setCountry(CountryCode $country): self
     {
         $this->country = $country;
+
         return $this;
     }
 
@@ -35,6 +37,7 @@ class TaxRateInternal extends TaxRate
     public function setPercentage(float $percentage): self
     {
         $this->percentage = $percentage;
+
         return $this;
     }
 }

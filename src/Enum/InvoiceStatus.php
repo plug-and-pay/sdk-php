@@ -4,6 +4,6 @@ namespace PlugAndPay\Sdk\Enum;
 
 enum InvoiceStatus: string
 {
-    case FINAL = 'final';
+    case FINAL   = 'final';
     case CONCEPT = 'concept';
 }

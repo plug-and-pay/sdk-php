@@ -23,6 +23,7 @@ class Address
     public function setCity(?string $city): self
     {
         $this->city = $city;
+
         return $this;
     }
 
@@ -34,6 +35,7 @@ class Address
     public function setCountry(?CountryCode $country): self
     {
         $this->country = $country;
+
         return $this;
     }
 
@@ -42,9 +44,10 @@ class Address
         return $this->street;
     }
 
-    public function setStreet(?string $street): Address
+    public function setStreet(?string $street): self
     {
         $this->street = $street;
+
         return $this;
     }
 
@@ -56,6 +59,7 @@ class Address
     public function setHouseNumber(?string $houseNumber): self
     {
         $this->houseNumber = $houseNumber;
+
         return $this;
     }
 
@@ -67,6 +71,7 @@ class Address
     public function setZipcode(?string $zipcode): self
     {
         $this->zipcode = $zipcode;
+
         return $this;
     }
 

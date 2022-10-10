@@ -32,6 +32,7 @@ class Price
     public function setFirst(?PriceFirst $first): self
     {
         $this->first = $first;
+
         return $this;
     }
 
@@ -43,6 +44,7 @@ class Price
     public function setInterval(?Interval $interval): self
     {
         $this->interval = $interval;
+
         return $this;
     }
 
@@ -54,6 +56,7 @@ class Price
     public function setSuggested(?bool $suggested): self
     {
         $this->suggested = $suggested;
+
         return $this;
     }
 
@@ -65,6 +68,7 @@ class Price
     public function setNrOfCycles(int $nrOfCycles): self
     {
         $this->nr_of_cycles = $nrOfCycles;
+
         return $this;
     }
 
@@ -76,6 +80,7 @@ class Price
     public function setOriginal(?PriceOriginal $original): self
     {
         $this->original = $original;
+
         return $this;
     }
 
@@ -87,6 +92,7 @@ class Price
     public function setRegular(PriceRegular $regular): self
     {
         $this->regular = $regular;
+
         return $this;
     }
 
@@ -98,6 +104,7 @@ class Price
     public function setTiers(array $tiers): self
     {
         $this->tiers = $tiers;
+
         return $this;
     }
 

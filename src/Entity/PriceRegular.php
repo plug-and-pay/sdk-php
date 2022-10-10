@@ -19,6 +19,7 @@ class PriceRegular
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
+
         return $this;
     }
 
@@ -30,6 +31,7 @@ class PriceRegular
     public function setAmountWithTax(float $amountWithTax): self
     {
         $this->amountWithTax = $amountWithTax;
+
         return $this;
     }
 

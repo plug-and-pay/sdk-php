@@ -1,6 +1,7 @@
 <?php
+
 /** @noinspection EfferentObjectCouplingInspection */
-/** @noinspection PhpUnhandledExceptionInspection */
+/* @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -208,7 +209,8 @@ class StoreProductsTest extends TestCase
         $product = $this->makeBaseProduct()->setPricing(
             (new ProductPricing())->setPrices([
                 (new Price())
-                    ->setTiers([
+                    ->setTiers(
+                        [
                             (new PriceTier())
                                 ->setAmount(10)
                                 ->setAmountWithTax(12.1)

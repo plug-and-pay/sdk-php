@@ -33,6 +33,7 @@ class Item
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
+
         return $this;
     }
 
@@ -49,6 +50,7 @@ class Item
     public function setLabel(string $label): self
     {
         $this->label = $label;
+
         return $this;
     }
 
@@ -60,6 +62,7 @@ class Item
     public function setProductId(int $productId): self
     {
         $this->productId = $productId;
+
         return $this;
     }
 
@@ -71,6 +74,7 @@ class Item
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
         return $this;
     }
 
@@ -82,12 +86,14 @@ class Item
     public function setTax(Tax $tax): self
     {
         $this->tax = $tax;
+
         return $this;
     }
 
     public function setTaxByRateId(int $id): self
     {
         $this->tax = (new Tax())->setRateId($id);
+
         return $this;
     }
 
@@ -99,6 +105,7 @@ class Item
     public function setAmountWithTax(float $amountWithTax): self
     {
         $this->amountWithTax = $amountWithTax;
+
         return $this;
     }
 

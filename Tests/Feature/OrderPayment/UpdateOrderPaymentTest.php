@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -19,7 +21,7 @@ class UpdateOrderPaymentTest extends TestCase
         $service = new OrderPaymentService($client);
 
         $paymentId = 1;
-        $payment = $service->update($paymentId, function (Payment $payment) {
+        $payment   = $service->update($paymentId, function (Payment $payment) {
             $payment->setStatus(PaymentStatus::OPEN);
         });
 

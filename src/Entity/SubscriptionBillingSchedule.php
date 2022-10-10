@@ -28,6 +28,7 @@ class SubscriptionBillingSchedule
     public function setInterval(Interval $interval): self
     {
         $this->interval = $interval;
+
         return $this;
     }
 
@@ -59,6 +60,7 @@ class SubscriptionBillingSchedule
     public function setNext(?int $next): self
     {
         $this->next = $next;
+
         return $this;
     }
 
@@ -70,6 +72,7 @@ class SubscriptionBillingSchedule
     public function setNextAt(?DateTimeImmutable $nextAt): self
     {
         $this->nextAt = $nextAt;
+
         return $this;
     }
 
@@ -81,6 +84,7 @@ class SubscriptionBillingSchedule
     public function setRemaining(int $remaining): self
     {
         $this->remaining = $remaining;
+
         return $this;
     }
 
@@ -92,6 +96,7 @@ class SubscriptionBillingSchedule
     public function setTerminationAt(?DateTimeImmutable $terminationAt): self
     {
         $this->terminationAt = $terminationAt;
+
         return $this;
     }
 

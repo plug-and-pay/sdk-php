@@ -15,6 +15,7 @@ class SubscriptionPaymentOptionsInternal extends SubscriptionPaymentOptions
     public function setCustomerId(?string $customerId): self
     {
         $this->customerId = $customerId;
+
         return $this;
     }
 
@@ -24,6 +25,7 @@ class SubscriptionPaymentOptionsInternal extends SubscriptionPaymentOptions
     public function setTransactionId(?int $transactionId): self
     {
         $this->transactionId = $transactionId;
+
         return $this;
     }
 }

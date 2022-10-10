@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -45,6 +47,7 @@ class ClientMock implements ClientInterface
         if ($exception) {
             throw $exception;
         }
+
         return new Response($this->status, $this->responseBody);
     }
 }

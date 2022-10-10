@@ -16,8 +16,8 @@ class DeleteProductTest extends TestCase
     /** @test */
     public function delete_product_not_fount_test(): void
     {
-        $client  = new ProductDestroyMockClient(Response::HTTP_NOT_FOUND);
-        $service = new ProductService($client);
+        $client    = new ProductDestroyMockClient(Response::HTTP_NOT_FOUND);
+        $service   = new ProductService($client);
         $exception = null;
 
         try {
@@ -31,8 +31,8 @@ class DeleteProductTest extends TestCase
     /** @test */
     public function delete_product_unauthenticated(): void
     {
-        $client  = new ProductDestroyMockClient(Response::HTTP_UNAUTHORIZED, []);
-        $service = new ProductService($client);
+        $client    = new ProductDestroyMockClient(Response::HTTP_UNAUTHORIZED, []);
+        $service   = new ProductService($client);
         $exception = null;
 
         try {

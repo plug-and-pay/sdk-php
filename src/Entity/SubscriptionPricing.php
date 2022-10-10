@@ -31,6 +31,7 @@ class SubscriptionPricing
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
+
         return $this;
     }
 
@@ -42,6 +43,7 @@ class SubscriptionPricing
     public function setAmountWithTax(float $amountWithTax): self
     {
         $this->amountWithTax = $amountWithTax;
+
         return $this;
     }
 
@@ -53,6 +55,7 @@ class SubscriptionPricing
     public function setDiscounts(array $discounts): self
     {
         $this->discounts = $discounts;
+
         return $this;
     }
 
@@ -64,6 +67,7 @@ class SubscriptionPricing
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
         return $this;
     }
 
@@ -86,6 +90,7 @@ class SubscriptionPricing
     public function setTax(Tax $tax): self
     {
         $this->tax = $tax;
+
         return $this;
     }
 
@@ -97,6 +102,7 @@ class SubscriptionPricing
     public function setIsTaxIncluded(bool $isTaxIncluded): self
     {
         $this->isTaxIncluded = $isTaxIncluded;
+
         return $this;
     }
 

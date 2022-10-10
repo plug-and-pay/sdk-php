@@ -1,14 +1,16 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Product;
 
 use PHPUnit\Framework\TestCase;
+use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Enum\Direction;
 use PlugAndPay\Sdk\Enum\ProductIncludes;
 use PlugAndPay\Sdk\Enum\ProductSortType;
-use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Filters\ProductFilter;
 use PlugAndPay\Sdk\Service\ProductService;
 use PlugAndPay\Sdk\Tests\Feature\Product\Mock\ProductIndexMockClient;
@@ -42,7 +44,7 @@ class IndexProductsTest extends TestCase
     }
 
     /**
-     * Data provider for index_products_with_filter
+     * Data provider for index_products_with_filter.
      */
     public function productFilterDataProvider(): array
     {
@@ -104,4 +106,3 @@ class IndexProductsTest extends TestCase
         ];
     }
 }
-

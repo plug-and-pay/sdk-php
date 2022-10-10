@@ -31,6 +31,7 @@ class SubscriptionBilling
     public function setAddress(Address $address): self
     {
         $this->address = $address;
+
         return $this;
     }
 
@@ -46,6 +47,7 @@ class SubscriptionBilling
     public function setContact(Contact $contact): self
     {
         $this->contact = $contact;
+
         return $this;
     }
 
@@ -61,6 +63,7 @@ class SubscriptionBilling
     public function setSchedule(SubscriptionBillingSchedule $schedule): self
     {
         $this->schedule = $schedule;
+
         return $this;
     }
 
@@ -76,6 +79,7 @@ class SubscriptionBilling
     public function setPaymentOptions(SubscriptionPaymentOptions $paymentOptions): self
     {
         $this->paymentOptions = $paymentOptions;
+
         return $this;
     }
 

@@ -21,6 +21,7 @@ class SubscriptionTrial
     public function setEndDate(DateTimeImmutable $endDate): self
     {
         $this->endDate = $endDate;
+
         return $this;
     }
 
@@ -32,6 +33,7 @@ class SubscriptionTrial
     public function setStartDate(DateTimeImmutable $startDate): self
     {
         $this->startDate = $startDate;
+
         return $this;
     }
 
@@ -43,6 +45,7 @@ class SubscriptionTrial
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
         return $this;
     }
 

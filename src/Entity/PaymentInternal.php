@@ -19,6 +19,7 @@ class PaymentInternal extends Payment
     public function setCustomerId(?string $customerId): self
     {
         $this->customerId = $customerId;
+
         return $this;
     }
 
@@ -28,6 +29,7 @@ class PaymentInternal extends Payment
     public function setMethod(?PaymentMethod $method): self
     {
         $this->method = $method;
+
         return $this;
     }
 
@@ -37,6 +39,7 @@ class PaymentInternal extends Payment
     public function setOrderId(?int $orderId): self
     {
         $this->orderId = $orderId;
+
         return $this;
     }
 
@@ -46,6 +49,7 @@ class PaymentInternal extends Payment
     public function setPaidAt(?DateTimeImmutable $paidAt): self
     {
         $this->paidAt = $paidAt;
+
         return $this;
     }
 
@@ -55,6 +59,7 @@ class PaymentInternal extends Payment
     public function setProvider(?PaymentProvider $provider): self
     {
         $this->provider = $provider;
+
         return $this;
     }
 
@@ -64,6 +69,7 @@ class PaymentInternal extends Payment
     public function setTransactionId(?string $transactionId): self
     {
         $this->transactionId = $transactionId;
+
         return $this;
     }
 
@@ -73,6 +79,7 @@ class PaymentInternal extends Payment
     public function setUrl(?string $url): self
     {
         $this->url = $url;
+
         return $this;
     }
 }

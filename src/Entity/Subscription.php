@@ -61,6 +61,7 @@ class Subscription
     public function setMode(Mode $mode): self
     {
         $this->mode = $mode;
+
         return $this;
     }
 
@@ -83,6 +84,7 @@ class Subscription
     public function setPricing(SubscriptionPricing $pricing): self
     {
         $this->pricing = $pricing;
+
         return $this;
     }
 
@@ -105,6 +107,7 @@ class Subscription
     public function setProductId(int $id): self
     {
         $this->product = (new ProductInternal())->setId($id);
+
         return $this;
     }
 
@@ -137,6 +140,7 @@ class Subscription
     public function setBilling(SubscriptionBilling $billing): self
     {
         $this->billing = $billing;
+
         return $this;
     }
 
@@ -155,6 +159,7 @@ class Subscription
     public function setTags(array $tags): self
     {
         $this->tags = $tags;
+
         return $this;
     }
 

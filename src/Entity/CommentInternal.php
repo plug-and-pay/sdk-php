@@ -17,6 +17,7 @@ class CommentInternal extends Comment
     public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -26,6 +27,7 @@ class CommentInternal extends Comment
     public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -35,6 +37,7 @@ class CommentInternal extends Comment
     public function setUpdatedAt(DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
-use PlugAndPay\Sdk\Entity\Subscription;
 use PlugAndPay\Sdk\Entity\SubscriptionBilling;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
@@ -20,19 +19,5 @@ class BodyToSubscriptionBilling
             ->setContact(BodyToContact::build($data['contact']))
             ->setSchedule(BodyToSubscriptionBillingSchedule::build($data['schedule']))
             ->setPaymentOptions(BodyToSubscriptionPaymentOptions::build($data['payment_options']));
-    }
-
-    /**
-     * @return Subscription[]
-     * @throws DecodeResponseException
-     */
-    public static function buildMulti(array $data): array
-    {
-        $result = [];
-        foreach ($data as $order) {
-            $result[] = self::build($order);
-        }
-
-        return $result;
     }
 }

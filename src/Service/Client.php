@@ -18,9 +18,9 @@ use Psr\Http\Message\ResponseInterface;
 class Client implements ClientInterface
 {
     private const METHOD_DELETE = 'DELETE';
-    private const METHOD_GET = 'GET';
-    private const METHOD_PATCH = 'PATCH';
-    private const METHOD_POST = 'POST';
+    private const METHOD_GET    = 'GET';
+    private const METHOD_PATCH  = 'PATCH';
+    private const METHOD_POST   = 'POST';
 
     private const BASE_URL_PRODUCTION = 'https://api.plugandpay.nl';
 
@@ -120,6 +120,7 @@ class Client implements ClientInterface
     private function fromGuzzleResponse(ResponseInterface $response): Response
     {
         $content = $response->getBody()->getContents();
+
         return new Response($response->getStatusCode(), json_decode($content, true, 512, JSON_THROW_ON_ERROR));
     }
 }

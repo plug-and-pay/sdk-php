@@ -5,7 +5,7 @@ declare(strict_types=1);
 requireAll(getcwd());
 
 /**
- * Scan the api path, recursively including all PHP files
+ * Scan the api path, recursively including all PHP files.
  */
 function requireAll(string $dir): void
 {

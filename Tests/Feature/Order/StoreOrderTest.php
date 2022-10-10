@@ -1,6 +1,7 @@
 <?php
+
 /** @noinspection EfferentObjectCouplingInspection */
-/** @noinspection PhpUnhandledExceptionInspection */
+/* @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -232,7 +233,8 @@ class StoreOrderTest extends TestCase
         $service->include(OrderIncludes::BILLING);
 
         $order = $this->generateOrder();
-        $order->billing()->setAddress((new Address())
+        $order->billing()->setAddress(
+            (new Address())
             ->setCity('WooCity')
             ->setCountry(CountryCode::BE)
             ->setStreet('WooStreet')

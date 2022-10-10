@@ -39,7 +39,7 @@ class SubscriptionShowMockClient extends ClientMock
     public function get(string $path): Response
     {
         $this->path = $path;
-        $response = new Response(Response::HTTP_OK, $this->responseBody);
+        $response   = new Response(Response::HTTP_OK, $this->responseBody);
 
         $exception = ExceptionFactory::create($response->status(), json_encode($response->body(), JSON_THROW_ON_ERROR));
         if ($exception) {
@@ -71,23 +71,23 @@ class SubscriptionShowMockClient extends ClientMock
                 'vat_id_number' => 'NL000099998B57',
             ],
             'schedule'        => [
-                'interval' => 'monthly',
-                'last' => 1,
-                'last_at' => '2022-01-01',
-                'latest' => 1,
-                'latest_at' => '2022-01-01',
-                'next' => 1,
-                'next_at' => '2022-01-01',
-                'remaining' => 1,
+                'interval'       => 'monthly',
+                'last'           => 1,
+                'last_at'        => '2022-01-01',
+                'latest'         => 1,
+                'latest_at'      => '2022-01-01',
+                'next'           => 1,
+                'next_at'        => '2022-01-01',
+                'remaining'      => 1,
                 'termination_at' => '2022-01-01',
             ],
             'payment_options' => [
-                'customer_id' => 'asdasds',
-                'mandate_id' => 'asdasd',
-                'provider' => 'mollie',
+                'customer_id'    => 'asdasds',
+                'mandate_id'     => 'asdasd',
+                'provider'       => 'mollie',
                 'transaction_id' => 1,
-                'type' => 'mandate',
-            ]
+                'type'           => 'mandate',
+            ],
         ];
 
         return $this;

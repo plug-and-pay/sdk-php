@@ -19,6 +19,7 @@ class OrderInternal extends Order
     public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -28,6 +29,7 @@ class OrderInternal extends Order
     public function setDeletedAt(?DateTimeImmutable $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
         return $this;
     }
 
@@ -37,6 +39,7 @@ class OrderInternal extends Order
     public function setFirst(bool $first): self
     {
         $this->first = $first;
+
         return $this;
     }
 
@@ -46,6 +49,7 @@ class OrderInternal extends Order
     public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -55,6 +59,7 @@ class OrderInternal extends Order
     public function setInvoiceNumber(?string $invoiceNumber): self
     {
         $this->invoiceNumber = $invoiceNumber;
+
         return $this;
     }
 
@@ -64,6 +69,7 @@ class OrderInternal extends Order
     public function setInvoiceStatus(InvoiceStatus $invoiceStatus): self
     {
         $this->invoiceStatus = $invoiceStatus;
+
         return $this;
     }
 
@@ -73,6 +79,7 @@ class OrderInternal extends Order
     public function setReference(string $reference): self
     {
         $this->reference = $reference;
+
         return $this;
     }
 
@@ -82,6 +89,7 @@ class OrderInternal extends Order
     public function setSource(Source $source): self
     {
         $this->source = $source;
+
         return $this;
     }
 
@@ -91,6 +99,7 @@ class OrderInternal extends Order
     public function setTaxes(array $taxes): self
     {
         $this->taxes = $taxes;
+
         return $this;
     }
 
@@ -100,6 +109,7 @@ class OrderInternal extends Order
     public function setTotalDiscounts(array $totalDiscounts): self
     {
         $this->totalDiscounts = $totalDiscounts;
+
         return $this;
     }
 
@@ -109,6 +119,7 @@ class OrderInternal extends Order
     public function setUpdatedAt(DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 }

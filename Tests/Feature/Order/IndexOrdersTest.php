@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -10,11 +12,11 @@ use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\Direction;
 use PlugAndPay\Sdk\Enum\InvoiceStatus;
-use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Enum\Mode;
+use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Enum\OrderSortType;
-use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
+use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Filters\OrderFilter;
 use PlugAndPay\Sdk\Service\OrderService;
 use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderIndexMockClient;
@@ -48,7 +50,7 @@ class IndexOrdersTest extends TestCase
     }
 
     /**
-     * Data provider for index_orders_with_filter
+     * Data provider for index_orders_with_filter.
      */
     public function orderFilterDataProvider(): array
     {
@@ -218,4 +220,3 @@ class IndexOrdersTest extends TestCase
         ];
     }
 }
-

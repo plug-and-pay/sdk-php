@@ -17,6 +17,7 @@ class ItemInternal extends Item
     public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -26,6 +27,7 @@ class ItemInternal extends Item
     public function setDiscounts(array $discounts): self
     {
         $this->discounts = $discounts;
+
         return $this;
     }
 
@@ -35,6 +37,7 @@ class ItemInternal extends Item
     public function setType(ItemType $type): self
     {
         $this->type = $type;
+
         return $this;
     }
 }

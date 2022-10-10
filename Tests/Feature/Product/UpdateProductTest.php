@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -15,7 +17,7 @@ class UpdateProductTest extends TestCase
     /** @test */
     public function update_basic_product(): void
     {
-        $client = new ProductUpdateMockClient();
+        $client  = new ProductUpdateMockClient();
         $service = new ProductService($client);
 
         $product = $service->update(1, function (Product $product) {
@@ -29,7 +31,7 @@ class UpdateProductTest extends TestCase
     /** @test */
     public function update_product_relation(): void
     {
-        $client = (new ProductUpdateMockClient())->pricingBasic()->shipping();
+        $client  = (new ProductUpdateMockClient())->pricingBasic()->shipping();
         $service = new ProductService($client);
 
         $product = $service->update(1, function (Product $product) {

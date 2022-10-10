@@ -26,6 +26,7 @@ class Tax
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
+
         return $this;
     }
 
@@ -48,6 +49,7 @@ class Tax
     public function setRateId(int $id): self
     {
         $this->rate = (new TaxRateInternal())->setId(123);
+
         return $this;
     }
 

@@ -70,6 +70,7 @@ class ProductService
     {
         $query    = Parameters::toString(['include' => $this->includes]);
         $response = $this->client->get("/v2/products/$id$query");
+
         return BodyToProduct::build($response->body()['data']);
     }
 
