@@ -15,6 +15,7 @@ class TaxInternal extends Tax
     public function setRate(TaxRate $rate): self
     {
         $this->rate = $rate;
+
         return $this;
     }
 }

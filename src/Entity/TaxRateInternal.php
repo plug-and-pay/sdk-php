@@ -17,6 +17,7 @@ class TaxRateInternal extends TaxRate
     public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 

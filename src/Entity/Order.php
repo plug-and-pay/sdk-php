@@ -72,6 +72,7 @@ class Order
     public function setAmountWithTax(float $amountWithTax): self
     {
         $this->amountWithTax = $amountWithTax;
+
         return $this;
     }
 
