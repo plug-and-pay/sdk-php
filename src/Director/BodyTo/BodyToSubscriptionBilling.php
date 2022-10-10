@@ -21,18 +21,4 @@ class BodyToSubscriptionBilling
             ->setSchedule(BodyToSubscriptionBillingSchedule::build($data['schedule']))
             ->setPaymentOptions(BodyToSubscriptionPaymentOptions::build($data['payment_options']));
     }
-
-    /**
-     * @return Subscription[]
-     * @throws DecodeResponseException
-     */
-    public static function buildMulti(array $data): array
-    {
-        $result = [];
-        foreach ($data as $order) {
-            $result[] = self::build($order);
-        }
-
-        return $result;
-    }
 }
