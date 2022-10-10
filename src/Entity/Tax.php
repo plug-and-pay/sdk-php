@@ -9,9 +9,9 @@ use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class Tax
 {
-    private bool $allowEmptyRelations;
-    private float $amount;
-    private TaxRate $rate;
+    protected bool $allowEmptyRelations;
+    protected float $amount;
+    protected TaxRate $rate;
 
     public function __construct(bool $allowEmptyRelations = true)
     {
@@ -46,9 +46,9 @@ class Tax
         return $this->rate;
     }
 
-    public function setRate(TaxRate $rate): self
+    public function setRateId(int $id): self
     {
-        $this->rate = $rate;
+        $this->rate = (new TaxRateInternal())->setId(123);
 
         return $this;
     }

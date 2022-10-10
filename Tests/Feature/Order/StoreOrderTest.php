@@ -92,7 +92,7 @@ class StoreOrderTest extends TestCase
             ->setAmount(10.1)
             ->setLabel('the-label')
             ->setQuantity(1)
-            ->setTaxByRateId(1);
+            ->setTaxByRateId(123);
 
         $order = (new Order())
             ->setItems([$item]);
@@ -104,7 +104,7 @@ class StoreOrderTest extends TestCase
                     'amount'   => '10.1',
                     'label'    => 'the-label',
                     'quantity' => 1,
-                    'tax'      => ['rate' => ['id' => 1]],
+                    'tax'      => ['rate' => ['id' => 123]],
                 ],
             ],
         ], $body);

@@ -12,6 +12,15 @@ class TaxProfileInternal extends TaxProfile
     /**
      * @internal
      */
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @internal
+     */
     public function setEditable(bool $editable): self
     {
         $this->editable = $editable;

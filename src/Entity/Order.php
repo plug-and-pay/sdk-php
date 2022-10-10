@@ -69,6 +69,12 @@ class Order
         return $this->amountWithTax;
     }
 
+    public function setAmountWithTax(float $amountWithTax): self
+    {
+        $this->amountWithTax = $amountWithTax;
+        return $this;
+    }
+
     /**
      * @throws RelationNotLoadedException
      */

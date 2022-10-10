@@ -16,16 +16,6 @@ class OrderInternal extends Order
     /**
      * @internal
      */
-    public function setAmountWithTax(float $amountWithTax): self
-    {
-        $this->amountWithTax = $amountWithTax;
-
-        return $this;
-    }
-
-    /**
-     * @internal
-     */
     public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;

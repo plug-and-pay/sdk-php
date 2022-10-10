@@ -19,8 +19,6 @@ use PlugAndPay\Sdk\Entity\Product;
 use PlugAndPay\Sdk\Entity\ProductPricing;
 use PlugAndPay\Sdk\Entity\Shipping;
 use PlugAndPay\Sdk\Entity\Stock;
-use PlugAndPay\Sdk\Entity\TaxProfile;
-use PlugAndPay\Sdk\Entity\TaxRate;
 use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Enum\ProductIncludes;
@@ -251,10 +249,7 @@ class StoreProductsTest extends TestCase
     {
         $product = $this->makeBaseProduct()->setPricing(
             (new ProductPricing())->setTax(
-                (new PricingTax())->setRate(
-                    (new TaxRate())
-                        ->setId(123)
-                )
+                (new PricingTax())->setRateId(123)
             )
         );
 
@@ -268,10 +263,7 @@ class StoreProductsTest extends TestCase
     {
         $product = $this->makeBaseProduct()->setPricing(
             (new ProductPricing())->setTax(
-                (new PricingTax())->setProfile(
-                    (new TaxProfile())
-                        ->setId(123)
-                )
+                (new PricingTax())->setProfileId(123)
             )
         );
 
