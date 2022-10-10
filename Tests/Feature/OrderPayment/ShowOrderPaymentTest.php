@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -13,11 +15,11 @@ class ShowOrderPaymentTest extends TestCase
     /** @test */
     public function show_basic_order_payment(): void
     {
-        $client = (new OrderPaymentShowMockClient());
+        $client  = (new OrderPaymentShowMockClient());
         $service = new OrderPaymentService($client);
 
         $paymentId = 11;
-        $payment = $service->find($paymentId);
+        $payment   = $service->find($paymentId);
 
         static::assertSame('manual', $payment->type()->value);
         static::assertSame(11, $payment->orderId());

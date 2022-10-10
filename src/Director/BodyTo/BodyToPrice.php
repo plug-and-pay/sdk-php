@@ -15,7 +15,7 @@ class BodyToPrice
         return (new PriceInternal())
             ->setId($data['id'])
             ->setFirst($data['first'] ? BodyToPriceFirst::build($data['first']) : null)
-            ->setInterval(Interval::tryFrom((string)$data['interval']))
+            ->setInterval(Interval::tryFrom((string) $data['interval']))
             ->setSuggested($data['is_suggested'])
             ->setNrOfCycles($data['nr_of_cycles'] ?? 1)
             ->setOriginal($data['original'] ? BodyToPriceOriginal::build($data['original']) : null)

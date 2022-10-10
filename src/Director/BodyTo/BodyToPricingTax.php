@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
+use function array_key_exists;
 use PlugAndPay\Sdk\Entity\PricingTax;
 use PlugAndPay\Sdk\Entity\TaxProfileInternal;
 use PlugAndPay\Sdk\Entity\TaxRateInternal;
 use PlugAndPay\Sdk\Enum\CountryCode;
-use function array_key_exists;
 
 class BodyToPricingTax
 {
@@ -20,7 +20,7 @@ class BodyToPricingTax
             $rate = (new TaxRateInternal())
                 ->setId($data['rate']['id'])
                 ->setCountry($data['rate']['country'] ? CountryCode::from($data['rate']['country']) : null)
-                ->setPercentage((float)$data['rate']['percentage']);
+                ->setPercentage((float) $data['rate']['percentage']);
 
             $tax->setRate($rate);
         }

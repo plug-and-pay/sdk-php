@@ -22,6 +22,7 @@ class BodyToDiscounts
                 ->setCode($discount['code'])
                 ->setType(DiscountType::from($discount['type']));
         }
+
         return $result;
     }
 }

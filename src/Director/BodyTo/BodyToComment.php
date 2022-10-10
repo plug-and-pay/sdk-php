@@ -34,6 +34,7 @@ class BodyToComment
         foreach ($comments as $comment) {
             $result[] = self::build($comment);
         }
+
         return $result;
     }
 }

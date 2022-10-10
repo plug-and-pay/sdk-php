@@ -1,13 +1,15 @@
-<?php /** @noinspection PhpUnitTestsInspection */
-/** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnitTestsInspection */
+/* @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Product;
 
 use PHPUnit\Framework\TestCase;
-use PlugAndPay\Sdk\Entity\ProductPricing;
 use PlugAndPay\Sdk\Entity\Product;
+use PlugAndPay\Sdk\Entity\ProductPricing;
 use PlugAndPay\Sdk\Enum\ProductIncludes;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Service\ProductService;
@@ -55,7 +57,7 @@ class ShowProductTest extends TestCase
     }
 
     /**
-     * Data provider for fetch_none_loaded_relationships
+     * Data provider for fetch_none_loaded_relationships.
      */
     public function relationsProvider(): array
     {

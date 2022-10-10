@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 
@@ -16,8 +18,8 @@ class DestroySubscriptionTest extends TestCase
     /** @test */
     public function delete_subscription_not_found(): void
     {
-        $client  = new SubscriptionDestroyMockClient(Response::HTTP_NOT_FOUND, []);
-        $service = new SubscriptionService($client);
+        $client    = new SubscriptionDestroyMockClient(Response::HTTP_NOT_FOUND, []);
+        $service   = new SubscriptionService($client);
         $exception = null;
 
         try {
@@ -31,8 +33,8 @@ class DestroySubscriptionTest extends TestCase
     /** @test */
     public function delete_subscription_unauthenticated(): void
     {
-        $client  = new SubscriptionDestroyMockClient(Response::HTTP_UNAUTHORIZED, []);
-        $service = new SubscriptionService($client);
+        $client    = new SubscriptionDestroyMockClient(Response::HTTP_UNAUTHORIZED, []);
+        $service   = new SubscriptionService($client);
         $exception = null;
 
         try {

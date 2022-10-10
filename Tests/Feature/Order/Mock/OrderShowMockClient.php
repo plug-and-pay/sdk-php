@@ -99,6 +99,7 @@ class OrderShowMockClient extends ClientMock
                     'value'      => 'Nice products',
                 ],
             ];
+
         return $this;
     }
 
@@ -116,6 +117,7 @@ class OrderShowMockClient extends ClientMock
         if ($exception) {
             throw $exception;
         }
+
         return $response;
     }
 

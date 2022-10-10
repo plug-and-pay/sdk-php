@@ -10,15 +10,14 @@ class PriceOriginalToBody
 {
     public static function build(PriceOriginal $first): array
     {
-
         $result = [];
 
         if ($first->isset('amount')) {
-            $result['amount'] = (string)$first->amount();
+            $result['amount'] = (string) $first->amount();
         }
 
         if ($first->isset('amountWithTax')) {
-            $result['amount_with_tax'] = (string)$first->amountWithTax();
+            $result['amount_with_tax'] = (string) $first->amountWithTax();
         }
 
         return $result;

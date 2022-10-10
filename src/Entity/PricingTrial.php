@@ -20,6 +20,7 @@ class PricingTrial
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
+
         return $this;
     }
 
@@ -31,6 +32,7 @@ class PricingTrial
     public function setAmountWithTax(float $amountWithTax): self
     {
         $this->amountWithTax = $amountWithTax;
+
         return $this;
     }
 
@@ -42,6 +44,7 @@ class PricingTrial
     public function setDuration(int $duration): self
     {
         $this->duration = $duration;
+
         return $this;
     }
 

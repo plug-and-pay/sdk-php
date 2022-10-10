@@ -4,12 +4,12 @@ namespace Feature\Subscription;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
+use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Enum\Mode;
 use PlugAndPay\Sdk\Enum\SubscriptionIncludes;
 use PlugAndPay\Sdk\Enum\SubscriptionStatus;
-use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 use PlugAndPay\Sdk\Filters\SubscriptionFilter;
 use PlugAndPay\Sdk\Service\SubscriptionService;
@@ -20,8 +20,8 @@ class IndexSubscriptionsTest extends TestCase
     /** @test */
     public function index_subscriptions(): void
     {
-        $client = (new SubscriptionIndexMockClient());
-        $service = new SubscriptionService($client);
+        $client        = (new SubscriptionIndexMockClient());
+        $service       = new SubscriptionService($client);
         $subscriptions = $service->include(SubscriptionIncludes::PRICING)->get();
 
         static::assertSame(1, $subscriptions[0]->id());
@@ -35,7 +35,7 @@ class IndexSubscriptionsTest extends TestCase
      */
     public function index_subscriptions_with_filter(string $method, mixed $value, string $queryKey, string $queryValue): void
     {
-        $client = (new SubscriptionIndexMockClient());
+        $client  = (new SubscriptionIndexMockClient());
         $service = new SubscriptionService($client);
 
         $filter = (new SubscriptionFilter())->$method($value);
@@ -45,7 +45,7 @@ class IndexSubscriptionsTest extends TestCase
     }
 
     /**
-     * Data provider for index_subscriptions_with_filter
+     * Data provider for index_subscriptions_with_filter.
      */
     public function subscriptionFilterDataProvider(): array
     {

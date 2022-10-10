@@ -22,6 +22,7 @@ class Discount
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
+
         return $this;
     }
 
@@ -33,6 +34,7 @@ class Discount
     public function setAmountWithTax(float $amountWithTax): self
     {
         $this->amountWithTax = $amountWithTax;
+
         return $this;
     }
 
@@ -44,6 +46,7 @@ class Discount
     public function setCode(?string $code): self
     {
         $this->code = $code;
+
         return $this;
     }
 
@@ -55,6 +58,7 @@ class Discount
     public function setType(DiscountType $type): self
     {
         $this->type = $type;
+
         return $this;
     }
 

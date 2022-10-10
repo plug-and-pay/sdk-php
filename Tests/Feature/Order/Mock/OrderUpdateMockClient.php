@@ -16,6 +16,7 @@ class OrderUpdateMockClient extends OrderShowMockClient
         $this->responseBody = Arr::mergeDistinct($this->responseBody, ['data' => $data]);
         $this->path         = $path;
         $this->requestBody  = $data;
+
         return new Response(Response::HTTP_OK, $this->responseBody);
     }
 

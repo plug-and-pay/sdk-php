@@ -15,6 +15,7 @@ class TaxProfileInternal extends TaxProfile
     public function setEditable(bool $editable): self
     {
         $this->editable = $editable;
+
         return $this;
     }
 
@@ -24,6 +25,7 @@ class TaxProfileInternal extends TaxProfile
     public function setLabel(string $label): self
     {
         $this->label = $label;
+
         return $this;
     }
 
@@ -33,6 +35,7 @@ class TaxProfileInternal extends TaxProfile
     public function setRates(array $rates): self
     {
         $this->rates = $rates;
+
         return $this;
     }
 }

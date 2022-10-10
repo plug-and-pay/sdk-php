@@ -39,7 +39,7 @@ class BodyToSubscriptionBillingSchedule
             return new DateTimeImmutable($data[$field]);
         } catch (Exception $e) {
             /** @noinspection JsonEncodingApiUsageInspection */
-            $body = (string)json_encode($data, JSON_ERROR_NONE);
+            $body = (string) json_encode($data, JSON_ERROR_NONE);
             throw new DecodeResponseException($body, $field, $e);
         }
     }

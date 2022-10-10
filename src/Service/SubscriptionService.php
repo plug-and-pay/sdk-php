@@ -28,6 +28,7 @@ class SubscriptionService
     public function include(SubscriptionIncludes ...$includes): self
     {
         $this->includes = $includes;
+
         return $this;
     }
 

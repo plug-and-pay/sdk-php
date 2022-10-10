@@ -19,6 +19,7 @@ class SubscriptionInternal extends Subscription
     public function setCancelledAt(?DateTimeImmutable $cancelledAt): self
     {
         $this->cancelledAt = $cancelledAt;
+
         return $this;
     }
 
@@ -28,6 +29,7 @@ class SubscriptionInternal extends Subscription
     public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -37,6 +39,7 @@ class SubscriptionInternal extends Subscription
     public function setDeletedAt(?DateTimeImmutable $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
         return $this;
     }
 
@@ -46,6 +49,7 @@ class SubscriptionInternal extends Subscription
     public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -55,6 +59,7 @@ class SubscriptionInternal extends Subscription
     public function setProduct(Product $product): self
     {
         $this->product = $product;
+
         return $this;
     }
 
@@ -64,6 +69,7 @@ class SubscriptionInternal extends Subscription
     public function setSource(Source $source): self
     {
         $this->source = $source;
+
         return $this;
     }
 
@@ -73,6 +79,7 @@ class SubscriptionInternal extends Subscription
     public function setStatus(SubscriptionStatus $status): self
     {
         $this->status = $status;
+
         return $this;
     }
 
@@ -82,6 +89,7 @@ class SubscriptionInternal extends Subscription
     public function setTrial(SubscriptionTrial $trial): self
     {
         $this->trial = $trial;
+
         return $this;
     }
 }

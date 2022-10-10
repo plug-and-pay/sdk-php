@@ -19,7 +19,7 @@ class BodyToSubscriptionPaymentOptions
             ->setTransactionId($data['transaction_id'])
             ->setType(PaymentType::from($data['type']));
 
-        if(isset($data['provider'])) {
+        if (isset($data['provider'])) {
             $paymentOptions->setProvider(PaymentProvider::from($data['provider']));
         }
 

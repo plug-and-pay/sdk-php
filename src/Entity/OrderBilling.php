@@ -29,6 +29,7 @@ class OrderBilling
     public function setAddress(Address $address): self
     {
         $this->address = $address;
+
         return $this;
     }
 
@@ -44,6 +45,7 @@ class OrderBilling
     public function setContact(Contact $contact): self
     {
         $this->contact = $contact;
+
         return $this;
     }
 

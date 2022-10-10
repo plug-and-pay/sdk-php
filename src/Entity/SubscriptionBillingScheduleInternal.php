@@ -17,6 +17,7 @@ class SubscriptionBillingScheduleInternal extends SubscriptionBillingSchedule
     public function setLast(?int $last): self
     {
         $this->last = $last;
+
         return $this;
     }
 
@@ -26,6 +27,7 @@ class SubscriptionBillingScheduleInternal extends SubscriptionBillingSchedule
     public function setLastAt(?DateTimeImmutable $lastAt): self
     {
         $this->lastAt = $lastAt;
+
         return $this;
     }
 
@@ -35,6 +37,7 @@ class SubscriptionBillingScheduleInternal extends SubscriptionBillingSchedule
     public function setLatest(?int $latest): self
     {
         $this->latest = $latest;
+
         return $this;
     }
 
@@ -44,6 +47,7 @@ class SubscriptionBillingScheduleInternal extends SubscriptionBillingSchedule
     public function setLatestAt(?DateTimeImmutable $latestAt): self
     {
         $this->latestAt = $latestAt;
+
         return $this;
     }
 }
