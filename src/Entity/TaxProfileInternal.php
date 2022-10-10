@@ -15,6 +15,7 @@ class TaxProfileInternal extends TaxProfile
     public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
