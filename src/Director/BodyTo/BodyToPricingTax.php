@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use PlugAndPay\Sdk\Entity\PricingTax;
+use PlugAndPay\Sdk\Entity\PricingTaxInternal;
 use PlugAndPay\Sdk\Entity\TaxProfileInternal;
 use PlugAndPay\Sdk\Entity\TaxRateInternal;
 use PlugAndPay\Sdk\Enum\CountryCode;
@@ -14,7 +15,7 @@ class BodyToPricingTax
 {
     public static function build(array $data): PricingTax
     {
-        $tax = (new PricingTax());
+        $tax = (new PricingTaxInternal());
 
         if (array_key_exists('rate', $data)) {
             $rate = (new TaxRateInternal())
