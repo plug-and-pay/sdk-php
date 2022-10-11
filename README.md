@@ -1,6 +1,11 @@
-# :warning: Alpha release.
-> The naming of classes and methods may change.
+![Code Coverage](https://img.shields.io/badge/coverage-99%25-brightgreen)
+![Build Passing](https://img.shields.io/badge/build-passing-brightgreen)
+![Discord Link](https://img.shields.io/discord/962985093129981972)
+![License](https://img.shields.io/badge/license-MIT-green)
 
+<p align="center">
+    ![Plug&Pay](https://media-01.imu.nl/storage/plugandpay.nl/1024/betaalpagina-en-affiliate-marketing-software-3-1-1-1-1-1.png "Plug&Pay")
+</p>
 
 # Plug&Pay SDK 
 PHP SDK to communicate with Plug&Pay.
