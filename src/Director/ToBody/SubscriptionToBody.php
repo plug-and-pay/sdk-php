@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\ToBody;
 
 use PlugAndPay\Sdk\Entity\Subscription;
-use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class SubscriptionToBody
