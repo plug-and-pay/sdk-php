@@ -12,20 +12,12 @@ class SubscriptionPaymentOptionsToBody
     {
         $result = [];
 
-        if ($paymentOptions->isset('customerId')) {
-            $result['customer_id'] = $paymentOptions->customerId();
-        }
-
         if ($paymentOptions->isset('mandateId')) {
             $result['mandate_id'] = $paymentOptions->mandateId();
         }
 
         if ($paymentOptions->isset('provider')) {
             $result['provider'] = $paymentOptions->provider()->value;
-        }
-
-        if ($paymentOptions->isset('transactionId')) {
-            $result['transaction_id'] = $paymentOptions->transactionId();
         }
 
         if ($paymentOptions->isset('iban')) {

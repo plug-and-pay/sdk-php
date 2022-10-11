@@ -23,6 +23,14 @@ class BodyToSubscriptionPaymentOptions
             $paymentOptions->setProvider(PaymentProvider::from($data['provider']));
         }
 
+        if (isset($data['iban'])) {
+            $paymentOptions->setIban($data['iban']);
+        }
+
+        if (isset($data['name'])) {
+            $paymentOptions->setName($data['name']);
+        }
+
         return $paymentOptions;
     }
 }

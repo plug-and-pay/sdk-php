@@ -85,6 +85,8 @@ class SubscriptionShowMockClient extends ClientMock
                 'customer_id'    => 'asdasds',
                 'mandate_id'     => 'asdasd',
                 'provider'       => 'mollie',
+                'iban'           => 'NL14ABNA0987654321',
+                'name'           => 'Tester',
                 'transaction_id' => 1,
                 'type'           => 'mandate',
             ],

@@ -47,7 +47,7 @@ class ProductFilter
         return $this;
     }
 
-    public function q(string $value): self
+    public function query(string $value): self
     {
         $this->parameters['q'] = $value;
 

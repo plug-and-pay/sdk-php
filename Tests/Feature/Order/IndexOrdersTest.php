@@ -217,6 +217,12 @@ class IndexOrdersTest extends TestCase
                 'queryKey'   => 'until_invoice_date',
                 'queryValue' => '2001-01-01',
             ],
+            [
+                'method'     => 'untilPaidAt',
+                'value'      => new DateTime('2001-01-01 23:59:59'),
+                'queryKey'   => 'until_paid_at',
+                'queryValue' => '2001-01-01+23%3A59%3A59',
+            ],
         ];
     }
 }

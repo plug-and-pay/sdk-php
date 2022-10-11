@@ -69,7 +69,24 @@ class ShowSubscriptionTest extends TestCase
     }
 
     /** @test */
-    public function show_subscription_with_billing_address_and_contact(): void
+    public function show_subscription_with_billing_address(): void
+    {
+        $client  = (new SubscriptionShowMockClient())->billing();
+        $service = new SubscriptionService($client);
+
+        $subscription = $service->include(SubscriptionIncludes::BILLING)->find(1);
+        $billing      = $subscription->billing();
+
+        $address = $billing->address();
+        static::assertSame('\'t Veld', $address->city());
+        static::assertSame(CountryCode::NL, $address->country());
+        static::assertSame('Sanderslaan', $address->street());
+        static::assertSame('42', $address->houseNumber());
+        static::assertSame('1448VB', $address->zipcode());
+    }
+
+    /** @test */
+    public function show_subscription_with_billing_contact(): void
     {
         $client  = (new SubscriptionShowMockClient())->billing();
         $service = new SubscriptionService($client);
@@ -85,13 +102,55 @@ class ShowSubscriptionTest extends TestCase
         static::assertSame('(044) 4362837', $contact->telephone());
         static::assertSame('https://www.vandewater.nl/velit-porro-ut-velit-soluta.html', $contact->website());
         static::assertSame('NL000099998B57', $contact->vatIdNumber());
+    }
 
-        $address = $billing->address();
-        static::assertSame('\'t Veld', $address->city());
-        static::assertSame(CountryCode::NL, $address->country());
-        static::assertSame('Sanderslaan', $address->street());
-        static::assertSame('42', $address->houseNumber());
-        static::assertSame('1448VB', $address->zipcode());
+    /** @test */
+    public function show_subscription_with_billing_schedule(): void
+    {
+        $client  = (new SubscriptionShowMockClient())->billing();
+        $service = new SubscriptionService($client);
+
+        $subscription = $service->include(SubscriptionIncludes::BILLING)->find(1);
+        $billing      = $subscription->billing();
+
+        $schedule = $billing->schedule();
+        static::assertSame('monthly', $schedule->interval()->value);
+        static::assertSame(1, $schedule->last());
+        static::assertSame('2022-01-01', $schedule->lastAt()->format('Y-m-d'));
+        static::assertSame(1, $schedule->latest());
+        static::assertSame('2022-01-01', $schedule->latestAt()->format('Y-m-d'));
+    }
+
+    /** @test */
+    public function show_subscription_with_billing_payment_options(): void
+    {
+        $client  = (new SubscriptionShowMockClient())->billing();
+        $service = new SubscriptionService($client);
+
+        $subscription = $service->include(SubscriptionIncludes::BILLING)->find(1);
+        $billing      = $subscription->billing();
+
+        $paymentOptions = $billing->paymentOptions();
+        static::assertSame('asdasds', $paymentOptions->customerId());
+        static::assertSame('asdasd', $paymentOptions->mandateId());
+        static::assertSame('mollie', $paymentOptions->provider()->value);
+        static::assertSame(1, $paymentOptions->transactionId());
+        static::assertSame('NL14ABNA0987654321', $paymentOptions->iban());
+        static::assertSame('Tester', $paymentOptions->name());
+        static::assertSame('mandate', $paymentOptions->type()->value);
+    }
+
+    /** @test */
+    public function pricing_relation_not_loaded(): void
+    {
+        $exception = null;
+
+        try {
+            (new Subscription(false))->pricing()->tax();
+        } catch (RelationNotLoadedException $exception) {
+        }
+
+        static::assertInstanceOf(RelationNotLoadedException::class, $exception);
     }
 
     /** @test */

@@ -83,6 +83,7 @@ class BodyToOrder
 
     /**
      * @throws DecodeResponseException
+     * @codeCoverageIgnore
      */
     private static function date(array $data, string $field): DateTimeImmutable
     {
