@@ -20,6 +20,7 @@ use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\OrderIncludes;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
+use PlugAndPay\Sdk\Enum\PaymentType;
 use PlugAndPay\Sdk\Enum\TaxExempt;
 use PlugAndPay\Sdk\Exception\ValidationException;
 use PlugAndPay\Sdk\Service\OrderService;
@@ -34,7 +35,7 @@ class StoreOrderTest extends TestCase
         $body = OrderToBody::build($this->generateOrder());
 
         static::assertEquals([
-            'billing'         => [
+            'billing' => [
                 'address' => [
                     'country' => 'NL',
                 ],
@@ -44,7 +45,7 @@ class StoreOrderTest extends TestCase
                     'lastname'  => 'de Wit',
                 ],
             ],
-            'items'           => [
+            'items'   => [
                 [
                     'label' => 'the-label',
                 ],
@@ -90,6 +91,7 @@ class StoreOrderTest extends TestCase
     {
         $item = (new Item())
             ->setAmount(10.1)
+            ->setAmountWithTax(12.1)
             ->setLabel('the-label')
             ->setQuantity(1)
             ->setTaxByRateId(123);
@@ -101,10 +103,11 @@ class StoreOrderTest extends TestCase
         static::assertEquals([
             'items' => [
                 [
-                    'amount'   => '10.1',
-                    'label'    => 'the-label',
-                    'quantity' => 1,
-                    'tax'      => ['rate' => ['id' => 123]],
+                    'amount'          => '10.1',
+                    'amount_with_tax' => '12.1',
+                    'label'           => 'the-label',
+                    'quantity'        => 1,
+                    'tax'             => ['rate' => ['id' => 123]],
                 ],
             ],
         ], $body);
@@ -151,13 +154,18 @@ class StoreOrderTest extends TestCase
     public function convert_payment_status_to_body(): void
     {
         $order = (new Order())
-            ->setPayment((new Payment())->setStatus(PaymentStatus::PROCESSING));
+            ->setPayment(
+                (new Payment())
+                    ->setStatus(PaymentStatus::PROCESSING)
+                    ->setType(PaymentType::MANUAL)
+            );
 
         $body = OrderToBody::build($order);
 
         static::assertEquals([
             'payment' => [
                 'status' => PaymentStatus::PROCESSING->value,
+                'type'   => PaymentType::MANUAL->value,
             ],
         ], $body);
     }
@@ -235,11 +243,11 @@ class StoreOrderTest extends TestCase
         $order = $this->generateOrder();
         $order->billing()->setAddress(
             (new Address())
-            ->setCity('WooCity')
-            ->setCountry(CountryCode::BE)
-            ->setStreet('WooStreet')
-            ->setHouseNumber('12')
-            ->setZipcode('2233LL')
+                ->setCity('WooCity')
+                ->setCountry(CountryCode::BE)
+                ->setStreet('WooStreet')
+                ->setHouseNumber('12')
+                ->setZipcode('2233LL')
         );
         $order = $service->create($order);
 

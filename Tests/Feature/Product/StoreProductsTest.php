@@ -12,6 +12,7 @@ use PlugAndPay\Sdk\Director\ToBody\ProductToBody;
 use PlugAndPay\Sdk\Entity\Price;
 use PlugAndPay\Sdk\Entity\PriceFirst;
 use PlugAndPay\Sdk\Entity\PriceOriginal;
+use PlugAndPay\Sdk\Entity\PriceRegular;
 use PlugAndPay\Sdk\Entity\PriceTier;
 use PlugAndPay\Sdk\Entity\PricingTax;
 use PlugAndPay\Sdk\Entity\PricingTrial;
@@ -201,6 +202,24 @@ class StoreProductsTest extends TestCase
 
         static::assertEquals('10', $body['pricing']['prices'][0]['original']['amount']);
         static::assertSame('12.1', $body['pricing']['prices'][0]['original']['amount_with_tax']);
+    }
+
+    /** @test */
+    public function convert_product_pricing_prices_regular(): void
+    {
+        $product = $this->makeBaseProduct()->setPricing(
+            (new ProductPricing())->setPrices([
+                (new Price())
+                    ->setRegular((new PriceRegular())
+                        ->setAmount(10)
+                        ->setAmountWithTax(12.1)),
+            ])
+        );
+
+        $body = ProductToBody::build($product);
+
+        static::assertEquals('10', $body['pricing']['prices'][0]['regular']['amount']);
+        static::assertSame('12.1', $body['pricing']['prices'][0]['regular']['amount_with_tax']);
     }
 
     /** @test */

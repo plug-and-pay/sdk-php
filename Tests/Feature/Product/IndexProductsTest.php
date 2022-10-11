@@ -80,7 +80,7 @@ class IndexProductsTest extends TestCase
                 'queryValue' => '3',
             ],
             [
-                'method'     => 'q',
+                'method'     => 'query',
                 'value'      => 'Piet',
                 'queryKey'   => 'q',
                 'queryValue' => 'Piet',

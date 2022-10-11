@@ -15,6 +15,9 @@ use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\ValidationException;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Client implements ClientInterface
 {
     private const METHOD_DELETE = 'DELETE';

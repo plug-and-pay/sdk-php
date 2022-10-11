@@ -144,4 +144,5 @@ $config = new Config();
 return $config->setFinder($finder)
     ->setRules($rules)
     ->setRiskyAllowed(true)
-    ->setUsingCache(true);
+    ->setUsingCache(true)
+    ->setCacheFile(__DIR__.'/.php.cache/.php-cs-fixer.cache');

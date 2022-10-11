@@ -215,7 +215,7 @@ class StoreSubscriptionTest extends TestCase
     }
 
     /** @test */
-    public function store_basic_order(): void
+    public function store_basic_subscription(): void
     {
         $client  = new SubscriptionStoreMockClient();
         $service = new SubscriptionService($client);
