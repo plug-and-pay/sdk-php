@@ -7,6 +7,10 @@ namespace PlugAndPay\Sdk\Exception;
 use Exception;
 use Throwable;
 
+/**
+ * @codeCoverageIgnore
+ * @see \PlugAndPay\Sdk\Tests\Unit\ExceptionTest::decode_response_exception
+ */
 class DecodeResponseException extends Exception
 {
     public function __construct(string $body, $field = '', Throwable $previous = null)

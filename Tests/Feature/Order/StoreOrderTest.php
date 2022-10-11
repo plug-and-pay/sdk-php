@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Order;
 
+use BadFunctionCallException;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
 use PlugAndPay\Sdk\Entity\Address;
@@ -29,6 +30,20 @@ use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderStoreMockClient;
 
 class StoreOrderTest extends TestCase
 {
+    /** @test */
+    public function bad_function_call(): void
+    {
+        $exception = null;
+
+        try {
+            $order = new Order();
+            $order->isset('bad_function');
+        } catch (BadFunctionCallException $exception) {
+        }
+
+        static::assertInstanceOf(BadFunctionCallException::class, $exception);
+    }
+
     /** @test */
     public function convert_basic_order_to_body(): void
     {

@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Product;
 
+use BadFunctionCallException;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Director\ToBody\ProductToBody;
 use PlugAndPay\Sdk\Entity\Price;
@@ -28,6 +29,20 @@ use PlugAndPay\Sdk\Tests\Feature\Product\Mock\ProductStoreMockClient;
 
 class StoreProductsTest extends TestCase
 {
+    /** @test */
+    public function bad_function_call(): void
+    {
+        $exception = null;
+
+        try {
+            $order = new Product();
+            $order->isset('bad_function');
+        } catch (BadFunctionCallException $exception) {
+        }
+
+        static::assertInstanceOf(BadFunctionCallException::class, $exception);
+    }
+
     /** @test */
     public function convert_basic_product_to_body(): void
     {

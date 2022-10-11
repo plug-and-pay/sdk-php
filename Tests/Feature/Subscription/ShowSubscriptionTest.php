@@ -141,6 +141,19 @@ class ShowSubscriptionTest extends TestCase
     }
 
     /** @test */
+    public function pricing_relation_not_loaded(): void
+    {
+        $exception = null;
+
+        try {
+            (new Subscription(false))->pricing()->tax();
+        } catch (RelationNotLoadedException $exception) {
+        }
+
+        static::assertInstanceOf(RelationNotLoadedException::class, $exception);
+    }
+
+    /** @test */
     public function show_subscription_with_pricing(): void
     {
         $client  = (new SubscriptionShowMockClient())->pricing();

@@ -2,6 +2,7 @@
 
 namespace Feature\Subscription;
 
+use BadFunctionCallException;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Director\ToBody\SubscriptionToBody;
@@ -26,6 +27,21 @@ use PlugAndPay\Sdk\Tests\Feature\Subscription\Mock\SubscriptionStoreMockClient;
 
 class StoreSubscriptionTest extends TestCase
 {
+
+    /** @test */
+    public function bad_function_call(): void
+    {
+        $exception = null;
+
+        try {
+            $order = new Subscription();
+            $order->isset('bad_function');
+        } catch (BadFunctionCallException $exception) {
+        }
+
+        static::assertInstanceOf(BadFunctionCallException::class, $exception);
+    }
+
     /**
      * @test
      * @throws RelationNotLoadedException
