@@ -27,7 +27,6 @@ use PlugAndPay\Sdk\Tests\Feature\Subscription\Mock\SubscriptionStoreMockClient;
 
 class StoreSubscriptionTest extends TestCase
 {
-
     /** @test */
     public function bad_function_call(): void
     {
