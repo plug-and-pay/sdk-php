@@ -17,6 +17,8 @@ jobs:
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress
       - name: Composer dump-autoload
         run: composer dump-autoload
+      - name: Make phpunit cache dir
+        run: mkdir -p /home/runner/work/sdk-php/sdk-php/.php.cache
       - name: Run php-cs-fixer
         run: ./vendor/bin/php-cs-fixer fix
       - uses: stefanzweifel/git-auto-commit-action@v4
