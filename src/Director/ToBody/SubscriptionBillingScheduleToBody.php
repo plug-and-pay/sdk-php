@@ -16,22 +16,6 @@ class SubscriptionBillingScheduleToBody
             $result['interval'] = $schedule->interval()->value;
         }
 
-        if ($schedule->isset('last')) {
-            $result['last'] = $schedule->last();
-        }
-
-        if ($schedule->isset('lastAt')) {
-            $result['last_at'] = $schedule->lastAt()?->format('Y-m-d');
-        }
-
-        if ($schedule->isset('latest')) {
-            $result['latest'] = $schedule->latest();
-        }
-
-        if ($schedule->isset('latestAt')) {
-            $result['latest_at'] = $schedule->latestAt()?->format('Y-m-d');
-        }
-
         if ($schedule->isset('next')) {
             $result['next'] = $schedule->next();
         }

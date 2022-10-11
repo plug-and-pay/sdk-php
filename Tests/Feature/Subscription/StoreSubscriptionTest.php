@@ -15,6 +15,7 @@ use PlugAndPay\Sdk\Entity\SubscriptionPaymentOptions;
 use PlugAndPay\Sdk\Entity\SubscriptionPricing;
 use PlugAndPay\Sdk\Entity\Tax;
 use PlugAndPay\Sdk\Enum\CountryCode;
+use PlugAndPay\Sdk\Enum\DiscountType;
 use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentType;
@@ -74,10 +75,16 @@ class StoreSubscriptionTest extends TestCase
             ->setAmount(21.00)
             ->setRateId(12);
 
+        $discount = (new Discount())
+            ->setAmount(100.00)
+            ->setAmountWithTax(121)
+            ->setCode('lorem-ipsum')
+            ->setType(DiscountType::SALE);
+
         $pricing = (new SubscriptionPricing())
             ->setAmount(100.00)
             ->setAmountWithTax(120.00)
-            ->setDiscounts([(new Discount())->setAmount(100.00)])
+            ->setDiscounts([$discount])
             ->setQuantity(10)
             ->setTax($tax)
             ->setIsTaxIncluded(false);
@@ -93,7 +100,10 @@ class StoreSubscriptionTest extends TestCase
                 'amount_with_tax' => '120',
                 'discounts'       => [
                     [
-                        'amount' => '100',
+                        'amount'          => '100',
+                        'amount_with_tax' => '121',
+                        'code'            => 'lorem-ipsum',
+                        'type'            => 'sale',
                     ],
                 ],
                 'quantity'        => 10,
@@ -298,9 +308,11 @@ class StoreSubscriptionTest extends TestCase
         $service = new SubscriptionService($client);
 
         $paymentOptions = (new SubscriptionPaymentOptions)
-            ->setMandateId(1)
+            ->setMandateId('lorem')
             ->setProvider(PaymentProvider::MOLLIE)
-            ->setType(PaymentType::MANUAL);
+            ->setType(PaymentType::MANUAL)
+            ->setIban('NLABNA1234567899')
+            ->setName('Tester');
 
         $schedule = (new SubscriptionBillingSchedule)
             ->setInterval(Interval::MONTHLY)
@@ -364,9 +376,11 @@ class StoreSubscriptionTest extends TestCase
                 'interval'       => 'monthly',
             ],
             'payment_options' => [
-                'mandate_id' => '1',
+                'mandate_id' => 'lorem',
                 'type'       => 'manual',
                 'provider'   => 'mollie',
+                'iban'       => 'NLABNA1234567899',
+                'name'       => 'Tester',
             ],
         ], $client->requestBody()['billing']);
     }

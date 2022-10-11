@@ -29,24 +29,12 @@ class SubscriptionToBody
             $result['product'] = ProductToBody::build($subscription->product());
         }
 
-        if ($subscription->isset('status')) {
-            $result['status'] = $subscription->status()->value;
-        }
-
         if ($subscription->isset('billing')) {
             $result['billing'] = SubscriptionBillingToBody::build($subscription->billing());
         }
 
         if ($subscription->isset('tags')) {
             $result['tags'] = $subscription->tags();
-        }
-
-        if ($subscription->isset('trial')) {
-            $result['trial'] = SubscriptionTrialToBody::build($subscription->trial());
-        }
-
-        if ($subscription->isset('source')) {
-            $result['source'] = Source::API->value;
         }
 
         return $result;
