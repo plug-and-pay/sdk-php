@@ -4,7 +4,7 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 <p align="center">
-    ![Plug&Pay](https://media-01.imu.nl/storage/plugandpay.nl/1024/betaalpagina-en-affiliate-marketing-software-3-1-1-1-1-1.png "Plug&Pay")
+  <img alt="Logo Plug & Pay" src="https://media-01.imu.nl/storage/plugandpay.nl/1024/betaalpagina-en-affiliate-marketing-software-3-1-1-1-1-1.png" width="100">
 </p>
 
 # Plug&Pay SDK 
