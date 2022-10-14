@@ -1,6 +1,6 @@
 ![Code Coverage](https://img.shields.io/badge/coverage-99%25-brightgreen)
 ![Build Passing](https://img.shields.io/badge/build-passing-brightgreen)
-![Discord Link](https://img.shields.io/discord/962985093129981972)
+![Discord](https://img.shields.io/discord/962985093129981972?label=Discord)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 <p align="center">
