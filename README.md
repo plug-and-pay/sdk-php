@@ -1,7 +1,9 @@
-![Code Coverage](https://img.shields.io/badge/coverage-99%25-brightgreen)
-![Build Passing](https://img.shields.io/badge/build-passing-brightgreen)
-![Discord](https://img.shields.io/discord/962985093129981972?label=Discord)
-![License](https://img.shields.io/badge/license-MIT-green)
+<p align="center">
+  <img alt="Code Coverage" src="https://img.shields.io/badge/coverage-99%25-brightgreen">
+  <img alt="Build Passing" src="https://img.shields.io/badge/build-passing-brightgreen">
+  <img alt="Discord" src="https://img.shields.io/discord/962985093129981972?label=Discord">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-green">
+</p>
 
 <p align="center">
   <img alt="Logo Plug & Pay" src="https://media-01.imu.nl/storage/plugandpay.nl/1024/betaalpagina-en-affiliate-marketing-software-3-1-1-1-1-1.png" width="400">
