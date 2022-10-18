@@ -6,4 +6,5 @@ enum TaxExempt: string
 {
     case NONE    = 'none';
     case REVERSE = 'reverse';
+    case UNKNOWN = 'unknown';
 }

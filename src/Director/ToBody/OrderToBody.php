@@ -20,10 +20,6 @@ class OrderToBody
             $result['is_hidden'] = $order->isHidden();
         }
 
-        if ($order->isset('taxExempt')) {
-            $result['tax_exempt'] = $order->taxExempt();
-        }
-
         if ($order->isset('billing')) {
             $result['billing'] = OrderBillingToBody::build($order->billing());
         }

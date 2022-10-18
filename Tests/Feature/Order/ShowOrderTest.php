@@ -20,6 +20,7 @@ use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\PaymentType;
 use PlugAndPay\Sdk\Enum\Source;
+use PlugAndPay\Sdk\Enum\TaxExempt;
 use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Exception\UnauthenticatedException;
@@ -131,6 +132,7 @@ class ShowOrderTest extends TestCase
         static::assertNull($contact->telephone());
         static::assertNull($contact->website());
         static::assertNull($contact->vatIdNumber());
+        static::assertSame(TaxExempt::NONE, $contact->taxExempt());
 
         $address = $billing->address();
         static::assertNull($address->city());
@@ -164,6 +166,29 @@ class ShowOrderTest extends TestCase
         static::assertSame('Sanderslaan', $address->street());
         static::assertSame('42', $address->houseNumber());
         static::assertSame('1448VB', $address->zipcode());
+    }
+
+    /** @test */
+    public function show_order_unknown_tax_exempt(): void
+    {
+        $client  = (new OrderShowMockClient())->billingOnlyRequired([
+            'contact' => [
+                'company'       => null,
+                'email'         => 'rosalie39@example.net',
+                'firstname'     => 'Bilal',
+                'invoice_email' => null,
+                'lastname'      => 'de Wit',
+                'tax_exempt'    => 'unknown',
+                'telephone'     => null,
+                'website'       => null,
+                'vat_id_number' => null,
+            ]]);
+        $service = new OrderService($client);
+
+        $order = $service->find(1);
+
+        $contact = $order->billing()->contact();
+        static::assertEquals(TaxExempt::UNKNOWN, $contact->taxExempt());
     }
 
     /** @test */

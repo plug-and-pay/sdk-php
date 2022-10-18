@@ -144,15 +144,10 @@ class StoreOrderTest extends TestCase
     public function convert_order_fields_data_provider(): array
     {
         return [
-            'isHidden'  => [
+            'isHidden' => [
                 'setHidden',
                 'is_hidden',
                 true,
-            ],
-            'taxExempt' => [
-                'setTaxExempt',
-                'tax_exempt',
-                TaxExempt::REVERSE,
             ],
         ];
     }
@@ -232,6 +227,7 @@ class StoreOrderTest extends TestCase
                     ->setTelephone('new telephone')
                     ->setWebsite('new website')
                     ->setVatIdNumber('NL000099998B57')
+                    ->setTaxExempt(TaxExempt::REVERSE)
             );
         $order = $service->create($order);
 
@@ -242,6 +238,7 @@ class StoreOrderTest extends TestCase
             'email'         => 'new email',
             'firstname'     => 'new first name',
             'lastname'      => 'new last name',
+            'tax_exempt'    => 'reverse',
             'telephone'     => 'new telephone',
             'website'       => 'new website',
             'vat_id_number' => 'NL000099998B57',

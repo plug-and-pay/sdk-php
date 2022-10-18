@@ -28,6 +28,10 @@ class ContactToBody
             $result['lastname'] = $contact->lastName();
         }
 
+        if ($contact->isset('taxExempt')) {
+            $result['tax_exempt'] = $contact->taxExempt()->value;
+        }
+
         if ($contact->isset('telephone')) {
             $result['telephone'] = $contact->telephone();
         }

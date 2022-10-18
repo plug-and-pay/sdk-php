@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Entity;
 
 use BadFunctionCallException;
+use PlugAndPay\Sdk\Enum\TaxExempt;
 
 class Contact
 {
@@ -12,6 +13,7 @@ class Contact
     private string $email;
     private string $firstName;
     private string $lastName;
+    private TaxExempt $taxExempt;
     private ?string $telephone;
     private ?string $vatIdNumber;
     private ?string $website;
@@ -60,6 +62,18 @@ class Contact
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function taxExempt(): TaxExempt
+    {
+        return $this->taxExempt;
+    }
+
+    public function setTaxExempt(TaxExempt $taxExempt): self
+    {
+        $this->taxExempt = $taxExempt;
 
         return $this;
     }

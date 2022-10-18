@@ -9,7 +9,6 @@ use DateTimeImmutable;
 use PlugAndPay\Sdk\Enum\InvoiceStatus;
 use PlugAndPay\Sdk\Enum\Mode;
 use PlugAndPay\Sdk\Enum\Source;
-use PlugAndPay\Sdk\Enum\TaxExempt;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class Order
@@ -37,7 +36,6 @@ class Order
     protected Source $source;
     /** @var string[] */
     protected array $tags;
-    protected TaxExempt $taxExempt;
     /** @var Tax[] */
     protected array $taxes;
     protected DateTimeImmutable $updatedAt;
@@ -246,18 +244,6 @@ class Order
     public function setTags(array $tags): self
     {
         $this->tags = $tags;
-
-        return $this;
-    }
-
-    public function taxExempt(): TaxExempt
-    {
-        return $this->taxExempt;
-    }
-
-    public function setTaxExempt(TaxExempt $taxExempt): self
-    {
-        $this->taxExempt = $taxExempt;
 
         return $this;
     }
