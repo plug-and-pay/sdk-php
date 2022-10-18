@@ -48,7 +48,7 @@ class Tax
 
     public function setRateId(int $id): self
     {
-        $this->rate = (new TaxRateInternal())->setId(123);
+        $this->rate = (new TaxRateInternal())->setId($id);
 
         return $this;
     }
