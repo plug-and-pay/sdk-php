@@ -182,7 +182,7 @@ class ShowOrderTest extends TestCase
                 'telephone'     => null,
                 'website'       => null,
                 'vat_id_number' => null,
-            ]]);
+            ], ]);
         $service = new OrderService($client);
 
         $order = $service->find(1);
