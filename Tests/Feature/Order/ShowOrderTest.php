@@ -311,4 +311,17 @@ class ShowOrderTest extends TestCase
         static::assertSame(DiscountType::PROMOTION, $order->totalDiscounts()[0]->type());
         static::assertSame(DiscountType::PROMOTION, $order->items()[0]->discounts()[0]->type());
     }
+
+    /** @test */
+    public function show_order_with_empty_source(): void
+    {
+        $client  = (new OrderShowMockClient([
+            'source' => null,
+        ]));
+        $service = new OrderService($client);
+
+        $order = $service->find(1);
+
+        static::assertSame(Source::UNKNOWN, $order->source());
+    }
 }

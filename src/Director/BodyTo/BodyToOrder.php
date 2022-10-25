@@ -31,7 +31,7 @@ class BodyToOrder
             ->setInvoiceStatus(InvoiceStatus::from($data['invoice_status']))
             ->setMode(Mode::from($data['mode']))
             ->setReference($data['reference'])
-            ->setSource(Source::tryFrom($data['source']) ?? Source::UNKNOWN)
+            ->setSource(Source::tryFrom($data['source'] ?? '') ?? Source::UNKNOWN)
             ->setAmount((float) $data['amount'])
             ->setAmountWithTax((float) $data['amount_with_tax'])
             ->setUpdatedAt(self::date($data, 'updated_at'));
