@@ -1,6 +1,6 @@
 {
   "name": "plug-and-pay/sdk-php",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "This is a PHP SDK to make easier to communicate with the Plug&Pay API.",
   "keywords": [
     "PlugAndPay",
@@ -21,13 +21,13 @@
     "php": ">=8.1",
     "ext-curl": "*",
     "guzzlehttp/guzzle": "^7.0",
-    "ext-json": "*",
-    "friendsofphp/php-cs-fixer": "^3.11"
+    "ext-json": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "^9.5",
-    "symfony/var-dumper": "^6.1"
+    "symfony/var-dumper": "^6.1",
+    "friendsofphp/php-cs-fixer": "^3.11"
   },
   "autoload": {
     "psr-4": {
