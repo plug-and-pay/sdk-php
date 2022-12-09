@@ -14,7 +14,7 @@ PHP SDK to communicate with Plug&Pay.
 
 ## Introduction
 
-This is a PHP SDK to make easier to communicate with the Plug&Pay API. Not all functionalities are present. If you're missing something, feel free to request it through our [Discord](https://discord.gg/PHuj4gnPX7) channel.
+This is a PHP SDK to make easier to communicate with the Plug&Pay API. Not all functionalities are present. If you're missing something, feel free to request it.
 
 ## Requirements
 
