@@ -1,6 +1,5 @@
 version: 2
 updates:
-  # Laravel in root directory
   - package-ecosystem: "composer"
     directory: "/"
     schedule:
