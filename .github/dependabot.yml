@@ -7,4 +7,4 @@ updates:
     allow:
       - dependency-type: "all"
     commit-message:
-      prefix: "[Laravel]"
+      prefix: "[SDK PHP]"
