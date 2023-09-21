@@ -8,4 +8,6 @@ enum ItemType: string
     case ONE_CLICK_UPSELL = 'one-click-upsell';
     case ORDER_BUMP       = 'order-bump';
     case STANDARD         = 'standard';
+    case UPSELL           = 'upsell';
+    case DOWNSELL         = 'downsell';
 }
