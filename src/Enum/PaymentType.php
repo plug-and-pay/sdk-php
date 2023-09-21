@@ -7,4 +7,5 @@ enum PaymentType: string
     case MAIL    = 'mail';
     case MANDATE = 'mandate';
     case MANUAL  = 'manual';
+    case UNKNOWN = 'unknown';
 }

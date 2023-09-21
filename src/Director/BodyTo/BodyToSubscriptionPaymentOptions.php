@@ -17,7 +17,7 @@ class BodyToSubscriptionPaymentOptions
             ->setCustomerId($data['customer_id'])
             ->setMandateId($data['mandate_id'])
             ->setTransactionId($data['transaction_id'])
-            ->setType(PaymentType::from($data['type']));
+            ->setType(($data['type']) ? PaymentType::from($data['type']) : PaymentType::UNKNOWN);
 
         if (isset($data['provider'])) {
             $paymentOptions->setProvider(PaymentProvider::from($data['provider']));
