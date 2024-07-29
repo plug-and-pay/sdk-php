@@ -46,7 +46,7 @@ class RuleService
     public function create(Rule $rule): Rule
     {
         $body     = RuleToBody::build($rule);
-        $response = $this->client->post("/v2/rules", $body);
+        $response = $this->client->post('/v2/rules', $body);
 
         return BodyToRule::build($response->body()['data']);
     }
