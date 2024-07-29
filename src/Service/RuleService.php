@@ -7,6 +7,7 @@ namespace PlugAndPay\Sdk\Service;
 use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToRule;
+use PlugAndPay\Sdk\Director\ToBody\RuleToBody;
 use PlugAndPay\Sdk\Entity\Rule;
 use PlugAndPay\Sdk\Filters\RuleFilter;
 use PlugAndPay\Sdk\Support\Parameters;
@@ -40,5 +41,13 @@ class RuleService
     public function delete(int $ruleId): void
     {
         $this->client->delete("/v2/rules/$ruleId");
+    }
+
+    public function create(Rule $rule): Rule
+    {
+        $body     = RuleToBody::build($rule);
+        $response = $this->client->post("/v2/rules", $body);
+
+        return BodyToRule::build($response->body()['data']);
     }
 }
