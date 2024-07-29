@@ -16,7 +16,7 @@ class BodyToContact
             ->setEmail($data['email'])
             ->setFirstName($data['firstname'])
             ->setLastName($data['lastname'])
-            ->setTaxExempt(TaxExempt::from( (array_key_exists('tax_exempt', $data)) ? $data['tax_exempt'] : 'unknown'))
+            ->setTaxExempt(TaxExempt::from((array_key_exists('tax_exempt', $data)) ? $data['tax_exempt'] : 'unknown'))
             ->setTelephone($data['telephone'] ?? null)
             ->setWebsite($data['website'] ?? null)
             ->setVatIdNumber($data['vat_id_number'] ?? null);
