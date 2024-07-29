@@ -36,4 +36,9 @@ class RuleService
 
         return BodyToRule::buildMulti($response->body()['data']);
     }
+
+    public function delete(int $ruleId): void
+    {
+        $this->client->delete("/v2/rules/$ruleId");
+    }
 }
