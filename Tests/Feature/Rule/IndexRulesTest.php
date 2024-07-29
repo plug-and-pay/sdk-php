@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Feature\Rule;
+namespace PlugAndPay\Sdk\Tests\Feature\Rule;
 
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Response;
