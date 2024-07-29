@@ -48,7 +48,6 @@ class RuleInternal extends Rule
         return $this;
     }
 
-
     /**
      * @internal
      */
