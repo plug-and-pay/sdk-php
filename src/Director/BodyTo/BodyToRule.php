@@ -6,7 +6,6 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use PlugAndPay\Sdk\Entity\Rule;
 use PlugAndPay\Sdk\Entity\RuleInternal;
-use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
 class BodyToRule
 {

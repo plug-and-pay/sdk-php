@@ -7,7 +7,6 @@ namespace Feature\Rule;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Enum\RuleGroupType;
-use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\UnauthenticatedException;
 use PlugAndPay\Sdk\Filters\RuleFilter;
 use PlugAndPay\Sdk\Service\RuleService;
@@ -43,7 +42,7 @@ class IndexRulesTest extends TestCase
         static::assertSame('call_webhook', $rules[0]->actionType());
         static::assertSame(['hook_url' => 'https://example.com/webhook'], $rules[0]->actionData());
         static::assertSame('order_created', $rules[0]->triggerType());
-        static::assertSame(["is_first" => true, "product_id" => [1]], $rules[0]->conditionData());
+        static::assertSame(['is_first' => true, 'product_id' => [1]], $rules[0]->conditionData());
         static::assertSame('Plug&Pay webhook rule', $rules[0]->name());
         static::assertFalse($rules[0]->readonly());
         static::assertSame('webhook', $rules[0]->driver());

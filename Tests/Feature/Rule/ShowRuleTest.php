@@ -56,7 +56,7 @@ class ShowRuleTest extends TestCase
         static::assertSame('call_webhook', $rule->actionType());
         static::assertSame(['hook_url' => 'https://example.com/webhook'], $rule->actionData());
         static::assertSame('order_created', $rule->triggerType());
-        static::assertSame(["is_first" => true, "product_id" => [1]], $rule->conditionData());
+        static::assertSame(['is_first' => true, 'product_id' => [1]], $rule->conditionData());
         static::assertSame('Plug&Pay webhook rule', $rule->name());
         static::assertFalse($rule->readonly());
         static::assertSame('webhook', $rule->driver());
