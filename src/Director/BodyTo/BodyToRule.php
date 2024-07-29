@@ -6,6 +6,7 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use PlugAndPay\Sdk\Entity\Rule;
 use PlugAndPay\Sdk\Entity\RuleInternal;
+use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
 class BodyToRule
 {
@@ -23,5 +24,18 @@ class BodyToRule
             ->setCreatedAt($data['created_at'])
             ->setUpdatedAt($data['updated_at'])
             ->setDriver($data['driver']);
+    }
+
+    /**
+     * @return Rule[]
+     */
+    public static function buildMulti(array $data): array
+    {
+        $result = [];
+        foreach ($data as $rule) {
+            $result[] = self::build($rule);
+        }
+
+        return $result;
     }
 }
