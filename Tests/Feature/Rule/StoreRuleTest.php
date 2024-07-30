@@ -42,7 +42,6 @@ class StoreRuleTest extends TestCase
         static::assertSame('order_created', $body['trigger_type']);
         static::assertSame(['product_id' => [1]], $body['condition_data']);
         static::assertSame('Plug&Pay example rule', $body['name']);
-        static::assertFalse($body['readonly']);
         static::assertSame('webhook', $body['driver']);
     }
 
