@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
+use BadFunctionCallException;
+
 class Rule
 {
     protected int $id;
@@ -13,21 +15,11 @@ class Rule
     protected array $conditionData;
     protected string $name;
     protected bool $readonly;
-    protected ?string $deletedAt;
-    protected ?string $createdAt;
-    protected ?string $updatedAt;
     protected string $driver;
 
     public function id(): int
     {
         return $this->id;
-    }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function actionType(): string
@@ -95,13 +87,6 @@ class Rule
         return $this->readonly;
     }
 
-    public function setReadonly(bool $readonly): self
-    {
-        $this->readonly = $readonly;
-
-        return $this;
-    }
-
     public function driver(): string
     {
         return $this->driver;
@@ -112,5 +97,14 @@ class Rule
         $this->driver = $driver;
 
         return $this;
+    }
+
+    public function isset(string $field): bool
+    {
+        if (!property_exists($this, $field)) {
+            throw new BadFunctionCallException("Field '$field' does not exists");
+        }
+
+        return isset($this->{$field});
     }
 }

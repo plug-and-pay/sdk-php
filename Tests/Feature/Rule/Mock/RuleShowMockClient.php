@@ -25,6 +25,7 @@ class RuleShowMockClient extends ClientMock
         'deleted_at'     => null,
         'driver'         => 'webhook',
     ];
+    protected string $path;
 
     public function __construct(int $status = 200, array $data = [])
     {
