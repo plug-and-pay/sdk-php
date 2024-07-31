@@ -13,7 +13,7 @@ class IndexRulesMockClient extends ClientMock
 
     public function __construct(array $data = [ShowRuleMockClient::BASIC_RULE])
     {
-        parent::__construct(data: $data);
+        parent::__construct(body: $data);
     }
 
     public function get(string $path): Response
