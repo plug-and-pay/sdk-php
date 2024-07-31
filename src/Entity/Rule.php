@@ -15,6 +15,9 @@ class Rule
     protected array $conditionData;
     protected string $name;
     protected bool $readonly;
+    protected ?string $deletedAt;
+    protected ?string $createdAt;
+    protected ?string $updatedAt;
     protected string $driver;
 
     public function id(): int
