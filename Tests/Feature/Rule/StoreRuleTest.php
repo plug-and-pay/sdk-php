@@ -1,8 +1,5 @@
 <?php
 
-/** @noinspection EfferentObjectCouplingInspection */
-/* @noinspection PhpUnhandledExceptionInspection */
-
 declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Rule;
@@ -12,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Director\ToBody\RuleToBody;
 use PlugAndPay\Sdk\Entity\Rule;
 use PlugAndPay\Sdk\Service\RuleService;
-use PlugAndPay\Sdk\Tests\Feature\Rule\Mock\RuleStoreMockClient;
+use PlugAndPay\Sdk\Tests\Feature\Rule\Mock\StoreRuleMockClient;
 
 class StoreRuleTest extends TestCase
 {
@@ -39,16 +36,16 @@ class StoreRuleTest extends TestCase
 
         static::assertSame('call_webhook', $body['action_type']);
         static::assertSame(['url' => 'https://example.com/webhook'], $body['action_data']);
-        static::assertSame('order_created', $body['trigger_type']);
+        static::assertSame('order_paid', $body['trigger_type']);
         static::assertSame(['product_id' => [1]], $body['condition_data']);
-        static::assertSame('Plug&Pay example rule', $body['name']);
+        static::assertSame('Plug&Pay Example Rule', $body['name']);
         static::assertSame('webhook', $body['driver']);
     }
 
     /** @test */
     public function store_basic_rule(): void
     {
-        $client  = new RuleStoreMockClient();
+        $client  = new StoreRuleMockClient();
         $service = new RuleService($client);
 
         $rule = $this->makeBasicRule();
@@ -64,9 +61,9 @@ class StoreRuleTest extends TestCase
         return (new Rule)
             ->setActionType('call_webhook')
             ->setActionData(['url' => 'https://example.com/webhook'])
-            ->setTriggerType('order_created')
+            ->setTriggerType('order_paid')
             ->setConditionData(['product_id' => [1]])
-            ->setName('Plug&Pay example rule')
+            ->setName('Plug&Pay Example Rule')
             ->setDriver('webhook');
     }
 }

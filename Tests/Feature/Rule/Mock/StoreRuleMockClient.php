@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Tests\Feature\Rule\Mock;
 
 use PlugAndPay\Sdk\Entity\Response;
 
-class RuleStoreMockClient extends RuleShowMockClient
+class StoreRuleMockClient extends ShowRuleMockClient
 {
     protected array $requestBody;
 

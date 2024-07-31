@@ -11,7 +11,7 @@ use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\ValidationException;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
-class RuleDestroyMockClient extends ClientMock
+class DestroyRuleMockClient extends ClientMock
 {
     private string $path;
 

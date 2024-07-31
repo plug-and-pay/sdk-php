@@ -8,7 +8,7 @@ use PlugAndPay\Sdk\Enum\RuleGroupType;
 
 class RuleFilter
 {
-    public array $parameters = [];
+    private array $parameters = [];
 
     public function group(RuleGroupType $value): self
     {

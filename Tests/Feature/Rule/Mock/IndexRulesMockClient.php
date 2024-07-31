@@ -7,16 +7,13 @@ namespace PlugAndPay\Sdk\Tests\Feature\Rule\Mock;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
-class RuleIndexMockClient extends ClientMock
+class IndexRulesMockClient extends ClientMock
 {
     private string $path;
 
-    /** @noinspection PhpMissingParentConstructorInspection */
-    public function __construct(array $data = [[]])
+    public function __construct(array $data = [ShowRuleMockClient::BASIC_RULE])
     {
-        foreach ($data as $ruleData) {
-            $this->responseBody[] = $ruleData + RuleShowMockClient::BASIC_RULE;
-        }
+        parent::__construct(data: $data);
     }
 
     public function get(string $path): Response

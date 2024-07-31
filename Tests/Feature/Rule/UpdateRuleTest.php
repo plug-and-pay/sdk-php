@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection PhpUnhandledExceptionInspection */
-
 declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Rule;
@@ -11,7 +9,7 @@ use PlugAndPay\Sdk\Entity\Rule;
 use PlugAndPay\Sdk\Service\RuleService;
 use PlugAndPay\Sdk\Tests\Feature\Rule\Mock\UpdateRuleMockClient;
 
-class RuleUpdateTest extends TestCase
+class UpdateRuleTest extends TestCase
 {
     /** @test */
     public function update_basic_Rule(): void
