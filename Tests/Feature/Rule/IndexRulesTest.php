@@ -63,7 +63,7 @@ class IndexRulesTest extends TestCase
         static::assertSame("/v2/rules?$queryKey=$queryValue", $client->path());
     }
 
-    public function ruleFilterDataProvider(): array
+    public static function ruleFilterDataProvider(): array
     {
         return [
             [

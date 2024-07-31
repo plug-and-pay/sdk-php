@@ -46,7 +46,7 @@ class IndexProductsTest extends TestCase
     /**
      * Data provider for index_products_with_filter.
      */
-    public function productFilterDataProvider(): array
+    public static function productFilterDataProvider(): array
     {
         return [
             [
