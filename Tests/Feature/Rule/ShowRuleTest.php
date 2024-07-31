@@ -10,7 +10,7 @@ use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\UnauthenticatedException;
 use PlugAndPay\Sdk\Service\RuleService;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
-use PlugAndPay\Sdk\Tests\Feature\Rule\Mock\RuleShowMockClient;
+use PlugAndPay\Sdk\Tests\Feature\Rule\Mock\ShowRuleMockClient;
 
 class ShowRuleTest extends TestCase
 {
@@ -47,7 +47,7 @@ class ShowRuleTest extends TestCase
     /** @test */
     public function show_rule(): void
     {
-        $client  = new RuleShowMockClient(data: ['id' => 1]);
+        $client  = new ShowRuleMockClient(data: ['id' => 1]);
         $service = new RuleService($client);
 
         $rule = $service->find(1);
@@ -55,9 +55,9 @@ class ShowRuleTest extends TestCase
         static::assertSame(1, $rule->id());
         static::assertSame('call_webhook', $rule->actionType());
         static::assertSame(['hook_url' => 'https://example.com/webhook'], $rule->actionData());
-        static::assertSame('order_created', $rule->triggerType());
+        static::assertSame('order_paid', $rule->triggerType());
         static::assertSame(['is_first' => true, 'product_id' => [1]], $rule->conditionData());
-        static::assertSame('Plug&Pay webhook rule', $rule->name());
+        static::assertSame('Plug&Pay Example Rule', $rule->name());
         static::assertFalse($rule->readonly());
         static::assertSame('webhook', $rule->driver());
     }

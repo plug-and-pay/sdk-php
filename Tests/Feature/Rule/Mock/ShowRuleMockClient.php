@@ -1,14 +1,12 @@
 <?php
 
-/** @noinspection ThrowRawExceptionInspection */
-
 declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\Rule\Mock;
 
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
-class RuleShowMockClient extends ClientMock
+class ShowRuleMockClient extends ClientMock
 {
     public const BASIC_RULE = [
         'id'             => 1,
@@ -16,9 +14,9 @@ class RuleShowMockClient extends ClientMock
         'action_data'    => [
             'hook_url' => 'https://example.com/webhook',
         ],
-        'trigger_type'   => 'order_created',
+        'trigger_type'   => 'order_paid',
         'condition_data' => ['is_first' => true, 'product_id' => [1]],
-        'name'           => 'Plug&Pay webhook rule',
+        'name'           => 'Plug&Pay Example Rule',
         'readonly'       => false,
         'created_at'     => null,
         'updated_at'     => null,

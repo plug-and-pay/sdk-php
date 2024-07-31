@@ -52,7 +52,7 @@ class IndexOrdersTest extends TestCase
     /**
      * Data provider for index_orders_with_filter.
      */
-    public function orderFilterDataProvider(): array
+    public static function orderFilterDataProvider(): array
     {
         return [
             [

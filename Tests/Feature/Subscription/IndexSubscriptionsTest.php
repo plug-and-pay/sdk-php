@@ -47,7 +47,7 @@ class IndexSubscriptionsTest extends TestCase
     /**
      * Data provider for index_subscriptions_with_filter.
      */
-    public function subscriptionFilterDataProvider(): array
+    public static function subscriptionFilterDataProvider(): array
     {
         return [
             [

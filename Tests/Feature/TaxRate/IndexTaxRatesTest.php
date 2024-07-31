@@ -42,7 +42,7 @@ class IndexTaxRatesTest extends TestCase
     /**
      * Data provider for index_tax_rate_with_filter.
      */
-    public function taxRateFilterDataProvider(): array
+    public static function taxRateFilterDataProvider(): array
     {
         return [
             [
