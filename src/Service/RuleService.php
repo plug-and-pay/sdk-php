@@ -8,6 +8,8 @@ use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToRule;
 use PlugAndPay\Sdk\Entity\Rule;
+use PlugAndPay\Sdk\Filters\RuleFilter;
+use PlugAndPay\Sdk\Support\Parameters;
 
 class RuleService
 {
@@ -23,5 +25,15 @@ class RuleService
         $response = $this->client->get("/v2/rules/$id");
 
         return BodyToRule::build($response->body()['data']);
+    }
+
+    public function get(RuleFilter $ruleFilter = null): array
+    {
+        $ruleFilter = $ruleFilter ?? new RuleFilter();
+        $query      = Parameters::toString($ruleFilter->parameters());
+
+        $response = $this->client->get("/v2/rules$query");
+
+        return BodyToRule::buildMulti($response->body()['data']);
     }
 }
