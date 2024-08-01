@@ -103,6 +103,12 @@ class IndexRulesTest extends TestCase
                 'queryValue' => '1',
             ],
             [
+                'method'     => 'levelId',
+                'value'      => 1,
+                'queryKey'   => 'level_id',
+                'queryValue' => '1',
+            ],
+            [
                 'method'     => 'limit',
                 'value'      => 3,
                 'queryKey'   => 'limit',

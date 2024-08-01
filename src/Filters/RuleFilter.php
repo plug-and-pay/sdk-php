@@ -52,6 +52,13 @@ class RuleFilter
         return $this;
     }
 
+    public function levelId(int $value): self
+    {
+        $this->parameters['level_id'] = $value;
+
+        return $this;
+    }
+
     public function limit(int $value): self
     {
         $this->parameters['limit'] = $value;
