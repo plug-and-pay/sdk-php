@@ -163,6 +163,13 @@ class OrderFilter
         return $this;
     }
 
+    public function productGroup(string $value): self
+    {
+        $this->parameters['product_group'] = $value;
+
+        return $this;
+    }
+
     public function productTag(string $value): self
     {
         $this->parameters['product_tag'] = $value;
