@@ -17,6 +17,10 @@ class Parameters
                     $value = $value->value;
                 }
 
+                if (is_string($value) && !Util::validateDate($value)) {
+                    $value = str_replace(' ', '-', $value);
+                }
+
                 return $value;
             }, (array) $values);
             $parts[$key] = implode(self::VALUE_SEPARATOR, $values);

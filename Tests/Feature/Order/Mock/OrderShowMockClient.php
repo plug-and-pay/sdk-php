@@ -28,6 +28,7 @@ class OrderShowMockClient extends ClientMock
         'reference'       => '0b13e52d-b058-32fb-8507-10dec634a07c',
         'source'          => 'api',
         'updated_at'      => '2019-01-16T00:00:00.000000Z',
+        'product_group'   => 'lorem-ipsum-test',
     ];
     protected string $path;
 
