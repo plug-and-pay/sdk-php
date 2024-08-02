@@ -54,7 +54,7 @@ class RuleFilter
 
     public function levelId(int $value): self
     {
-        $this->parameters['action_data']['level_ids'] = $value;
+        $this->parameters['level_id'] = $value;
 
         return $this;
     }
