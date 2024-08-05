@@ -59,7 +59,7 @@ class ShowProductTest extends TestCase
     /**
      * Data provider for fetch_none_loaded_relationships.
      */
-    public function relationsProvider(): array
+    public static function relationsProvider(): array
     {
         return [
             'pricing' => ['pricing'],

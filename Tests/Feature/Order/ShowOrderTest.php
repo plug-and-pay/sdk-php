@@ -72,7 +72,7 @@ class ShowOrderTest extends TestCase
     /**
      * Data provider for show_none_loaded_relationships.
      */
-    public function relationsProvider(): array
+    public static function relationsProvider(): array
     {
         return [
             'billing'        => ['billing'],
