@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Support;
 
+use UnitEnum;
+
 class Parameters
 {
     private const VALUE_SEPARATOR = ',';
@@ -13,11 +15,11 @@ class Parameters
         $parts = [];
         foreach ($parameters as $key => $values) {
             $values = array_map(function ($value) {
-                if ($value instanceof \UnitEnum) {
+                if ($value instanceof UnitEnum) {
                     $value = $value->value;
                 }
 
-                if (is_string($value) && !Util::validateDate($value)) {
+                if (is_string($value) && !DateUtils::validateDate($value)) {
                     $value = str_replace(' ', '-', $value);
                 }
 

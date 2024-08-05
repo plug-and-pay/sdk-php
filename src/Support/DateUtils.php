@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Support;
 
 use DateTime;
 
-class Util
+class DateUtils
 {
     public static function validateDate(string $date, string $format = 'Y-m-d H:i:s'): bool
     {

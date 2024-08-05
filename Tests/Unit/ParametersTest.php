@@ -28,6 +28,12 @@ class ParametersTest extends TestCase
     }
 
     /** @test */
+    public function it_should_correctly_format_parameters_with_a_space(): void
+    {
+        static::assertSame('?product_group=lorem-ipsum', Parameters::toString(['product_group' => 'lorem ipsum']));
+    }
+
+    /** @test */
     public function multiple_values(): void
     {
         static::assertSame('?include=hello%2Cworld', Parameters::toString(['include' => ['hello', 'world']]));
