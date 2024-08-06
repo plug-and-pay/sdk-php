@@ -223,6 +223,24 @@ class IndexOrdersTest extends TestCase
                 'queryKey'   => 'until_paid_at',
                 'queryValue' => '2001-01-01+23%3A59%3A59',
             ],
+            [
+                'method'     => 'productGroup',
+                'value'      => 'lorem',
+                'queryKey'   => 'product_group',
+                'queryValue' => 'lorem',
+            ],
+            [
+                'method'     => 'productGroup',
+                'value'      => 'lorem-ipsum',
+                'queryKey'   => 'product_group',
+                'queryValue' => 'lorem-ipsum',
+            ],
+            [
+                'method'     => 'productGroup',
+                'value'      => 'lorem ipsum test',
+                'queryKey'   => 'product_group',
+                'queryValue' => 'lorem-ipsum-test',
+            ],
         ];
     }
 }
