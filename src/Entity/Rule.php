@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Entity;
 
 use BadFunctionCallException;
+use DateTimeImmutable;
 
 class Rule
 {
@@ -15,9 +16,9 @@ class Rule
     protected array $conditionData;
     protected string $name;
     protected bool $readonly;
-    protected ?string $deletedAt;
-    protected ?string $createdAt;
-    protected ?string $updatedAt;
+    protected ?DateTimeImmutable $deletedAt;
+    protected DateTimeImmutable $createdAt;
+    protected ?DateTimeImmutable $updatedAt;
     protected string $driver;
 
     public function id(): int
