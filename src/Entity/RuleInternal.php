@@ -21,7 +21,7 @@ class RuleInternal extends Rule
     /**
      * @internal
      */
-    public function setCreatedAt(?DateTimeImmutable $createdAt): self
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -41,9 +41,9 @@ class RuleInternal extends Rule
     /**
      * @internal
      */
-    public function setUpdatedAt(?DateTimeImmutable $deletedAt): self
+    public function setUpdatedAt(?DateTimeImmutable $updatedAt): self
     {
-        $this->deletedAt = $deletedAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

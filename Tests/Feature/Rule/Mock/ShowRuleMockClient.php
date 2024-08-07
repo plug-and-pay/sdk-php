@@ -18,7 +18,7 @@ class ShowRuleMockClient extends ClientMock
         'condition_data' => ['is_first' => true, 'product_id' => [1]],
         'name'           => 'Plug&Pay Example Rule',
         'readonly'       => false,
-        'created_at'     => null,
+        'created_at'     => '2021-01-01T00:00:00Z',
         'updated_at'     => null,
         'deleted_at'     => null,
         'driver'         => 'webhook',

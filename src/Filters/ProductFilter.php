@@ -79,4 +79,11 @@ class ProductFilter
     {
         return $this->parameters;
     }
+
+    public function productIds(array $productIds): self
+    {
+        $this->parameters['product_ids'] = implode(',', $productIds);
+
+        return $this;
+    }
 }
