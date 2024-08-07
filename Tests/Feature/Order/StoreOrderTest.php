@@ -141,7 +141,7 @@ class StoreOrderTest extends TestCase
         static::assertEquals($value, $body[$bodyField]);
     }
 
-    public function convert_order_fields_data_provider(): array
+    public static function convert_order_fields_data_provider(): array
     {
         return [
             'isHidden' => [
