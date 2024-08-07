@@ -26,7 +26,7 @@ class OrderInternal extends Order
     /**
      * @internal
      */
-    public function setDeletedAt(?DateTimeImmutable $deletedAt): self
+    public function setDeletedAt(DateTimeImmutable | null $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
 
@@ -56,7 +56,7 @@ class OrderInternal extends Order
     /**
      * @internal
      */
-    public function setInvoiceNumber(?string $invoiceNumber): self
+    public function setInvoiceNumber(string | null $invoiceNumber): self
     {
         $this->invoiceNumber = $invoiceNumber;
 
@@ -89,26 +89,6 @@ class OrderInternal extends Order
     public function setSource(Source $source): self
     {
         $this->source = $source;
-
-        return $this;
-    }
-
-    /**
-     * @internal
-     */
-    public function setTaxes(array $taxes): self
-    {
-        $this->taxes = $taxes;
-
-        return $this;
-    }
-
-    /**
-     * @internal
-     */
-    public function setTotalDiscounts(array $totalDiscounts): self
-    {
-        $this->totalDiscounts = $totalDiscounts;
 
         return $this;
     }
