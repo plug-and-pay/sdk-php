@@ -27,7 +27,7 @@ class BodyToRule
             ->setReadonly($data['readonly'])
             ->setDeletedAt($data['deleted_at'] ? self::date($data, 'deleted_at') : null)
             ->setCreatedAt(self::date($data, 'created_at'))
-            ->setUpdatedAt(self::date($data, 'updated_at'))
+            ->setUpdatedAt($data['updated_at'] ? self::date($data, 'updated_at') : null)
             ->setDriver($data['driver']);
     }
 
