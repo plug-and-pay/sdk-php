@@ -16,28 +16,42 @@ class Order
     protected bool $allowEmptyRelations;
     protected float $amount;
     protected float $amountWithTax;
+
     protected OrderBilling $billing;
+
     /** @var Comment[] */
     protected array $comments;
+
     protected DateTimeImmutable $createdAt;
-    protected ?DateTimeImmutable $deletedAt;
+    protected DateTimeImmutable | null $deletedAt;
+
     /** @var Discount[] */
     protected array $totalDiscounts;
+
     protected bool $first;
     protected bool $hidden;
+
     protected int $id;
-    protected ?string $invoiceNumber;
+    protected string | null $invoiceNumber;
+
     protected InvoiceStatus $invoiceStatus;
+
     /** @var Item[] */
     protected array $items;
+
     protected Mode $mode;
+
     protected Payment $payment;
     protected string $reference;
+
     protected Source $source;
+
     /** @var string[] */
     protected array $tags;
+
     /** @var Tax[] */
     protected array $taxes;
+
     protected DateTimeImmutable $updatedAt;
 
     public function __construct(bool $allowEmptyRelations = true)
@@ -138,7 +152,7 @@ class Order
         return $this->totalDiscounts;
     }
 
-    public function invoiceNumber(): ?string
+    public function invoiceNumber(): string | null
     {
         return $this->invoiceNumber;
     }
@@ -192,6 +206,20 @@ class Order
     public function setMode(Mode $mode): self
     {
         $this->mode = $mode;
+
+        return $this;
+    }
+
+    public function setTaxes(array $taxes): self
+    {
+        $this->taxes = $taxes;
+
+        return $this;
+    }
+
+    public function setTotalDiscounts(array $totalDiscounts): self
+    {
+        $this->totalDiscounts = $totalDiscounts;
 
         return $this;
     }

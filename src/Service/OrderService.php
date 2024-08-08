@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Service;
 
 use PlugAndPay\Sdk\Contract\ClientInterface;
-use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToOrder;
 use PlugAndPay\Sdk\Director\ToBody\OrderToBody;
 use PlugAndPay\Sdk\Entity\Order;
@@ -17,7 +16,8 @@ use PlugAndPay\Sdk\Support\Parameters;
 
 class OrderService
 {
-    private ClientPatchInterface $client;
+    private ClientInterface $client;
+
     /** @var string[] */
     private array $includes = [];
 
