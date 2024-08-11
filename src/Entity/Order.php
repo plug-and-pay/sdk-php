@@ -52,6 +52,9 @@ class Order
     /** @var Tax[] */
     protected array $taxes;
 
+    /** @var CustomField[] */
+    protected array $customFields;
+
     protected DateTimeImmutable $updatedAt;
 
     public function __construct(bool $allowEmptyRelations = true)
@@ -286,6 +289,25 @@ class Order
         }
 
         return $this->taxes;
+    }
+
+    public function setCustomFields(array $customFields): self
+    {
+        $this->customFields = $customFields;
+
+        return $this;
+    }
+
+    /**
+     * @throws RelationNotLoadedException
+     */
+    public function customFields(): array
+    {
+        if (!isset($this->customFields)) {
+            throw new RelationNotLoadedException('customFields');
+        }
+
+        return $this->customFields;
     }
 
     public function updatedAt(): DateTimeImmutable
