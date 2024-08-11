@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
 use DateTimeImmutable;
+use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
 class SubscriptionTrial
 {
+    use HasDynamicFields;
+
     private DateTimeImmutable $endDate;
     private bool $isActive;
     private DateTimeImmutable $startDate;
@@ -47,14 +49,5 @@ class SubscriptionTrial
         $this->isActive = $isActive;
 
         return $this;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!property_exists($this, $field)) {
-            throw new BadFunctionCallException("Method '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }

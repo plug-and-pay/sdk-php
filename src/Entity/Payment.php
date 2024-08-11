@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
 use DateTimeImmutable;
 use PlugAndPay\Sdk\Enum\PaymentMethod;
 use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\PaymentType;
+use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
 class Payment
 {
+    use HasDynamicFields;
+
     protected ?string $customerId;
     protected ?string $mandateId;
     protected ?PaymentMethod $method;
@@ -93,14 +95,5 @@ class Payment
     public function url(): ?string
     {
         return $this->url;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!property_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }

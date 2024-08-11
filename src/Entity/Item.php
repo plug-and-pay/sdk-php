@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
 use PlugAndPay\Sdk\Enum\ItemType;
+use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
 class Item
 {
+    use ValidatesFieldMethods;
+
     protected float $amount;
     protected float $amountWithTax;
     /** @var Discount[] */
@@ -112,14 +114,5 @@ class Item
     public function type(): ItemType
     {
         return $this->type;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!method_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }

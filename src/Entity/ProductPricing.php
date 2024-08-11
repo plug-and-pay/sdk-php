@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
+use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
 class ProductPricing
 {
+    use HasDynamicFields;
+
     private bool $allowEmptyRelations;
     private bool $taxIncluded;
     /*** @var Price[] */
@@ -91,14 +93,5 @@ class ProductPricing
         $this->trial = $trial;
 
         return $this;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!property_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }
