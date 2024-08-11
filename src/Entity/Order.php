@@ -13,7 +13,10 @@ use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class Order
 {
+    protected int $id;
+
     protected bool $allowEmptyRelations;
+
     protected float $amount;
     protected float $amountWithTax;
 
@@ -31,7 +34,6 @@ class Order
     protected bool $first;
     protected bool $hidden;
 
-    protected int $id;
     protected string | null $invoiceNumber;
 
     protected InvoiceStatus $invoiceStatus;
@@ -138,7 +140,7 @@ class Order
         return $this->createdAt;
     }
 
-    public function deletedAt(): ?DateTimeImmutable
+    public function deletedAt(): DateTimeImmutable | null
     {
         return $this->deletedAt;
     }
@@ -155,14 +157,11 @@ class Order
         return $this->totalDiscounts;
     }
 
-    public function invoiceNumber(): string | null
+    public function setTotalDiscounts(array $totalDiscounts): self
     {
-        return $this->invoiceNumber;
-    }
+        $this->totalDiscounts = $totalDiscounts;
 
-    public function invoiceStatus(): InvoiceStatus
-    {
-        return $this->invoiceStatus;
+        return $this;
     }
 
     public function isFirst(): bool
@@ -180,6 +179,16 @@ class Order
         $this->hidden = $hidden;
 
         return $this;
+    }
+
+    public function invoiceNumber(): string | null
+    {
+        return $this->invoiceNumber;
+    }
+
+    public function invoiceStatus(): InvoiceStatus
+    {
+        return $this->invoiceStatus;
     }
 
     /**
@@ -209,20 +218,6 @@ class Order
     public function setMode(Mode $mode): self
     {
         $this->mode = $mode;
-
-        return $this;
-    }
-
-    public function setTaxes(array $taxes): self
-    {
-        $this->taxes = $taxes;
-
-        return $this;
-    }
-
-    public function setTotalDiscounts(array $totalDiscounts): self
-    {
-        $this->totalDiscounts = $totalDiscounts;
 
         return $this;
     }
@@ -291,9 +286,9 @@ class Order
         return $this->taxes;
     }
 
-    public function setCustomFields(array $customFields): self
+    public function setTaxes(array $taxes): self
     {
-        $this->customFields = $customFields;
+        $this->taxes = $taxes;
 
         return $this;
     }
@@ -308,6 +303,13 @@ class Order
         }
 
         return $this->customFields;
+    }
+
+    public function setCustomFields(array $customFields): self
+    {
+        $this->customFields = $customFields;
+
+        return $this;
     }
 
     public function updatedAt(): DateTimeImmutable
