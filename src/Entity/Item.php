@@ -6,6 +6,7 @@ namespace PlugAndPay\Sdk\Entity;
 
 use BadFunctionCallException;
 use PlugAndPay\Sdk\Enum\ItemType;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class Item
 {
@@ -19,6 +20,9 @@ class Item
     protected int $quantity;
     protected Tax $tax;
     protected ItemType $type;
+
+    /** @var CustomField[] */
+    protected array $customFields;
 
     public function id(): int
     {
@@ -112,6 +116,25 @@ class Item
     public function type(): ItemType
     {
         return $this->type;
+    }
+
+    /**
+     * @throws RelationNotLoadedException
+     */
+    public function customFields(): array
+    {
+        if (!isset($this->customFields)) {
+            throw new RelationNotLoadedException('customFields');
+        }
+
+        return $this->customFields;
+    }
+
+    public function setCustomFields(array $customFields): self
+    {
+        $this->customFields = $customFields;
+
+        return $this;
     }
 
     public function isset(string $field): bool
