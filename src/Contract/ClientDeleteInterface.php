@@ -9,4 +9,6 @@ use PlugAndPay\Sdk\Entity\Response;
 interface ClientDeleteInterface
 {
     public function delete(string $path): Response;
+
+    public function demo(string $path): Response;
 }
