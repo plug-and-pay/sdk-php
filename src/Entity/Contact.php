@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
 use PlugAndPay\Sdk\Enum\TaxExempt;
+use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
 class Contact
 {
+    use ValidatesFieldMethods;
+
     private ?string $company;
     private string $email;
     private string $firstName;
@@ -112,14 +114,5 @@ class Contact
         $this->website = $website;
 
         return $this;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!method_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }

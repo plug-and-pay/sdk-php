@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
+use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
 class TaxProfile
 {
+    use ValidatesFieldMethods;
+
     protected int $id;
     protected bool $editable;
     protected string $label;
@@ -31,14 +33,5 @@ class TaxProfile
     public function rates(): array
     {
         return $this->rates;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!method_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }

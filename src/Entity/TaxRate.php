@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
 use PlugAndPay\Sdk\Enum\CountryCode;
+use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
 class TaxRate
 {
+    use ValidatesFieldMethods;
+
     protected int $id;
     protected CountryCode $country;
     protected float $percentage;
@@ -26,14 +28,5 @@ class TaxRate
     public function percentage(): float
     {
         return $this->percentage;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!method_exists($this, $field)) {
-            throw new BadFunctionCallException("Method '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }

@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
 use PlugAndPay\Sdk\Enum\Interval;
+use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
 class Price
 {
+    use HasDynamicFields;
+
     protected int $id;
     protected ?PriceFirst $first;
     protected ?Interval $interval;
@@ -106,14 +108,5 @@ class Price
         $this->tiers = $tiers;
 
         return $this;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!property_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }

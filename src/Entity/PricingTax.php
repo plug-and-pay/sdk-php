@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
+use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
 class PricingTax
 {
+    use ValidatesFieldMethods;
+
     protected bool $allowEmptyRelations;
     protected TaxRate $rate;
     protected TaxProfile $profile;
@@ -62,14 +64,5 @@ class PricingTax
         $this->profile = (new TaxProfileInternal())->setId($int);
 
         return $this;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!method_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }

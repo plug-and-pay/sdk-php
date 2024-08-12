@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
+use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
 class PriceTier
 {
+    use HasDynamicFields;
+
     private float $amount;
     private float $amountWithTax;
     private int $quantity;
@@ -46,14 +48,5 @@ class PriceTier
         $this->quantity = $quantity;
 
         return $this;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!property_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }
