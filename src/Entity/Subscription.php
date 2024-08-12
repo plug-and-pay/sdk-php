@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
 use DateTimeImmutable;
 use PlugAndPay\Sdk\Enum\Mode;
 use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Enum\SubscriptionStatus;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
+use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
 class Subscription
 {
+    use HasDynamicFields;
+
     protected bool $allowEmptyRelations;
     protected int $id;
     protected ?DateTimeImmutable $cancelledAt;
@@ -177,14 +179,5 @@ class Subscription
         }
 
         return $this->trial;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!property_exists($this, $field)) {
-            throw new BadFunctionCallException("Method '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }

@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
 use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentType;
+use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
 class SubscriptionPaymentOptions
 {
+    use ValidatesFieldMethods;
+
     protected ?string $customerId;
     protected ?string $iban;
     protected ?string $mandateId;
@@ -86,14 +88,5 @@ class SubscriptionPaymentOptions
     public function type(): PaymentType
     {
         return $this->type;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!method_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }

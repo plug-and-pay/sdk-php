@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
 use DateTimeImmutable;
 use PlugAndPay\Sdk\Enum\InvoiceStatus;
 use PlugAndPay\Sdk\Enum\Mode;
 use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
+use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
 class Order
 {
+    use HasDynamicFields;
+
     protected bool $allowEmptyRelations;
     protected float $amount;
     protected float $amountWithTax;
@@ -263,14 +265,5 @@ class Order
     public function updatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!property_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }

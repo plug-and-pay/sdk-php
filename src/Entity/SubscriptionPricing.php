@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
+use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
 class SubscriptionPricing
 {
+    use HasDynamicFields;
+
     private bool $allowEmptyRelations;
     private float $amount;
     private float $amountWithTax;
@@ -104,14 +106,5 @@ class SubscriptionPricing
         $this->isTaxIncluded = $isTaxIncluded;
 
         return $this;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!property_exists($this, $field)) {
-            throw new BadFunctionCallException("Method '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }

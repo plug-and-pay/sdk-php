@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
 use DateTimeImmutable;
+use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
 class Rule
 {
+    use HasDynamicFields;
+
     protected int $id;
     protected string $actionType;
     protected array $actionData;
@@ -101,14 +103,5 @@ class Rule
         $this->driver = $driver;
 
         return $this;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!property_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }

@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-use BadFunctionCallException;
 use DateTimeImmutable;
 use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
+use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
 class Product
 {
+    use HasDynamicFields;
+
     protected bool $allowEmptyRelations;
     protected int $id;
     protected DateTimeImmutable $createdAt;
@@ -192,14 +194,5 @@ class Product
         $this->pricing = $pricing;
 
         return $this;
-    }
-
-    public function isset(string $field): bool
-    {
-        if (!property_exists($this, $field)) {
-            throw new BadFunctionCallException("Field '$field' does not exists");
-        }
-
-        return isset($this->{$field});
     }
 }
