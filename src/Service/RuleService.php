@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Service;
 
 use PlugAndPay\Sdk\Contract\ClientInterface;
-use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToRule;
 use PlugAndPay\Sdk\Director\ToBody\RuleToBody;
 use PlugAndPay\Sdk\Entity\Rule;
@@ -15,7 +14,7 @@ use PlugAndPay\Sdk\Support\Parameters;
 
 class RuleService
 {
-    private ClientPatchInterface $client;
+    private ClientInterface $client;
 
     public function __construct(ClientInterface $client)
     {
