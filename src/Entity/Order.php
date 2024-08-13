@@ -14,9 +14,9 @@ use PlugAndPay\Sdk\Traits\HasDynamicFields;
 class Order
 {
     use HasDynamicFields;
-  
+
     protected int $id;
-  
+
     protected bool $allowEmptyRelations;
 
     protected float $amount;

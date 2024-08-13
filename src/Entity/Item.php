@@ -14,16 +14,16 @@ class Item
 
     protected float $amount;
     protected float $amountWithTax;
-  
+
     /** @var Discount[] */
     protected array $discounts;
-  
+
     protected int $id;
     protected string $label;
-  
+
     protected int $productId;
     protected int $quantity;
-  
+
     protected Tax $tax;
     protected ItemType $type;
 
@@ -123,7 +123,7 @@ class Item
     {
         return $this->type;
     }
-  
+
     /**
      * @throws RelationNotLoadedException
      */
@@ -134,12 +134,5 @@ class Item
         }
 
         return $this->customFields;
-    }
-
-    public function setCustomFields(array $customFields): self
-    {
-        $this->customFields = $customFields;
-
-        return $this;
     }
 }

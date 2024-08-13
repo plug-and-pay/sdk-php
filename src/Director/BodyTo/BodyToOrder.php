@@ -17,7 +17,6 @@ class BodyToOrder
 {
     /**
      * @throws DecodeResponseException
-     * @throws Exception
      */
     public static function build(array $data): Order
     {
