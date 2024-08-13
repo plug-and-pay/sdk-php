@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Entity;
 
-class Response
+class Response extends AbstractEntity
 {
     public const HTTP_OK                   = 200;
     public const HTTP_CREATED              = 201;

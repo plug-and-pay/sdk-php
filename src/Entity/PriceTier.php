@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Entity;
 
 use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
-class PriceTier
+class PriceTier extends AbstractEntity
 {
     use HasDynamicFields;
 

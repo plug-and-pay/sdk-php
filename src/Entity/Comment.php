@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Entity;
 
 use DateTimeImmutable;
 
-class Comment
+class Comment extends AbstractEntity
 {
     protected DateTimeImmutable $createdAt;
     protected int $id;

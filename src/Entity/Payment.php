@@ -11,7 +11,7 @@ use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\PaymentType;
 use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
-class Payment
+class Payment extends AbstractEntity
 {
     use HasDynamicFields;
 

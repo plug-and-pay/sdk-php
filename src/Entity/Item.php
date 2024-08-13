@@ -7,7 +7,7 @@ namespace PlugAndPay\Sdk\Entity;
 use PlugAndPay\Sdk\Enum\ItemType;
 use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
-class Item
+class Item extends AbstractEntity
 {
     use ValidatesFieldMethods;
 

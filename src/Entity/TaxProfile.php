@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Entity;
 
 use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
-class TaxProfile
+class TaxProfile extends AbstractEntity
 {
     use ValidatesFieldMethods;
 

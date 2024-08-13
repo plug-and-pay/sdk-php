@@ -7,7 +7,7 @@ namespace PlugAndPay\Sdk\Entity;
 use PlugAndPay\Sdk\Enum\DiscountType;
 use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
-class Discount
+class Discount extends AbstractEntity
 {
     use ValidatesFieldMethods;
 

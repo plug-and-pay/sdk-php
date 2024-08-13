@@ -7,7 +7,7 @@ namespace PlugAndPay\Sdk\Entity;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
-class SubscriptionPricing
+class SubscriptionPricing extends AbstractEntity
 {
     use HasDynamicFields;
 

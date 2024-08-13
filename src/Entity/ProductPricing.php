@@ -7,7 +7,7 @@ namespace PlugAndPay\Sdk\Entity;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
-class ProductPricing
+class ProductPricing extends AbstractEntity
 {
     use HasDynamicFields;
 

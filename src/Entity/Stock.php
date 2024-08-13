@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Entity;
 
 use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
-class Stock
+class Stock extends AbstractEntity
 {
     use HasDynamicFields;
 

@@ -11,7 +11,7 @@ use PlugAndPay\Sdk\Enum\SubscriptionStatus;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
-class Subscription
+class Subscription extends AbstractEntity
 {
     use HasDynamicFields;
 
