@@ -6,6 +6,8 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
 use Exception;
+use PlugAndPay\Sdk\Contract\BuildMultipleObjectsInterface;
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\Order;
 use PlugAndPay\Sdk\Entity\OrderInternal;
 use PlugAndPay\Sdk\Enum\InvoiceStatus;
@@ -13,7 +15,7 @@ use PlugAndPay\Sdk\Enum\Mode;
 use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
-class BodyToOrder
+class BodyToOrder implements BuildObjectInterface, BuildMultipleObjectsInterface
 {
     /**
      * @throws DecodeResponseException

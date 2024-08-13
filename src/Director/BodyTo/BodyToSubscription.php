@@ -6,6 +6,8 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
 use Exception;
+use PlugAndPay\Sdk\Contract\BuildMultipleObjectsInterface;
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\Subscription;
 use PlugAndPay\Sdk\Entity\SubscriptionInternal;
 use PlugAndPay\Sdk\Enum\Mode;
@@ -13,7 +15,7 @@ use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Enum\SubscriptionStatus;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
-class BodyToSubscription
+class BodyToSubscription implements BuildObjectInterface, BuildMultipleObjectsInterface
 {
     /**
      * @throws DecodeResponseException

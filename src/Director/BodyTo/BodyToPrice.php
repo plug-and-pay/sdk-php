@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
+use PlugAndPay\Sdk\Contract\BuildMultipleObjectsInterface;
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\Price;
 use PlugAndPay\Sdk\Entity\PriceInternal;
 use PlugAndPay\Sdk\Enum\Interval;
 
-class BodyToPrice
+class BodyToPrice implements BuildObjectInterface, BuildMultipleObjectsInterface
 {
     public static function build(array $data): Price
     {

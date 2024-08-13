@@ -6,13 +6,15 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
 use Exception;
+use PlugAndPay\Sdk\Contract\BuildMultipleObjectsInterface;
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\Product;
 use PlugAndPay\Sdk\Entity\ProductInternal;
 use PlugAndPay\Sdk\Entity\Stock;
 use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
-class BodyToProduct
+class BodyToProduct implements BuildObjectInterface, BuildMultipleObjectsInterface
 {
     /**
      * @throws DecodeResponseException

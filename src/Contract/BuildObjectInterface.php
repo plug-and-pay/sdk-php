@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Contract;
 
 use PlugAndPay\Sdk\Entity\AbstractEntity;
 
-interface BuildToInterface
+interface BuildObjectInterface
 {
-    public function build(array $data): AbstractEntity;
+    public static function build(array $data): array | AbstractEntity;
 }

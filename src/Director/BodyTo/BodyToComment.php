@@ -6,10 +6,12 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
 use Exception;
+use PlugAndPay\Sdk\Contract\BuildMultipleObjectsInterface;
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\Comment;
 use PlugAndPay\Sdk\Entity\CommentInternal;
 
-class BodyToComment
+class BodyToComment implements BuildObjectInterface, BuildMultipleObjectsInterface
 {
     /**
      * @throws Exception
@@ -28,7 +30,7 @@ class BodyToComment
      * @return Comment[]
      * @throws Exception
      */
-    public static function buildMulti($comments): array
+    public static function buildMulti(mixed $comments): array
     {
         $result = [];
         foreach ($comments as $comment) {

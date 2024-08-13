@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
+use PlugAndPay\Sdk\Contract\BuildMultipleObjectsInterface;
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\Tax;
 use PlugAndPay\Sdk\Entity\TaxInternal;
 
-class BodyToTax
+class BodyToTax implements BuildObjectInterface, BuildMultipleObjectsInterface
 {
     public static function build(array $data): Tax
     {

@@ -6,11 +6,13 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
 use Exception;
+use PlugAndPay\Sdk\Contract\BuildMultipleObjectsInterface;
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\Rule;
 use PlugAndPay\Sdk\Entity\RuleInternal;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
-class BodyToRule
+class BodyToRule implements BuildObjectInterface, BuildMultipleObjectsInterface
 {
     /**
      * @throws DecodeResponseException
