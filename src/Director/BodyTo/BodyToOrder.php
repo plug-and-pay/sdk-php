@@ -88,7 +88,7 @@ class BodyToOrder
      * @throws DecodeResponseException
      * @codeCoverageIgnore
      */
-    private function date(array $data, string $field): DateTimeImmutable
+    private static function date(array $data, string $field): DateTimeImmutable
     {
         try {
             return new DateTimeImmutable($data[$field]);
