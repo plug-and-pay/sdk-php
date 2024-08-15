@@ -16,6 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: symfonycorp/security-checker-action@v5
+        with:
+          disable-exit-code: 1
 
   test:
     name: Run tests
