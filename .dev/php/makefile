@@ -6,4 +6,3 @@ php-fix: vendor
 
 test: vendor
 	@vendor/bin/phpunit tests
-	
