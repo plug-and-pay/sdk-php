@@ -7,7 +7,6 @@ namespace PlugAndPay\Sdk\Entity;
 class CustomField
 {
     private int $id;
-    private int $customFieldId;
 
     private string $input;
     private string $label;
@@ -20,18 +19,6 @@ class CustomField
     public function setId(int $id): self
     {
         $this->id = $id;
-
-        return $this;
-    }
-
-    public function customFieldId(): int
-    {
-        return $this->customFieldId;
-    }
-
-    public function setCustomFieldId(int $customFieldId): self
-    {
-        $this->customFieldId = $customFieldId;
 
         return $this;
     }
@@ -50,7 +37,7 @@ class CustomField
 
     public function label(): string
     {
-        return $this->input;
+        return $this->label;
     }
 
     public function setLabel(string $label): self
