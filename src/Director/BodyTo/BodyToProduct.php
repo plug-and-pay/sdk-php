@@ -13,9 +13,12 @@ use PlugAndPay\Sdk\Entity\ProductInternal;
 use PlugAndPay\Sdk\Entity\Stock;
 use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
+use PlugAndPay\Sdk\Traits\BuildMultipleObjects;
 
 class BodyToProduct implements BuildObjectInterface, BuildMultipleObjectsInterface
 {
+    use BuildMultipleObjects;
+
     /**
      * @throws DecodeResponseException
      */
@@ -46,20 +49,6 @@ class BodyToProduct implements BuildObjectInterface, BuildMultipleObjectsInterfa
         }
 
         return $product;
-    }
-
-    /**
-     * @return Product[]
-     * @throws DecodeResponseException
-     */
-    public static function buildMulti(array $data): array
-    {
-        $result = [];
-        foreach ($data as $order) {
-            $result[] = self::build($order);
-        }
-
-        return $result;
     }
 
     /**

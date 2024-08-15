@@ -14,9 +14,12 @@ use PlugAndPay\Sdk\Enum\Mode;
 use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Enum\SubscriptionStatus;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
+use PlugAndPay\Sdk\Traits\BuildMultipleObjects;
 
 class BodyToSubscription implements BuildObjectInterface, BuildMultipleObjectsInterface
 {
+    use BuildMultipleObjects;
+
     /**
      * @throws DecodeResponseException
      */
@@ -52,20 +55,6 @@ class BodyToSubscription implements BuildObjectInterface, BuildMultipleObjectsIn
         }
 
         return $subscription;
-    }
-
-    /**
-     * @return Subscription[]
-     * @throws DecodeResponseException
-     */
-    public static function buildMulti(array $data): array
-    {
-        $result = [];
-        foreach ($data as $order) {
-            $result[] = self::build($order);
-        }
-
-        return $result;
     }
 
     /**

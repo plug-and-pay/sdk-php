@@ -10,9 +10,12 @@ use PlugAndPay\Sdk\Contract\BuildMultipleObjectsInterface;
 use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\Comment;
 use PlugAndPay\Sdk\Entity\CommentInternal;
+use PlugAndPay\Sdk\Traits\BuildMultipleObjects;
 
 class BodyToComment implements BuildObjectInterface, BuildMultipleObjectsInterface
 {
+    use BuildMultipleObjects;
+
     /**
      * @throws Exception
      */
@@ -23,20 +26,5 @@ class BodyToComment implements BuildObjectInterface, BuildMultipleObjectsInterfa
             ->setId($data['id'])
             ->setUpdatedAt(new DateTimeImmutable($data['updated_at']))
             ->setValue($data['value']);
-    }
-
-    /**
-     * @param $comments
-     * @return Comment[]
-     * @throws Exception
-     */
-    public static function buildMulti(array $comments): array
-    {
-        $result = [];
-        foreach ($comments as $comment) {
-            $result[] = self::build($comment);
-        }
-
-        return $result;
     }
 }

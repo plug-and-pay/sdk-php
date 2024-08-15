@@ -14,9 +14,12 @@ use PlugAndPay\Sdk\Enum\InvoiceStatus;
 use PlugAndPay\Sdk\Enum\Mode;
 use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
+use PlugAndPay\Sdk\Traits\BuildMultipleObjects;
 
 class BodyToOrder implements BuildObjectInterface, BuildMultipleObjectsInterface
 {
+    use BuildMultipleObjects;
+
     /**
      * @throws DecodeResponseException
      * @throws Exception
@@ -67,20 +70,6 @@ class BodyToOrder implements BuildObjectInterface, BuildMultipleObjectsInterface
         }
 
         return $order;
-    }
-
-    /**
-     * @return Order[]
-     * @throws DecodeResponseException
-     */
-    public static function buildMulti(array $data): array
-    {
-        $result = [];
-        foreach ($data as $order) {
-            $result[] = self::build($order);
-        }
-
-        return $result;
     }
 
     /**
