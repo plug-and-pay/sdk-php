@@ -35,8 +35,8 @@ class IndexOrdersTest extends TestCase
     }
 
     /**
-     * @dataProvider orderFilterDataProvider
      * @test
+     * @dataProvider orderFilterDataProvider
      */
     public function index_orders_with_filter(string $method, mixed $value, string $queryKey, string $queryValue): void
     {
