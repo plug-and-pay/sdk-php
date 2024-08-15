@@ -2,9 +2,14 @@ version: 2
 updates:
   - package-ecosystem: "composer"
     directory: "/"
+    open-pull-requests-limit: 3
     schedule:
-      interval: "daily"
-    allow:
-      - dependency-type: "all"
+      interval: "monthly"
+    commit-message:
+      prefix: "[SDK PHP]"
+  - package-ecosystem: "github-actions"
+    directory: /
+    schedule:
+      interval: "monthly"
     commit-message:
       prefix: "[SDK PHP]"
