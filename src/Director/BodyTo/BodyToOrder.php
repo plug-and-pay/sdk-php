@@ -51,7 +51,7 @@ class BodyToOrder implements BuildObjectInterface, BuildMultipleObjectsInterface
         }
 
         if (isset($data['total_discounts'])) {
-            $order->setTotalDiscounts(BodyToDiscounts::buildMany($data['total_discounts']));
+            $order->setTotalDiscounts(BodyToDiscounts::buildMulti($data['total_discounts']));
         }
 
         if (isset($data['taxes'])) {

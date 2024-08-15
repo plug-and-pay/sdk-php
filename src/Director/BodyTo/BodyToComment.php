@@ -30,7 +30,7 @@ class BodyToComment implements BuildObjectInterface, BuildMultipleObjectsInterfa
      * @return Comment[]
      * @throws Exception
      */
-    public static function buildMulti(mixed $comments): array
+    public static function buildMulti(array $comments): array
     {
         $result = [];
         foreach ($comments as $comment) {

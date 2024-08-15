@@ -28,7 +28,7 @@ class BodyToItems implements BuildObjectInterface
                 ->setType($itemData['type'] ? ItemType::from($itemData['type']) : ItemType::STANDARD);
 
             if (isset($itemData['discounts'])) {
-                $item->setDiscounts(BodyToDiscounts::buildMany($itemData['discounts']));
+                $item->setDiscounts(BodyToDiscounts::buildMulti($itemData['discounts']));
             }
 
             if (isset($itemData['tax'])) {
