@@ -28,13 +28,16 @@ jobs:
 
       - uses: nanasess/setup-php@master
         with:
-          php-version: 8.1
+          php-version: 8.2
+
+      - name: Composer update
+        run: composer update
 
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress
 
       - name: Composer dump-autoload
-        run: composer dump-autoload
+        run: composer update
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/phpunit/phpunit/phpunit Tests
@@ -48,7 +51,10 @@ jobs:
 
       - uses: nanasess/setup-php@master
         with:
-          php-version: 8.1
+          php-version: 8.2
+
+      - name: Composer update
+        run: composer update
 
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress
