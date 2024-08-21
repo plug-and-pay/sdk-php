@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Entity;
 
 use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
-class Shipping
+class Shipping extends AbstractEntity
 {
     use HasDynamicFields;
 

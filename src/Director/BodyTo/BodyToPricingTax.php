@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use function array_key_exists;
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\PricingTax;
 use PlugAndPay\Sdk\Entity\PricingTaxInternal;
 use PlugAndPay\Sdk\Entity\TaxProfileInternal;
 use PlugAndPay\Sdk\Entity\TaxRateInternal;
 use PlugAndPay\Sdk\Enum\CountryCode;
 
-class BodyToPricingTax
+class BodyToPricingTax implements BuildObjectInterface
 {
     public static function build(array $data): PricingTax
     {

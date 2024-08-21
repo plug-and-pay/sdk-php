@@ -6,12 +6,17 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
 use Exception;
+use PlugAndPay\Sdk\Contract\BuildMultipleObjectsInterface;
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\Rule;
 use PlugAndPay\Sdk\Entity\RuleInternal;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
+use PlugAndPay\Sdk\Traits\BuildMultipleObjects;
 
-class BodyToRule
+class BodyToRule implements BuildObjectInterface, BuildMultipleObjectsInterface
 {
+    use BuildMultipleObjects;
+
     /**
      * @throws DecodeResponseException
      */
@@ -29,20 +34,6 @@ class BodyToRule
             ->setCreatedAt(self::date($data, 'created_at'))
             ->setUpdatedAt($data['updated_at'] ? self::date($data, 'updated_at') : null)
             ->setDriver($data['driver']);
-    }
-
-    /**
-     * @return Rule[]
-     * @throws DecodeResponseException
-     */
-    public static function buildMulti(array $data): array
-    {
-        $result = [];
-        foreach ($data as $rule) {
-            $result[] = self::build($rule);
-        }
-
-        return $result;
     }
 
     /**

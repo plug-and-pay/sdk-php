@@ -7,7 +7,7 @@ namespace PlugAndPay\Sdk\Entity;
 use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
-class Price
+class Price extends AbstractEntity
 {
     use HasDynamicFields;
 

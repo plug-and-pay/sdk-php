@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\PriceRegular;
 
-class BodyToPriceRegular
+class BodyToPriceRegular implements BuildObjectInterface
 {
     public static function build(array $data): PriceRegular
     {

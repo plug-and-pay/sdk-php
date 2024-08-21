@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\Contact;
 use PlugAndPay\Sdk\Enum\TaxExempt;
 
-class BodyToContact
+class BodyToContact implements BuildObjectInterface
 {
     public static function build(array $data): Contact
     {

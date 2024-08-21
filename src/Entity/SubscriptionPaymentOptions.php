@@ -8,7 +8,7 @@ use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentType;
 use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
-class SubscriptionPaymentOptions
+class SubscriptionPaymentOptions extends AbstractEntity
 {
     use ValidatesFieldMethods;
 

@@ -6,15 +6,20 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
 use Exception;
+use PlugAndPay\Sdk\Contract\BuildMultipleObjectsInterface;
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\Subscription;
 use PlugAndPay\Sdk\Entity\SubscriptionInternal;
 use PlugAndPay\Sdk\Enum\Mode;
 use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Enum\SubscriptionStatus;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
+use PlugAndPay\Sdk\Traits\BuildMultipleObjects;
 
-class BodyToSubscription
+class BodyToSubscription implements BuildObjectInterface, BuildMultipleObjectsInterface
 {
+    use BuildMultipleObjects;
+
     /**
      * @throws DecodeResponseException
      */
@@ -50,20 +55,6 @@ class BodyToSubscription
         }
 
         return $subscription;
-    }
-
-    /**
-     * @return Subscription[]
-     * @throws DecodeResponseException
-     */
-    public static function buildMulti(array $data): array
-    {
-        $result = [];
-        foreach ($data as $order) {
-            $result[] = self::build($order);
-        }
-
-        return $result;
     }
 
     /**

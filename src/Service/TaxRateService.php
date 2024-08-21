@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Service;
 
 use PlugAndPay\Sdk\Contract\ClientInterface;
-use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToRate;
 use PlugAndPay\Sdk\Entity\TaxRate;
 use PlugAndPay\Sdk\Filters\TaxRateFilter;
@@ -13,7 +12,7 @@ use PlugAndPay\Sdk\Support\Parameters;
 
 class TaxRateService
 {
-    private ClientPatchInterface $client;
+    private ClientInterface $client;
 
     public function __construct(ClientInterface $client)
     {

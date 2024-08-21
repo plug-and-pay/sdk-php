@@ -7,7 +7,7 @@ namespace PlugAndPay\Sdk\Entity;
 use DateTimeImmutable;
 use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
-class SubscriptionTrial
+class SubscriptionTrial extends AbstractEntity
 {
     use HasDynamicFields;
 

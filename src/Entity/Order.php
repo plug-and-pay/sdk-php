@@ -11,7 +11,7 @@ use PlugAndPay\Sdk\Enum\Source;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
-class Order
+class Order extends AbstractEntity
 {
     use HasDynamicFields;
 
