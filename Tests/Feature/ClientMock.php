@@ -44,17 +44,17 @@ class ClientMock implements ClientInterface
     public function getAccessToken(string $code, string $codeVerifier, string $redirectUri, int $clientId): Response
     {
         return $this->standardResponse([
-            'code' => $code,
+            'code'         => $code,
             'codeVerifier' => $codeVerifier,
-            'redirectUri' => $redirectUri,
-            'clientId' => $clientId,
+            'redirectUri'  => $redirectUri,
+            'clientId'     => $clientId,
         ]);
     }
 
     private function standardResponse(array $additionalBody = []): Response
     {
         $responseBody = array_merge($this->responseBody, $additionalBody);
-        $exception = ExceptionFactory::create($this->status, json_encode($responseBody, JSON_THROW_ON_ERROR));
+        $exception    = ExceptionFactory::create($this->status, json_encode($responseBody, JSON_THROW_ON_ERROR));
         if ($exception) {
             throw $exception;
         }

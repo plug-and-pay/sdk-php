@@ -17,11 +17,11 @@ class GetAccessTokenTest extends TestCase
 
         $this->assertEquals(200, $response->status());
         $this->assertEquals([
-            "access_token" => 'token',
+            'access_token' => 'token',
             'code'         => 'code',
             'codeVerifier' => 'codeVerifier',
             'redirectUri'  => 'redirectUri',
-            'clientId'     => 123
+            'clientId'     => 123,
         ], $response->body());
     }
 }
