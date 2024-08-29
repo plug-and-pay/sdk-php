@@ -33,14 +33,19 @@ class Client implements ClientInterface
      */
     private GuzzleClient $guzzleClient;
 
-    public function __construct(string $secretToken, string $baseUrl = null, GuzzleClient $guzzleClient = null)
+    public function __construct(?string $secretToken, string $baseUrl = null, GuzzleClient $guzzleClient = null)
     {
+        $headers = [
+            'Accept' => 'application/json',
+        ];
+
+        if ($secretToken) {
+            $headers['Authorization'] = "Bearer $secretToken";
+        }
+
         $this->guzzleClient = $guzzleClient ?? new GuzzleClient([
             'base_uri' => $baseUrl ?? self::BASE_API_URL_PRODUCTION,
-            'headers'  => [
-                'Accept'        => 'application/json',
-                'Authorization' => "Bearer $secretToken",
-            ],
+            'headers'  => $headers,
             'timeout'  => 25,
         ]);
     }
