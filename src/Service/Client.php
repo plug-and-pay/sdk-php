@@ -22,9 +22,9 @@ use Psr\Http\Message\ResponseInterface;
 class Client implements ClientInterface
 {
     private const METHOD_DELETE = 'DELETE';
-    private const METHOD_GET = 'GET';
-    private const METHOD_PATCH = 'PATCH';
-    private const METHOD_POST = 'POST';
+    private const METHOD_GET    = 'GET';
+    private const METHOD_PATCH  = 'PATCH';
+    private const METHOD_POST   = 'POST';
 
     private const BASE_API_URL_PRODUCTION = 'https://api.plugandpay.nl';
 
@@ -137,8 +137,9 @@ class Client implements ClientInterface
         $codeVerifier = Str::random(128);
 
         $codeChallenge = strtr(rtrim(
-            base64_encode(hash('sha256', $codeVerifier, true))
-            , '='), '+/', '-_');
+            base64_encode(hash('sha256', $codeVerifier, true)),
+            '='
+        ), '+/', '-_');
 
         $query = http_build_query([
             'client_id'             => $clientId,
