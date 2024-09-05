@@ -49,7 +49,7 @@ class ShowTenantTest extends TestCase
     /** @test */
     public function it_should_show_current_tenant(): void
     {
-        $client = new TenantShowMockClient(data: ['id' => 1]);
+        $client  = new TenantShowMockClient(data: ['id' => 1]);
         $service = new TenantService($client);
 
         $tenant = $service->find(1);
