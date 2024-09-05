@@ -28,9 +28,6 @@ class RuleService
         return BodyToRule::build($response->body()['data']);
     }
 
-    /**
-     * @throws DecodeResponseException
-     */
     public function get(RuleFilter $ruleFilter = null): array
     {
         $ruleFilter = $ruleFilter ?? new RuleFilter();
