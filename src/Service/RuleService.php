@@ -8,7 +8,6 @@ use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToRule;
 use PlugAndPay\Sdk\Director\ToBody\RuleToBody;
 use PlugAndPay\Sdk\Entity\Rule;
-use PlugAndPay\Sdk\Exception\DecodeResponseException;
 use PlugAndPay\Sdk\Filters\RuleFilter;
 use PlugAndPay\Sdk\Support\Parameters;
 
