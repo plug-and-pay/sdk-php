@@ -16,7 +16,7 @@ class TokenService
     /**
      * @throws InvalidTokenException
      */
-    public static function isValid(string $jwt): bool
+    public function isValid(string $jwt): bool
     {
         $parts = explode('.', $jwt);
 

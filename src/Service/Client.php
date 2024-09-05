@@ -37,19 +37,22 @@ class Client implements ClientInterface
     private ?string $accessToken;
     private ?string $refreshToken;
     private ?int $clientId;
+    private TokenService $tokenService;
 
     public function __construct(
         ?string $accessToken = null,
         ?string $refreshToken = null,
         string $baseUrl = null,
         ?int $clientId = null,
-        ?GuzzleClient $guzzleClient = null
+        ?GuzzleClient $guzzleClient = null,
+        TokenService $tokenService = null
     ) {
         $this->baseUrl      = $baseUrl ?? self::BASE_API_URL_PRODUCTION;
         $this->accessToken  = $accessToken;
         $this->refreshToken = $refreshToken;
         $this->clientId     = $clientId;
         $this->createGuzzleClient($this->baseUrl, $this->accessToken, $guzzleClient);
+        $this->tokenService = $tokenService ?? new TokenService(); // Initialize it
     }
 
     private function createGuzzleClient(
@@ -154,6 +157,14 @@ class Client implements ClientInterface
     }
 
     /**
+     * Get the access token.
+     */
+    public function getAccessToken(): ?string
+    {
+        return $this->accessToken;
+    }
+
+    /**
      * Generate a random string.
      */
     public static function getRandomString(int $length): string
@@ -214,24 +225,22 @@ class Client implements ClientInterface
      */
     public function refreshAccessTokenIfNeeded(): void
     {
-        if (TokenService::isValid($this->refreshToken)) {
+        if ($this->tokenService->isValid($this->refreshToken)) {
             return;
         }
 
-        // 1. generate new access token
-        $refreshedAccessToken = $this->refreshAccessToken(
-            $this->refreshToken,
-            $this->clientId,
-        );
+        $response = $this->refreshAccessToken($this->refreshToken, $this->clientId);
 
-        // 2. update the header in the (guzzle) client
+        $responseData = $response->body();
+
+        // Update the Guzzle client with the new access token
         $this->createGuzzleClient(
             $this->baseUrl,
-            $refreshedAccessToken['access_token'],
+            $responseData['access_token'],
             $this->guzzleClient
         );
 
-        $this->accessToken = $refreshedAccessToken['access_token'];
+        $this->accessToken = $responseData['access_token'];
     }
 
     /**
