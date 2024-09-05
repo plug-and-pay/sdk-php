@@ -39,7 +39,7 @@ class TokenService
         $expirationTime = $payloadArray['exp'];
 
         // Check if the token is expired or has less than 30 seconds to live
-        return !($currentTime >= $expirationTime || ($expirationTime - $currentTime) < self::MIN_TTL_SECONDS);
+        return !(($currentTime + self::MIN_TTL_SECONDS) >= $expirationTime);
     }
 
     private static function base64UrlDecode(string $input): string
