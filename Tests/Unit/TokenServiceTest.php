@@ -16,7 +16,7 @@ class TokenServiceTest extends TestCase
         $payload = json_encode(['exp' => time() + 3600], JSON_THROW_ON_ERROR); // Token expires in 1 hour
         $jwt     = $this->createJwt($payload);
 
-        $isTokenValid = TokenService::isValid($jwt);
+        $isTokenValid = (new TokenService)->isValid($jwt);
 
         $this->assertTrue($isTokenValid);
     }
@@ -27,7 +27,7 @@ class TokenServiceTest extends TestCase
         $payload = json_encode(['exp' => time() - 3600], JSON_THROW_ON_ERROR); // Token expired 1 hour ago
         $jwt     = $this->createJwt($payload);
 
-        $isTokenValid = TokenService::isValid($jwt);
+        $isTokenValid = (new TokenService)->isValid($jwt);
 
         $this->assertFalse($isTokenValid);
     }
@@ -38,7 +38,7 @@ class TokenServiceTest extends TestCase
         $this->expectException(InvalidTokenException::class);
         $this->expectExceptionMessage('Invalid JWT structure.');
 
-        TokenService::isValid('invalid.jwt');
+        (new TokenService)->isValid('invalid.jwt');
     }
 
     /** @test */
@@ -48,7 +48,7 @@ class TokenServiceTest extends TestCase
         $this->expectExceptionMessage('Invalid payload JSON.');
 
         $jwt = $this->createJwt('invalid_json');
-        TokenService::isValid($jwt);
+        (new TokenService)->isValid($jwt);
     }
 
     /** @test */
@@ -60,7 +60,7 @@ class TokenServiceTest extends TestCase
         $payload = json_encode(['data' => 'no_exp'], JSON_THROW_ON_ERROR);
         $jwt     = $this->createJwt($payload);
 
-        TokenService::isValid($jwt);
+        (new TokenService)->isValid($jwt);
     }
 
     private function createJwt(string $payload): string
@@ -78,7 +78,7 @@ class TokenServiceTest extends TestCase
     {
         $payload = json_encode(['exp' => time() + 20], JSON_THROW_ON_ERROR); // Token expires in 20 seconds
 
-        $isTokenValid = TokenService::isValid($this->createJwt($payload));
+        $isTokenValid = (new TokenService)->isValid($this->createJwt($payload));
 
         $this->assertFalse($isTokenValid);
     }
