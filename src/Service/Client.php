@@ -23,9 +23,9 @@ use Psr\Http\Message\ResponseInterface;
 class Client implements ClientInterface
 {
     private const METHOD_DELETE = 'DELETE';
-    private const METHOD_GET = 'GET';
-    private const METHOD_PATCH = 'PATCH';
-    private const METHOD_POST = 'POST';
+    private const METHOD_GET    = 'GET';
+    private const METHOD_PATCH  = 'PATCH';
+    private const METHOD_POST   = 'POST';
 
     private const BASE_API_URL_PRODUCTION = 'https://api.plugandpay.nl';
 
@@ -39,13 +39,12 @@ class Client implements ClientInterface
     private ?int $clientId;
 
     public function __construct(
-        ?string       $accessToken = null,
-        ?string       $refreshToken = null,
-        string        $baseUrl = null,
-        ?int          $clientId = null,
+        ?string $accessToken = null,
+        ?string $refreshToken = null,
+        string $baseUrl = null,
+        ?int $clientId = null,
         ?GuzzleClient $guzzleClient = null
-    )
-    {
+    ) {
         $this->baseUrl      = $baseUrl ?? self::BASE_API_URL_PRODUCTION;
         $this->accessToken  = $accessToken;
         $this->refreshToken = $refreshToken;
@@ -54,11 +53,10 @@ class Client implements ClientInterface
     }
 
     private function createGuzzleClient(
-        string        $baseUrl,
-        ?string       $accessToken,
+        string $baseUrl,
+        ?string $accessToken,
         ?GuzzleClient $guzzleClient
-    ): void
-    {
+    ): void {
         $headers = ['Accept' => 'application/json'];
 
         if ($accessToken) {

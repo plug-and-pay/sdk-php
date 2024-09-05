@@ -9,9 +9,9 @@ use PlugAndPay\Sdk\Exception\InvalidTokenException;
 class TokenService
 {
     private const ERROR_INVALID_STRUCTURE = 'Invalid JWT structure.';
-    private const ERROR_INVALID_JSON = 'Invalid payload JSON.';
-    private const ERROR_NO_EXPIRATION = 'Expiration time not set in token.';
-    private const MIN_TTL_SECONDS = 30;
+    private const ERROR_INVALID_JSON      = 'Invalid payload JSON.';
+    private const ERROR_NO_EXPIRATION     = 'Expiration time not set in token.';
+    private const MIN_TTL_SECONDS         = 30;
 
     /**
      * @throws InvalidTokenException
@@ -35,7 +35,7 @@ class TokenService
             throw new InvalidTokenException(self::ERROR_NO_EXPIRATION);
         }
 
-        $currentTime = time();
+        $currentTime    = time();
         $expirationTime = $payloadArray['exp'];
 
         // Check if the token is expired or has less than 30 seconds to live
@@ -48,6 +48,7 @@ class TokenService
         if ($remainder) {
             $input .= str_repeat('=', 4 - $remainder);
         }
+
         return base64_decode(strtr($input, '-_', '+/'));
     }
 }
