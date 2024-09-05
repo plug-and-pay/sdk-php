@@ -16,14 +16,13 @@ class BodyToCheckout implements BuildObjectInterface
      */
     public static function build(array $data): Checkout
     {
-        return (new CheckoutInternal())
+        $checkout = (new CheckoutInternal())
             ->setId($data['id'])
             ->setIsActive($data['is_active'])
             ->setIsExpired($data['is_expired'])
             ->setName($data['name'])
             ->setPreviewUrl($data['preview_url'])
             ->setPrimaryColor($data['primary_color'])
-            ->setProduct($data['product'])
             ->setReturnUrl($data['return_url'])
             ->setSecondaryColor($data['secondary_color'])
             ->setSlug($data['slug'])
@@ -31,6 +30,12 @@ class BodyToCheckout implements BuildObjectInterface
             ->setCreatedAt(self::date($data, 'created_at'))
             ->setUpdatedAt($data['updated_at'] ? self::date($data, 'updated_at') : null)
             ->setDeletedAt($data['deleted_at'] ? self::date($data, 'deleted_at') : null);
+
+        if (isset($data['product'])) {
+            $checkout->setProduct(BodyToProduct::build($data['product']));
+        }
+
+        return $checkout;
     }
 
     /**
