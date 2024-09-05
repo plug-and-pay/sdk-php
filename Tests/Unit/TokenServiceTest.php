@@ -14,7 +14,7 @@ class TokenServiceTest extends TestCase
     public function it_should_return_true_for_valid_token(): void
     {
         $payload = json_encode(['exp' => time() + 3600], JSON_THROW_ON_ERROR); // Token expires in 1 hour
-        $jwt = $this->createJwt($payload);
+        $jwt     = $this->createJwt($payload);
 
         $isTokenValid = TokenService::isValid($jwt);
 
@@ -25,7 +25,7 @@ class TokenServiceTest extends TestCase
     public function it_should_return_false_for_invalid_token(): void
     {
         $payload = json_encode(['exp' => time() - 3600], JSON_THROW_ON_ERROR); // Token expired 1 hour ago
-        $jwt = $this->createJwt($payload);
+        $jwt     = $this->createJwt($payload);
 
         $isTokenValid = TokenService::isValid($jwt);
 
@@ -58,17 +58,17 @@ class TokenServiceTest extends TestCase
         $this->expectExceptionMessage('Expiration time not set in token.');
 
         $payload = json_encode(['data' => 'no_exp'], JSON_THROW_ON_ERROR);
-        $jwt = $this->createJwt($payload);
+        $jwt     = $this->createJwt($payload);
 
         TokenService::isValid($jwt);
     }
 
     private function createJwt(string $payload): string
     {
-        $header = json_encode(['alg' => 'HS256', 'typ' => 'JWT'], JSON_THROW_ON_ERROR);
-        $base64UrlHeader = $this->base64UrlEncode($header);
+        $header           = json_encode(['alg' => 'HS256', 'typ' => 'JWT'], JSON_THROW_ON_ERROR);
+        $base64UrlHeader  = $this->base64UrlEncode($header);
         $base64UrlPayload = $this->base64UrlEncode($payload);
-        $signature = 'signature'; // Mock signature for testing
+        $signature        = 'signature'; // Mock signature for testing
 
         return $base64UrlHeader . '.' . $base64UrlPayload . '.' . $signature;
     }
