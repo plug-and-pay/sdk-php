@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Entity;
 
 use DateTimeImmutable;
+use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
 class Checkout extends AbstractEntity
 {
+    use HasDynamicFields;
+
     protected int $id;
     protected bool $isActive;
     protected bool $isExpired;
