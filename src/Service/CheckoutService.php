@@ -14,6 +14,8 @@ use PlugAndPay\Sdk\Support\Parameters;
 class CheckoutService
 {
     private ClientInterface $client;
+    /** @var string[] */
+    private array $includes = [];
 
     public function __construct(ClientInterface $client)
     {

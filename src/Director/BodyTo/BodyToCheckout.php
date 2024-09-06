@@ -35,6 +35,10 @@ class BodyToCheckout implements BuildObjectInterface
             $checkout->setProduct(BodyToProduct::build($data['product']));
         }
 
+        if (isset($data['productPricing'])) {
+            $checkout->setProductPricing(BodyToProductPricing::build($data['pricing']));
+        }
+
         return $checkout;
     }
 

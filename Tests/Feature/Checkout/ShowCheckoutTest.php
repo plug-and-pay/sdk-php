@@ -3,8 +3,11 @@
 namespace PlugAndPay\Sdk\Tests\Feature\Checkout;
 
 use PHPUnit\Framework\TestCase;
+use PlugAndPay\Sdk\Entity\Checkout;
 use PlugAndPay\Sdk\Entity\Response;
+use PlugAndPay\Sdk\Enum\CheckoutIncludes;
 use PlugAndPay\Sdk\Exception\NotFoundException;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Exception\UnauthenticatedException;
 use PlugAndPay\Sdk\Service\CheckoutService;
 use PlugAndPay\Sdk\Tests\Feature\Checkout\Mock\CheckoutShowMockClient;
@@ -62,5 +65,64 @@ class ShowCheckoutTest extends TestCase
         static::assertSame('2019-01-16 00:00:00', $checkout->createdAt()->format('Y-m-d H:i:s'));
         static::assertSame('2019-01-16 00:00:00', $checkout->updatedAt()->format('Y-m-d H:i:s'));
         static::assertSame('2019-01-16 00:00:00', $checkout->deletedAt()->format('Y-m-d H:i:s'));
+    }
+
+    /**
+     * @test
+     * @dataProvider relationsProvider
+     */
+    public function it_should_throw_exception_if_relation_not_found(string $relation): void
+    {
+        $exception = null;
+
+        try {
+            (new Checkout(false))->{$relation}();
+        } catch (RelationNotLoadedException $exception) {
+        }
+
+        static::assertInstanceOf(RelationNotLoadedException::class, $exception);
+    }
+
+    /** @test */
+    public function it_should_show_checkout_with_product_relation(): void
+    {
+        $client  = (new CheckoutShowMockClient(status: 200, data: ['id' => 1]))->product();
+        $service = new CheckoutService($client);
+
+        $checkout = $service->include(CheckoutIncludes::PRODUCT)->find(1);
+
+        static::assertSame(1, $checkout->product()->id());
+        static::assertSame('2019-01-16 00:00:00', $checkout->product()->createdAt()->format('Y-m-d H:i:s'));
+        static::assertSame('2019-01-16 00:00:00', $checkout->product()->deletedAt()->format('Y-m-d H:i:s'));
+        static::assertSame('Quisquam recusandae asperiores accusamus', $checkout->product()->description());
+        static::assertFalse($checkout->product()->isPhysical());
+        static::assertNull($checkout->product()->ledger());
+        static::assertSame('culpa', $checkout->product()->publicTitle());
+        static::assertSame('70291520', $checkout->product()->sku());
+        static::assertNull($checkout->product()->slug());
+        static::assertSame('culpa', $checkout->product()->title());
+        static::assertSame('one_off', $checkout->product()->type()->value);
+        static::assertSame('2019-01-16 00:00:00', $checkout->product()->updatedAt()->format('Y-m-d H:i:s'));
+    }
+
+    /** @test */
+    public function it_should_show_checkout_with_pricing(): void
+    {
+        $client  = (new CheckoutShowMockClient(status: 200, data: ['id' => 1]))->productPricing();
+        $service = new CheckoutService($client);
+
+        $checkout = $service->include(CheckoutIncludes::PRODUCT_PRICING)->find(1);
+
+        static::assertSame(false, $checkout->product()->pricing()->isTaxIncluded());
+        static::assertSame(null, $checkout->product()->pricing()->shipping());
+        static::assertSame(null, $checkout->product()->pricing()->trial());
+    }
+
+    public static function relationsProvider(): array
+    {
+        return [
+            CheckoutIncludes::PRODUCT->value         => ['product'],
+            CheckoutIncludes::PRODUCT_PRICING->value => ['productPricing'],
+        ];
     }
 }

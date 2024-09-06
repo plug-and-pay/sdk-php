@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Entity;
 
 use DateTimeImmutable;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 
 class Checkout extends AbstractEntity
 {
+    protected bool $allowEmptyRelations;
     protected int $id;
     protected bool $isActive;
     protected bool $isExpired;
@@ -15,6 +17,7 @@ class Checkout extends AbstractEntity
     protected string $previewUrl;
     protected string $primaryColor;
     protected Product $product;
+    protected ProductPricing $productPricing;
     protected ?string $returnUrl;
     protected ?string $secondaryColor;
     protected string $slug;
@@ -22,6 +25,11 @@ class Checkout extends AbstractEntity
     protected DateTimeImmutable $createdAt;
     protected DateTimeImmutable $updatedAt;
     protected ?DateTimeImmutable $deletedAt;
+
+    public function __construct(bool $allowEmptyRelations = true)
+    {
+        $this->allowEmptyRelations = $allowEmptyRelations;
+    }
 
     public function id(): int
     {
@@ -88,14 +96,44 @@ class Checkout extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @throws RelationNotLoadedException
+     */
     public function product(): Product
     {
+        if (!isset($this->product)) {
+            throw new RelationNotLoadedException('product');
+        }
+
         return $this->product;
     }
 
     public function setProduct(Product $product): self
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * @throws RelationNotLoadedException
+     */
+    public function productPricing(): ProductPricing
+    {
+        if (!isset($this->productPricing)) {
+            if ($this->allowEmptyRelations) {
+                $this->productPricing = new ProductPricing($this->allowEmptyRelations);
+            } else {
+                throw new RelationNotLoadedException('pricing');
+            }
+        }
+
+        return $this->productPricing;
+    }
+
+    public function setProductPricing(ProductPricing $productPricing): self
+    {
+        $this->productPricing = $productPricing;
 
         return $this;
     }
