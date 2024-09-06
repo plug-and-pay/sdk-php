@@ -111,9 +111,9 @@ class Checkout extends AbstractEntity
         return $this->product;
     }
 
-    public function setProduct(Product $product): self
+    public function setProductId(int $id): self
     {
-        $this->product = $product;
+        $this->product = (new ProductInternal())->setId($id);
 
         return $this;
     }
@@ -132,13 +132,6 @@ class Checkout extends AbstractEntity
         }
 
         return $this->productPricing;
-    }
-
-    public function setProductPricing(ProductPricing $productPricing): self
-    {
-        $this->productPricing = $productPricing;
-
-        return $this;
     }
 
     public function returnUrl(): ?string
