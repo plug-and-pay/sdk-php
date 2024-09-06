@@ -21,6 +21,26 @@ class CheckoutInternal extends Checkout
     /**
      * @internal
      */
+    public function setProduct(Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * @internal
+     */
+    public function setProductPricing(ProductPricing $productPricing): self
+    {
+        $this->productPricing = $productPricing;
+
+        return $this;
+    }
+
+    /**
+     * @internal
+     */
     public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
