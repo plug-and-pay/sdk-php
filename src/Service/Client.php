@@ -11,8 +11,10 @@ use JsonException;
 use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\ExceptionFactory;
+use PlugAndPay\Sdk\Exception\InvalidTokenException;
 use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\ValidationException;
+use PlugAndPay\Sdk\Support\Str;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -25,23 +27,50 @@ class Client implements ClientInterface
     private const METHOD_PATCH  = 'PATCH';
     private const METHOD_POST   = 'POST';
 
-    private const BASE_URL_PRODUCTION = 'https://api.plugandpay.nl';
+    private const BASE_API_URL_PRODUCTION = 'https://api.plugandpay.nl';
 
     /**
      * @var GuzzleClient
      */
     private GuzzleClient $guzzleClient;
+    private string $baseUrl;
+    private ?string $accessToken;
+    private ?string $refreshToken;
+    private ?int $clientId;
+    private TokenService $tokenService;
 
-    public function __construct(string $secretToken, string $baseUrl = null, GuzzleClient $guzzleClient = null)
-    {
+    public function __construct(
+        ?string $accessToken = null,
+        ?string $refreshToken = null,
+        string $baseUrl = null,
+        ?int $clientId = null,
+        ?GuzzleClient $guzzleClient = null,
+        TokenService $tokenService = null
+    ) {
+        $this->baseUrl      = $baseUrl ?? self::BASE_API_URL_PRODUCTION;
+        $this->accessToken  = $accessToken;
+        $this->refreshToken = $refreshToken;
+        $this->clientId     = $clientId;
+        $this->createGuzzleClient($this->baseUrl, $this->accessToken, $guzzleClient);
+        $this->tokenService = $tokenService ?? new TokenService(); // Initialize it
+    }
+
+    private function createGuzzleClient(
+        string $baseUrl,
+        ?string $accessToken,
+        ?GuzzleClient $guzzleClient
+    ): void {
+        $headers = ['Accept' => 'application/json'];
+
+        if ($accessToken) {
+            $headers['Authorization'] = "Bearer $accessToken";
+        }
+
         $this->guzzleClient = $guzzleClient ?? new GuzzleClient([
-                'base_uri' => $baseUrl ?? self::BASE_URL_PRODUCTION,
-                'headers'  => [
-                    'Accept'        => 'application/json',
-                    'Authorization' => "Bearer $secretToken",
-                ],
-                'timeout'  => 25,
-            ]);
+            'base_uri' => $baseUrl,
+            'headers'  => $headers,
+            'timeout'  => 25,
+        ]);
     }
 
     /**
@@ -125,5 +154,111 @@ class Client implements ClientInterface
         $content = $response->getBody()->getContents();
 
         return new Response($response->getStatusCode(), json_decode($content, true, 512, JSON_THROW_ON_ERROR));
+    }
+
+    /**
+     * Get the access token.
+     */
+    public function getAccessToken(): ?string
+    {
+        return $this->accessToken;
+    }
+
+    /**
+     * Generate a random string.
+     */
+    public static function getRandomString(int $length): string
+    {
+        return Str::random($length);
+    }
+
+    /**
+     * Generate redirect URI for authorization code flow.
+     */
+    public function generateAuthorizationUrl(int $clientId, string $state, string $codeVerifier, string $redirectUrl): string
+    {
+        $codeChallenge = strtr(rtrim(
+            base64_encode(hash('sha256', $codeVerifier, true)),
+            '='
+        ), '+/', '-_');
+
+        $query = http_build_query([
+            'client_id'             => $clientId,
+            'redirect_uri'          => $redirectUrl,
+            'response_type'         => 'code',
+            'scope'                 => '',
+            'state'                 => $state,
+            'code_challenge'        => $codeChallenge,
+            'code_challenge_method' => 'S256',
+        ]);
+
+        return $this->baseUrl . '/oauth/authorize?' . $query;
+    }
+
+    /**
+     * Exchange authorization code for access token and refresh token.
+     *
+     * @throws GuzzleException
+     * @throws JsonException
+     * @throws NotFoundException
+     * @throws ValidationException
+     */
+    public function getCredentials(string $code, string $codeVerifier, string $redirectUrl, int $clientId): Response
+    {
+        $response = $this->request(self::METHOD_POST, '/oauth/token', [
+            'grant_type'    => 'authorization_code',
+            'client_id'     => $clientId,
+            'redirect_uri'  => $redirectUrl,
+            'code_verifier' => $codeVerifier,
+            'code'          => $code,
+        ]);
+
+        return $this->fromGuzzleResponse($response);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws NotFoundException
+     * @throws ValidationException
+     * @throws JsonException
+     * @throws InvalidTokenException
+     */
+    public function refreshAccessTokenIfNeeded(): void
+    {
+        if ($this->tokenService->isValid($this->refreshToken)) {
+            return;
+        }
+
+        $response = $this->refreshAccessToken($this->refreshToken, $this->clientId);
+
+        $responseData = $response->body();
+
+        // Update the Guzzle client with the new access token
+        $this->createGuzzleClient(
+            $this->baseUrl,
+            $responseData['access_token'],
+            $this->guzzleClient
+        );
+
+        $this->accessToken = $responseData['access_token'];
+    }
+
+    /**
+     * Exchange refresh token for a new access token.
+     *
+     * @throws GuzzleException
+     * @throws JsonException
+     * @throws NotFoundException
+     * @throws ValidationException
+     */
+    public function refreshAccessToken(string $refreshToken, int $clientId): Response
+    {
+        $response = $this->request(self::METHOD_POST, '/oauth/token', [
+            'grant_type'    => 'refresh_token',
+            'client_id'     => $clientId,
+            'refresh_token' => $refreshToken,
+        ]);
+
+        return $this->fromGuzzleResponse($response);
     }
 }

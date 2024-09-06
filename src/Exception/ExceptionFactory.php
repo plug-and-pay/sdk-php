@@ -27,6 +27,10 @@ class ExceptionFactory
                 return new NotFoundException();
             case Response::HTTP_UNAUTHORIZED:
                 return new UnauthenticatedException();
+            case Response::HTTP_BAD_REQUEST:
+                $body = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+
+                return new \RuntimeException("Error: $status; Body: " . $body['message']);
             default:
                 return null;
         }
