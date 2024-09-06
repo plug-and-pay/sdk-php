@@ -37,4 +37,9 @@ class CheckoutService
 
         return BodyToCheckout::build($response->body()['data']);
     }
+
+    public function delete(int $checkoutId): void
+    {
+        $this->client->delete("/v2/checkouts/$checkoutId");
+    }
 }
