@@ -11,8 +11,8 @@ use PlugAndPay\Sdk\Director\ToBody\CheckoutToBody;
 use PlugAndPay\Sdk\Entity\Checkout;
 use PlugAndPay\Sdk\Enum\CheckoutIncludes;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
-use PlugAndPay\Sdk\Filters\CheckoutFilter;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
+use PlugAndPay\Sdk\Filters\CheckoutFilter;
 use PlugAndPay\Sdk\Support\Parameters;
 
 class CheckoutService
