@@ -4,9 +4,9 @@ namespace PlugAndPay\Sdk\Enum;
 
 enum CheckoutStatus: string
 {
-    case DELETED = 'deleted';
+    case DELETED  = 'deleted';
     case INACTIVE = 'inactive';
-    case ACTIVE = 'active';
-    case EXPIRED = 'expired';
-    case ALL = 'all';
+    case ACTIVE   = 'active';
+    case EXPIRED  = 'expired';
+    case ALL      = 'all';
 }
