@@ -6,9 +6,12 @@ namespace PlugAndPay\Sdk\Entity;
 
 use DateTimeImmutable;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
+use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
 class Checkout extends AbstractEntity
 {
+    use HasDynamicFields;
+
     protected bool $allowEmptyRelations;
     protected int $id;
     protected bool $isActive;
