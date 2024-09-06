@@ -11,9 +11,7 @@ use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\UnauthenticatedException;
 use PlugAndPay\Sdk\Service\CheckoutService;
-use PlugAndPay\Sdk\Service\OrderService;
 use PlugAndPay\Sdk\Tests\Feature\Checkout\Mock\CheckoutDestroyMockClient;
-use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderDestroyMockClient;
 
 class DeleteCheckoutTest extends TestCase
 {
