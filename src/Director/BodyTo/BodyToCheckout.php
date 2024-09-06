@@ -46,11 +46,6 @@ class BodyToCheckout implements BuildObjectInterface, BuildMultipleObjectsInterf
         return $checkout;
     }
 
-    public static function buildMulti(array $data): array
-    {
-        // TODO: Implement buildMulti() method.
-    }
-
     /**
      * @throws DecodeResponseException
      * @codeCoverageIgnore
