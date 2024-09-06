@@ -56,7 +56,7 @@ class CheckoutShowMockClient extends ClientMock
 
     public function productPricing(array $pricing = []): self
     {
-        $productData = self::BASIC_PRODUCT;
+        $productData            = self::BASIC_PRODUCT;
         $productData['pricing'] = $pricing + [
                 'is_tax_included' => false,
                 'discount_type'   => 'sale',
