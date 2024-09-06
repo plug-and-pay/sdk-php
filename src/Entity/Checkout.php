@@ -118,6 +118,22 @@ class Checkout extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @throws RelationNotLoadedException
+     */
+    public function productPricing(): ProductPricing
+    {
+        if (!isset($this->productPricing)) {
+            if ($this->allowEmptyRelations) {
+                $this->productPricing = new ProductPricing($this->allowEmptyRelations);
+            } else {
+                throw new RelationNotLoadedException('pricing');
+            }
+        }
+
+        return $this->productPricing;
+    }
+
     public function returnUrl(): ?string
     {
         return $this->returnUrl;
