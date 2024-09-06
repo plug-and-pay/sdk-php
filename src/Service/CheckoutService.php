@@ -40,6 +40,16 @@ class CheckoutService
         return BodyToCheckout::build($response->body()['data']);
     }
 
+    /** @throws DecodeResponseException */
+    public function create(Checkout $checkout): Checkout
+    {
+        $body     = CheckoutToBody::build($checkout);
+        $query    = Parameters::toString(['include' => $this->includes]);
+        $response = $this->client->post("/v2/checkouts$query", $body);
+
+        return BodyToCheckout::build($response->body()['data']);
+    }
+
     /**
      * @throws DecodeResponseException
      * @throws RelationNotLoadedException
