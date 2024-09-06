@@ -111,32 +111,9 @@ class Checkout extends AbstractEntity
         return $this->product;
     }
 
-    public function setProduct(Product $product): self
+    public function setProductId(int $id): self
     {
-        $this->product = $product;
-
-        return $this;
-    }
-
-    /**
-     * @throws RelationNotLoadedException
-     */
-    public function productPricing(): ProductPricing
-    {
-        if (!isset($this->productPricing)) {
-            if ($this->allowEmptyRelations) {
-                $this->productPricing = new ProductPricing($this->allowEmptyRelations);
-            } else {
-                throw new RelationNotLoadedException('pricing');
-            }
-        }
-
-        return $this->productPricing;
-    }
-
-    public function setProductPricing(ProductPricing $productPricing): self
-    {
-        $this->productPricing = $productPricing;
+        $this->product = (new ProductInternal())->setId($id);
 
         return $this;
     }
