@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Traits;
 
+use Exception;
+use PlugAndPay\Sdk\Entity\AbstractEntity;
+
 trait BuildMultipleObjects
 {
     /**

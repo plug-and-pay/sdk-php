@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Service;
 
+use Exception;
 use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToCheckout;
 use PlugAndPay\Sdk\Director\ToBody\CheckoutToBody;
@@ -11,6 +12,7 @@ use PlugAndPay\Sdk\Entity\Checkout;
 use PlugAndPay\Sdk\Enum\CheckoutIncludes;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
+use PlugAndPay\Sdk\Filters\CheckoutFilter;
 use PlugAndPay\Sdk\Support\Parameters;
 
 class CheckoutService
@@ -68,5 +70,23 @@ class CheckoutService
     public function delete(int $checkoutId): void
     {
         $this->client->delete("/v2/checkouts/$checkoutId");
+    }
+
+    /**
+     * @return Checkout[]
+     * @throws DecodeResponseException
+     * @throws Exception
+     */
+    public function get(CheckoutFilter $checkoutFilter = null): array
+    {
+        $parameters = $checkoutFilter ? $checkoutFilter->parameters() : [];
+        if (!empty($this->includes)) {
+            $parameters['include'] = $this->includes;
+        }
+        $query = Parameters::toString($parameters);
+
+        $response = $this->client->get("/v2/checkouts$query");
+
+        return BodyToCheckout::buildMulti($response->body()['data']);
     }
 }
