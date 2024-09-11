@@ -6,7 +6,6 @@ namespace PlugAndPay\Sdk\Tests\Feature\Checkout\Mock;
 
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
-use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderShowMockClient;
 
 class CheckoutIndexMockClient extends ClientMock
 {
@@ -16,7 +15,7 @@ class CheckoutIndexMockClient extends ClientMock
     public function __construct(array $data = [[]])
     {
         foreach ($data as $orderData) {
-            $this->responseBody[] = $orderData + OrderShowMockClient::BASIC_ORDER;
+            $this->responseBody[] = $orderData + CheckoutShowMockClient::BASIC_CHECKOUT;
         }
     }
 
