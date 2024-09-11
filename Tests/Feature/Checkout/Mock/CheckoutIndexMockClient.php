@@ -6,7 +6,6 @@ namespace PlugAndPay\Sdk\Tests\Feature\Checkout\Mock;
 
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
-use PlugAndPay\Sdk\Tests\Feature\Order\Mock\OrderShowMockClient;
 
 class CheckoutIndexMockClient extends ClientMock
 {
