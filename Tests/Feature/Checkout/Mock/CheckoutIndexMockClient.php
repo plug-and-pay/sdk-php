@@ -16,7 +16,7 @@ class CheckoutIndexMockClient extends ClientMock
     public function __construct(array $data = [[]])
     {
         foreach ($data as $orderData) {
-            $this->responseBody[] = $orderData + OrderShowMockClient::BASIC_ORDER;
+            $this->responseBody[] = $orderData + CheckoutShowMockClient::BASIC_CHECKOUT;
         }
     }
 

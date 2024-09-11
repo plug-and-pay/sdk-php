@@ -66,7 +66,7 @@ class IndexCheckoutTest extends TestCase
                 'method'     => 'sort',
                 'value'      => CheckoutSort::CONVERSION,
                 'queryKey'   => 'sort',
-                'queryValue' => 'conversion|desc',
+                'queryValue' => 'conversion%7Casc',
             ],
         ];
     }
