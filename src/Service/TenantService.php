@@ -19,7 +19,7 @@ class TenantService
 
     public function find(): Tenant
     {
-        $response = $this->client->get('/v2/auth/tenants/me');
+        $response = $this->client->get('/v2/tenant/info');
 
         return BodyToTenant::build($response->body()['data']);
     }

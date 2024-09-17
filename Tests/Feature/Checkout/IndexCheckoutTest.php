@@ -23,7 +23,7 @@ class IndexCheckoutTest extends TestCase
         $checkouts = $service->get();
 
         static::assertSame(1, $checkouts[0]->id());
-        static::assertSame('/v2/checkouts?include=product', $client->path());
+        static::assertSame('/v2/checkouts', $client->path());
     }
 
     /**
