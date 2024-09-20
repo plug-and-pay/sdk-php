@@ -225,7 +225,7 @@ class Client implements ClientInterface
      */
     public function refreshAccessTokenIfNeeded(): void
     {
-        if ($this->tokenService->isValid($this->refreshToken)) {
+        if ($this->tokenService->isValid($this->accessToken)) {
             return;
         }
 
