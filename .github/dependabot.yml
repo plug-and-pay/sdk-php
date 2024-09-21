@@ -7,8 +7,9 @@ updates:
       interval: "monthly"
     commit-message:
       prefix: "[SDK PHP]"
+
   - package-ecosystem: "github-actions"
-    directory: /
+    directory: "/"
     schedule:
       interval: "monthly"
     commit-message:

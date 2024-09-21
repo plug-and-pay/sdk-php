@@ -16,31 +16,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: symfonycorp/security-checker-action@v5
-        with:
-          disable-exit-code: 1
 
   test:
     name: Run tests
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: nanasess/setup-php@master
+      - name: Setup PHP
+        uses: nanasess/setup-php@v4
         with:
-          php-version: 8.1
-
-      - name: Composer update
-        run: composer update
+          php-version: "8.1"
 
       - name: Cache Vendor
+        uses: actions/cache@v4
         id: cache-vendor
-        uses: actions/cache@v3
         with:
           path: vendor
           key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
 
-      - name: Install Dependencies]
+      - name: Install Dependencies
         if: steps.cache-vendor.outputs.cache-hit != 'true'
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress
 
@@ -54,27 +51,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: nanasess/setup-php@master
+      - uses: nanasess/setup-php@v4
         with:
           php-version: 8.1
 
-      - name: Composer update
-        run: composer update
-
-      - name: Cache Vendor
-        id: cache-vendor
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
-
       - name: Install Dependencies
-        if: steps.cache-vendor.outputs.cache-hit != 'true'
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress
 
       - name: Run php-cs-fixer
         run: ./vendor/bin/php-cs-fixer fix
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Apply php-cs-fixer changes
