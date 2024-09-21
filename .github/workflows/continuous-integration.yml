@@ -47,7 +47,7 @@ jobs:
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: vendor/phpunit/phpunit/phpunit Tests
+        run: ./vendor/bin/phpunit tests
 
   format:
     name: Fix PHP Coding Style
@@ -81,4 +81,7 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
+          repository: .
+          branch: ci-cd-improvements
+          file_pattern: .
           commit_message: Apply php-cs-fixer changes
