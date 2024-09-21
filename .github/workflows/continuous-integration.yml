@@ -74,7 +74,7 @@ jobs:
 
       - name: Install Dependencies
         if: steps.cache-vendor.outputs.cache-hit != 'true'
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress
+        run: composer install -vvv -q --no-ansi --no-interaction --no-scripts --no-progress
 
       - name: Run php-cs-fixer
         run: ./vendor/bin/php-cs-fixer fix
