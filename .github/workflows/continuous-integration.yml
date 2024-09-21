@@ -79,6 +79,6 @@ jobs:
       - name: Run php-cs-fixer
         run: ./vendor/bin/php-cs-fixer fix
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Apply php-cs-fixer changes
