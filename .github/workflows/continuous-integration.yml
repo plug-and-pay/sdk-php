@@ -88,4 +88,3 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Apply php-cs-fixer changes
-          ref: ${{ github.head_ref }}
