@@ -9,7 +9,7 @@ use PlugAndPay\Sdk\Enum\ContractType;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
-class Product
+class Product extends AbstractEntity
 {
     use HasDynamicFields;
 

@@ -8,7 +8,7 @@ use DateTimeImmutable;
 use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
-class SubscriptionBillingSchedule
+class SubscriptionBillingSchedule extends AbstractEntity
 {
     use ValidatesFieldMethods;
 

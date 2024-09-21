@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Service;
 
 use PlugAndPay\Sdk\Contract\ClientInterface;
-use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToSubscription;
 use PlugAndPay\Sdk\Director\ToBody\SubscriptionToBody;
 use PlugAndPay\Sdk\Entity\Subscription;
@@ -16,7 +15,8 @@ use PlugAndPay\Sdk\Support\Parameters;
 
 class SubscriptionService
 {
-    private ClientPatchInterface $client;
+    private ClientInterface $client;
+
     /** @var string[] */
     private array $includes = [];
 

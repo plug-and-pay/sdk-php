@@ -7,7 +7,7 @@ namespace PlugAndPay\Sdk\Entity;
 use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
-class TaxRate
+class TaxRate extends AbstractEntity
 {
     use ValidatesFieldMethods;
 

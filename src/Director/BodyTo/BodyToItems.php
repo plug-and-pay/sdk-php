@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\Item;
 use PlugAndPay\Sdk\Entity\ItemInternal;
 use PlugAndPay\Sdk\Enum\ItemType;
 
-class BodyToItems
+class BodyToItems implements BuildObjectInterface
 {
     /**
      * @return Item[]
@@ -27,7 +28,7 @@ class BodyToItems
                 ->setType($itemData['type'] ? ItemType::from($itemData['type']) : ItemType::STANDARD);
 
             if (isset($itemData['discounts'])) {
-                $item->setDiscounts(BodyToDiscounts::buildMany($itemData['discounts']));
+                $item->setDiscounts(BodyToDiscounts::buildMulti($itemData['discounts']));
             }
 
             if (isset($itemData['tax'])) {

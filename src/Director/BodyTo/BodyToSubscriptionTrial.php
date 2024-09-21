@@ -6,10 +6,11 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
 use Exception;
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\SubscriptionTrial;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
-class BodyToSubscriptionTrial
+class BodyToSubscriptionTrial implements BuildObjectInterface
 {
     /**
      * @throws DecodeResponseException

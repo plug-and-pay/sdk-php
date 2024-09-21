@@ -6,6 +6,7 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
 use Exception;
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\Payment;
 use PlugAndPay\Sdk\Entity\PaymentInternal;
 use PlugAndPay\Sdk\Enum\PaymentMethod;
@@ -13,7 +14,7 @@ use PlugAndPay\Sdk\Enum\PaymentProvider;
 use PlugAndPay\Sdk\Enum\PaymentStatus;
 use PlugAndPay\Sdk\Enum\PaymentType;
 
-class BodyToOrderPayment
+class BodyToOrderPayment implements BuildObjectInterface
 {
     /**
      * @throws Exception

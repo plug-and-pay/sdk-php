@@ -6,12 +6,13 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
 use Exception;
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\SubscriptionBillingSchedule;
 use PlugAndPay\Sdk\Entity\SubscriptionBillingScheduleInternal;
 use PlugAndPay\Sdk\Enum\Interval;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
-class BodyToSubscriptionBillingSchedule
+class BodyToSubscriptionBillingSchedule implements BuildObjectInterface
 {
     /**
      * @throws DecodeResponseException

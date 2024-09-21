@@ -68,6 +68,7 @@ class ProductShowMockClient extends ClientMock
     {
         $this->responseBody['data']['pricing'] = $pricing + [
                 'is_tax_included' => false,
+                'discount_type'   => 'sale',
                 'prices'          => [
                     [
                         'id'           => 10,

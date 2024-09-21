@@ -7,7 +7,7 @@ namespace PlugAndPay\Sdk\Entity;
 use PlugAndPay\Sdk\Enum\TaxExempt;
 use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
-class Contact
+class Contact extends AbstractEntity
 {
     use ValidatesFieldMethods;
 

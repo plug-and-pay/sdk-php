@@ -7,10 +7,11 @@ namespace PlugAndPay\Sdk\Entity;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Traits\HasDynamicFields;
 
-class ProductPricing
+class ProductPricing extends AbstractEntity
 {
     use HasDynamicFields;
 
+    private ?string $discountType;
     private bool $allowEmptyRelations;
     private bool $taxIncluded;
     /*** @var Price[] */
@@ -22,6 +23,18 @@ class ProductPricing
     public function __construct(bool $allowEmptyRelations = true)
     {
         $this->allowEmptyRelations = $allowEmptyRelations;
+    }
+
+    public function discountType(): string
+    {
+        return $this->discountType;
+    }
+
+    public function setDiscountType(string $discountType): self
+    {
+        $this->discountType = $discountType;
+
+        return $this;
     }
 
     public function isTaxIncluded(): bool

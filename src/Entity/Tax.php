@@ -7,7 +7,7 @@ namespace PlugAndPay\Sdk\Entity;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
-class Tax
+class Tax extends AbstractEntity
 {
     use ValidatesFieldMethods;
 

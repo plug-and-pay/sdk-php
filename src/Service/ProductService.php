@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Service;
 
 use PlugAndPay\Sdk\Contract\ClientInterface;
-use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToProduct;
 use PlugAndPay\Sdk\Director\ToBody\ProductToBody;
 use PlugAndPay\Sdk\Entity\Product;
@@ -17,7 +16,7 @@ use PlugAndPay\Sdk\Support\Parameters;
 
 class ProductService
 {
-    private ClientPatchInterface $client;
+    private ClientInterface $client;
     /** @var string[] */
     private array $includes = [];
 

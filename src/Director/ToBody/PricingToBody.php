@@ -20,6 +20,10 @@ class PricingToBody
             $result['is_tax_included'] = $pricing->isTaxIncluded();
         }
 
+        if ($pricing->isset('discountType')) {
+            $result['discount_type'] = $pricing->discountType();
+        }
+
         if ($pricing->isset('prices')) {
             $result['prices'] = PriceToBody::buildMulti($pricing->prices());
         }

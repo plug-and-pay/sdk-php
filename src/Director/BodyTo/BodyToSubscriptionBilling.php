@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
+use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\SubscriptionBilling;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
-class BodyToSubscriptionBilling
+class BodyToSubscriptionBilling implements BuildObjectInterface
 {
     /**
      * @throws DecodeResponseException

@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Entity;
 
 use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
-class SubscriptionBilling
+class SubscriptionBilling extends AbstractEntity
 {
     use ValidatesFieldMethods;
 

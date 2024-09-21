@@ -6,14 +6,13 @@ namespace PlugAndPay\Sdk\Service;
 
 use Exception;
 use PlugAndPay\Sdk\Contract\ClientInterface;
-use PlugAndPay\Sdk\Contract\ClientPatchInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToOrderPayment;
 use PlugAndPay\Sdk\Director\ToBody\OrderPaymentToBody;
 use PlugAndPay\Sdk\Entity\Payment;
 
 class OrderPaymentService
 {
-    private ClientPatchInterface $client;
+    private ClientInterface $client;
 
     public function __construct(ClientInterface $client)
     {
