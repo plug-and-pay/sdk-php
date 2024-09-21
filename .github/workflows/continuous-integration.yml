@@ -10,7 +10,6 @@ on:
 jobs:
   security-check:
     name: Security Checker
-
     runs-on: ubuntu-latest
 
     steps:
@@ -55,8 +54,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
 
-      - uses: nanasess/setup-php@v4
+      - name: Setup PHP
+        uses: nanasess/setup-php@v4
         with:
           php-version: "8.1"
 
@@ -81,7 +83,4 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          repository: .
-          branch: ci-cd-improvements
-          file_pattern: .
           commit_message: Apply php-cs-fixer changes
