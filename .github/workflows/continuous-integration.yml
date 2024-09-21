@@ -52,6 +52,9 @@ jobs:
     name: Fix PHP Coding Style
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -81,6 +84,6 @@ jobs:
       - name: Run php-cs-fixer
         run: vendor/bin/php-cs-fixer fix
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Apply php-cs-fixer changes
