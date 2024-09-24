@@ -26,7 +26,6 @@ class CheckoutFilter
         return $this;
     }
 
-
     public function productId(int $value): self
     {
         $this->parameters['product_id'] = $value;
