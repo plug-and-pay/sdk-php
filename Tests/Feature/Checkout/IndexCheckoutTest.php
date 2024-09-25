@@ -57,6 +57,12 @@ class IndexCheckoutTest extends TestCase
                 'queryValue' => 'test',
             ],
             [
+                'method'     => 'productId',
+                'value'      => 1,
+                'queryKey'   => 'product_id',
+                'queryValue' => '1',
+            ],
+            [
                 'method'     => 'status',
                 'value'      => CheckoutStatus::DELETED,
                 'queryKey'   => 'status',
