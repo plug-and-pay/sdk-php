@@ -190,6 +190,7 @@ class Client implements ClientInterface
             'state'                 => $state,
             'code_challenge'        => $codeChallenge,
             'code_challenge_method' => 'S256',
+            'step'                  => 'select_tenant',
         ]);
 
         return $this->baseUrl . '/oauth/authorize?' . $query;
