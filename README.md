@@ -26,4 +26,4 @@ This is a PHP SDK to make easier to communicate with the Plug&Pay API. Not all f
 
 ## Installation with Composer
 
-`composer require plug-and-pay/sdk-php "^1.0"`
+`composer require plug-and-pay/sdk-php "^1.2"`
