@@ -103,6 +103,12 @@ class IndexRulesTest extends TestCase
                 'queryValue' => '1',
             ],
             [
+                'method'     => 'driver',
+                'value'      => 'huddle',
+                'queryKey'   => 'driver',
+                'queryValue' => 'huddle',
+            ],
+            [
                 'method'     => 'levelId',
                 'value'      => 1,
                 'queryKey'   => 'level_id',
