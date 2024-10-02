@@ -3,5 +3,4 @@ vendor
 .php.cache
 .phpunit.result.cache
 .phpunit.cache
-composer.lock
 Tests/PlaygroundTest.php

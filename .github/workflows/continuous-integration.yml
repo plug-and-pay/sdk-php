@@ -1,4 +1,4 @@
-name: Run tests & format
+name: Continuous Integration
 
 on:
   workflow_dispatch:
@@ -8,6 +8,17 @@ on:
       - main
 
 jobs:
+  security-check:
+    name: Security Checker
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Scan for vulnerabilities
+        uses: symfonycorp/security-checker-action@v5
+
   test:
     name: Run tests
     runs-on: ubuntu-latest
