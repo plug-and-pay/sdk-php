@@ -48,8 +48,14 @@ jobs:
     name: Fix PHP Coding Style
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
 
       - uses: nanasess/setup-php@master
         with:
