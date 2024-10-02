@@ -44,13 +44,14 @@ class ClientTest extends TestCase
         $codeVerifier = 'testVerifier';
         $redirectUrl  = 'https://example.com/callback';
         $clientId     = 123;
+        $testTenantId = 456;
 
         $mockResponse     = new GuzzleResponse(200, [], json_encode(['access_token' => 'testAccessToken', 'refresh_token' => 'testRefreshToken'], JSON_THROW_ON_ERROR));
         $mockGuzzleClient = $this->createMock(GuzzleClient::class);
         $mockGuzzleClient->method('request')->willReturn($mockResponse);
 
         $client   = new Client(null, null, null, null, $mockGuzzleClient);
-        $response = $client->getCredentials($code, $codeVerifier, $redirectUrl, $clientId);
+        $response = $client->getCredentials($code, $codeVerifier, $redirectUrl, $clientId, $testTenantId);
 
         $this->assertEquals(200, $response->status());
         $this->assertEquals('testAccessToken', $response->body()['access_token']);

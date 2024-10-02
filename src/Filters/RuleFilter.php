@@ -17,6 +17,13 @@ class RuleFilter
         return $this;
     }
 
+    public function driver(string $value): self
+    {
+        $this->parameters['driver'] = $value;
+
+        return $this;
+    }
+
     public function tenantId(int $value): self
     {
         $this->parameters['tenant_id'] = $value;

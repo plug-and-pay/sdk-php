@@ -204,7 +204,7 @@ class Client implements ClientInterface
      * @throws NotFoundException
      * @throws ValidationException
      */
-    public function getCredentials(string $code, string $codeVerifier, string $redirectUrl, int $clientId): Response
+    public function getCredentials(string $code, string $codeVerifier, string $redirectUrl, int $clientId, int $tenantId): Response
     {
         $response = $this->request(self::METHOD_POST, '/oauth/token', [
             'grant_type'    => 'authorization_code',
@@ -212,6 +212,7 @@ class Client implements ClientInterface
             'redirect_uri'  => $redirectUrl,
             'code_verifier' => $codeVerifier,
             'code'          => $code,
+            'tenant_id'     => $tenantId,
         ]);
 
         return $this->fromGuzzleResponse($response);
