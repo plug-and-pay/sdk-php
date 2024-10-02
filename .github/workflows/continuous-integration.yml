@@ -30,6 +30,11 @@ jobs:
         with:
           php-version: 8.1
 
+      - name: Remove composer.lock and vendor
+        run: |
+          rm -f composer.lock
+          rm -rf vendor
+
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress
 
@@ -49,6 +54,11 @@ jobs:
       - uses: nanasess/setup-php@master
         with:
           php-version: 8.1
+
+      - name: Remove composer.lock and vendor
+        run: |
+          rm -f composer.lock
+          rm -rf vendor
 
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress
