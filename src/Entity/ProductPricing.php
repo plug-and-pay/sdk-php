@@ -30,7 +30,7 @@ class ProductPricing extends AbstractEntity
         return $this->discountType;
     }
 
-    public function setDiscountType(string $discountType): self
+    public function setDiscountType(?string $discountType): self
     {
         $this->discountType = $discountType;
 
