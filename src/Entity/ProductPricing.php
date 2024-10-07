@@ -25,12 +25,12 @@ class ProductPricing extends AbstractEntity
         $this->allowEmptyRelations = $allowEmptyRelations;
     }
 
-    public function discountType(): string
+    public function discountType(): ?string
     {
         return $this->discountType;
     }
 
-    public function setDiscountType(string $discountType): self
+    public function setDiscountType(?string $discountType): self
     {
         $this->discountType = $discountType;
 
