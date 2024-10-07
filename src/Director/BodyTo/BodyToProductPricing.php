@@ -13,7 +13,7 @@ class BodyToProductPricing implements BuildObjectInterface
     {
         return (new ProductPricing())
             ->setTaxIncluded($data['is_tax_included'])
-            ->setDiscountType($data['discount_type'])
+            ->setDiscountType($data['discount_type'] ?: null)
             ->setShipping($data['shipping'] ? BodyToPricingShipping::build($data['shipping']) : null)
             ->setTrial($data['trial'] ? BodyToPricingTrial::build($data['trial']) : null)
             ->setTax(BodyToPricingTax::build($data['tax']))
