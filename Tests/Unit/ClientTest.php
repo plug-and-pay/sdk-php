@@ -58,36 +58,68 @@ class ClientTest extends TestCase
     }
 
     /** @test */
-    public function it_should_refresh_access_token_if_needed(): void
+    public function it_should_refresh_access_token(): void
     {
-        $mockResponse     = new GuzzleResponse(200, [], json_encode(['access_token' => 'newAccessToken'], JSON_THROW_ON_ERROR));
+        // Given
+        $refreshToken       = 'testRefreshToken';
+        $clientId           = 123;
+        $initialAccessToken = 'initialAccessToken';
+        $newAccessToken     = 'newAccessToken';
+        $baseUrl            = 'http://example.com';
+
+        $mockResponse = new GuzzleResponse(200, [], json_encode(['access_token' => $newAccessToken]));
+
         $mockGuzzleClient = $this->createMock(GuzzleClient::class);
         $mockGuzzleClient->method('request')->willReturn($mockResponse);
 
         $mockTokenService = $this->createMock(TokenService::class);
         $mockTokenService->method('isValid')->willReturn(false);
+        $client = new Client(
+            $initialAccessToken,
+            $refreshToken,
+            $baseUrl,
+            $clientId,
+            $mockGuzzleClient,
+            $mockTokenService
+        );
 
-        $client = new Client('expiredAccessToken', 'expiredRefreshToken', null, 123, $mockGuzzleClient, $mockTokenService);
+        // When
+        $response = $client->refreshTokensIfNeeded($refreshToken, $clientId);
 
-        $client->refreshAccessTokenIfNeeded();
-
-        $this->assertEquals('newAccessToken', $client->getAccessToken());
+        // Then
+        $this->assertEquals(200, $response->status());
+        $this->assertEquals($newAccessToken, $response->body()['access_token']);
+        $this->assertTrue($response->body()['refreshed']);
     }
 
     /** @test */
-    public function it_should_refresh_access_token(): void
+    public function it_should_not_refresh_access_token_when_valid(): void
     {
-        $refreshToken = 'testRefreshToken';
-        $clientId     = 123;
+        // Given
+        $refreshToken       = 'testRefreshToken';
+        $clientId           = 123;
+        $initialAccessToken = 'validAccessToken';
+        $baseUrl            = 'http://example.com';
 
-        $mockResponse     = new GuzzleResponse(200, [], json_encode(['access_token' => 'newAccessToken']));
+        $mockTokenService = $this->createMock(TokenService::class);
+        $mockTokenService->method('isValid')->willReturn(true);
+
         $mockGuzzleClient = $this->createMock(GuzzleClient::class);
-        $mockGuzzleClient->method('request')->willReturn($mockResponse);
 
-        $client   = new Client(null, null, null, null, $mockGuzzleClient);
-        $response = $client->refreshAccessToken($refreshToken, $clientId);
+        $client = new Client(
+            $initialAccessToken,
+            $refreshToken,
+            $baseUrl,
+            $clientId,
+            $mockGuzzleClient,
+            $mockTokenService
+        );
 
+        // When
+        $response = $client->refreshTokensIfNeeded($refreshToken, $clientId);
+
+        // Then
         $this->assertEquals(200, $response->status());
-        $this->assertEquals('newAccessToken', $response->body()['access_token']);
+        $this->assertFalse($response->body()['refreshed']);
     }
 }

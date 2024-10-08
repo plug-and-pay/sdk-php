@@ -219,21 +219,28 @@ class Client implements ClientInterface
     }
 
     /**
+     * Exchange refresh token for a new access token.
+     *
      * @throws GuzzleException
+     * @throws JsonException
      * @throws NotFoundException
      * @throws ValidationException
-     * @throws JsonException
      * @throws InvalidTokenException
      */
-    public function refreshAccessTokenIfNeeded(): void
+    public function refreshTokensIfNeeded(string $refreshToken, int $clientId): Response
     {
         if ($this->tokenService->isValid($this->accessToken)) {
-            return;
+            return new Response(200, ['refreshed' => false]);
         }
 
-        $response = $this->refreshAccessToken($this->refreshToken, $this->clientId);
+        $response = $this->request(self::METHOD_POST, '/oauth/token', [
+            'grant_type'    => 'refresh_token',
+            'client_id'     => $clientId,
+            'refresh_token' => $refreshToken,
+        ]);
 
-        $responseData = $response->body();
+        $guzzleResponse = $this->fromGuzzleResponse($response);
+        $responseData   = $guzzleResponse->body();
 
         // Update the Guzzle client with the new access token
         $this->createGuzzleClient(
@@ -243,24 +250,9 @@ class Client implements ClientInterface
         );
 
         $this->accessToken = $responseData['access_token'];
-    }
 
-    /**
-     * Exchange refresh token for a new access token.
-     *
-     * @throws GuzzleException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws ValidationException
-     */
-    public function refreshAccessToken(string $refreshToken, int $clientId): Response
-    {
-        $response = $this->request(self::METHOD_POST, '/oauth/token', [
-            'grant_type'    => 'refresh_token',
-            'client_id'     => $clientId,
-            'refresh_token' => $refreshToken,
-        ]);
+        $responseData['refreshed'] = true;
 
-        return $this->fromGuzzleResponse($response);
+        return new Response($guzzleResponse->status(), $responseData);
     }
 }
