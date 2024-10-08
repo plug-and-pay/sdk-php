@@ -11,6 +11,7 @@ use JsonException;
 use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\ExceptionFactory;
+use PlugAndPay\Sdk\Exception\InvalidTokenException;
 use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\ValidationException;
 use PlugAndPay\Sdk\Support\Str;
@@ -226,9 +227,14 @@ class Client implements ClientInterface
      * @throws JsonException
      * @throws NotFoundException
      * @throws ValidationException
+     * @throws InvalidTokenException
      */
-    public function refreshAccessToken(string $refreshToken, int $clientId): Response
+    public function refreshTokensIfNeeded(string $refreshToken, int $clientId): Response
     {
+        if ($this->tokenService->isValid($this->accessToken)) {
+            return new Response(200, ['refreshed' => false]);
+        }
+
         $response = $this->request(self::METHOD_POST, '/oauth/token', [
             'grant_type'    => 'refresh_token',
             'client_id'     => $clientId,
@@ -245,6 +251,10 @@ class Client implements ClientInterface
             $this->guzzleClient
         );
 
-        return $guzzleResponse;
+        $this->accessToken = $responseData['access_token'];
+
+        $responseData['refreshed'] = true;
+
+        return new Response($guzzleResponse->status(), $responseData);
     }
 }
