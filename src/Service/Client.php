@@ -11,7 +11,6 @@ use JsonException;
 use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Exception\ExceptionFactory;
-use PlugAndPay\Sdk\Exception\InvalidTokenException;
 use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\ValidationException;
 use PlugAndPay\Sdk\Support\Str;
@@ -23,9 +22,9 @@ use Psr\Http\Message\ResponseInterface;
 class Client implements ClientInterface
 {
     private const METHOD_DELETE = 'DELETE';
-    private const METHOD_GET    = 'GET';
-    private const METHOD_PATCH  = 'PATCH';
-    private const METHOD_POST   = 'POST';
+    private const METHOD_GET = 'GET';
+    private const METHOD_PATCH = 'PATCH';
+    private const METHOD_POST = 'POST';
 
     private const BASE_API_URL_PRODUCTION = 'https://api.plugandpay.nl';
 
@@ -40,13 +39,14 @@ class Client implements ClientInterface
     private TokenService $tokenService;
 
     public function __construct(
-        ?string $accessToken = null,
-        ?string $refreshToken = null,
-        string $baseUrl = null,
-        ?int $clientId = null,
+        ?string       $accessToken = null,
+        ?string       $refreshToken = null,
+        string        $baseUrl = null,
+        ?int          $clientId = null,
         ?GuzzleClient $guzzleClient = null,
-        TokenService $tokenService = null
-    ) {
+        TokenService  $tokenService = null
+    )
+    {
         $this->baseUrl      = $baseUrl ?? self::BASE_API_URL_PRODUCTION;
         $this->accessToken  = $accessToken;
         $this->refreshToken = $refreshToken;
@@ -56,10 +56,11 @@ class Client implements ClientInterface
     }
 
     private function createGuzzleClient(
-        string $baseUrl,
-        ?string $accessToken,
+        string        $baseUrl,
+        ?string       $accessToken,
         ?GuzzleClient $guzzleClient
-    ): void {
+    ): void
+    {
         $headers = ['Accept' => 'application/json'];
 
         if ($accessToken) {
@@ -219,33 +220,6 @@ class Client implements ClientInterface
     }
 
     /**
-     * @throws GuzzleException
-     * @throws NotFoundException
-     * @throws ValidationException
-     * @throws JsonException
-     * @throws InvalidTokenException
-     */
-    public function refreshAccessTokenIfNeeded(): void
-    {
-        if ($this->tokenService->isValid($this->accessToken)) {
-            return;
-        }
-
-        $response = $this->refreshAccessToken($this->refreshToken, $this->clientId);
-
-        $responseData = $response->body();
-
-        // Update the Guzzle client with the new access token
-        $this->createGuzzleClient(
-            $this->baseUrl,
-            $responseData['access_token'],
-            $this->guzzleClient
-        );
-
-        $this->accessToken = $responseData['access_token'];
-    }
-
-    /**
      * Exchange refresh token for a new access token.
      *
      * @throws GuzzleException
@@ -261,6 +235,16 @@ class Client implements ClientInterface
             'refresh_token' => $refreshToken,
         ]);
 
-        return $this->fromGuzzleResponse($response);
+        $guzzleResponse = $this->fromGuzzleResponse($response);
+        $responseData   = $guzzleResponse->body();
+
+        // Update the Guzzle client with the new access token
+        $this->createGuzzleClient(
+            $this->baseUrl,
+            $responseData['access_token'],
+            $this->guzzleClient
+        );
+
+        return $guzzleResponse;
     }
 }
