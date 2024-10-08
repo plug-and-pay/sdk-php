@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Entity;
 
 use PlugAndPay\Sdk\Enum\ItemType;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Traits\ValidatesFieldMethods;
 
 class Item extends AbstractEntity
@@ -13,14 +14,21 @@ class Item extends AbstractEntity
 
     protected float $amount;
     protected float $amountWithTax;
+
     /** @var Discount[] */
     protected array $discounts;
+
     protected int $id;
     protected string $label;
+
     protected int $productId;
     protected int $quantity;
+
     protected Tax $tax;
     protected ItemType $type;
+
+    /** @var CustomField[] */
+    protected array $customFields;
 
     public function id(): int
     {
@@ -114,5 +122,17 @@ class Item extends AbstractEntity
     public function type(): ItemType
     {
         return $this->type;
+    }
+
+    /**
+     * @throws RelationNotLoadedException
+     */
+    public function customFields(): array
+    {
+        if (!isset($this->customFields)) {
+            throw new RelationNotLoadedException('customFields');
+        }
+
+        return $this->customFields;
     }
 }

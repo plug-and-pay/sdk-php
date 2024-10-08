@@ -17,15 +17,18 @@ class BodyToItems implements BuildObjectInterface
     public static function build(array $data): array
     {
         $result = [];
+
         foreach ($data as $itemData) {
-            $item = (new ItemInternal())
+            $item = (new ItemInternal());
+
+            $item
                 ->setId($itemData['id'])
+                ->setType($itemData['type'] ? ItemType::from($itemData['type']) : ItemType::STANDARD)
                 ->setProductId($itemData['product_id'])
                 ->setLabel($itemData['label'])
                 ->setQuantity($itemData['quantity'])
                 ->setAmount((float) $itemData['amount'])
-                ->setAmountWithTax((float) $itemData['amount_with_tax'])
-                ->setType($itemData['type'] ? ItemType::from($itemData['type']) : ItemType::STANDARD);
+                ->setAmountWithTax((float) $itemData['amount_with_tax']);
 
             if (isset($itemData['discounts'])) {
                 $item->setDiscounts(BodyToDiscounts::buildMulti($itemData['discounts']));
@@ -33,6 +36,10 @@ class BodyToItems implements BuildObjectInterface
 
             if (isset($itemData['tax'])) {
                 $item->setTax(BodyToTax::build($itemData['tax']));
+            }
+
+            if (isset($itemData['custom_fields'])) {
+                $item->setCustomFields(BodyToCustomField::build($itemData['custom_fields']));
             }
 
             $result[] = $item;

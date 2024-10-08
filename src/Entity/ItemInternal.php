@@ -40,4 +40,14 @@ class ItemInternal extends Item
 
         return $this;
     }
+
+    /**
+     * @internal
+     */
+    public function setCustomFields(CustomField $customFields): self
+    {
+        $this->customFields = $customFields;
+
+        return $this;
+    }
 }
