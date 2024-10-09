@@ -38,14 +38,13 @@ class Client implements ClientInterface
     private TokenService $tokenService;
 
     public function __construct(
-        ?string       $accessToken = null,
-        ?string       $refreshToken = null,
-        string        $baseUrl = null,
-        ?int          $clientId = null,
+        ?string $accessToken = null,
+        ?string $refreshToken = null,
+        string $baseUrl = null,
+        ?int $clientId = null,
         ?GuzzleClient $guzzleClient = null,
-        TokenService  $tokenService = null
-    )
-    {
+        TokenService $tokenService = null
+    ) {
         $this->baseUrl     = $baseUrl ?? self::BASE_API_URL_PRODUCTION;
         $this->accessToken = $accessToken;
         $this->createGuzzleClient($this->baseUrl, $this->accessToken, $guzzleClient);
