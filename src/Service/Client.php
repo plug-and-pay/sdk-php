@@ -35,8 +35,6 @@ class Client implements ClientInterface
     private GuzzleClient $guzzleClient;
     private string $baseUrl;
     private ?string $accessToken;
-    private ?string $refreshToken;
-    private ?int $clientId;
     private TokenService $tokenService;
 
     public function __construct(
@@ -48,10 +46,8 @@ class Client implements ClientInterface
         TokenService  $tokenService = null
     )
     {
-        $this->baseUrl      = $baseUrl ?? self::BASE_API_URL_PRODUCTION;
-        $this->accessToken  = $accessToken;
-        $this->refreshToken = $refreshToken;
-        $this->clientId     = $clientId;
+        $this->baseUrl     = $baseUrl ?? self::BASE_API_URL_PRODUCTION;
+        $this->accessToken = $accessToken;
         $this->createGuzzleClient($this->baseUrl, $this->accessToken, $guzzleClient);
         $this->tokenService = $tokenService ?? new TokenService(); // Initialize it
     }
@@ -229,7 +225,7 @@ class Client implements ClientInterface
      * @throws ValidationException
      * @throws InvalidTokenException
      */
-    public function refreshTokensIfNeeded(string $refreshToken, int $clientId): Response
+    public function refreshTokensIfNeeded(string $refreshToken, int $clientId, int $tenantId): Response
     {
         if ($this->tokenService->isValid($this->accessToken)) {
             return new Response(200, ['refreshed' => false]);
@@ -239,6 +235,7 @@ class Client implements ClientInterface
             'grant_type'    => 'refresh_token',
             'client_id'     => $clientId,
             'refresh_token' => $refreshToken,
+            'tenant_id'     => $tenantId,
         ]);
 
         $guzzleResponse = $this->fromGuzzleResponse($response);
