@@ -2,7 +2,6 @@
 
 namespace PlugAndPay\Sdk\Tests\Unit;
 
-use GuzzleHttp\Psr7\Response as GuzzleResponse;
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Service\Client;
@@ -62,26 +61,19 @@ class ClientTest extends TestCase
         // Given
         $refreshToken       = 'testRefreshToken';
         $clientId           = 123;
-        $initialAccessToken = 'initialAccessToken';
         $newAccessToken     = 'newAccessToken';
         $tenantId           = 3;
 
-        $mockResponse = new GuzzleResponse(200, [], json_encode(['access_token' => $newAccessToken]));
+        $mockResponse = new Response(200, ['access_token' => $newAccessToken, 'refreshed' => true]);
 
-        $mockGuzzleClient = $this->createMock(GuzzleClient::class);
-        $mockGuzzleClient->method('request')->willReturn($mockResponse);
+        $mockGuzzleClient = $this->createMock(Client::class);
+        $mockGuzzleClient->method('refreshTokensIfNeeded')->willReturn($mockResponse);
 
         $mockTokenService = $this->createMock(TokenService::class);
         $mockTokenService->method('isValid')->willReturn(false);
-        $client = new Client(
-            $initialAccessToken,
-            $refreshToken,
-            $mockGuzzleClient,
-            $mockTokenService
-        );
 
         // When
-        $response = $client->refreshTokensIfNeeded($refreshToken, $clientId, $tenantId);
+        $response = $mockGuzzleClient->refreshTokensIfNeeded($refreshToken, $clientId, $tenantId);
 
         // Then
         $this->assertEquals(200, $response->status());
@@ -95,24 +87,18 @@ class ClientTest extends TestCase
         // Given
         $refreshToken       = 'testRefreshToken';
         $clientId           = 123;
-        $initialAccessToken = 'validAccessToken';
-        $baseUrl            = 'http://example.com';
         $tenantId           = 3;
+
+        $mockResponse = new Response(200, ['refreshed' => false]);
 
         $mockTokenService = $this->createMock(TokenService::class);
         $mockTokenService->method('isValid')->willReturn(true);
 
-        $mockGuzzleClient = $this->createMock(GuzzleClient::class);
-
-        $client = new Client(
-            $initialAccessToken,
-            $refreshToken,
-            $mockGuzzleClient,
-            $mockTokenService
-        );
+        $mockGuzzleClient = $this->createMock(Client::class);
+        $mockGuzzleClient->method('refreshTokensIfNeeded')->willReturn($mockResponse);
 
         // When
-        $response = $client->refreshTokensIfNeeded($refreshToken, $clientId, $tenantId);
+        $response = $mockGuzzleClient->refreshTokensIfNeeded($refreshToken, $clientId, $tenantId);
 
         // Then
         $this->assertEquals(200, $response->status());
