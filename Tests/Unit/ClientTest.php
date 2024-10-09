@@ -66,6 +66,7 @@ class ClientTest extends TestCase
         $initialAccessToken = 'initialAccessToken';
         $newAccessToken     = 'newAccessToken';
         $baseUrl            = 'http://example.com';
+        $tenantId           = 3;
 
         $mockResponse = new GuzzleResponse(200, [], json_encode(['access_token' => $newAccessToken]));
 
@@ -84,7 +85,7 @@ class ClientTest extends TestCase
         );
 
         // When
-        $response = $client->refreshTokensIfNeeded($refreshToken, $clientId);
+        $response = $client->refreshTokensIfNeeded($refreshToken, $clientId, $tenantId);
 
         // Then
         $this->assertEquals(200, $response->status());
@@ -100,6 +101,7 @@ class ClientTest extends TestCase
         $clientId           = 123;
         $initialAccessToken = 'validAccessToken';
         $baseUrl            = 'http://example.com';
+        $tenantId           = 3;
 
         $mockTokenService = $this->createMock(TokenService::class);
         $mockTokenService->method('isValid')->willReturn(true);
@@ -116,7 +118,7 @@ class ClientTest extends TestCase
         );
 
         // When
-        $response = $client->refreshTokensIfNeeded($refreshToken, $clientId);
+        $response = $client->refreshTokensIfNeeded($refreshToken, $clientId, $tenantId);
 
         // Then
         $this->assertEquals(200, $response->status());

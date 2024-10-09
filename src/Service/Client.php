@@ -39,9 +39,7 @@ class Client implements ClientInterface
 
     public function __construct(
         ?string $accessToken = null,
-        ?string $refreshToken = null,
         string $baseUrl = null,
-        ?int $clientId = null,
         ?GuzzleClient $guzzleClient = null,
         TokenService $tokenService = null
     ) {
