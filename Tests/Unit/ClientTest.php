@@ -2,9 +2,9 @@
 
 namespace PlugAndPay\Sdk\Tests\Unit;
 
-use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
 use PHPUnit\Framework\TestCase;
+use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Service\Client;
 use PlugAndPay\Sdk\Service\TokenService;
 
@@ -46,12 +46,11 @@ class ClientTest extends TestCase
         $clientId     = 123;
         $testTenantId = 456;
 
-        $mockResponse     = new GuzzleResponse(200, [], json_encode(['access_token' => 'testAccessToken', 'refresh_token' => 'testRefreshToken'], JSON_THROW_ON_ERROR));
-        $mockGuzzleClient = $this->createMock(GuzzleClient::class);
-        $mockGuzzleClient->method('request')->willReturn($mockResponse);
+        $mockResponse     = new Response(200, ['access_token' => 'testAccessToken', 'refresh_token' => 'testRefreshToken']);
+        $mockGuzzleClient = $this->createMock(Client::class);
+        $mockGuzzleClient->method('getCredentials')->willReturn($mockResponse);
 
-        $client   = new Client(null, null, null, null, $mockGuzzleClient);
-        $response = $client->getCredentials($code, $codeVerifier, $redirectUrl, $clientId, $testTenantId);
+        $response = $mockGuzzleClient->getCredentials($code, $codeVerifier, $redirectUrl, $clientId, $testTenantId);
 
         $this->assertEquals(200, $response->status());
         $this->assertEquals('testAccessToken', $response->body()['access_token']);
@@ -65,7 +64,6 @@ class ClientTest extends TestCase
         $clientId           = 123;
         $initialAccessToken = 'initialAccessToken';
         $newAccessToken     = 'newAccessToken';
-        $baseUrl            = 'http://example.com';
         $tenantId           = 3;
 
         $mockResponse = new GuzzleResponse(200, [], json_encode(['access_token' => $newAccessToken]));
@@ -78,8 +76,6 @@ class ClientTest extends TestCase
         $client = new Client(
             $initialAccessToken,
             $refreshToken,
-            $baseUrl,
-            $clientId,
             $mockGuzzleClient,
             $mockTokenService
         );
@@ -111,8 +107,6 @@ class ClientTest extends TestCase
         $client = new Client(
             $initialAccessToken,
             $refreshToken,
-            $baseUrl,
-            $clientId,
             $mockGuzzleClient,
             $mockTokenService
         );
