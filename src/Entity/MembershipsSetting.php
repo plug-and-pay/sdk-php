@@ -19,7 +19,6 @@ class MembershipsSetting extends AbstractEntity
     protected DateTimeImmutable $createdAt;
     protected ?DateTimeImmutable $updatedAt;
 
-
     public function id(): int
     {
         return $this->id;

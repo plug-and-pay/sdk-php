@@ -54,7 +54,7 @@ class ShowMembershipsSettingTest extends TestCase
     public function it_should_show_setting(): void
     {
         // Given
-        $client = new ShowMembershipsSettingMockClient(data: ['id' => 1]);
+        $client  = new ShowMembershipsSettingMockClient(data: ['id' => 1]);
         $service = new MembershipsSettingService($client);
 
         // When
