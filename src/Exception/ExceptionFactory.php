@@ -32,7 +32,7 @@ class ExceptionFactory
 
                 return new \RuntimeException("Error: $status; Body: " . $body['message']);
             default:
-                return null;
+                return new \RuntimeException("Error: $status; Known body: $body");
         }
     }
 }
