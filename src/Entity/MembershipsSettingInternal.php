@@ -6,7 +6,7 @@ namespace PlugAndPay\Sdk\Entity;
 
 use DateTimeImmutable;
 
-class MembershipsMembershipsSettingInternal extends MembershipsSetting
+class MembershipsSettingInternal extends MembershipsSetting
 {
     /**
      * @internal

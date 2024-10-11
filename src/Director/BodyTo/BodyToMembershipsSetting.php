@@ -7,7 +7,7 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 use DateTimeImmutable;
 use Exception;
 use PlugAndPay\Sdk\Contract\BuildObjectInterface;
-use PlugAndPay\Sdk\Entity\MembershipsMembershipsSettingInternal;
+use PlugAndPay\Sdk\Entity\MembershipsSettingInternal;
 use PlugAndPay\Sdk\Entity\MembershipsSetting;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
@@ -16,7 +16,7 @@ class BodyToMembershipsSetting implements BuildObjectInterface
     /** @throws DecodeResponseException */
     public static function build(array $data): MembershipsSetting
     {
-        return (new MembershipsMembershipsSettingInternal())
+        return (new MembershipsSettingInternal())
             ->setId($data['id'])
             ->setDriver($data['driver'])
             ->setIsActive($data['is_active'])
