@@ -32,6 +32,9 @@ class ExceptionFactory
 
                 return new \RuntimeException("Error: $status; Body: " . $body['message']);
             default:
+                if ($status < 400) {
+                    return null;
+                }
                 return new \RuntimeException("Error: $status; Known body: $body");
         }
     }
