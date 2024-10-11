@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PlugAndPay\Sdk\Tests\Feature\Setting\Mock;
+namespace PlugAndPay\Sdk\Tests\Feature\MembershipsSetting\Mock;
 
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
