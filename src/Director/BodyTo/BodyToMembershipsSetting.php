@@ -7,8 +7,8 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 use DateTimeImmutable;
 use Exception;
 use PlugAndPay\Sdk\Contract\BuildObjectInterface;
-use PlugAndPay\Sdk\Entity\MembershipsSettingInternal;
 use PlugAndPay\Sdk\Entity\MembershipsSetting;
+use PlugAndPay\Sdk\Entity\MembershipsSettingInternal;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 
 class BodyToMembershipsSetting implements BuildObjectInterface
