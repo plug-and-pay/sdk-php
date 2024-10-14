@@ -7,6 +7,7 @@ namespace PlugAndPay\Sdk\Service;
 use Exception;
 use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToMembershipsSetting;
+use PlugAndPay\Sdk\Director\ToBody\MembershipsSettingToBody;
 use PlugAndPay\Sdk\Entity\MembershipsSetting;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
 use PlugAndPay\Sdk\Filters\MembershipsSettingFilter;
@@ -43,5 +44,14 @@ class MembershipsSettingService
         $response = $this->client->get("/v2/memberships/settings$query");
 
         return BodyToMembershipsSetting::buildMulti($response->body()['data']);
+    }
+
+    /** @throws DecodeResponseException */
+    public function create(MembershipsSetting $membershipsSetting): MembershipsSetting
+    {
+        $body     = MembershipsSettingToBody::build($membershipsSetting);
+        $response = $this->client->post('/v2/memberships/settings', $body);
+
+        return BodyToMembershipsSetting::build($response->body()['data']);
     }
 }
