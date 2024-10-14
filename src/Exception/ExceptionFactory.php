@@ -35,6 +35,7 @@ class ExceptionFactory
                 if ($status < 400) {
                     return null;
                 }
+
                 return new \RuntimeException("Error: $status; Known body: $body");
         }
     }
