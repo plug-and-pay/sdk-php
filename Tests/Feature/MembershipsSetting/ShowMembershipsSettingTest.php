@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PlugAndPay\Sdk\Tests\Feature\Setting;
+namespace PlugAndPay\Sdk\Tests\Feature\MembershipsSetting;
 
 use PHPUnit\Framework\TestCase;
 use PlugAndPay\Sdk\Entity\Response;
@@ -10,7 +10,7 @@ use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\UnauthenticatedException;
 use PlugAndPay\Sdk\Service\MembershipsSettingService;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
-use PlugAndPay\Sdk\Tests\Feature\Setting\Mock\ShowMembershipsSettingMockClient;
+use PlugAndPay\Sdk\Tests\Feature\MembershipsSetting\Mock\ShowMembershipsSettingMockClient;
 
 class ShowMembershipsSettingTest extends TestCase
 {
@@ -33,7 +33,7 @@ class ShowMembershipsSettingTest extends TestCase
     }
 
     /** @test */
-    public function it_should_throw_not_found_exception_when_setting_is_not_found(): void
+    public function it_should_throw_not_found_exception_when_memberships_setting_is_not_found(): void
     {
         // Given
         $client    = new ClientMock(Response::HTTP_NOT_FOUND);
@@ -51,7 +51,7 @@ class ShowMembershipsSettingTest extends TestCase
     }
 
     /** @test */
-    public function it_should_show_setting(): void
+    public function it_should_show_memberships_setting(): void
     {
         // Given
         $client  = new ShowMembershipsSettingMockClient(data: ['id' => 1]);

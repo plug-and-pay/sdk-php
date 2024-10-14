@@ -25,4 +25,9 @@ class MembershipsSettingService
 
         return BodyToMembershipsSetting::build($response->body()['data']);
     }
+
+    public function delete(int $membershipsSettingId): void
+    {
+        $this->client->delete("/v2/memberships/settings/$membershipsSettingId");
+    }
 }
