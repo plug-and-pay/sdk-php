@@ -6,7 +6,6 @@ namespace PlugAndPay\Sdk\Tests\Feature\MembershipsSetting\Mock;
 
 use PlugAndPay\Sdk\Entity\Response;
 use PlugAndPay\Sdk\Tests\Feature\ClientMock;
-use PlugAndPay\Sdk\Tests\Feature\MembershipsSetting\Mock\ShowMembershipsSettingMockClient;
 
 class IndexMembershipsSettingMockClient extends ClientMock
 {
