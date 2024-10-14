@@ -52,9 +52,9 @@ class RuleService
 
     public function update(int $ruleId, callable $update): Rule
     {
-        $product = new Rule();
-        $update($product);
-        $body     = RuleToBody::build($product);
+        $rule = new Rule();
+        $update($rule);
+        $body     = RuleToBody::build($rule);
         $response = $this->client->patch("/v2/rules/$ruleId", $body);
 
         return BodyToRule::build($response->body()['data']);
