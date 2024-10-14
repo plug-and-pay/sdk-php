@@ -6,13 +6,17 @@ namespace PlugAndPay\Sdk\Director\BodyTo;
 
 use DateTimeImmutable;
 use Exception;
+use PlugAndPay\Sdk\Contract\BuildMultipleObjectsInterface;
 use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\MembershipsSetting;
 use PlugAndPay\Sdk\Entity\MembershipsSettingInternal;
 use PlugAndPay\Sdk\Exception\DecodeResponseException;
+use PlugAndPay\Sdk\Traits\BuildMultipleObjects;
 
-class BodyToMembershipsSetting implements BuildObjectInterface
+class BodyToMembershipsSetting implements BuildObjectInterface, BuildMultipleObjectsInterface
 {
+    use BuildMultipleObjects;
+
     /** @throws DecodeResponseException */
     public static function build(array $data): MembershipsSetting
     {
@@ -36,7 +40,7 @@ class BodyToMembershipsSetting implements BuildObjectInterface
             return new DateTimeImmutable($data[$field]);
         } catch (Exception $e) {
             /** @noinspection JsonEncodingApiUsageInspection */
-            $body = (string) json_encode($data, JSON_ERROR_NONE);
+            $body = (string)json_encode($data, JSON_ERROR_NONE);
             throw new DecodeResponseException($body, $field, $e);
         }
     }
