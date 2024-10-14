@@ -54,4 +54,15 @@ class MembershipsSettingService
 
         return BodyToMembershipsSetting::build($response->body()['data']);
     }
+
+    /** @throws DecodeResponseException */
+    public function update(int $membershipsSettingId, callable $update): MembershipsSetting
+    {
+        $membershipsSetting = new MembershipsSetting();
+        $update($membershipsSetting);
+        $body     = MembershipsSettingToBody::build($membershipsSetting);
+        $response = $this->client->patch("/v2/memberships/settings/$membershipsSettingId", $body);
+
+        return BodyToMembershipsSetting::build($response->body()['data']);
+    }
 }
