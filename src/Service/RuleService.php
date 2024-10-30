@@ -42,6 +42,11 @@ class RuleService
         $this->client->delete("/v2/rules/$ruleId");
     }
 
+    public function deleteMany(array $ruleIds): void
+    {
+        $this->client->deleteMany("/v2/rules", ['ids' => $ruleIds]);
+    }
+
     public function create(Rule $rule): Rule
     {
         $body     = RuleToBody::build($rule);

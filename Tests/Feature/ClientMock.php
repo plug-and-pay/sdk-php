@@ -41,6 +41,11 @@ class ClientMock implements ClientInterface
         return $this->standardResponse();
     }
 
+    public function deleteMany(string $path, array $data): Response
+    {
+        return $this->standardResponse();
+    }
+
     public function getAccessToken(string $code, string $codeVerifier, string $redirectUri, int $clientId): Response
     {
         return $this->standardResponse([

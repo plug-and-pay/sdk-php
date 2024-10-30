@@ -31,6 +31,22 @@ class DestroyRuleMockClient extends ClientMock
         return new Response(Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * @throws NotFoundException
+     * @throws ValidationException
+     * @throws JsonException
+     */
+    public function deleteMany(string $path, array $data): Response
+    {
+        $this->path = $path;
+        $exception  = ExceptionFactory::create($this->status);
+        if ($exception) {
+            throw $exception;
+        }
+
+        return new Response(Response::HTTP_NO_CONTENT);
+    }
+
     public function path(): string
     {
         return $this->path;
