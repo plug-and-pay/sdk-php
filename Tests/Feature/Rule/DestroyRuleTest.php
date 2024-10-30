@@ -44,7 +44,7 @@ class DestroyRuleTest extends TestCase
     }
 
     /** @test */
-    public function delete_existing_product(): void
+    public function delete_existing_rule(): void
     {
         $client  = new DestroyRuleMockClient(Response::HTTP_NO_CONTENT, []);
         $service = new RuleService($client);
@@ -52,5 +52,16 @@ class DestroyRuleTest extends TestCase
         $service->delete(1);
 
         static::assertEquals('/v2/rules/1', $client->path());
+    }
+
+    /** @test */
+    public function delete_multiple_rules(): void
+    {
+        $client  = new DestroyRuleMockClient(Response::HTTP_NO_CONTENT, []);
+        $service = new RuleService($client);
+
+        $service->deleteMany([1, 2, 3, 4]);
+
+        static::assertEquals('/v2/rules', $client->path());
     }
 }

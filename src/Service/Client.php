@@ -86,6 +86,19 @@ class Client implements ClientInterface
      * @throws NotFoundException
      * @throws ValidationException
      */
+    public function deleteMany(string $path, array $data): Response
+    {
+        $response = $this->request(self::METHOD_DELETE, $path, $data);
+
+        return new Response($response->getStatusCode());
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws JsonException
+     * @throws NotFoundException
+     * @throws ValidationException
+     */
     public function get(string $path): Response
     {
         $response = $this->request(self::METHOD_GET, $path);
