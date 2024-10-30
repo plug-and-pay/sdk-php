@@ -151,14 +151,6 @@ class Client implements ClientInterface
     }
 
     /**
-     * Get the access token.
-     */
-    public function getAccessToken(): ?string
-    {
-        return $this->accessToken;
-    }
-
-    /**
      * Generate a random string.
      */
     public static function getRandomString(int $length): string
@@ -249,5 +241,18 @@ class Client implements ClientInterface
         $responseData['refreshed'] = true;
 
         return new Response($guzzleResponse->status(), $responseData);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws NotFoundException
+     * @throws ValidationException
+     * @throws JsonException
+     */
+    public function revokeTokens(): Response
+    {
+        $response = $this->request(self::METHOD_POST, '/v2/auth/oauth/revoke');
+
+        return $this->fromGuzzleResponse($response);
     }
 }

@@ -104,4 +104,21 @@ class ClientTest extends TestCase
         $this->assertEquals(200, $response->status());
         $this->assertFalse($response->body()['refreshed']);
     }
+
+    /** @test */
+    public function it_should_revoke_tokens(): void
+    {
+        // Given
+        $mockResponse = new Response(200, ['revoked' => true]);
+
+        $mockGuzzleClient = $this->createMock(Client::class);
+        $mockGuzzleClient->method('revokeTokens')->willReturn($mockResponse);
+
+        // When
+        $response = $mockGuzzleClient->revokeTokens();
+
+        // Then
+        $this->assertEquals(200, $response->status());
+        $this->assertTrue($response->body()['revoked']);
+    }
 }
