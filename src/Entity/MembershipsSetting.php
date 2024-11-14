@@ -60,12 +60,12 @@ class MembershipsSetting extends AbstractEntity
         return $this;
     }
 
-    public function apiToken(): string
+    public function apiToken(): ?string
     {
         return $this->apiToken;
     }
 
-    public function setApiToken(string $apiToken): self
+    public function setApiToken(?string $apiToken): self
     {
         $this->apiToken = $apiToken;
 
