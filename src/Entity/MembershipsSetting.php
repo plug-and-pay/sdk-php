@@ -60,7 +60,7 @@ class MembershipsSetting extends AbstractEntity
         return $this;
     }
 
-    public function apiToken(): string
+    public function apiToken(): ?string
     {
         return $this->apiToken;
     }
