@@ -25,7 +25,7 @@ class BodyToMembershipsSetting implements BuildObjectInterface, BuildMultipleObj
             ->setDriver($data['driver'])
             ->setIsActive($data['is_active'])
             ->setTenantId($data['tenant_id'])
-            ->setApiToken($data['api_token'])
+            ->setApiToken($data['api_token'] ?: null)
             ->setCreatedAt(self::date($data, 'created_at'))
             ->setUpdatedAt($data['updated_at'] ? self::date($data, 'updated_at') : null);
     }
