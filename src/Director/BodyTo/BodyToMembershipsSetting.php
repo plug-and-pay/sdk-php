@@ -26,8 +26,8 @@ class BodyToMembershipsSetting implements BuildObjectInterface, BuildMultipleObj
             ->setIsActive($data['is_active'])
             ->setTenantId($data['tenant_id'])
             ->setApiToken($data['api_token'] ?: null)
-            ->setCreatedAt(self::date($data, 'created_at'))
-            ->setUpdatedAt($data['updated_at'] ? self::date($data, 'updated_at') : null);
+            ->setCreatedAt(isset($data['created_at']) ? self::date($data, 'created_at') : new DateTimeImmutable())
+            ->setUpdatedAt(isset($data['updated_at']) ? self::date($data, 'updated_at') : null);
     }
 
     /**
