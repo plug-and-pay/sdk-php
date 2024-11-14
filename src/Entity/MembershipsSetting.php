@@ -15,7 +15,7 @@ class MembershipsSetting extends AbstractEntity
     protected string $driver;
     protected bool $isActive;
     protected int $tenantId;
-    protected string $apiToken;
+    protected ?string $apiToken;
     protected DateTimeImmutable $createdAt;
     protected ?DateTimeImmutable $updatedAt;
 
