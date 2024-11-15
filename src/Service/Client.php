@@ -246,7 +246,7 @@ class Client implements ClientInterface
         $this->createGuzzleClient(
             $this->baseUrl,
             $responseData['access_token'],
-            $this->guzzleClient
+            null,
         );
 
         $this->accessToken = $responseData['access_token'];
