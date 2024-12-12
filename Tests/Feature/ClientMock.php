@@ -31,6 +31,11 @@ class ClientMock implements ClientInterface
         return $this->standardResponse();
     }
 
+    public function put(string $path, array $data): Response
+    {
+        return $this->standardResponse();
+    }
+
     public function post(string $path, array $body): Response
     {
         return $this->standardResponse();
