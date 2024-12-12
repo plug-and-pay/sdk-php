@@ -11,7 +11,7 @@ class PortalSettingsUpdateMockClient extends PortalSettingsShowMockClient
 {
     protected array $requestBody;
 
-    public function patch(string $path, array $data): Response
+    public function put(string $path, array $data): Response
     {
         $this->responseBody = Arr::mergeDistinct($this->responseBody, ['data' => $data]);
         $this->path         = $path;

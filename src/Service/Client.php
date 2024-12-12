@@ -25,6 +25,7 @@ class Client implements ClientInterface
     private const METHOD_DELETE = 'DELETE';
     private const METHOD_GET    = 'GET';
     private const METHOD_PATCH  = 'PATCH';
+    private const METHOD_PUT    = 'PUT';
     private const METHOD_POST   = 'POST';
 
     private const BASE_API_URL_PRODUCTION = 'https://api.plugandpay.com';
@@ -115,6 +116,19 @@ class Client implements ClientInterface
     public function patch(string $path, array $data): Response
     {
         $response = $this->request(self::METHOD_PATCH, $path, $data);
+
+        return $this->fromGuzzleResponse($response);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws NotFoundException
+     * @throws ValidationException
+     * @throws JsonException
+     */
+    public function put(string $path, array $data): Response
+    {
+        $response = $this->request(self::METHOD_PUT, $path, $data);
 
         return $this->fromGuzzleResponse($response);
     }

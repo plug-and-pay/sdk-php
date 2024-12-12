@@ -20,10 +20,10 @@ class PortalSettingService
 
     public function update(callable $update): PortalSetting
     {
-        $membershipsSetting = new PortalSetting();
-        $update($membershipsSetting);
-        $body     = PortalSettingToBody::build($membershipsSetting);
-        $response = $this->client->patch('/v2/portal/settings', $body);
+        $portalSetting = new PortalSetting();
+        $update($portalSetting);
+        $body     = PortalSettingToBody::build($portalSetting);
+        $response = $this->client->put('/v2/portal/settings', $body);
 
         return BodyToPortalSetting::build($response->body()['data']);
     }

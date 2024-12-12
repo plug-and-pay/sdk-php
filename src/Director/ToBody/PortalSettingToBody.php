@@ -8,48 +8,48 @@ use PlugAndPay\Sdk\Entity\PortalSetting;
 
 class PortalSettingToBody
 {
-    public static function build(PortalSetting $rule): array
+    public static function build(PortalSetting $portalSetting): array
     {
         $result = [];
 
-        if ($rule->isset('enabled')) {
-            $result['enabled'] = $rule->isEnabled();
+        if ($portalSetting->isset('enabled')) {
+            $result['enabled'] = $portalSetting->isEnabled();
         }
 
-        if ($rule->isset('readOnly')) {
-            $result['read_only'] = $rule->isReadOnly();
+        if ($portalSetting->isset('readOnly')) {
+            $result['read_only'] = $portalSetting->isReadOnly();
         }
 
-        if ($rule->isset('editInvoiceDetails')) {
-            $result['edit_invoice_details'] = $rule->isEditInvoiceDetails();
+        if ($portalSetting->isset('editInvoiceDetails')) {
+            $result['edit_invoice_details'] = $portalSetting->isEditInvoiceDetails();
         }
 
-        if ($rule->isset('editPaymentTerm')) {
-            $result['edit_payment_term'] = $rule->isEditPaymentTerm();
+        if ($portalSetting->isset('editPaymentTerm')) {
+            $result['edit_payment_term'] = $portalSetting->isEditPaymentTerm();
         }
 
-        if ($rule->isset('editPaymentMethod')) {
-            $result['edit_payment_method'] = $rule->isEditPaymentMethod();
+        if ($portalSetting->isset('editPaymentMethod')) {
+            $result['edit_payment_method'] = $portalSetting->isEditPaymentMethod();
         }
 
-        if ($rule->isset('cancelSubscription')) {
-            $result['cancel_subscription'] = $rule->isCancelSubscription();
+        if ($portalSetting->isset('cancelSubscription')) {
+            $result['cancel_subscription'] = $portalSetting->isCancelSubscription();
         }
 
-        if ($rule->isset('resumeSubscription')) {
-            $result['resume_subscription'] = $rule->isResumeSubscription();
+        if ($portalSetting->isset('resumeSubscription')) {
+            $result['resume_subscription'] = $portalSetting->isResumeSubscription();
         }
 
-        if ($rule->isset('customColor')) {
-            $result['custom_color'] = $rule->getCustomColor();
+        if ($portalSetting->isset('customColor')) {
+            $result['custom_color'] = $portalSetting->getCustomColor();
         }
 
-        if ($rule->isset('hidePoweredBy')) {
-            $result['hide_powered_by'] = $rule->isHidePoweredBy();
+        if ($portalSetting->isset('hidePoweredBy')) {
+            $result['hide_powered_by'] = $portalSetting->isHidePoweredBy();
         }
 
-        if ($rule->isset('externalLogin')) {
-            $result['external_login'] = $rule->isExternalLogin();
+        if ($portalSetting->isset('externalLogin')) {
+            $result['external_login'] = $portalSetting->isExternalLogin();
         }
 
         return $result;
