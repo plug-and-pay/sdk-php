@@ -11,15 +11,15 @@ class PortalSetting extends AbstractEntity
     use HasDynamicFields;
 
     protected bool $enabled;
-    protected bool $readOnly;
-    protected bool $editInvoiceDetails;
-    protected bool $editPaymentTerm;
-    protected bool $editPaymentMethod;
-    protected bool $cancelSubscription;
-    protected bool $resumeSubscription;
+    protected ?bool $readOnly;
+    protected ?bool $editInvoiceDetails;
+    protected ?bool $editPaymentTerm;
+    protected ?bool $editPaymentMethod;
+    protected ?bool $cancelSubscription;
+    protected ?bool $resumeSubscription;
     protected ?string $customColor;
     protected ?bool $hidePoweredBy;
-    protected bool $externalLogin;
+    protected ?bool $externalLogin;
 
     public function isEnabled(): bool
     {
@@ -33,72 +33,72 @@ class PortalSetting extends AbstractEntity
         return $this;
     }
 
-    public function isReadOnly(): bool
+    public function isReadOnly(): ?bool
     {
         return $this->readOnly;
     }
 
-    public function setReadOnly(bool $readOnly): self
+    public function setReadOnly(?bool $readOnly): self
     {
         $this->readOnly = $readOnly;
 
         return $this;
     }
 
-    public function isEditInvoiceDetails(): bool
+    public function isEditInvoiceDetails(): ?bool
     {
         return $this->editInvoiceDetails;
     }
 
-    public function setEditInvoiceDetails(bool $editInvoiceDetails): self
+    public function setEditInvoiceDetails(?bool $editInvoiceDetails): self
     {
         $this->editInvoiceDetails = $editInvoiceDetails;
 
         return $this;
     }
 
-    public function isEditPaymentTerm(): bool
+    public function isEditPaymentTerm(): ?bool
     {
         return $this->editPaymentTerm;
     }
 
-    public function setEditPaymentTerm(bool $editPaymentTerm): self
+    public function setEditPaymentTerm(?bool $editPaymentTerm): self
     {
         $this->editPaymentTerm = $editPaymentTerm;
 
         return $this;
     }
 
-    public function isEditPaymentMethod(): bool
+    public function isEditPaymentMethod(): ?bool
     {
         return $this->editPaymentMethod;
     }
 
-    public function setEditPaymentMethod(bool $editPaymentMethod): self
+    public function setEditPaymentMethod(?bool $editPaymentMethod): self
     {
         $this->editPaymentMethod = $editPaymentMethod;
 
         return $this;
     }
 
-    public function isCancelSubscription(): bool
+    public function isCancelSubscription(): ?bool
     {
         return $this->cancelSubscription;
     }
 
-    public function setCancelSubscription(bool $cancelSubscription): self
+    public function setCancelSubscription(?bool $cancelSubscription): self
     {
         $this->cancelSubscription = $cancelSubscription;
 
         return $this;
     }
 
-    public function isResumeSubscription(): bool
+    public function isResumeSubscription(): ?bool
     {
         return $this->resumeSubscription;
     }
 
-    public function setResumeSubscription(bool $resumeSubscription): self
+    public function setResumeSubscription(?bool $resumeSubscription): self
     {
         $this->resumeSubscription = $resumeSubscription;
 
@@ -129,12 +129,12 @@ class PortalSetting extends AbstractEntity
         return $this;
     }
 
-    public function isExternalLogin(): bool
+    public function isExternalLogin(): ?bool
     {
         return $this->externalLogin;
     }
 
-    public function setExternalLogin(bool $externalLogin): self
+    public function setExternalLogin(?bool $externalLogin): self
     {
         $this->externalLogin = $externalLogin;
 
