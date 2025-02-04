@@ -125,10 +125,10 @@ class ProductShowMockClient extends ClientMock
     public function taxProfile(bool $multipleRates = false, bool $emptyRates = false): self
     {
         $rates = [[
-                      'id'         => 1234,
-                      'country'    => 'NL',
-                      'percentage' => '6.0',
-                  ]];
+            'id'         => 1234,
+            'country'    => 'NL',
+            'percentage' => '6.0',
+        ]];
 
         if ($multipleRates) {
             $rates[] = [
@@ -138,13 +138,18 @@ class ProductShowMockClient extends ClientMock
             ];
         }
 
+        $profile = [
+            'id'          => 123,
+            'is_editable' => false,
+            'label'       => 'High rate',
+        ];
+
+        if (!$emptyRates) {
+            $profile['rates'] = $rates;
+        }
+
         $this->responseBody['data']['pricing']['tax'] = [
-            'profile' => [
-                'id'          => 123,
-                'is_editable' => false,
-                'label'       => 'High rate',
-                'rates'       => !$emptyRates ? $rates : [],
-            ],
+            'profile' => $profile,
         ];
 
         return $this;

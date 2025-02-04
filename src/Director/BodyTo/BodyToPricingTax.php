@@ -32,7 +32,7 @@ class BodyToPricingTax implements BuildObjectInterface
                 ->setId($data['profile']['id'])
                 ->setEditable($data['profile']['is_editable'])
                 ->setLabel($data['profile']['label'])
-                ->setRates(array_key_exists('rates', $data['profile']) ? BodyToRate::buildMulti($data['profile']['rates']) : null);
+                ->setRates(array_key_exists('rates', $data['profile']) ? BodyToRate::buildMulti($data['profile']['rates']) : []);
 
             $tax->setProfile($profile);
         }
