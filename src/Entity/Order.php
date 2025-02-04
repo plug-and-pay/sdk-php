@@ -15,31 +15,47 @@ class Order extends AbstractEntity
 {
     use HasDynamicFields;
 
+    protected int $id;
+
     protected bool $allowEmptyRelations;
+
     protected float $amount;
     protected float $amountWithTax;
+
     protected OrderBilling $billing;
+
     /** @var Comment[] */
     protected array $comments;
+
     protected DateTimeImmutable $createdAt;
-    protected ?DateTimeImmutable $deletedAt;
+    protected DateTimeImmutable | null $deletedAt;
+
     /** @var Discount[] */
     protected array $totalDiscounts;
+
     protected bool $first;
     protected bool $hidden;
-    protected int $id;
-    protected ?string $invoiceNumber;
+
+    protected string | null $invoiceNumber;
+
     protected InvoiceStatus $invoiceStatus;
+
     /** @var Item[] */
     protected array $items;
+
     protected Mode $mode;
+
     protected Payment $payment;
     protected string $reference;
+
     protected Source $source;
+
     /** @var string[] */
     protected array $tags;
+
     /** @var Tax[] */
     protected array $taxes;
+
     protected DateTimeImmutable $updatedAt;
 
     public function __construct(bool $allowEmptyRelations = true)
@@ -123,7 +139,7 @@ class Order extends AbstractEntity
         return $this->createdAt;
     }
 
-    public function deletedAt(): ?DateTimeImmutable
+    public function deletedAt(): DateTimeImmutable | null
     {
         return $this->deletedAt;
     }
@@ -140,14 +156,11 @@ class Order extends AbstractEntity
         return $this->totalDiscounts;
     }
 
-    public function invoiceNumber(): ?string
+    public function setTotalDiscounts(array $totalDiscounts): self
     {
-        return $this->invoiceNumber;
-    }
+        $this->totalDiscounts = $totalDiscounts;
 
-    public function invoiceStatus(): InvoiceStatus
-    {
-        return $this->invoiceStatus;
+        return $this;
     }
 
     public function isFirst(): bool
@@ -165,6 +178,16 @@ class Order extends AbstractEntity
         $this->hidden = $hidden;
 
         return $this;
+    }
+
+    public function invoiceNumber(): string | null
+    {
+        return $this->invoiceNumber;
+    }
+
+    public function invoiceStatus(): InvoiceStatus
+    {
+        return $this->invoiceStatus;
     }
 
     /**
@@ -260,6 +283,13 @@ class Order extends AbstractEntity
         }
 
         return $this->taxes;
+    }
+
+    public function setTaxes(array $taxes): self
+    {
+        $this->taxes = $taxes;
+
+        return $this;
     }
 
     public function updatedAt(): DateTimeImmutable

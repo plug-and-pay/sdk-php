@@ -237,4 +237,25 @@ class OrderShowMockClient extends ClientMock
 
         return $this;
     }
+
+    public function customFields(): self
+    {
+        $this->items();
+
+        $this->responseBody['data']['items'][0]['custom_fields'] = [
+            'id'              => 1,
+            'input'           => 'Bart',
+            'label'           => 'Wie is jouw contactpersoon?',
+        ];
+
+        $this->responseBody['data']['custom_fields'] = [
+            [
+                'id'              => 1,
+                'input'           => 'Bart',
+                'label'           => 'Wie is jouw contactpersoon?',
+            ],
+        ];
+
+        return $this;
+    }
 }

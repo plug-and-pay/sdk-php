@@ -22,24 +22,27 @@ class BodyToOrder implements BuildObjectInterface, BuildMultipleObjectsInterface
 
     /**
      * @throws DecodeResponseException
-     * @throws Exception
      */
     public static function build(array $data): Order
     {
-        $order = (new OrderInternal(false))
+        $order = new OrderInternal(
+            allowEmptyRelations: false
+        );
+
+        $order
             ->setCreatedAt(self::date($data, 'created_at'))
             ->setDeletedAt($data['deleted_at'] ? self::date($data, 'deleted_at') : null)
             ->setFirst($data['is_first'])
-            ->setHidden($data['is_hidden'])
             ->setId($data['id'])
             ->setInvoiceNumber($data['invoice_number'])
             ->setInvoiceStatus(InvoiceStatus::from($data['invoice_status']))
-            ->setMode(Mode::from($data['mode']))
             ->setReference($data['reference'])
             ->setSource(Source::tryFrom($data['source'] ?? '') ?? Source::UNKNOWN)
+            ->setUpdatedAt(self::date($data, 'updated_at'))
+            ->setHidden($data['is_hidden'])
+            ->setMode(Mode::from($data['mode']))
             ->setAmount((float) $data['amount'])
-            ->setAmountWithTax((float) $data['amount_with_tax'])
-            ->setUpdatedAt(self::date($data, 'updated_at'));
+            ->setAmountWithTax((float) $data['amount_with_tax']);
 
         if (isset($data['billing'])) {
             $order->setBilling(BodyToOrderBilling::build($data['billing']));

@@ -75,13 +75,14 @@ class ShowOrderTest extends TestCase
     public static function relationsProvider(): array
     {
         return [
-            'billing'        => ['billing'],
-            'comments'       => ['comments'],
-            'totalDiscounts' => ['totalDiscounts'],
-            'items'          => ['items'],
-            'payment'        => ['payment'],
-            'tags'           => ['tags'],
-            'taxes'          => ['taxes'],
+            'billing'            => ['billing'],
+            'comments'           => ['comments'],
+            'customFields'       => ['customFields'],
+            'totalDiscounts'     => ['totalDiscounts'],
+            'items'              => ['items'],
+            'payment'            => ['payment'],
+            'tags'               => ['tags'],
+            'taxes'              => ['taxes'],
         ];
     }
 
@@ -135,6 +136,7 @@ class ShowOrderTest extends TestCase
         static::assertSame(TaxExempt::NONE, $contact->taxExempt());
 
         $address = $billing->address();
+
         static::assertNull($address->city());
         static::assertNull($address->country());
         static::assertNull($address->street());
@@ -183,11 +185,13 @@ class ShowOrderTest extends TestCase
                 'website'       => null,
                 'vat_id_number' => null,
             ], ]);
+
         $service = new OrderService($client);
 
         $order = $service->find(1);
 
         $contact = $order->billing()->contact();
+
         static::assertEquals(TaxExempt::UNKNOWN, $contact->taxExempt());
     }
 
@@ -200,6 +204,7 @@ class ShowOrderTest extends TestCase
         $order = $service->find(1);
 
         $comment = $order->comments()[0];
+
         static::assertSame('2019-01-16 12:00:00', $comment->createdAt()->format('Y-m-d H:i:s'));
         static::assertSame(1, $comment->id());
         static::assertSame('2019-01-17 12:10:00', $comment->updatedAt()->format('Y-m-d H:i:s'));
@@ -294,11 +299,33 @@ class ShowOrderTest extends TestCase
         static::assertSame(21., $order->taxes()[0]->rate()->percentage());
 
         $tax = $order->items()[0]->tax();
+
         static::assertSame(10., $tax->amount());
         static::assertSame(CountryCode::NL, $tax->rate()->country());
         static::assertSame(57, $tax->rate()->id());
         static::assertSame(21., $tax->rate()->percentage());
     }
+
+    // /** @test */
+    // public function show_order_custom_fields(): void
+    // {
+    //     $client  = (new OrderShowMockClient())->customFields();
+    //     $service = new OrderService($client);
+
+    //     $order = $service->find(1);
+
+    //     static::assertSame(10., $order->customFields()[0]->amount());
+    //     static::assertSame(CountryCode::NL, $order->taxes()[0]->rate()->country());
+    //     static::assertSame(57, $order->taxes()[0]->rate()->id());
+    //     static::assertSame(21., $order->taxes()[0]->rate()->percentage());
+
+    //     $tax = $order->items()[0]->tax();
+
+    //     static::assertSame(10., $tax->amount());
+    //     static::assertSame(CountryCode::NL, $tax->rate()->country());
+    //     static::assertSame(57, $tax->rate()->id());
+    //     static::assertSame(21., $tax->rate()->percentage());
+    // }
 
     /** @test */
     public function show_order_discount(): void
@@ -318,6 +345,7 @@ class ShowOrderTest extends TestCase
         $client  = (new OrderShowMockClient([
             'source' => null,
         ]));
+
         $service = new OrderService($client);
 
         $order = $service->find(1);
