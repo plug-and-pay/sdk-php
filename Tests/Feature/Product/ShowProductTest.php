@@ -159,7 +159,6 @@ class ShowProductTest extends TestCase
 
         $product = $service->include(ProductIncludes::PRICING)->find(1);
 
-
         static::assertCount(2, $product->pricing()->tax()->profile()->rates());
     }
 
