@@ -137,6 +137,19 @@ class ShowProductTest extends TestCase
     }
 
     /** @test */
+    public function show_product_without_profile_rates(): void
+    {
+        $client = (new ProductShowMockClient())
+            ->pricingBasic()
+            ->taxProfile(emptyRates: true);
+        $service = new ProductService($client);
+
+        $product = $service->include(ProductIncludes::PRICING)->find(1);
+
+        static::assertSame([], $product->pricing()->tax()->profile()->rates());
+    }
+
+    /** @test */
     public function show_product_pricing_with_tax_profile_multiple_rates(): void
     {
         $client = (new ProductShowMockClient())
@@ -145,6 +158,7 @@ class ShowProductTest extends TestCase
         $service = new ProductService($client);
 
         $product = $service->include(ProductIncludes::PRICING)->find(1);
+
 
         static::assertCount(2, $product->pricing()->tax()->profile()->rates());
     }

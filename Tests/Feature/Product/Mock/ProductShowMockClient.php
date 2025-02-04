@@ -122,7 +122,7 @@ class ProductShowMockClient extends ClientMock
         return $this;
     }
 
-    public function taxProfile(bool $multipleRates = false): self
+    public function taxProfile(bool $multipleRates = false, bool $emptyRates = false): self
     {
         $rates = [[
                       'id'         => 1234,
@@ -143,7 +143,7 @@ class ProductShowMockClient extends ClientMock
                 'id'          => 123,
                 'is_editable' => false,
                 'label'       => 'High rate',
-                'rates'       => $rates,
+                'rates'       => !$emptyRates ? $rates : [],
             ],
         ];
 
