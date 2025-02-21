@@ -36,7 +36,7 @@ class MembershipsSettingService
     }
 
     /** @throws Exception */
-    public function get(MembershipsSettingFilter $membershipsSettingsFilter = null): array
+    public function get(?MembershipsSettingFilter $membershipsSettingsFilter = null): array
     {
         $membershipsSettingsFilter = $membershipsSettingsFilter ?? new MembershipsSettingFilter();
         $query                     = Parameters::toString($membershipsSettingsFilter->parameters());

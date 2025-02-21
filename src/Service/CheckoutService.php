@@ -77,7 +77,7 @@ class CheckoutService
      * @throws DecodeResponseException
      * @throws Exception
      */
-    public function get(CheckoutFilter $checkoutFilter = null): array
+    public function get(?CheckoutFilter $checkoutFilter = null): array
     {
         $parameters = $checkoutFilter ? $checkoutFilter->parameters() : [];
         if (!empty($this->includes)) {

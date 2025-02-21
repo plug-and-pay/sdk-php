@@ -27,7 +27,7 @@ class RuleService
         return BodyToRule::build($response->body()['data']);
     }
 
-    public function get(RuleFilter $ruleFilter = null): array
+    public function get(?RuleFilter $ruleFilter = null): array
     {
         $ruleFilter = $ruleFilter ?? new RuleFilter();
         $query      = Parameters::toString($ruleFilter->parameters());

@@ -40,9 +40,9 @@ class Client implements ClientInterface
 
     public function __construct(
         ?string $accessToken = null,
-        string $baseUrl = null,
+        ?string $baseUrl = null,
         ?GuzzleClient $guzzleClient = null,
-        TokenService $tokenService = null
+        ?TokenService $tokenService = null
     ) {
         $this->baseUrl     = $baseUrl ?? self::BASE_API_URL_PRODUCTION;
         $this->accessToken = $accessToken;

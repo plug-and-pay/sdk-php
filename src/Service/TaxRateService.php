@@ -22,7 +22,7 @@ class TaxRateService
     /**
      * @return TaxRate[]
      */
-    public function get(TaxRateFilter $taxRateFilter = null): array
+    public function get(?TaxRateFilter $taxRateFilter = null): array
     {
         $query    = Parameters::toString($taxRateFilter ? $taxRateFilter->parameters() : []);
         $response = $this->client->get("/v2/tax-rates$query");
