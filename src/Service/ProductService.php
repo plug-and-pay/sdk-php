@@ -49,7 +49,7 @@ class ProductService
      * @return Product[]
      * @throws DecodeResponseException
      */
-    public function get(ProductFilter $productFilter = null): array
+    public function get(?ProductFilter $productFilter = null): array
     {
         $parameters = $productFilter ? $productFilter->parameters() : [];
         if (!empty($this->includes)) {

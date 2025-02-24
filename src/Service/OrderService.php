@@ -66,7 +66,7 @@ class OrderService
      * @return Order[]
      * @throws DecodeResponseException
      */
-    public function get(OrderFilter $orderFilter = null): array
+    public function get(?OrderFilter $orderFilter = null): array
     {
         $parameters = $orderFilter ? $orderFilter->parameters() : [];
         if (!empty($this->includes)) {
