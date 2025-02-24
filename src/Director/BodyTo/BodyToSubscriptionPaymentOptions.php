@@ -15,9 +15,9 @@ class BodyToSubscriptionPaymentOptions implements BuildObjectInterface
     public static function build(array $data): SubscriptionPaymentOptions
     {
         $paymentOptions = (new SubscriptionPaymentOptionsInternal())
-            ->setCustomerId($data['customer_id'])
-            ->setMandateId($data['mandate_id'])
-            ->setTransactionId($data['transaction_id'])
+            ->setCustomerId($data['customer_id'] ?? null)
+            ->setMandateId($data['mandate_id'] ?? null)
+            ->setTransactionId($data['transaction_id'] ?? null)
             ->setType(($data['type']) ? PaymentType::from($data['type']) : PaymentType::UNKNOWN);
 
         if (isset($data['provider'])) {
