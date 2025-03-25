@@ -15,4 +15,14 @@ class TenantInternal extends Tenant
 
         return $this;
     }
+
+    /**
+     * @internal
+     */
+    public function setPlan(string $plan): self
+    {
+        $this->plan = $plan;
+
+        return $this;
+    }
 }

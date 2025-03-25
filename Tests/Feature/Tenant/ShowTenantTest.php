@@ -24,7 +24,7 @@ class ShowTenantTest extends TestCase
         $exception = null;
 
         try {
-            $service->find(999);
+            $service->find();
         } catch (UnauthenticatedException $exception) {
         }
 
@@ -39,7 +39,7 @@ class ShowTenantTest extends TestCase
         $exception = null;
 
         try {
-            $service->find(999);
+            $service->find();
         } catch (NotFoundException $exception) {
         }
 
@@ -52,8 +52,9 @@ class ShowTenantTest extends TestCase
         $client  = new TenantShowMockClient(data: ['id' => 1]);
         $service = new TenantService($client);
 
-        $tenant = $service->find(1);
+        $tenant = $service->find();
 
         static::assertSame(1, $tenant->id());
+        static::assertSame('lite', $tenant->plan());
     }
 }

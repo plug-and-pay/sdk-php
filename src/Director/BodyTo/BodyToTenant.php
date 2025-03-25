@@ -12,6 +12,8 @@ class BodyToTenant implements BuildObjectInterface
 {
     public static function build(array $data): Tenant
     {
-        return (new TenantInternal())->setId($data['id']);
+        return (new TenantInternal())
+            ->setId($data['id'])
+            ->setPlan($data['plan']);
     }
 }
