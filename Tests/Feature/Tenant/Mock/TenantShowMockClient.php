@@ -14,7 +14,7 @@ use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 class TenantShowMockClient extends ClientMock
 {
     public const BASIC_TENANT = [
-        'id' => 1,
+        'id'   => 1,
         'plan' => 'lite',
     ];
     protected string $path;
