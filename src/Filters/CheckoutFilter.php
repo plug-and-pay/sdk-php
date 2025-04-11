@@ -47,6 +47,13 @@ class CheckoutFilter
         return $this;
     }
 
+    public function page(int $value): self
+    {
+        $this->parameters['page'] = $value;
+
+        return $this;
+    }
+
     public function parameters(): array
     {
         return $this->parameters;
