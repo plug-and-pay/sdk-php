@@ -41,6 +41,18 @@ class IndexCheckoutTest extends TestCase
         static::assertSame("/v2/checkouts?$queryKey=$queryValue", $client->path());
     }
 
+    /** @test  */
+    public function it_should_return_paginated_checkouts(): void
+    {
+        $client  = (new CheckoutIndexMockClient());
+        $service = new CheckoutService($client);
+
+        $filter = (new CheckoutFilter())->page(10);
+        $service->get($filter);
+
+        static::assertSame("/v2/checkouts?page=10", $client->path());
+    }
+
     public static function checkoutFilterDataProvider(): array
     {
         return [
