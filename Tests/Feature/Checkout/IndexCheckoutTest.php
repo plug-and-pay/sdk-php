@@ -50,7 +50,7 @@ class IndexCheckoutTest extends TestCase
         $filter = (new CheckoutFilter())->page(10);
         $service->get($filter);
 
-        static::assertSame("/v2/checkouts?page=10", $client->path());
+        static::assertSame('/v2/checkouts?page=10', $client->path());
     }
 
     public static function checkoutFilterDataProvider(): array
