@@ -53,6 +53,28 @@ class IndexCheckoutTest extends TestCase
         static::assertSame('/v2/checkouts?page=10', $client->path());
     }
 
+    /** @test */
+    public function it_should_return_meta_data_on_paginated_checkouts(): void
+    {
+        $client    = (new CheckoutIndexMockClient(meta: [
+            'current_page' => 1,
+            'last_page'    => 1,
+            'per_page'     => 10,
+            'total'        => 1,
+        ]));
+
+        $service   = new CheckoutService($client);
+
+        $checkoutCollection = $service->getCollection();
+
+        static::assertSame(1, $checkoutCollection->checkouts[0]->id());
+        static::assertSame('/v2/checkouts', $client->path());
+        static::assertSame(1, $checkoutCollection->meta['current_page']);
+        static::assertSame(1, $checkoutCollection->meta['last_page']);
+        static::assertSame(10, $checkoutCollection->meta['per_page']);
+        static::assertSame(1, $checkoutCollection->meta['total']);
+    }
+
     public static function checkoutFilterDataProvider(): array
     {
         return [
