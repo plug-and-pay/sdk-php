@@ -14,6 +14,7 @@ class ClientMock implements ClientInterface
 {
     protected array $responseBody;
     protected int $status;
+    protected array $meta;
 
     public function __construct(int $status = 200, array $body = [])
     {

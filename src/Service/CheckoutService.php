@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PlugAndPay\Sdk\Service;
 
 use Exception;
+use PlugAndPay\Sdk\Collections\CheckoutCollection;
 use PlugAndPay\Sdk\Contract\ClientInterface;
 use PlugAndPay\Sdk\Director\BodyTo\BodyToCheckout;
 use PlugAndPay\Sdk\Director\ToBody\CheckoutToBody;
@@ -88,5 +89,29 @@ class CheckoutService
         $response = $this->client->get("/v2/checkouts$query");
 
         return BodyToCheckout::buildMulti($response->body()['data']);
+    }
+
+    /**
+     * @return CheckoutCollection
+     * @throws DecodeResponseException
+     * @throws Exception
+     */
+    public function getCollection(?CheckoutFilter $checkoutFilter = null): CheckoutCollection
+    {
+        $parameters = $checkoutFilter ? $checkoutFilter->parameters() : [];
+        if (!empty($this->includes)) {
+            $parameters['include'] = $this->includes;
+        }
+        $query = Parameters::toString($parameters);
+
+        $response = $this->client->get("/v2/checkouts$query");
+
+        /** @var array<Checkout> $checkouts */
+        $checkouts = BodyToCheckout::buildMulti($response->body()['data']);
+
+        return new CheckoutCollection(
+            checkouts: $checkouts,
+            meta: $response->body()['meta'],
+        );
     }
 }
