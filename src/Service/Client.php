@@ -206,7 +206,7 @@ class Client implements ClientInterface
             'step'                  => 'select_tenant',
         ]);
 
-        return $this->baseUrl . '/oauth/authorize?' . $query;
+        return $this->baseUrl . '/v1/auth/oauth/authorize?' . $query;
     }
 
     /**
