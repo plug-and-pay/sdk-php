@@ -28,8 +28,8 @@ class Client implements ClientInterface
     private const METHOD_PUT = 'PUT';
     private const METHOD_POST = 'POST';
 
-    private const BASE_API_URL_PRODUCTION = 'https://api.plugandpay.com';
-    private const BASE_APP_URL_PRODUCTION = 'https://admin.plugandpay.com';
+    private const BASE_API_URL_PRODUCTION = 'https://admin.koen-test.plugandpay.dev';
+    private const BASE_APP_URL_PRODUCTION = 'https://admin.koen-test.plugandpay.dev';
 
     /**
      * @var GuzzleClient
