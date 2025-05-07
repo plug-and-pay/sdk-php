@@ -29,29 +29,30 @@ class Client implements ClientInterface
     private const METHOD_POST   = 'POST';
 
     private const BASE_API_URL_PRODUCTION = 'https://api.plugandpay.com';
+    private const BASE_APP_URL_PRODUCTION = 'https://admin.plugandpay.com';
 
     /**
      * @var GuzzleClient
      */
     private GuzzleClient $guzzleClient;
-    private string $baseUrl;
+    private string $baseApiUrl;
     private ?string $accessToken;
     private TokenService $tokenService;
 
     public function __construct(
         ?string $accessToken = null,
-        ?string $baseUrl = null,
+        ?string $baseApiUrl = null,
         ?GuzzleClient $guzzleClient = null,
         ?TokenService $tokenService = null
     ) {
-        $this->baseUrl     = $baseUrl ?? self::BASE_API_URL_PRODUCTION;
+        $this->baseApiUrl  = $baseApiUrl ?? self::BASE_API_URL_PRODUCTION;
         $this->accessToken = $accessToken;
-        $this->createGuzzleClient($this->baseUrl, $this->accessToken, $guzzleClient);
+        $this->createGuzzleClient($this->baseApiUrl, $this->accessToken, $guzzleClient);
         $this->tokenService = $tokenService ?? new TokenService(); // Initialize it
     }
 
     private function createGuzzleClient(
-        string $baseUrl,
+        string $baseApiUrl,
         ?string $accessToken,
         ?GuzzleClient $guzzleClient
     ): void {
@@ -62,7 +63,7 @@ class Client implements ClientInterface
         }
 
         $this->guzzleClient = $guzzleClient ?? new GuzzleClient([
-            'base_uri' => $baseUrl,
+            'base_uri' => $baseApiUrl,
             'headers'  => $headers,
             'timeout'  => 25,
         ]);
@@ -206,7 +207,7 @@ class Client implements ClientInterface
             'step'                  => 'select_tenant',
         ]);
 
-        return $this->baseUrl . '/v1/auth/oauth/authorize?' . $query;
+        return self::BASE_APP_URL_PRODUCTION . '/oauth/authorize?' . $query;
     }
 
     /**
@@ -258,7 +259,7 @@ class Client implements ClientInterface
 
         // Update the Guzzle client with the new access token
         $this->createGuzzleClient(
-            $this->baseUrl,
+            $this->baseApiUrl,
             $responseData['access_token'],
             null,
         );
