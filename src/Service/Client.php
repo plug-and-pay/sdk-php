@@ -23,10 +23,10 @@ use Psr\Http\Message\ResponseInterface;
 class Client implements ClientInterface
 {
     private const METHOD_DELETE = 'DELETE';
-    private const METHOD_GET = 'GET';
-    private const METHOD_PATCH = 'PATCH';
-    private const METHOD_PUT = 'PUT';
-    private const METHOD_POST = 'POST';
+    private const METHOD_GET    = 'GET';
+    private const METHOD_PATCH  = 'PATCH';
+    private const METHOD_PUT    = 'PUT';
+    private const METHOD_POST   = 'POST';
 
     private const BASE_API_URL_PRODUCTION = 'https://admin.koen-test.plugandpay.dev';
     private const BASE_APP_URL_PRODUCTION = 'https://admin.koen-test.plugandpay.dev';
@@ -40,12 +40,11 @@ class Client implements ClientInterface
     private TokenService $tokenService;
 
     public function __construct(
-        ?string       $accessToken = null,
-        ?string       $baseApiUrl = null,
+        ?string $accessToken = null,
+        ?string $baseApiUrl = null,
         ?GuzzleClient $guzzleClient = null,
         ?TokenService $tokenService = null
-    )
-    {
+    ) {
         $this->baseApiUrl  = $baseApiUrl ?? self::BASE_API_URL_PRODUCTION;
         $this->accessToken = $accessToken;
         $this->createGuzzleClient($this->baseApiUrl, $this->accessToken, $guzzleClient);
@@ -53,11 +52,10 @@ class Client implements ClientInterface
     }
 
     private function createGuzzleClient(
-        string        $baseApiUrl,
-        ?string       $accessToken,
+        string $baseApiUrl,
+        ?string $accessToken,
         ?GuzzleClient $guzzleClient
-    ): void
-    {
+    ): void {
         $headers = ['Accept' => 'application/json'];
 
         if ($accessToken) {
