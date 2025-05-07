@@ -53,7 +53,7 @@ class Client implements ClientInterface
     }
 
     private function createGuzzleClient(
-        string        $baseUrl,
+        string        $baseApiUrl,
         ?string       $accessToken,
         ?GuzzleClient $guzzleClient
     ): void
@@ -65,7 +65,7 @@ class Client implements ClientInterface
         }
 
         $this->guzzleClient = $guzzleClient ?? new GuzzleClient([
-            'base_uri' => $baseUrl,
+            'base_uri' => $baseApiUrl,
             'headers'  => $headers,
             'timeout'  => 25,
         ]);
