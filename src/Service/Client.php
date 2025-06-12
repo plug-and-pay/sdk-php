@@ -36,16 +36,19 @@ class Client implements ClientInterface
      */
     private GuzzleClient $guzzleClient;
     private string $baseApiUrl;
+    private string $baseAppUrl;
     private ?string $accessToken;
     private TokenService $tokenService;
 
     public function __construct(
         ?string $accessToken = null,
         ?string $baseApiUrl = null,
+        ?string $baseAppUrl = null,
         ?GuzzleClient $guzzleClient = null,
         ?TokenService $tokenService = null
     ) {
         $this->baseApiUrl  = $baseApiUrl ?? self::BASE_API_URL_PRODUCTION;
+        $this->baseAppUrl  = $baseAppUrl ?? self::BASE_APP_URL_PRODUCTION;
         $this->accessToken = $accessToken;
         $this->createGuzzleClient($this->baseApiUrl, $this->accessToken, $guzzleClient);
         $this->tokenService = $tokenService ?? new TokenService(); // Initialize it
@@ -207,7 +210,7 @@ class Client implements ClientInterface
             'step'                  => 'select_tenant',
         ]);
 
-        return self::BASE_APP_URL_PRODUCTION . '/oauth/authorize?' . $query;
+        return $this->baseAppUrl . '/oauth/authorize?' . $query;
     }
 
     /**
