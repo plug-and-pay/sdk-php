@@ -23,10 +23,10 @@ use Psr\Http\Message\ResponseInterface;
 class Client implements ClientInterface
 {
     private const METHOD_DELETE = 'DELETE';
-    private const METHOD_GET    = 'GET';
-    private const METHOD_PATCH  = 'PATCH';
-    private const METHOD_PUT    = 'PUT';
-    private const METHOD_POST   = 'POST';
+    private const METHOD_GET = 'GET';
+    private const METHOD_PATCH = 'PATCH';
+    private const METHOD_PUT = 'PUT';
+    private const METHOD_POST = 'POST';
 
     private const BASE_API_URL_PRODUCTION = 'https://api.plugandpay.com';
     private const BASE_APP_URL_PRODUCTION = 'https://admin.plugandpay.com';
@@ -36,26 +36,31 @@ class Client implements ClientInterface
      */
     private GuzzleClient $guzzleClient;
     private string $baseApiUrl;
+    private string $baseAppUrl;
     private ?string $accessToken;
     private TokenService $tokenService;
 
     public function __construct(
-        ?string $accessToken = null,
-        ?string $baseApiUrl = null,
+        ?string       $accessToken = null,
+        ?string       $baseApiUrl = null,
+        ?string       $baseAppUrl = null,
         ?GuzzleClient $guzzleClient = null,
         ?TokenService $tokenService = null
-    ) {
+    )
+    {
         $this->baseApiUrl  = $baseApiUrl ?? self::BASE_API_URL_PRODUCTION;
+        $this->baseAppUrl  = $baseAppUrl ?? self::BASE_APP_URL_PRODUCTION;
         $this->accessToken = $accessToken;
         $this->createGuzzleClient($this->baseApiUrl, $this->accessToken, $guzzleClient);
         $this->tokenService = $tokenService ?? new TokenService(); // Initialize it
     }
 
     private function createGuzzleClient(
-        string $baseApiUrl,
-        ?string $accessToken,
+        string        $baseApiUrl,
+        ?string       $accessToken,
         ?GuzzleClient $guzzleClient
-    ): void {
+    ): void
+    {
         $headers = ['Accept' => 'application/json'];
 
         if ($accessToken) {
@@ -207,7 +212,7 @@ class Client implements ClientInterface
             'step'                  => 'select_tenant',
         ]);
 
-        return self::BASE_APP_URL_PRODUCTION . '/oauth/authorize?' . $query;
+        return $this->baseAppUrl . '/oauth/authorize?' . $query;
     }
 
     /**
