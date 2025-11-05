@@ -18,7 +18,7 @@ class Product extends AbstractEntity
     protected DateTimeImmutable $createdAt;
     protected ?DateTimeImmutable $deletedAt;
     protected string $description;
-    protected ?int $ledger;
+    protected int|string|null $ledger;
     protected bool $physical;
     protected ProductPricing $pricing;
     protected string $publicTitle;
@@ -73,12 +73,12 @@ class Product extends AbstractEntity
         return $this;
     }
 
-    public function ledger(): ?int
+    public function ledger(): int|string|null
     {
         return $this->ledger;
     }
 
-    public function setLedger(?int $ledger): self
+    public function setLedger(int|string|null $ledger): self
     {
         $this->ledger = $ledger;
 
