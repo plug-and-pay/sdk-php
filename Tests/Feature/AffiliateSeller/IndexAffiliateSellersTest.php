@@ -45,6 +45,29 @@ class IndexAffiliateSellersTest extends TestCase
     }
 
     /**
+     * @test
+     */
+    public function index_sellers_with_null_decline_reason(): void
+    {
+        $client = (new AffiliateSellerIndexMockClient([
+            [
+                'id'              => 1,
+                'name'            => 'John Doe',
+                'email'           => 'john@example.com',
+                'decline_reason'  => null,
+                'profile_id'      => 1,
+                'status'          => 'accepted',
+                'payout_methods'  => null,
+            ]
+        ]));
+        $service = new AffiliateSellerService($client);
+        $sellers = $service->get();
+
+        static::assertSame(1, $sellers[0]->id());
+        static::assertNull($sellers[0]->declineReason());
+    }
+
+    /**
      * Data provider for index_sellers_with_filter.
      */
     public static function sellerFilterDataProvider(): array

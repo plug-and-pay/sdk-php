@@ -15,7 +15,7 @@ class AffiliateSeller extends AbstractEntity
     protected bool $allowEmptyRelations;
     protected Address $address;
     protected Contact $contact;
-    protected string $declineReason;
+    protected ?string $declineReason;
     protected int $id;
     protected string $name;
     protected string $email;
@@ -77,7 +77,7 @@ class AffiliateSeller extends AbstractEntity
         return $this;
     }
 
-    public function declineReason(): string
+    public function declineReason(): ?string
     {
         return $this->declineReason;
     }

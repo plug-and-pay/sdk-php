@@ -21,7 +21,7 @@ class BodyToAffiliateSeller implements BuildObjectInterface, BuildMultipleObject
             ->setId($data['id'])
             ->setName($data['name'])
             ->setEmail($data['email'])
-            ->setDeclineReason($data['decline_reason'])
+            ->setDeclineReason($data['decline_reason'] ?? null)
             ->setProfileId($data['profile_id'])
             ->setStatus(SellerStatus::from($data['status']))
             ->setPayoutMethods($data['payout_methods'] ?? []);

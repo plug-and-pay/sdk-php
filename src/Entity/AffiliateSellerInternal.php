@@ -8,7 +8,7 @@ use PlugAndPay\Sdk\Enum\SellerStatus;
 
 class AffiliateSellerInternal extends AffiliateSeller
 {
-    public function setDeclineReason(string $declineReason): self
+    public function setDeclineReason(?string $declineReason): self
     {
         $this->declineReason = $declineReason;
 
