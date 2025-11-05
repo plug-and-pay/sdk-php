@@ -58,7 +58,7 @@ class IndexAffiliateSellersTest extends TestCase
                 'profile_id'      => 1,
                 'status'          => 'accepted',
                 'payout_methods'  => null,
-            ]
+            ],
         ]));
         $service = new AffiliateSellerService($client);
         $sellers = $service->get();

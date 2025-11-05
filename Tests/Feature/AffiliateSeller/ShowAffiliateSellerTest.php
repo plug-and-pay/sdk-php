@@ -14,8 +14,8 @@ use PlugAndPay\Sdk\Enum\SellerStatus;
 use PlugAndPay\Sdk\Exception\NotFoundException;
 use PlugAndPay\Sdk\Exception\UnauthenticatedException;
 use PlugAndPay\Sdk\Service\AffiliateSellerService;
-use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 use PlugAndPay\Sdk\Tests\Feature\AffiliateSeller\Mock\AffiliateSellerShowMockClient;
+use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 
 class ShowAffiliateSellerTest extends TestCase
 {
