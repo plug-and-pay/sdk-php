@@ -7,7 +7,6 @@ namespace PlugAndPay\Sdk\Entity;
 use PlugAndPay\Sdk\Enum\SellerStatus;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Traits\HasDynamicFields;
-use PlugAndPay\Sdk\Entity\PayoutMethod;
 
 class AffiliateSeller extends AbstractEntity
 {
@@ -40,7 +39,7 @@ class AffiliateSeller extends AbstractEntity
     {
         if (!isset($this->address)) {
             if ($this->allowEmptyRelations) {
-                $this->address = new Address($this->allowEmptyRelations);
+                $this->address = new Address();
             } else {
                 throw new RelationNotLoadedException('address');
             }
@@ -63,7 +62,7 @@ class AffiliateSeller extends AbstractEntity
     {
         if (!isset($this->contact)) {
             if ($this->allowEmptyRelations) {
-                $this->contact = new Contact($this->allowEmptyRelations);
+                $this->contact = new Contact();
             } else {
                 throw new RelationNotLoadedException('contact');
             }
@@ -106,7 +105,7 @@ class AffiliateSeller extends AbstractEntity
     {
         if (!isset($this->profile)) {
             if ($this->allowEmptyRelations) {
-                $this->profile = new SellerProfile($this->allowEmptyRelations);
+                $this->profile = new SellerProfile();
             } else {
                 throw new RelationNotLoadedException('profile');
             }
@@ -134,7 +133,7 @@ class AffiliateSeller extends AbstractEntity
     {
         if (!isset($this->statistics)) {
             if ($this->allowEmptyRelations) {
-                $this->statistics = new SellerStatistics($this->allowEmptyRelations);
+                $this->statistics = new SellerStatistics();
             } else {
                 throw new RelationNotLoadedException('statistics');
             }
@@ -162,7 +161,7 @@ class AffiliateSeller extends AbstractEntity
     {
         if (!isset($this->payoutOptions)) {
             if ($this->allowEmptyRelations) {
-                $this->payoutOptions = new SellerPayoutOptions($this->allowEmptyRelations);
+                $this->payoutOptions = new SellerPayoutOptions();
             } else {
                 throw new RelationNotLoadedException('payoutOptions');
             }
