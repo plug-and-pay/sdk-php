@@ -127,6 +127,7 @@ class AffiliateSellerShowMockClient extends ClientMock
 
         return $this;
     }
+
     public function payoutMethods(?array $data = null): self
     {
         if ($data === null) {

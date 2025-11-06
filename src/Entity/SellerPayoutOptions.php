@@ -21,6 +21,7 @@ class SellerPayoutOptions extends AbstractEntity
     public function setMethod(?string $method): self
     {
         $this->method = $method;
+
         return $this;
     }
 
@@ -32,6 +33,7 @@ class SellerPayoutOptions extends AbstractEntity
     public function setSettings(?array $settings): self
     {
         $this->settings = $settings;
+
         return $this;
     }
 }

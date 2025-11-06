@@ -28,6 +28,7 @@ class SellerStatistics extends AbstractEntity
     public function setClicks(?int $clicks): self
     {
         $this->clicks = $clicks;
+
         return $this;
     }
 
@@ -39,6 +40,7 @@ class SellerStatistics extends AbstractEntity
     public function setCommission(int $commission): self
     {
         $this->commission = $commission;
+
         return $this;
     }
 
@@ -50,6 +52,7 @@ class SellerStatistics extends AbstractEntity
     public function setLocked(int $locked): self
     {
         $this->locked = $locked;
+
         return $this;
     }
 
@@ -61,6 +64,7 @@ class SellerStatistics extends AbstractEntity
     public function setOrders(int $orders): self
     {
         $this->orders = $orders;
+
         return $this;
     }
 
@@ -72,6 +76,7 @@ class SellerStatistics extends AbstractEntity
     public function setPaidout(int $paidout): self
     {
         $this->paidout = $paidout;
+
         return $this;
     }
 
@@ -83,6 +88,7 @@ class SellerStatistics extends AbstractEntity
     public function setPending(int $pending): self
     {
         $this->pending = $pending;
+
         return $this;
     }
 
@@ -94,6 +100,7 @@ class SellerStatistics extends AbstractEntity
     public function setRecurring(int $recurring): self
     {
         $this->recurring = $recurring;
+
         return $this;
     }
 
@@ -105,6 +112,7 @@ class SellerStatistics extends AbstractEntity
     public function setSales(int $sales): self
     {
         $this->sales = $sales;
+
         return $this;
     }
 
@@ -116,6 +124,7 @@ class SellerStatistics extends AbstractEntity
     public function setValue(int $value): self
     {
         $this->value = $value;
+
         return $this;
     }
 }
