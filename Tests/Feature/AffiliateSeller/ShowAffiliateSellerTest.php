@@ -146,7 +146,7 @@ class ShowAffiliateSellerTest extends TestCase
         $seller = $service->include(AffiliateSellerIncludes::PROFILE)->find(1);
 
         $profile = $seller->profile();
-        static::assertSame(1, $profile->id());
+        static::assertSame(14, $profile->id());
         static::assertSame('/v2/affiliates/sellers/1?include=profile', $client->path());
     }
 
@@ -232,6 +232,66 @@ class ShowAffiliateSellerTest extends TestCase
 
         $profile = $seller->profile();
         static::assertSame(42, $profile->id());
+    }
+
+    /** @test */
+    public function show_seller_profile_with_values(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->profile([
+            'id'                 => 99,
+            'default_recurring'  => 1,
+            'default_type'       => 'fixed',
+            'default_value'      => '100.00',
+            'default_form_value' => '5.00',
+            'label'              => 'Premium Seller',
+            'session_lifetime'   => 300,
+            'tenant_id'          => 7,
+        ]);
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->include(AffiliateSellerIncludes::PROFILE)->find(1);
+
+        $profile = $seller->profile();
+        static::assertSame(99, $profile->id());
+        static::assertTrue($profile->defaultRecurring());
+        static::assertSame('fixed', $profile->defaultType());
+        static::assertSame(100.0, $profile->defaultValue());
+        static::assertSame(5.0, $profile->defaultFormValue());
+        static::assertSame('Premium Seller', $profile->label());
+        static::assertSame(300, $profile->sessionLifetime());
+        static::assertSame(7, $profile->tenantId());
+    }
+
+    /** @test */
+    public function show_seller_profile_with_recurring_enabled(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->profile([
+            'default_recurring' => true,
+        ]);
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->include(AffiliateSellerIncludes::PROFILE)->find(1);
+
+        $profile = $seller->profile();
+        static::assertTrue($profile->defaultRecurring());
+    }
+
+    /** @test */
+    public function show_seller_profile_with_zero_values(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->profile([
+            'default_value'      => '0.00',
+            'default_form_value' => '0.00',
+            'session_lifetime'   => 0,
+        ]);
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->include(AffiliateSellerIncludes::PROFILE)->find(1);
+
+        $profile = $seller->profile();
+        static::assertSame(0.0, $profile->defaultValue());
+        static::assertSame(0.0, $profile->defaultFormValue());
+        static::assertSame(0, $profile->sessionLifetime());
     }
 
     /** @test */

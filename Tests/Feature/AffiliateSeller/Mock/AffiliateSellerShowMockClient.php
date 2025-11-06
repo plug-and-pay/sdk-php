@@ -85,7 +85,14 @@ class AffiliateSellerShowMockClient extends ClientMock
     public function profile(array $data = []): self
     {
         $this->responseBody['data']['profile'] = $data + [
-                'id' => 1,
+                'id'                 => 14,
+                'default_recurring'  => false,
+                'default_type'       => 'percentage',
+                'default_value'      => '50.00',
+                'default_form_value' => '2.50',
+                'label'              => '',
+                'session_lifetime'   => 120,
+                'tenant_id'          => 3,
             ];
 
         return $this;

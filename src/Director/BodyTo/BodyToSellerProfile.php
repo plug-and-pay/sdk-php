@@ -13,6 +13,13 @@ class BodyToSellerProfile implements BuildObjectInterface
     public static function build(array $data): SellerProfile
     {
         return (new SellerProfileInternal())
-            ->setId($data['id']);
+            ->setId($data['id'])
+            ->setDefaultRecurring((bool) $data['default_recurring'])
+            ->setDefaultType($data['default_type'])
+            ->setDefaultValue((float) $data['default_value'])
+            ->setDefaultFormValue((float) $data['default_form_value'])
+            ->setLabel($data['label'])
+            ->setSessionLifetime($data['session_lifetime'])
+            ->setTenantId($data['tenant_id']);
     }
 }
