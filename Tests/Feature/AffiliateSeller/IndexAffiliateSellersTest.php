@@ -105,6 +105,42 @@ class IndexAffiliateSellersTest extends TestCase
                 'queryValue' => 'name',
             ],
             [
+                'method'     => 'sort',
+                'value'      => SellerSortType::COMMISSION,
+                'queryKey'   => 'sort',
+                'queryValue' => 'commission',
+            ],
+            [
+                'method'     => 'sort',
+                'value'      => SellerSortType::LOCKED_REVENUE,
+                'queryKey'   => 'sort',
+                'queryValue' => 'locked_revenue',
+            ],
+            [
+                'method'     => 'sort',
+                'value'      => SellerSortType::PAID_REVENUE,
+                'queryKey'   => 'sort',
+                'queryValue' => 'paid_revenue',
+            ],
+            [
+                'method'     => 'sort',
+                'value'      => SellerSortType::PENDING_REVENUE,
+                'queryKey'   => 'sort',
+                'queryValue' => 'pending_revenue',
+            ],
+            [
+                'method'     => 'sort',
+                'value'      => SellerSortType::SALES,
+                'queryKey'   => 'sort',
+                'queryValue' => 'sales',
+            ],
+            [
+                'method'     => 'sort',
+                'value'      => SellerSortType::TOTAL_REVENUE,
+                'queryKey'   => 'sort',
+                'queryValue' => 'total_revenue',
+            ],
+            [
                 'method'     => 'direction',
                 'value'      => Direction::DESC,
                 'queryKey'   => 'direction',
