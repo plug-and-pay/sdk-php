@@ -17,7 +17,7 @@ class AffiliateSellerShowMockClient extends ClientMock
         'id'              => 1,
         'name'            => 'John Doe',
         'email'           => 'john@example.com',
-        'decline_reason'  => '',
+        'decline_reason'  => null,
         'profile_id'      => 1,
         'status'          => 'accepted',
         'payout_methods'  => null,
