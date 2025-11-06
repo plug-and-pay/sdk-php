@@ -6,12 +6,17 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Tests\Feature\AffiliateSeller;
 
+use BadFunctionCallException;
 use PHPUnit\Framework\TestCase;
+use PlugAndPay\Sdk\Entity\AffiliateSeller;
 use PlugAndPay\Sdk\Entity\Response;
+use PlugAndPay\Sdk\Entity\SellerPayoutOptions;
+use PlugAndPay\Sdk\Entity\SellerStatistics;
 use PlugAndPay\Sdk\Enum\AffiliateSellerIncludes;
 use PlugAndPay\Sdk\Enum\CountryCode;
 use PlugAndPay\Sdk\Enum\SellerStatus;
 use PlugAndPay\Sdk\Exception\NotFoundException;
+use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Exception\UnauthenticatedException;
 use PlugAndPay\Sdk\Service\AffiliateSellerService;
 use PlugAndPay\Sdk\Tests\Feature\AffiliateSeller\Mock\AffiliateSellerShowMockClient;
@@ -45,11 +50,11 @@ class ShowAffiliateSellerTest extends TestCase
         $exception = null;
 
         try {
-            (new \PlugAndPay\Sdk\Entity\AffiliateSeller(false))->{$relation}();
-        } catch (\PlugAndPay\Sdk\Exception\RelationNotLoadedException $exception) {
+            (new AffiliateSeller(false))->{$relation}();
+        } catch (RelationNotLoadedException $exception) {
         }
 
-        static::assertInstanceOf(\PlugAndPay\Sdk\Exception\RelationNotLoadedException::class, $exception);
+        static::assertInstanceOf(RelationNotLoadedException::class, $exception);
     }
 
     /**
@@ -63,6 +68,7 @@ class ShowAffiliateSellerTest extends TestCase
             'profile'        => ['profile'],
             'statistics'     => ['statistics'],
             'payoutOptions'  => ['payoutOptions'],
+            'payoutMethods'  => ['payoutMethods'],
         ];
     }
 
@@ -153,7 +159,7 @@ class ShowAffiliateSellerTest extends TestCase
         $seller = $service->include(AffiliateSellerIncludes::STATISTICS)->find(1);
 
         $statistics = $seller->statistics();
-        static::assertInstanceOf(\PlugAndPay\Sdk\Entity\SellerStatistics::class, $statistics);
+        static::assertInstanceOf(SellerStatistics::class, $statistics);
         static::assertSame('/v2/affiliates/sellers/1?include=statistics', $client->path());
     }
 
@@ -166,7 +172,7 @@ class ShowAffiliateSellerTest extends TestCase
         $seller = $service->include(AffiliateSellerIncludes::PAYOUT_OPTIONS)->find(1);
 
         $payoutOptions = $seller->payoutOptions();
-        static::assertInstanceOf(\PlugAndPay\Sdk\Entity\SellerPayoutOptions::class, $payoutOptions);
+        static::assertInstanceOf(SellerPayoutOptions::class, $payoutOptions);
         static::assertSame('/v2/affiliates/sellers/1?include=payout_options', $client->path());
     }
 
@@ -267,7 +273,7 @@ class ShowAffiliateSellerTest extends TestCase
         $seller = $service->include(AffiliateSellerIncludes::PAYOUT_OPTIONS)->find(1);
 
         $payoutOptions = $seller->payoutOptions();
-        static::assertInstanceOf(\PlugAndPay\Sdk\Entity\SellerPayoutOptions::class, $payoutOptions);
+        static::assertInstanceOf(SellerPayoutOptions::class, $payoutOptions);
     }
 
     /** @test */
@@ -280,7 +286,7 @@ class ShowAffiliateSellerTest extends TestCase
 
         $payoutOptions = $seller->payoutOptions();
         static::assertSame('paypal', $payoutOptions->method());
-        
+
         $settings = $payoutOptions->settings();
         static::assertIsArray($settings);
         static::assertSame('oramcharan@example.com', $settings['email']);
@@ -345,10 +351,102 @@ class ShowAffiliateSellerTest extends TestCase
 
         $seller = $service->include(AffiliateSellerIncludes::STATISTICS)->find(1);
 
-        $statistics = $seller->statistics();
-        
-        $this->expectException(\BadFunctionCallException::class);
+        $this->expectException(BadFunctionCallException::class);
         $this->expectExceptionMessage("Field 'nonExistentField' does not exists");
+        $statistics = $seller->statistics();
         $statistics->isset('nonExistentField');
+    }
+
+    /** @test */
+    public function show_seller_with_payout_methods(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->payoutMethods();
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->find(1);
+
+        $payoutMethods = $seller->payoutMethods();
+        static::assertIsArray($payoutMethods);
+        static::assertCount(1, $payoutMethods);
+        static::assertSame(1, $payoutMethods[0]->id());
+        static::assertSame('bank_transfer', $payoutMethods[0]->method());
+        static::assertIsArray($payoutMethods[0]->settings());
+        static::assertSame('NL91ABNA0417164300', $payoutMethods[0]->settings()['iban']);
+        static::assertSame('ABNANL2A', $payoutMethods[0]->settings()['bic']);
+    }
+
+    /** @test */
+    public function show_seller_payout_methods_with_bank_transfer(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->payoutMethods([
+            [
+                'id'       => 2,
+                'method'   => 'bank_transfer',
+                'settings' => [
+                    'iban' => 'DE89370400440532013000',
+                    'bic'  => 'COBADEFFXXX',
+                ],
+                'created_at' => '2024-01-01T00:00:00.000000Z',
+                'updated_at' => '2024-01-01T00:00:00.000000Z',
+            ],
+        ]);
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->find(1);
+
+        $payoutMethods = $seller->payoutMethods();
+        static::assertCount(1, $payoutMethods);
+        static::assertSame(2, $payoutMethods[0]->id());
+        static::assertSame('bank_transfer', $payoutMethods[0]->method());
+        static::assertSame('DE89370400440532013000', $payoutMethods[0]->settings()['iban']);
+        static::assertSame('COBADEFFXXX', $payoutMethods[0]->settings()['bic']);
+    }
+
+    /** @test */
+    public function show_seller_payout_methods_empty_array(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->payoutMethods([]);
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->find(1);
+
+        $payoutMethods = $seller->payoutMethods();
+        static::assertIsArray($payoutMethods);
+        static::assertCount(0, $payoutMethods);
+    }
+
+    /** @test */
+    public function show_seller_payout_methods_multiple(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->payoutMethods([
+            [
+                'id'       => 1,
+                'method'   => 'bank_transfer',
+                'settings' => [
+                    'iban' => 'NL91ABNA0417164300',
+                    'bic'  => 'ABNANL2A',
+                ],
+                'created_at' => '2024-01-01T00:00:00.000000Z',
+                'updated_at' => '2024-01-01T00:00:00.000000Z',
+            ],
+            [
+                'id'       => 2,
+                'method'   => 'paypal',
+                'settings' => [
+                    'email' => 'seller@example.com',
+                ],
+                'created_at' => '2024-01-02T00:00:00.000000Z',
+                'updated_at' => '2024-01-02T00:00:00.000000Z',
+            ],
+        ]);
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->find(1);
+
+        $payoutMethods = $seller->payoutMethods();
+        static::assertCount(2, $payoutMethods);
+
+        static::assertSame(1, $payoutMethods[0]->id());
+        static::assertSame(2, $payoutMethods[1]->id());
     }
 }

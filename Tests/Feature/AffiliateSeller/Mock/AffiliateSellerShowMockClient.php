@@ -121,4 +121,25 @@ class AffiliateSellerShowMockClient extends ClientMock
 
         return $this;
     }
+    public function payoutMethods(?array $data = null): self
+    {
+        if ($data === null) {
+            $data = [
+                [
+                    'id'       => 1,
+                    'method'   => 'bank_transfer',
+                    'settings' => [
+                        'iban' => 'NL91ABNA0417164300',
+                        'bic'  => 'ABNANL2A',
+                    ],
+                    'created_at' => '2024-01-01T00:00:00.000000Z',
+                    'updated_at' => '2024-01-01T00:00:00.000000Z',
+                ],
+            ];
+        }
+
+        $this->responseBody['data']['payout_methods'] = $data;
+
+        return $this;
+    }
 }

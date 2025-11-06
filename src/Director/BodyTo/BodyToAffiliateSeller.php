@@ -23,8 +23,7 @@ class BodyToAffiliateSeller implements BuildObjectInterface, BuildMultipleObject
             ->setEmail($data['email'])
             ->setDeclineReason($data['decline_reason'] ?? null)
             ->setProfileId($data['profile_id'])
-            ->setStatus(SellerStatus::from($data['status']))
-            ->setPayoutMethods($data['payout_methods'] ?? []);
+            ->setStatus(SellerStatus::from($data['status']));
 
         if (isset($data['address'])) {
             $seller->setAddress(BodyToAddress::build($data['address']));
@@ -44,6 +43,10 @@ class BodyToAffiliateSeller implements BuildObjectInterface, BuildMultipleObject
 
         if (isset($data['payout_options'])) {
             $seller->setPayoutOptions(BodyToSellerPayoutOptions::build($data['payout_options']));
+        }
+
+        if (isset($data['payout_methods'])) {
+            $seller->setPayoutMethods(BodyToPayoutMethod::buildMulti($data['payout_methods']));
         }
 
         return $seller;

@@ -7,6 +7,7 @@ namespace PlugAndPay\Sdk\Entity;
 use PlugAndPay\Sdk\Enum\SellerStatus;
 use PlugAndPay\Sdk\Exception\RelationNotLoadedException;
 use PlugAndPay\Sdk\Traits\HasDynamicFields;
+use PlugAndPay\Sdk\Entity\PayoutMethod;
 
 class AffiliateSeller extends AbstractEntity
 {
@@ -24,6 +25,7 @@ class AffiliateSeller extends AbstractEntity
     protected SellerStatistics $statistics;
     protected SellerStatus $status;
     protected SellerPayoutOptions $payoutOptions;
+    /** @var PayoutMethod[] */
     protected array $payoutMethods;
 
     public function __construct(bool $allowEmptyRelations = true)
@@ -176,8 +178,20 @@ class AffiliateSeller extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @throws RelationNotLoadedException
+     * @return PayoutMethod[]
+     */
     public function payoutMethods(): array
     {
+        if (!isset($this->payoutMethods)) {
+            if ($this->allowEmptyRelations) {
+                $this->payoutMethods = [];
+            } else {
+                throw new RelationNotLoadedException('payoutMethods');
+            }
+        }
+
         return $this->payoutMethods;
     }
 }
