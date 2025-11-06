@@ -10,5 +10,112 @@ class SellerStatistics extends AbstractEntity
 {
     use HasDynamicFields;
 
-    // Based on API spec, statistics can be null, so we'll use dynamic fields for now
+    protected ?int $clicks;
+    protected int $commission;
+    protected int $locked;
+    protected int $orders;
+    protected int $paidout;
+    protected int $pending;
+    protected int $recurring;
+    protected int $sales;
+    protected int $value;
+
+    public function clicks(): ?int
+    {
+        return $this->clicks;
+    }
+
+    public function setClicks(?int $clicks): self
+    {
+        $this->clicks = $clicks;
+        return $this;
+    }
+
+    public function commission(): int
+    {
+        return $this->commission;
+    }
+
+    public function setCommission(int $commission): self
+    {
+        $this->commission = $commission;
+        return $this;
+    }
+
+    public function locked(): int
+    {
+        return $this->locked;
+    }
+
+    public function setLocked(int $locked): self
+    {
+        $this->locked = $locked;
+        return $this;
+    }
+
+    public function orders(): int
+    {
+        return $this->orders;
+    }
+
+    public function setOrders(int $orders): self
+    {
+        $this->orders = $orders;
+        return $this;
+    }
+
+    public function paidout(): int
+    {
+        return $this->paidout;
+    }
+
+    public function setPaidout(int $paidout): self
+    {
+        $this->paidout = $paidout;
+        return $this;
+    }
+
+    public function pending(): int
+    {
+        return $this->pending;
+    }
+
+    public function setPending(int $pending): self
+    {
+        $this->pending = $pending;
+        return $this;
+    }
+
+    public function recurring(): int
+    {
+        return $this->recurring;
+    }
+
+    public function setRecurring(int $recurring): self
+    {
+        $this->recurring = $recurring;
+        return $this;
+    }
+
+    public function sales(): int
+    {
+        return $this->sales;
+    }
+
+    public function setSales(int $sales): self
+    {
+        $this->sales = $sales;
+        return $this;
+    }
+
+    public function value(): int
+    {
+        return $this->value;
+    }
+
+    public function setValue(int $value): self
+    {
+        $this->value = $value;
+        return $this;
+    }
 }

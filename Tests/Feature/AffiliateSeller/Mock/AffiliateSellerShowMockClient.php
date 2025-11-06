@@ -17,7 +17,7 @@ class AffiliateSellerShowMockClient extends ClientMock
         'id'              => 1,
         'name'            => 'John Doe',
         'email'           => 'john@example.com',
-        'decline_reason'  => null,
+        'decline_reason'  => '',
         'profile_id'      => 1,
         'status'          => 'accepted',
         'payout_methods'  => null,
@@ -94,7 +94,15 @@ class AffiliateSellerShowMockClient extends ClientMock
     public function statistics(array $data = []): self
     {
         $this->responseBody['data']['statistics'] = $data + [
-                // Statistics data would go here
+                'clicks'     => null,
+                'commission' => 0,
+                'locked'     => 0,
+                'orders'     => 0,
+                'paidout'    => 0,
+                'pending'    => 0,
+                'recurring'  => 0,
+                'sales'      => 0,
+                'value'      => 0,
             ];
 
         return $this;

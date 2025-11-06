@@ -169,4 +169,119 @@ class ShowAffiliateSellerTest extends TestCase
         static::assertInstanceOf(\PlugAndPay\Sdk\Entity\SellerPayoutOptions::class, $payoutOptions);
         static::assertSame('/v2/affiliates/sellers/1?include=payout_options', $client->path());
     }
+
+    /** @test */
+    public function show_seller_statistics_with_values(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->statistics([
+            'clicks'     => 150,
+            'commission' => 2500,
+            'locked'     => 750,
+            'orders'     => 42,
+            'paidout'    => 10000,
+            'pending'    => 1250,
+            'recurring'  => 3500,
+            'sales'      => 55,
+            'value'      => 15000,
+        ]);
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->include(AffiliateSellerIncludes::STATISTICS)->find(1);
+
+        $statistics = $seller->statistics();
+        static::assertSame(150, $statistics->clicks());
+        static::assertSame(2500, $statistics->commission());
+        static::assertSame(750, $statistics->locked());
+        static::assertSame(42, $statistics->orders());
+        static::assertSame(10000, $statistics->paidout());
+        static::assertSame(1250, $statistics->pending());
+        static::assertSame(3500, $statistics->recurring());
+        static::assertSame(55, $statistics->sales());
+        static::assertSame(15000, $statistics->value());
+    }
+
+    /** @test */
+    public function show_seller_statistics_with_null_clicks(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->statistics([
+            'clicks' => null,
+        ]);
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->include(AffiliateSellerIncludes::STATISTICS)->find(1);
+
+        $statistics = $seller->statistics();
+        static::assertNull($statistics->clicks());
+    }
+
+    /** @test */
+    public function show_seller_profile_with_custom_id(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->profile([
+            'id' => 42,
+        ]);
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->include(AffiliateSellerIncludes::PROFILE)->find(1);
+
+        $profile = $seller->profile();
+        static::assertSame(42, $profile->id());
+    }
+
+    /** @test */
+    public function test_seller_statistics_isset_for_existing_property(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->statistics([
+            'clicks'     => 100,
+            'commission' => 500,
+            'locked'     => 200,
+            'orders'     => 10,
+            'paidout'    => 1000,
+            'pending'    => 300,
+            'recurring'  => 400,
+            'sales'      => 15,
+            'value'      => 2000,
+        ]);
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->include(AffiliateSellerIncludes::STATISTICS)->find(1);
+
+        $statistics = $seller->statistics();
+        static::assertTrue($statistics->isset('clicks'));
+        static::assertTrue($statistics->isset('commission'));
+        static::assertTrue($statistics->isset('locked'));
+        static::assertTrue($statistics->isset('orders'));
+        static::assertTrue($statistics->isset('paidout'));
+        static::assertTrue($statistics->isset('pending'));
+        static::assertTrue($statistics->isset('recurring'));
+        static::assertTrue($statistics->isset('sales'));
+        static::assertTrue($statistics->isset('value'));
+    }
+
+    /** @test */
+    public function test_seller_payout_options_isset(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->payoutOptions();
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->include(AffiliateSellerIncludes::PAYOUT_OPTIONS)->find(1);
+
+        $payoutOptions = $seller->payoutOptions();
+        static::assertInstanceOf(\PlugAndPay\Sdk\Entity\SellerPayoutOptions::class, $payoutOptions);
+    }
+
+    /** @test */
+    public function test_isset_with_non_existent_field_throws_exception(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->statistics();
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->include(AffiliateSellerIncludes::STATISTICS)->find(1);
+
+        $statistics = $seller->statistics();
+        
+        $this->expectException(\BadFunctionCallException::class);
+        $this->expectExceptionMessage("Field 'nonExistentField' does not exists");
+        $statistics->isset('nonExistentField');
+    }
 }
