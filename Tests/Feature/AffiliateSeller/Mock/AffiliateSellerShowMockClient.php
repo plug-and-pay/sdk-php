@@ -20,7 +20,6 @@ class AffiliateSellerShowMockClient extends ClientMock
         'decline_reason'  => '',
         'profile_id'      => 1,
         'status'          => 'accepted',
-        'payout_methods'  => null,
     ];
     protected string $path;
 
