@@ -363,7 +363,7 @@ class ShowAffiliateSellerTest extends TestCase
         $client  = (new AffiliateSellerShowMockClient())->payoutMethods();
         $service = new AffiliateSellerService($client);
 
-        $seller = $service->find(1);
+        $seller = $service->include(AffiliateSellerIncludes::PAYOUT_METHODS)->find(1);
 
         $payoutMethods = $seller->payoutMethods();
         static::assertIsArray($payoutMethods);
@@ -373,6 +373,7 @@ class ShowAffiliateSellerTest extends TestCase
         static::assertIsArray($payoutMethods[0]->settings());
         static::assertSame('NL91ABNA0417164300', $payoutMethods[0]->settings()['iban']);
         static::assertSame('ABNANL2A', $payoutMethods[0]->settings()['bic']);
+        static::assertSame('/v2/affiliates/sellers/1?include=payout_methods', $client->path());
     }
 
     /** @test */

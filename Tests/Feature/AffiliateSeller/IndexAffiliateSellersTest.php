@@ -18,15 +18,34 @@ use PlugAndPay\Sdk\Tests\Feature\AffiliateSeller\Mock\AffiliateSellerIndexMockCl
 
 class IndexAffiliateSellersTest extends TestCase
 {
-    /** @test */
-    public function index_sellers(): void
+    /**
+     * @test
+     * @dataProvider relationsProvider
+     */
+    public function index_sellers_with_relations(AffiliateSellerIncludes $include, string $includeValue): void
     {
         $client  = (new AffiliateSellerIndexMockClient());
         $service = new AffiliateSellerService($client);
-        $sellers = $service->include(AffiliateSellerIncludes::PROFILE)->get();
+
+        $sellers = $service->include($include)->get();
 
         static::assertSame(1, $sellers[0]->id());
-        static::assertSame('/v2/affiliates/sellers?include=profile', $client->path());
+        static::assertSame("/v2/affiliates/sellers?include=$includeValue", $client->path());
+    }
+
+    /**
+     * Data provider for index_sellers_with_relations.
+     */
+    public static function relationsProvider(): array
+    {
+        return [
+            'address'        => [AffiliateSellerIncludes::ADDRESS, 'address'],
+            'contact'        => [AffiliateSellerIncludes::CONTACT, 'contact'],
+            'profile'        => [AffiliateSellerIncludes::PROFILE, 'profile'],
+            'statistics'     => [AffiliateSellerIncludes::STATISTICS, 'statistics'],
+            'payoutOptions'  => [AffiliateSellerIncludes::PAYOUT_OPTIONS, 'payout_options'],
+            'payoutMethods'  => [AffiliateSellerIncludes::PAYOUT_METHODS, 'payout_methods'],
+        ];
     }
 
     /**
