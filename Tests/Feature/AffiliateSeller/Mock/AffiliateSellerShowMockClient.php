@@ -111,7 +111,12 @@ class AffiliateSellerShowMockClient extends ClientMock
     public function payoutOptions(array $data = []): self
     {
         $this->responseBody['data']['payout_options'] = $data + [
-                // Payout options data would go here
+                'method'   => 'paypal',
+                'settings' => [
+                    'email'          => 'oramcharan@example.com',
+                    'phone'          => '+3177 4223366',
+                    'paypal_me_link' => 'https://paypal.me/lopes.jennifer',
+                ],
             ];
 
         return $this;

@@ -12,6 +12,8 @@ class BodyToSellerPayoutOptions implements BuildObjectInterface
 {
     public static function build(array $data): SellerPayoutOptions
     {
-        return new SellerPayoutOptionsInternal();
+        return (new SellerPayoutOptionsInternal())
+            ->setMethod($data['method'] ?? null)
+            ->setSettings($data['settings'] ?? null);
     }
 }

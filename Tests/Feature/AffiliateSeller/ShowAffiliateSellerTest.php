@@ -271,6 +271,73 @@ class ShowAffiliateSellerTest extends TestCase
     }
 
     /** @test */
+    public function show_seller_payout_options_with_default_data(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->payoutOptions();
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->include(AffiliateSellerIncludes::PAYOUT_OPTIONS)->find(1);
+
+        $payoutOptions = $seller->payoutOptions();
+        static::assertSame('paypal', $payoutOptions->method());
+        
+        $settings = $payoutOptions->settings();
+        static::assertIsArray($settings);
+        static::assertSame('oramcharan@example.com', $settings['email']);
+        static::assertSame('+3177 4223366', $settings['phone']);
+        static::assertSame('https://paypal.me/lopes.jennifer', $settings['paypal_me_link']);
+    }
+
+    /** @test */
+    public function show_seller_payout_options_with_custom_method(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->payoutOptions([
+            'method' => 'bank_transfer',
+        ]);
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->include(AffiliateSellerIncludes::PAYOUT_OPTIONS)->find(1);
+
+        $payoutOptions = $seller->payoutOptions();
+        static::assertSame('bank_transfer', $payoutOptions->method());
+    }
+
+    /** @test */
+    public function show_seller_payout_options_with_custom_settings(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->payoutOptions([
+            'method'   => 'paypal',
+            'settings' => [
+                'email'          => 'custom@example.com',
+                'phone'          => '+31612345678',
+                'paypal_me_link' => 'https://paypal.me/custom.user',
+            ],
+        ]);
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->include(AffiliateSellerIncludes::PAYOUT_OPTIONS)->find(1);
+
+        $payoutOptions = $seller->payoutOptions();
+        $settings      = $payoutOptions->settings();
+        static::assertSame('custom@example.com', $settings['email']);
+        static::assertSame('+31612345678', $settings['phone']);
+        static::assertSame('https://paypal.me/custom.user', $settings['paypal_me_link']);
+    }
+
+    /** @test */
+    public function show_seller_payout_options_settings_fields(): void
+    {
+        $client  = (new AffiliateSellerShowMockClient())->payoutOptions();
+        $service = new AffiliateSellerService($client);
+
+        $seller = $service->include(AffiliateSellerIncludes::PAYOUT_OPTIONS)->find(1);
+
+        $payoutOptions = $seller->payoutOptions();
+        static::assertTrue($payoutOptions->isset('method'));
+        static::assertTrue($payoutOptions->isset('settings'));
+    }
+
+    /** @test */
     public function test_isset_with_non_existent_field_throws_exception(): void
     {
         $client  = (new AffiliateSellerShowMockClient())->statistics();

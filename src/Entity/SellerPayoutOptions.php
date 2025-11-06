@@ -10,5 +10,28 @@ class SellerPayoutOptions extends AbstractEntity
 {
     use HasDynamicFields;
 
-    // Based on API spec, payout_options can be null, so we'll use dynamic fields for now
+    protected ?string $method;
+    protected ?array $settings;
+
+    public function method(): ?string
+    {
+        return $this->method;
+    }
+
+    public function setMethod(?string $method): self
+    {
+        $this->method = $method;
+        return $this;
+    }
+
+    public function settings(): ?array
+    {
+        return $this->settings;
+    }
+
+    public function setSettings(?array $settings): self
+    {
+        $this->settings = $settings;
+        return $this;
+    }
 }
