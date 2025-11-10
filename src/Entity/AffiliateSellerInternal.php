@@ -50,6 +50,10 @@ class AffiliateSellerInternal extends AffiliateSeller
         return $this;
     }
 
+    /**
+     * @param PayoutMethod[] $payoutMethods
+     * @return $this
+     */
     public function setPayoutMethods(array $payoutMethods): self
     {
         $this->payoutMethods = $payoutMethods;

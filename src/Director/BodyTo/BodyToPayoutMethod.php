@@ -18,10 +18,7 @@ class BodyToPayoutMethod implements BuildObjectInterface, BuildMultipleObjectsIn
     public static function build(array $data): PayoutMethod
     {
         return (new PayoutMethodInternal())
-            ->setId($data['id'])
             ->setMethod($data['method'])
-            ->setSettings($data['settings'] ?? null)
-            ->setCreatedAt(new DateTimeImmutable($data['created_at']))
-            ->setUpdatedAt(new DateTimeImmutable($data['updated_at']));
+            ->setSettings($data['settings'] ?? null);
     }
 }

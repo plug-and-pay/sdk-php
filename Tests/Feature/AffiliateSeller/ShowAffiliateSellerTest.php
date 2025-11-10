@@ -196,14 +196,14 @@ class ShowAffiliateSellerTest extends TestCase
 
         $statistics = $seller->statistics();
         static::assertSame(150, $statistics->clicks());
-        static::assertSame(2500, $statistics->commission());
-        static::assertSame(750, $statistics->locked());
+        static::assertSame(2500.0, $statistics->commission());
+        static::assertSame(750.0, $statistics->locked());
         static::assertSame(42, $statistics->orders());
-        static::assertSame(10000, $statistics->paidout());
-        static::assertSame(1250, $statistics->pending());
-        static::assertSame(3500, $statistics->recurring());
+        static::assertSame(10000.0, $statistics->paidout());
+        static::assertSame(1250.0, $statistics->pending());
+        static::assertSame(3500.0, $statistics->recurring());
         static::assertSame(55, $statistics->sales());
-        static::assertSame(15000, $statistics->value());
+        static::assertSame(15000.0, $statistics->value());
     }
 
     /** @test */
@@ -428,7 +428,6 @@ class ShowAffiliateSellerTest extends TestCase
         $payoutMethods = $seller->payoutMethods();
         static::assertIsArray($payoutMethods);
         static::assertCount(1, $payoutMethods);
-        static::assertSame(1, $payoutMethods[0]->id());
         static::assertSame('bank_transfer', $payoutMethods[0]->method());
         static::assertIsArray($payoutMethods[0]->settings());
         static::assertSame('NL91ABNA0417164300', $payoutMethods[0]->settings()['iban']);
@@ -441,14 +440,11 @@ class ShowAffiliateSellerTest extends TestCase
     {
         $client  = (new AffiliateSellerShowMockClient())->payoutMethods([
             [
-                'id'       => 2,
                 'method'   => 'bank_transfer',
                 'settings' => [
                     'iban' => 'DE89370400440532013000',
                     'bic'  => 'COBADEFFXXX',
                 ],
-                'created_at' => '2024-01-01T00:00:00.000000Z',
-                'updated_at' => '2024-01-01T00:00:00.000000Z',
             ],
         ]);
         $service = new AffiliateSellerService($client);
@@ -457,7 +453,6 @@ class ShowAffiliateSellerTest extends TestCase
 
         $payoutMethods = $seller->payoutMethods();
         static::assertCount(1, $payoutMethods);
-        static::assertSame(2, $payoutMethods[0]->id());
         static::assertSame('bank_transfer', $payoutMethods[0]->method());
         static::assertSame('DE89370400440532013000', $payoutMethods[0]->settings()['iban']);
         static::assertSame('COBADEFFXXX', $payoutMethods[0]->settings()['bic']);
@@ -481,23 +476,17 @@ class ShowAffiliateSellerTest extends TestCase
     {
         $client  = (new AffiliateSellerShowMockClient())->payoutMethods([
             [
-                'id'       => 1,
                 'method'   => 'bank_transfer',
                 'settings' => [
                     'iban' => 'NL91ABNA0417164300',
                     'bic'  => 'ABNANL2A',
                 ],
-                'created_at' => '2024-01-01T00:00:00.000000Z',
-                'updated_at' => '2024-01-01T00:00:00.000000Z',
             ],
             [
-                'id'       => 2,
                 'method'   => 'paypal',
                 'settings' => [
                     'email' => 'seller@example.com',
                 ],
-                'created_at' => '2024-01-02T00:00:00.000000Z',
-                'updated_at' => '2024-01-02T00:00:00.000000Z',
             ],
         ]);
         $service = new AffiliateSellerService($client);
@@ -507,7 +496,7 @@ class ShowAffiliateSellerTest extends TestCase
         $payoutMethods = $seller->payoutMethods();
         static::assertCount(2, $payoutMethods);
 
-        static::assertSame(1, $payoutMethods[0]->id());
-        static::assertSame(2, $payoutMethods[1]->id());
+        static::assertSame('bank_transfer', $payoutMethods[0]->method());
+        static::assertSame('paypal', $payoutMethods[1]->method());
     }
 }

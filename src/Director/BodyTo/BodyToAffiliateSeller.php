@@ -45,6 +45,11 @@ class BodyToAffiliateSeller implements BuildObjectInterface, BuildMultipleObject
             $seller->setPayoutOptions(BodyToSellerPayoutOptions::build($data['payout_options']));
         }
 
+        if (isset($data['payout_methods'])) {
+            /** @noinspection PhpParamsInspection */
+            $seller->setPayoutMethods(BodyToPayoutMethod::buildMulti($data['payout_methods']));
+        }
+
         return $seller;
     }
 }

@@ -11,20 +11,6 @@ use DateTimeImmutable;
  */
 class PayoutMethodInternal extends PayoutMethod
 {
-    public function setCreatedAt(DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
     public function setMethod(string $method): self
     {
         $this->method = $method;
@@ -35,13 +21,6 @@ class PayoutMethodInternal extends PayoutMethod
     public function setSettings(?array $settings): self
     {
         $this->settings = $settings;
-
-        return $this;
-    }
-
-    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }
