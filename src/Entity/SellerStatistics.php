@@ -14,22 +14,15 @@ class SellerStatistics extends AbstractEntity
     protected float $commission;
     protected float $locked;
     protected int $orders;
-    protected int $paidout;
-    protected int $pending;
-    protected int $recurring;
+    protected float $paidout;
+    protected float $pending;
+    protected float $recurring;
     protected int $sales;
-    protected int $value;
+    protected float $value;
 
     public function clicks(): ?int
     {
         return $this->clicks;
-    }
-
-    public function setClicks(?int $clicks): self
-    {
-        $this->clicks = $clicks;
-
-        return $this;
     }
 
     public function commission(): float
@@ -37,23 +30,9 @@ class SellerStatistics extends AbstractEntity
         return $this->commission;
     }
 
-    public function setCommission(float $commission): self
-    {
-        $this->commission = $commission;
-
-        return $this;
-    }
-
     public function locked(): float
     {
         return $this->locked;
-    }
-
-    public function setLocked(float $locked): self
-    {
-        $this->locked = $locked;
-
-        return $this;
     }
 
     public function orders(): int
@@ -61,47 +40,19 @@ class SellerStatistics extends AbstractEntity
         return $this->orders;
     }
 
-    public function setOrders(int $orders): self
-    {
-        $this->orders = $orders;
-
-        return $this;
-    }
-
-    public function paidout(): int
+    public function paidout(): float
     {
         return $this->paidout;
     }
 
-    public function setPaidout(int $paidout): self
-    {
-        $this->paidout = $paidout;
-
-        return $this;
-    }
-
-    public function pending(): int
+    public function pending(): float
     {
         return $this->pending;
     }
 
-    public function setPending(int $pending): self
-    {
-        $this->pending = $pending;
-
-        return $this;
-    }
-
-    public function recurring(): int
+    public function recurring(): float
     {
         return $this->recurring;
-    }
-
-    public function setRecurring(int $recurring): self
-    {
-        $this->recurring = $recurring;
-
-        return $this;
     }
 
     public function sales(): int
@@ -109,22 +60,8 @@ class SellerStatistics extends AbstractEntity
         return $this->sales;
     }
 
-    public function setSales(int $sales): self
-    {
-        $this->sales = $sales;
-
-        return $this;
-    }
-
-    public function value(): int
+    public function value(): float
     {
         return $this->value;
-    }
-
-    public function setValue(int $value): self
-    {
-        $this->value = $value;
-
-        return $this;
     }
 }

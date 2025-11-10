@@ -14,13 +14,13 @@ class BodyToSellerStatistics implements BuildObjectInterface
     {
         return (new SellerStatisticsInternal())
             ->setClicks($data['clicks'] ?? null)
-            ->setCommission($data['commission'] ?? 0)
-            ->setLocked($data['locked'] ?? 0)
+            ->setCommission((float) ($data['commission'] ?? 0))
+            ->setLocked((float) ($data['locked'] ?? 0))
             ->setOrders($data['orders'] ?? 0)
-            ->setPaidout($data['paidout'] ?? 0)
-            ->setPending($data['pending'] ?? 0)
-            ->setRecurring($data['recurring'] ?? 0)
+            ->setPaidout((float)($data['paidout'] ?? 0))
+            ->setPending((float)($data['pending'] ?? 0))
+            ->setRecurring((float)$data['recurring'] ?? 0)
             ->setSales($data['sales'] ?? 0)
-            ->setValue($data['value'] ?? 0);
+            ->setValue((float)($data['value'] ?? 0));
     }
 }
