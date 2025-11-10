@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PlugAndPay\Sdk\Director\BodyTo;
 
-use DateTimeImmutable;
 use PlugAndPay\Sdk\Contract\BuildMultipleObjectsInterface;
 use PlugAndPay\Sdk\Contract\BuildObjectInterface;
 use PlugAndPay\Sdk\Entity\PayoutMethod;
