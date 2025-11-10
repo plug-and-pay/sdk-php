@@ -11,5 +11,4 @@ enum AffiliateSellerIncludes: string
     case PROFILE        = 'profile';
     case STATISTICS     = 'statistics';
     case PAYOUT_OPTIONS = 'payout_options';
-    case PAYOUT_METHODS = 'payout_methods';
 }
