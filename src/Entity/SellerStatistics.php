@@ -11,8 +11,8 @@ class SellerStatistics extends AbstractEntity
     use HasDynamicFields;
 
     protected ?int $clicks;
-    protected int $commission;
-    protected int $locked;
+    protected float $commission;
+    protected float $locked;
     protected int $orders;
     protected int $paidout;
     protected int $pending;
@@ -32,24 +32,24 @@ class SellerStatistics extends AbstractEntity
         return $this;
     }
 
-    public function commission(): int
+    public function commission(): float
     {
         return $this->commission;
     }
 
-    public function setCommission(int $commission): self
+    public function setCommission(float $commission): self
     {
         $this->commission = $commission;
 
         return $this;
     }
 
-    public function locked(): int
+    public function locked(): float
     {
         return $this->locked;
     }
 
-    public function setLocked(int $locked): self
+    public function setLocked(float $locked): self
     {
         $this->locked = $locked;
 
