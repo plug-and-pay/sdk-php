@@ -23,7 +23,7 @@ This is a PHP SDK to make easier to communicate with the Plug&Pay API. Not all f
 ## Documentation
 
 - [Wiki](https://github.com/plug-and-pay/sdk-php/wiki)
-- You can use [Context7 MCP])(https://context7.com/plug-and-pay/sdk-php) with your favorite AI tool (like Kilo, Claude Code, Cursor, etc...) to work with our PHP SDK.
+- You can use [Context7 MCP](https://context7.com/plug-and-pay/sdk-php) with your favorite AI tool (like Kilo, Claude Code, Cursor, etc...) to work with our PHP SDK.
 
 ## Installation with Composer
 
