@@ -7,19 +7,23 @@ use PlugAndPay\Sdk\Tests\Feature\ClientMock;
 class CheckoutShowMockClient extends ClientMock
 {
     public const BASIC_CHECKOUT = [
+        'created_at'      => '2019-01-16T00:00:00.000000Z',
+        'deleted_at'      => '2019-01-16T00:00:00.000000Z',
+        'has_redirects'   => false,
         'id'              => 1,
         'is_active'       => true,
+        'is_blueprint'    => false,
         'is_expired'      => false,
         'name'            => 'lorem-ipsum-test',
+        'pixel'           => null,
         'preview_url'     => 'https://example.com/preview-url',
         'primary_color'   => '#ff0000',
         'return_url'      => 'https://example.com/return-url',
         'secondary_color' => '#00ff00',
         'slug'            => 'lorem-ipsum-test',
-        'url'             => 'https://example.com/url',
-        'created_at'      => '2019-01-16T00:00:00.000000Z',
+        'split_test_id'   => null,
         'updated_at'      => '2019-01-16T00:00:00.000000Z',
-        'deleted_at'      => '2019-01-16T00:00:00.000000Z',
+        'url'             => 'https://example.com/url',
     ];
     public const BASIC_PRODUCT = [
         'created_at'   => '2019-01-16T00:00:00.000000Z',

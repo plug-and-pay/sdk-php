@@ -67,4 +67,64 @@ class CheckoutInternal extends Checkout
 
         return $this;
     }
+
+    /**
+     * @internal
+     */
+    public function setHasRedirects(bool $hasRedirects): self
+    {
+        $this->hasRedirects = $hasRedirects;
+
+        return $this;
+    }
+
+    /**
+     * @internal
+     */
+    public function setIsBlueprint(bool $isBlueprint): self
+    {
+        $this->isBlueprint = $isBlueprint;
+
+        return $this;
+    }
+
+    /**
+     * @internal
+     */
+    public function setPixel(?string $pixel): self
+    {
+        $this->pixel = $pixel;
+
+        return $this;
+    }
+
+    /**
+     * @internal
+     */
+    public function setPrimaryColor(?string $primaryColor): self
+    {
+        $this->primaryColor = $primaryColor;
+
+        return $this;
+    }
+
+    /**
+     * @internal
+     */
+    public function setSecondaryColor(?string $secondaryColor): self
+    {
+        $this->secondaryColor = $secondaryColor;
+
+        return $this;
+    }
+
+    /**
+     * @internal
+     */
+    public function setSplitTestId(?int $splitTestId): self
+    {
+        $this->splitTestId = $splitTestId;
+
+        return $this;
+    }
 }

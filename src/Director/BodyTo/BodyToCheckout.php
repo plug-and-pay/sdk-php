@@ -26,21 +26,33 @@ class BodyToCheckout implements BuildObjectInterface, BuildMultipleObjectsInterf
             ->setIsExpired($data['is_expired'])
             ->setName($data['name'])
             ->setPreviewUrl($data['preview_url'])
-            ->setPrimaryColor($data['primary_color'])
+            ->setPrimaryColor($data['primary_color'] ?? null)
             ->setReturnUrl($data['return_url'])
-            ->setSecondaryColor($data['secondary_color'])
+            ->setSecondaryColor($data['secondary_color'] ?? null)
             ->setSlug($data['slug'])
             ->setUrl($data['url'])
+            ->setHasRedirects($data['has_redirects'])
+            ->setIsBlueprint($data['is_blueprint'])
             ->setCreatedAt(self::date($data, 'created_at'))
             ->setUpdatedAt($data['updated_at'] ? self::date($data, 'updated_at') : null)
             ->setDeletedAt($data['deleted_at'] ? self::date($data, 'deleted_at') : null);
 
+        if (isset($data['pixel'])) {
+            $checkout->setPixel($data['pixel']);
+        }
+
+        if (isset($data['split_test_id'])) {
+            $checkout->setSplitTestId($data['split_test_id']);
+        }
+
+        // Handle optional product relation (for backward compatibility with tests)
         if (isset($data['product'])) {
             $checkout->setProduct(BodyToProduct::build($data['product']));
         }
 
+        // Handle optional product pricing relation (for backward compatibility with tests)
         if (isset($data['productPricing'])) {
-            $checkout->setProductPricing(BodyToProductPricing::build($data['pricing']));
+            $checkout->setProductPricing(BodyToProductPricing::build($data['productPricing']));
         }
 
         return $checkout;
