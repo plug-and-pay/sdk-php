@@ -14,15 +14,19 @@ class Checkout extends AbstractEntity
 
     protected bool $allowEmptyRelations;
     protected int $id;
+    protected bool $hasRedirects;
     protected bool $isActive;
+    protected bool $isBlueprint;
     protected bool $isExpired;
     protected string $name;
+    protected ?string $pixel;
     protected string $previewUrl;
-    protected string $primaryColor;
+    protected ?string $primaryColor;
     protected Product $product;
     protected ProductPricing $productPricing;
     protected ?string $returnUrl;
     protected ?string $secondaryColor;
+    protected ?int $splitTestId;
     protected string $slug;
     protected string $url;
     protected DateTimeImmutable $createdAt;
@@ -39,6 +43,18 @@ class Checkout extends AbstractEntity
         return $this->id;
     }
 
+    public function hasRedirects(): bool
+    {
+        return $this->hasRedirects;
+    }
+
+    public function setHasRedirects(bool $hasRedirects): self
+    {
+        $this->hasRedirects = $hasRedirects;
+
+        return $this;
+    }
+
     public function isActive(): bool
     {
         return $this->isActive;
@@ -47,6 +63,18 @@ class Checkout extends AbstractEntity
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function isBlueprint(): bool
+    {
+        return $this->isBlueprint;
+    }
+
+    public function setIsBlueprint(bool $isBlueprint): self
+    {
+        $this->isBlueprint = $isBlueprint;
 
         return $this;
     }
@@ -87,12 +115,12 @@ class Checkout extends AbstractEntity
         return $this;
     }
 
-    public function primaryColor(): string
+    public function primaryColor(): ?string
     {
         return $this->primaryColor;
     }
 
-    public function setPrimaryColor(string $primaryColor): self
+    public function setPrimaryColor(?string $primaryColor): self
     {
         $this->primaryColor = $primaryColor;
 
@@ -134,6 +162,18 @@ class Checkout extends AbstractEntity
         return $this->productPricing;
     }
 
+    public function pixel(): ?string
+    {
+        return $this->pixel;
+    }
+
+    public function setPixel(?string $pixel): self
+    {
+        $this->pixel = $pixel;
+
+        return $this;
+    }
+
     public function returnUrl(): ?string
     {
         return $this->returnUrl;
@@ -166,6 +206,18 @@ class Checkout extends AbstractEntity
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function splitTestId(): ?int
+    {
+        return $this->splitTestId;
+    }
+
+    public function setSplitTestId(?int $splitTestId): self
+    {
+        $this->splitTestId = $splitTestId;
 
         return $this;
     }
