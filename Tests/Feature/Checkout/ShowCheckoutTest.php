@@ -53,14 +53,18 @@ class ShowCheckoutTest extends TestCase
         $checkout = $service->find(1);
 
         static::assertSame(1, $checkout->id());
+        static::assertFalse($checkout->hasRedirects());
         static::assertTrue($checkout->isActive());
+        static::assertFalse($checkout->isBlueprint());
         static::assertFalse($checkout->isExpired());
         static::assertSame('lorem-ipsum-test', $checkout->name());
+        static::assertNull($checkout->pixel());
         static::assertSame('https://example.com/preview-url', $checkout->previewUrl());
         static::assertSame('#ff0000', $checkout->primaryColor());
         static::assertSame('https://example.com/return-url', $checkout->returnUrl());
         static::assertSame('#00ff00', $checkout->secondaryColor());
         static::assertSame('lorem-ipsum-test', $checkout->slug());
+        static::assertNull($checkout->splitTestId());
         static::assertSame('https://example.com/url', $checkout->url());
         static::assertSame('2019-01-16 00:00:00', $checkout->createdAt()->format('Y-m-d H:i:s'));
         static::assertSame('2019-01-16 00:00:00', $checkout->updatedAt()->format('Y-m-d H:i:s'));

@@ -37,11 +37,11 @@ class BodyToCheckout implements BuildObjectInterface, BuildMultipleObjectsInterf
             ->setUpdatedAt($data['updated_at'] ? self::date($data, 'updated_at') : null)
             ->setDeletedAt($data['deleted_at'] ? self::date($data, 'deleted_at') : null);
 
-        if (isset($data['pixel'])) {
+        if (array_key_exists('pixel', $data)) {
             $checkout->setPixel($data['pixel']);
         }
 
-        if (isset($data['split_test_id'])) {
+        if (array_key_exists('split_test_id', $data)) {
             $checkout->setSplitTestId($data['split_test_id']);
         }
 
