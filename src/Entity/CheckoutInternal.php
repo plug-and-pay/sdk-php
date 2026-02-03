@@ -71,7 +71,7 @@ class CheckoutInternal extends Checkout
     /**
      * @internal
      */
-    public function setHasRedirects(bool $hasRedirects): self
+    public function setHasRedirects(?bool $hasRedirects): self
     {
         $this->hasRedirects = $hasRedirects;
 

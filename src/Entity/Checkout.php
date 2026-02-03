@@ -14,7 +14,7 @@ class Checkout extends AbstractEntity
 
     protected bool $allowEmptyRelations;
     protected int $id;
-    protected bool $hasRedirects;
+    protected ?bool $hasRedirects;
     protected bool $isActive;
     protected bool $isBlueprint;
     protected bool $isExpired;
@@ -43,12 +43,12 @@ class Checkout extends AbstractEntity
         return $this->id;
     }
 
-    public function hasRedirects(): bool
+    public function hasRedirects(): ?bool
     {
         return $this->hasRedirects;
     }
 
-    public function setHasRedirects(bool $hasRedirects): self
+    public function setHasRedirects(?bool $hasRedirects): self
     {
         $this->hasRedirects = $hasRedirects;
 
