@@ -35,6 +35,10 @@ class BodyToCheckout implements BuildObjectInterface, BuildMultipleObjectsInterf
             ->setUpdatedAt($data['updated_at'] ? self::date($data, 'updated_at') : null)
             ->setDeletedAt($data['deleted_at'] ? self::date($data, 'deleted_at') : null);
 
+        if (array_key_exists('has_redirects', $data)) {
+            $checkout->setHasRedirects($data['has_redirects']);
+        }
+
         if (isset($data['product'])) {
             $checkout->setProduct(BodyToProduct::build($data['product']));
         }

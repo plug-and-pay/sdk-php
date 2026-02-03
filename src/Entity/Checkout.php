@@ -16,6 +16,7 @@ class Checkout extends AbstractEntity
     protected int $id;
     protected bool $isActive;
     protected bool $isExpired;
+    protected ?bool $hasRedirects = null;
     protected string $name;
     protected string $previewUrl;
     protected string $primaryColor;
@@ -59,6 +60,18 @@ class Checkout extends AbstractEntity
     public function setIsExpired(bool $isExpired): self
     {
         $this->isExpired = $isExpired;
+
+        return $this;
+    }
+
+    public function hasRedirects(): ?bool
+    {
+        return $this->hasRedirects;
+    }
+
+    public function setHasRedirects(?bool $hasRedirects): self
+    {
+        $this->hasRedirects = $hasRedirects;
 
         return $this;
     }

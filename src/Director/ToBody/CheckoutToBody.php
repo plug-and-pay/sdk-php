@@ -18,6 +18,10 @@ class CheckoutToBody
             $result['is_expired'] = $checkout->isExpired();
         }
 
+        if ($checkout->isset('hasRedirects')) {
+            $result['has_redirects'] = $checkout->hasRedirects();
+        }
+
         if ($checkout->isset('name')) {
             $result['name'] = $checkout->name();
         }
