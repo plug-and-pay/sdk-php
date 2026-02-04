@@ -31,7 +31,7 @@ class BodyToCheckout implements BuildObjectInterface, BuildMultipleObjectsInterf
             ->setSecondaryColor($data['secondary_color'] ?? null)
             ->setSlug($data['slug'])
             ->setUrl($data['url'])
-            ->setHasRedirects($data['has_redirects'])
+            ->setHasRedirects($data['has_redirects'] ?? null)
             ->setIsBlueprint($data['is_blueprint'])
             ->setCreatedAt(self::date($data, 'created_at'))
             ->setUpdatedAt($data['updated_at'] ? self::date($data, 'updated_at') : null)
