@@ -57,4 +57,15 @@ class ShowTenantTest extends TestCase
         static::assertSame(1, $tenant->id());
         static::assertSame('lite', $tenant->plan());
     }
+
+    /** @test */
+    public function it_should_show_tenant_name(): void
+    {
+        $client  = new TenantShowMockClient(data: ['id' => 1]);
+        $service = new TenantService($client);
+
+        $tenant = $service->find();
+
+        static::assertSame('Test Tenant', $tenant->name());
+    }
 }

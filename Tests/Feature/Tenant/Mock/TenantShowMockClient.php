@@ -15,6 +15,7 @@ class TenantShowMockClient extends ClientMock
 {
     public const BASIC_TENANT = [
         'id'   => 1,
+        'name' => 'Test Tenant',
         'plan' => 'lite',
     ];
     protected string $path;
