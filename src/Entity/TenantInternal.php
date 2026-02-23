@@ -19,6 +19,16 @@ class TenantInternal extends Tenant
     /**
      * @internal
      */
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @internal
+     */
     public function setPlan(string $plan): self
     {
         $this->plan = $plan;

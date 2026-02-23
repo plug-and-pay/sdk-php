@@ -14,6 +14,7 @@ class BodyToTenant implements BuildObjectInterface
     {
         return (new TenantInternal())
             ->setId($data['id'])
+            ->setName($data['name'])
             ->setPlan($data['plan']);
     }
 }
