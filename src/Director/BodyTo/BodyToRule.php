@@ -29,7 +29,7 @@ class BodyToRule implements BuildObjectInterface, BuildMultipleObjectsInterface
             ->setTriggerType($data['trigger_type'])
             ->setConditionData($data['condition_data'])
             ->setName($data['name'])
-            ->setReadonly($data['readonly'])
+            ->setReadonly($data['readonly'] ?? null)
             ->setDeletedAt($data['deleted_at'] ? self::date($data, 'deleted_at') : null)
             ->setCreatedAt(self::date($data, 'created_at'))
             ->setUpdatedAt($data['updated_at'] ? self::date($data, 'updated_at') : null)
