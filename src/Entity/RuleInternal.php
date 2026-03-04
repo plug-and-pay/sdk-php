@@ -51,7 +51,7 @@ class RuleInternal extends Rule
     /**
      * @internal
      */
-    public function setReadonly(bool $readonly): self
+    public function setReadonly(?bool $readonly): self
     {
         $this->readonly = $readonly;
 
