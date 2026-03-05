@@ -17,7 +17,7 @@ class Rule extends AbstractEntity
     protected string $triggerType;
     protected array $conditionData;
     protected string $name;
-    protected bool $readonly;
+    protected ?bool $readonly;
     protected ?DateTimeImmutable $deletedAt;
     protected DateTimeImmutable $createdAt;
     protected ?DateTimeImmutable $updatedAt;
@@ -88,7 +88,7 @@ class Rule extends AbstractEntity
         return $this;
     }
 
-    public function readonly(): bool
+    public function readonly(): ?bool
     {
         return $this->readonly;
     }
