@@ -49,9 +49,9 @@ class ExceptionFactory
         if ($body['error']) {
             return json_encode(
                 [
-                    'error' => $body['error'],
+                    'error'             => $body['error'],
                     'error_description' => $body['error_description'],
-                    'hint' => $body['hint'],
+                    'hint'              => $body['hint'],
                 ],
                 JSON_THROW_ON_ERROR,
             );
