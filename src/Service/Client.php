@@ -221,11 +221,18 @@ class Client implements ClientInterface
      * @throws NotFoundException
      * @throws ValidationException
      */
-    public function getCredentials(string $code, string $codeVerifier, string $redirectUrl, int $clientId, int $tenantId): Response
-    {
+    public function getCredentials(
+        string $code,
+        string $codeVerifier,
+        string $redirectUrl,
+        int $clientId,
+        int $tenantId,
+        string $clientSecret
+    ): Response {
         $response = $this->request(self::METHOD_POST, '/oauth/token', [
             'grant_type'    => 'authorization_code',
             'client_id'     => $clientId,
+            'client_secret' => $clientSecret,
             'redirect_uri'  => $redirectUrl,
             'code_verifier' => $codeVerifier,
             'code'          => $code,
@@ -244,8 +251,12 @@ class Client implements ClientInterface
      * @throws ValidationException
      * @throws InvalidTokenException
      */
-    public function refreshTokensIfNeeded(string $refreshToken, int $clientId, int $tenantId): Response
-    {
+    public function refreshTokensIfNeeded(
+        string $refreshToken,
+        int $clientId,
+        int $tenantId,
+        string $clientSecret
+    ): Response {
         if ($this->tokenService->isValid($this->accessToken)) {
             return new Response(200, ['refreshed' => false]);
         }
@@ -253,6 +264,7 @@ class Client implements ClientInterface
         $response = $this->request(self::METHOD_POST, '/oauth/token', [
             'grant_type'    => 'refresh_token',
             'client_id'     => $clientId,
+            'client_secret' => $clientSecret,
             'refresh_token' => $refreshToken,
             'tenant_id'     => $tenantId,
         ]);
