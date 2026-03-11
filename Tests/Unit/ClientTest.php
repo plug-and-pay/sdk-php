@@ -43,13 +43,14 @@ class ClientTest extends TestCase
         $codeVerifier = 'testVerifier';
         $redirectUrl  = 'https://example.com/callback';
         $clientId     = 123;
+        $clientSecret = 'test';
         $testTenantId = 456;
 
         $mockResponse     = new Response(200, ['access_token' => 'testAccessToken', 'refresh_token' => 'testRefreshToken']);
         $mockGuzzleClient = $this->createMock(Client::class);
         $mockGuzzleClient->method('getCredentials')->willReturn($mockResponse);
 
-        $response = $mockGuzzleClient->getCredentials($code, $codeVerifier, $redirectUrl, $clientId, $testTenantId);
+        $response = $mockGuzzleClient->getCredentials($code, $codeVerifier, $redirectUrl, $clientId, $testTenantId, $clientSecret);
 
         $this->assertEquals(200, $response->status());
         $this->assertEquals('testAccessToken', $response->body()['access_token']);
@@ -61,6 +62,7 @@ class ClientTest extends TestCase
         // Given
         $refreshToken       = 'testRefreshToken';
         $clientId           = 123;
+        $clientSecret       = 'test';
         $newAccessToken     = 'newAccessToken';
         $tenantId           = 3;
 
@@ -73,7 +75,7 @@ class ClientTest extends TestCase
         $mockTokenService->method('isValid')->willReturn(false);
 
         // When
-        $response = $mockGuzzleClient->refreshTokensIfNeeded($refreshToken, $clientId, $tenantId);
+        $response = $mockGuzzleClient->refreshTokensIfNeeded($refreshToken, $clientId, $tenantId, $clientSecret);
 
         // Then
         $this->assertEquals(200, $response->status());
@@ -87,6 +89,7 @@ class ClientTest extends TestCase
         // Given
         $refreshToken       = 'testRefreshToken';
         $clientId           = 123;
+        $clientSecret       = 'test';
         $tenantId           = 3;
 
         $mockResponse = new Response(200, ['refreshed' => false]);
@@ -98,7 +101,7 @@ class ClientTest extends TestCase
         $mockGuzzleClient->method('refreshTokensIfNeeded')->willReturn($mockResponse);
 
         // When
-        $response = $mockGuzzleClient->refreshTokensIfNeeded($refreshToken, $clientId, $tenantId);
+        $response = $mockGuzzleClient->refreshTokensIfNeeded($refreshToken, $clientId, $tenantId, $clientSecret);
 
         // Then
         $this->assertEquals(200, $response->status());
