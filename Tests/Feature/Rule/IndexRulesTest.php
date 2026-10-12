@@ -109,6 +109,12 @@ class IndexRulesTest extends TestCase
                 'queryValue' => 'huddle',
             ],
             [
+                'method'     => 'actionType',
+                'value'      => 'add_huddle_levels',
+                'queryKey'   => 'action_type',
+                'queryValue' => 'add_huddle_levels',
+            ],
+            [
                 'method'     => 'levelId',
                 'value'      => 1,
                 'queryKey'   => 'level_id',
