@@ -24,6 +24,13 @@ class RuleFilter
         return $this;
     }
 
+    public function actionType(string $value): self
+    {
+        $this->parameters['action_type'] = $value;
+
+        return $this;
+    }
+
     public function tenantId(int $value): self
     {
         $this->parameters['tenant_id'] = $value;
